@@ -1,0 +1,1051 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="alluneedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Classification">
+    <Key>
+      <PropertyRef Name="ClassificationId" />
+    </Key>
+    <Property Name="ClassificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentClassificationId" Type="int" />
+    <Property Name="ParentName" Type="nvarchar" MaxLength="500" />
+    <Property Name="ClassificationNM" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ClassificationDesc" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ClassificationMetakeyword" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ClassificationMetaDes" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ClassificationSchemeId" Type="int" Nullable="false" />
+    <Property Name="ClassificationCD" Type="varchar" MaxLength="20" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="IsEnabled" Type="tinyint" Nullable="false" />
+    <Property Name="IsSystem" Type="tinyint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="200" />
+    <Property Name="LstModDT" Type="datetime" />
+    <Property Name="LstModUID" Type="bigint" />
+    <Property Name="LstModUserName" Type="nvarchar" MaxLength="200" />
+    <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+    <Property Name="DisplayOrder" Type="int" />
+    <Property Name="I18N" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="ClassificationScheme">
+    <Key>
+      <PropertyRef Name="ClassificationSchemeId" />
+    </Key>
+    <Property Name="ClassificationSchemeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassificationSchemeNM" Type="nvarchar" MaxLength="250" />
+    <Property Name="ClassificationSchemeDesc" Type="nvarchar(max)" />
+    <Property Name="IsSystem" Type="tinyint" />
+    <Property Name="IsHeirarchy" Type="tinyint" />
+    <Property Name="SchemeCD" Type="varchar" MaxLength="50" />
+    <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="200" />
+    <Property Name="LstModDT" Type="datetime" />
+    <Property Name="LstModUID" Type="bigint" />
+    <Property Name="LstModUserName" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Config">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="site_url" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_name" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_email" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_facebook" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_stwitter" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_skype" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_google" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_youtube" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_googleanalytics" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_copyright" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="site_homephone" Type="nvarchar" MaxLength="20" />
+    <Property Name="site_homephone2" Type="nvarchar" MaxLength="20" />
+    <Property Name="site_description" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_metadatakeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="site_metadadescription" Type="nvarchar" MaxLength="250" />
+    <Property Name="site_logo_url" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_favico_url" Type="nvarchar" MaxLength="500" />
+    <Property Name="site_full_adress" Type="nvarchar" MaxLength="1000" />
+    <Property Name="site_ward" Type="nvarchar" MaxLength="200" />
+    <Property Name="site_street" Type="nvarchar" MaxLength="200" />
+    <Property Name="site_district" Type="nvarchar" MaxLength="200" />
+    <Property Name="site_city" Type="nvarchar" MaxLength="200" />
+    <Property Name="site_width_thumb" Type="int" />
+    <Property Name="site_height_thumb" Type="int" />
+    <Property Name="site_page_size" Type="int" />
+  </EntityType>
+  <EntityType Name="ContentComment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentCommentId" Type="bigint" />
+    <Property Name="ContentObjId" Type="bigint" />
+    <Property Name="ContentObjName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" />
+    <Property Name="CommentText" Type="nvarchar(max)" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdUerName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdGuestUserId" Type="uniqueidentifier" />
+    <Property Name="LikeCount" Type="bigint" />
+    <Property Name="LastLikedDT" Type="datetime" />
+    <Property Name="IPAddress" Type="varchar" MaxLength="20" />
+    <Property Name="ObjTypeId" Type="int" />
+    <Property Name="ObjTypeName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="ContentItem">
+    <Key>
+      <PropertyRef Name="ContentItemId" />
+    </Key>
+    <Property Name="ContentItemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="ContentItemCD" Type="varchar" MaxLength="20" />
+    <Property Name="ViewCount" Type="bigint" />
+    <Property Name="LikeCount" Type="bigint" />
+    <Property Name="CommentCount" Type="bigint" />
+    <Property Name="ObjTypeId" Type="int" />
+    <Property Name="IsCommentEnabled" Type="tinyint" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="ContentText" Type="nvarchar(max)" />
+    <Property Name="ContentTitle" Type="nvarchar" MaxLength="500" />
+    <Property Name="ContentExcerpt" Type="nvarchar(max)" />
+    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Indexed" Type="tinyint" />
+    <Property Name="MicrositeID" Type="bigint" />
+    <Property Name="MicrositeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CateMicrositeID" Type="int" />
+    <Property Name="CateMicrositeName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="ContentTag">
+    <Key>
+      <PropertyRef Name="ObjcontentId" />
+      <PropertyRef Name="TagId" />
+      <PropertyRef Name="ObjTypeId" />
+    </Key>
+    <Property Name="ObjcontentId" Type="bigint" Nullable="false" />
+    <Property Name="TagId" Type="bigint" Nullable="false" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="ObjTypeId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CountLike">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdMicrosite" Type="bigint" />
+    <Property Name="IdProduct" Type="bigint" />
+    <Property Name="IdUser" Type="bigint" />
+    <Property Name="DateLike" Type="datetime" />
+    <Property Name="TypeId" Type="int" />
+  </EntityType>
+  <EntityType Name="DisplayContent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentId" Type="bigint" />
+    <Property Name="DisplayType" Type="int" />
+    <Property Name="ObjType" Type="int" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="StartDT" Type="datetime" />
+    <Property Name="EndDT" Type="datetime" />
+    <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+    <Property Name="DisplayOrder" Type="int" />
+  </EntityType>
+  <EntityType Name="ExceptionLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="ErrorMessage" Type="nvarchar(max)" />
+    <Property Name="Controller" Type="nvarchar" MaxLength="100" />
+    <Property Name="Action" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="GeoArea">
+    <Key>
+      <PropertyRef Name="AreaID" />
+    </Key>
+    <Property Name="AreaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AreaTypeId" Type="int" />
+    <Property Name="AreaTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AreaLocationCode" Type="nvarchar" MaxLength="250" />
+    <Property Name="AreaDistrictId" Type="int" />
+    <Property Name="AreaProvineId" Type="int" />
+    <Property Name="AreaParentId" Type="int" />
+    <Property Name="AreaDes" Type="ntext" />
+    <Property Name="lng" Type="nvarchar" MaxLength="50" />
+    <Property Name="lat" Type="nvarchar" MaxLength="50" />
+    <Property Name="AreaWardId" Type="int" />
+  </EntityType>
+  <EntityType Name="Hotel">
+    <Key>
+      <PropertyRef Name="HotelId" />
+    </Key>
+    <Property Name="HotelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+    <Property Name="ViewCount" Type="bigint" />
+    <Property Name="LikeCount" Type="bigint" />
+    <Property Name="CommentCount" Type="bigint" />
+    <Property Name="IsCommentEnabled" Type="tinyint" />
+    <Property Name="HotelType" Type="int" />
+    <Property Name="HotelTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="HotelDetail" Type="text" />
+    <Property Name="HotelName" Type="nvarchar" MaxLength="500" />
+    <Property Name="HotelDes" Type="nvarchar(max)" />
+    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="OldPrice" Type="float" />
+    <Property Name="NewPrice" Type="float" />
+    <Property Name="FullAdress" Type="nvarchar" MaxLength="250" />
+    <Property Name="District" Type="int" />
+    <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
+    <Property Name="City" Type="int" />
+    <Property Name="CitytName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Ward" Type="int" />
+    <Property Name="WardName" Type="nvarchar" MaxLength="250" />
+    <Property Name="LocationCode" Type="nvarchar" MaxLength="250" />
+    <Property Name="Note" Type="ntext" />
+    <Property Name="Hotline1" Type="nvarchar" MaxLength="250" />
+    <Property Name="Hotline2" Type="nvarchar" MaxLength="250" />
+    <Property Name="HomePhone" Type="nvarchar" MaxLength="250" />
+    <Property Name="lng" Type="nvarchar" MaxLength="50" />
+    <Property Name="lat" Type="nvarchar" MaxLength="50" />
+    <Property Name="CheckInTime" Type="nchar" MaxLength="10" />
+    <Property Name="CheckOutTime" Type="nchar" MaxLength="10" />
+    <Property Name="Include" Type="ntext" />
+  </EntityType>
+  <EntityType Name="MediaContent">
+    <Key>
+      <PropertyRef Name="MediaContentId" />
+    </Key>
+    <Property Name="MediaContentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MediaContentGuidId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Filename" Type="nvarchar" MaxLength="250" />
+    <Property Name="FullURL" Type="nvarchar" MaxLength="500" />
+    <Property Name="ThumbURL" Type="nvarchar" MaxLength="500" />
+    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="MediaContentSize" Type="bigint" />
+    <Property Name="EXIFInfo" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaTypeId" Type="int" />
+    <Property Name="ObjTypeId" Type="int" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="ViewCount" Type="bigint" Nullable="false" />
+    <Property Name="Caption" Type="nvarchar" MaxLength="250" />
+    <Property Name="AlternativeText" Type="nvarchar" MaxLength="160" />
+    <Property Name="MediaDesc" Type="nvarchar" MaxLength="500" />
+    <Property Name="ContentObjId" Type="bigint" />
+    <Property Name="ContentObjName" Type="nvarchar" MaxLength="500" />
+    <Property Name="LinkHref" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="MicroClassification">
+    <Key>
+      <PropertyRef Name="MicroClassifiId" />
+    </Key>
+    <Property Name="MicroClassifiId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MicroParentClassifiId" Type="bigint" />
+    <Property Name="MicroParentName" Type="nvarchar" MaxLength="500" />
+    <Property Name="MicroClassifiNM" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="MicroClassifiDesc" Type="nvarchar" MaxLength="2000" />
+    <Property Name="MicroClassifiMetakeyword" Type="nvarchar" MaxLength="2000" />
+    <Property Name="MicroClassifiMetaDes" Type="nvarchar" MaxLength="2000" />
+    <Property Name="MicroClassifiSchemeId" Type="int" Nullable="false" />
+    <Property Name="MicroClassifiCD" Type="varchar" MaxLength="20" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="IsEnabled" Type="tinyint" Nullable="false" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="200" />
+    <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+    <Property Name="DisplayOrder" Type="int" />
+    <Property Name="MicroID" Type="bigint" />
+    <Property Name="MicroName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Microsite">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="CreatUserName" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatUserId" Type="bigint" />
+    <Property Name="ApprovalDate" Type="datetime" />
+    <Property Name="ApprUserName" Type="nvarchar" MaxLength="500" />
+    <Property Name="ApprUserId" Type="bigint" />
+    <Property Name="FullAdress" Type="nvarchar" MaxLength="500" />
+    <Property Name="HomePhone" Type="nvarchar" MaxLength="100" />
+    <Property Name="MobilePhone" Type="nvarchar" MaxLength="100" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="100" />
+    <Property Name="Facebook" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Google" Type="nvarchar" MaxLength="1000" />
+    <Property Name="MapCode" Type="nvarchar" MaxLength="1" />
+    <Property Name="Email" Type="nvarchar" MaxLength="500" />
+    <Property Name="Website" Type="nvarchar" MaxLength="1000" />
+    <Property Name="LicensePP" Type="nvarchar" MaxLength="1000" />
+    <Property Name="LicenseNbr" Type="nvarchar" MaxLength="1000" />
+    <Property Name="LicenseDate" Type="datetime" />
+    <Property Name="LicenseLocation" Type="nvarchar" MaxLength="1000" />
+    <Property Name="CMDDNbr" Type="nvarchar" MaxLength="1000" />
+    <Property Name="CMDDDate" Type="datetime" />
+    <Property Name="CMDDLocation" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Type" Type="int" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CataType" Type="int" />
+    <Property Name="CataTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="NbrOfProduct" Type="int" />
+    <Property Name="NbrOfSussDeal" Type="int" />
+    <Property Name="ImgLogo" Type="nvarchar" MaxLength="500" />
+    <Property Name="ImgLogoThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Metakeyword" Type="nvarchar" MaxLength="4000" />
+    <Property Name="MetaDescription" Type="nvarchar" MaxLength="4000" />
+    <Property Name="FriendlyUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ColorTop" Type="nvarchar" MaxLength="50" />
+    <Property Name="ColorBottom" Type="nvarchar" MaxLength="50" />
+    <Property Name="ColorTextTop" Type="nvarchar" MaxLength="50" />
+    <Property Name="ColorTextBottom" Type="nvarchar" MaxLength="50" />
+    <Property Name="OwnerId" Type="bigint" />
+    <Property Name="OwnerName" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="NotifiRequest">
+    <Key>
+      <PropertyRef Name="NotifiRequestId" />
+    </Key>
+    <Property Name="NotifiRequestId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ObjectRelate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ObjContentId" Type="bigint" />
+    <Property Name="ObjContentName" Type="nvarchar" MaxLength="500" />
+    <Property Name="ClassType" Type="int" />
+    <Property Name="ClassTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ObjType" Type="int" />
+    <Property Name="ObjTypeName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="OrderProducts">
+    <Key>
+      <PropertyRef Name="OrderId" />
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="OrderId" Type="bigint" Nullable="false" />
+    <Property Name="ProductId" Type="bigint" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Unitprice" Type="float" />
+    <Property Name="Discount" Type="float" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="CustomerId" Type="bigint" />
+    <Property Name="EmloyeeId" Type="bigint" />
+    <Property Name="EmloyeeName" Type="nvarchar" MaxLength="150" />
+    <Property Name="PaymentMethodId" Type="int" />
+    <Property Name="PaymentMethodName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ShippingMethodId" Type="int" />
+    <Property Name="ShippingMethodName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Cost" Type="float" />
+    <Property Name="Note" Type="nvarchar(max)" />
+    <Property Name="PaIdDT" Type="datetime" />
+    <Property Name="PlaceDT" Type="datetime" />
+    <Property Name="DeliverDT" Type="datetime" />
+    <Property Name="Coupon" Type="nvarchar" MaxLength="50" />
+    <Property Name="ApprovedUId" Type="bigint" />
+    <Property Name="ApprovedName" Type="nvarchar" MaxLength="150" />
+    <Property Name="LastApprovedDT" Type="datetime" />
+    <Property Name="NameCustomerBuy" Type="nvarchar" MaxLength="100" />
+    <Property Name="AddressCustomer" Type="nvarchar" MaxLength="1000" />
+    <Property Name="PhoneCustomer" Type="nchar" MaxLength="50" />
+    <Property Name="EmailCustomer" Type="varchar" MaxLength="150" />
+    <Property Name="PostCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="IdProvince" Type="int" />
+    <Property Name="NameProvince" Type="nvarchar" MaxLength="260" />
+    <Property Name="IdDistrict" Type="int" />
+    <Property Name="NameDistrict" Type="nvarchar" MaxLength="250" />
+    <Property Name="IdWard" Type="int" />
+    <Property Name="NameWard" Type="nvarchar" MaxLength="50" />
+    <Property Name="MicrositeId" Type="bigint" />
+    <Property Name="MicrositeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="MicroStatus" Type="int" />
+    <Property Name="MicroStatusName" Type="nvarchar(max)" />
+    <Property Name="MicroNote" Type="nchar" MaxLength="10" />
+    <Property Name="TranStatus" Type="int" />
+    <Property Name="TranStatusName" Type="nchar" MaxLength="10" />
+    <Property Name="TranNote" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="ProductCD" Type="varchar" MaxLength="200" />
+    <Property Name="ViewCount" Type="bigint" />
+    <Property Name="LikeCount" Type="bigint" />
+    <Property Name="CommentCount" Type="bigint" />
+    <Property Name="IsCommentEnabled" Type="tinyint" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ProductDetail" Type="nvarchar(max)" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="500" />
+    <Property Name="ProductDes" Type="nvarchar(max)" />
+    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="Indexed" Type="tinyint" />
+    <Property Name="OldPrice" Type="float" />
+    <Property Name="NewPrice" Type="float" />
+    <Property Name="BrandNameID" Type="int" />
+    <Property Name="BrandName" Type="nvarchar" MaxLength="250" />
+    <Property Name="PriorityDay" Type="datetime" />
+    <Property Name="Units" Type="int" />
+    <Property Name="UnitsName" Type="nvarchar" MaxLength="250" />
+    <Property Name="MadeIn" Type="int" />
+    <Property Name="MadeInName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CorlorID" Type="int" />
+    <Property Name="CorlorName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Depth" Type="nvarchar" MaxLength="50" />
+    <Property Name="With" Type="nvarchar" MaxLength="50" />
+    <Property Name="Height" Type="nvarchar" MaxLength="50" />
+    <Property Name="Weight" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusProductType" Type="int" />
+    <Property Name="StatusProductTypeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PromotionFrom" Type="datetime" />
+    <Property Name="PromotionTo" Type="datetime" />
+    <Property Name="PromotionAmount" Type="int" />
+    <Property Name="SupportTimeID" Type="int" />
+    <Property Name="SupportTimeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SKUCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="TranTypeID" Type="int" />
+    <Property Name="TranTypeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="MicrositeID" Type="bigint" />
+    <Property Name="MicrositeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CateMicrositeID" Type="bigint" />
+    <Property Name="CateMicrositeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="BuyCount" Type="bigint" />
+    <Property Name="IsEvent" Type="int" />
+    <Property Name="TranWith" Type="nvarchar" MaxLength="50" />
+    <Property Name="TranDepth" Type="nvarchar" MaxLength="50" />
+    <Property Name="TranHeight" Type="nvarchar" MaxLength="50" />
+    <Property Name="TranWeight" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProductInforExt">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="bigint" />
+    <Property Name="Type" Type="int" />
+    <Property Name="Size" Type="int" />
+    <Property Name="Color" Type="int" />
+    <Property Name="SKU" Type="nvarchar" MaxLength="50" />
+    <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PromotionContent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainContentId" Type="bigint" />
+    <Property Name="MainContentName" Type="nvarchar" MaxLength="500" />
+    <Property Name="MainCateId" Type="int" />
+    <Property Name="MainCatetName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ObjType" Type="int" />
+    <Property Name="ObjTypeName" Type="nvarchar" MaxLength="160" />
+    <Property Name="PromotionType" Type="int" />
+    <Property Name="PromotionTypeName" Type="nvarchar" MaxLength="260" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="CrtdName" Type="nvarchar" MaxLength="260" />
+    <Property Name="StartDT" Type="datetime" />
+    <Property Name="EndDT" Type="datetime" />
+    <Property Name="DisplayOrder" Type="int" />
+    <Property Name="SubContentId" Type="bigint" />
+    <Property Name="SubContentName" Type="nvarchar" MaxLength="500" />
+    <Property Name="PromotionPercent" Type="int" />
+    <Property Name="PromotionAmount" Type="int" />
+  </EntityType>
+  <EntityType Name="RelatedContentItem">
+    <Key>
+      <PropertyRef Name="SubjectContentItemId" />
+      <PropertyRef Name="ObjContentItemId" />
+      <PropertyRef Name="ContentRelatedTypeId" />
+    </Key>
+    <Property Name="SubjectContentItemId" Type="bigint" Nullable="false" />
+    <Property Name="ObjContentItemId" Type="bigint" Nullable="false" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="IsDisabled" Type="tinyint" />
+    <Property Name="ContentRelatedTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RoleDes" Type="nvarchar(max)" />
+    <Property Name="CrtdPost" Type="tinyint" />
+    <Property Name="DeletePost" Type="tinyint" />
+    <Property Name="UpdatePost" Type="tinyint" />
+    <Property Name="ApprovePost" Type="tinyint" />
+    <Property Name="IsAdmin" Type="tinyint" />
+    <Property Name="CrtdComment" Type="tinyint" />
+    <Property Name="DeleteComment" Type="tinyint" />
+    <Property Name="UpdateComment" Type="tinyint" />
+    <Property Name="ApproveComment" Type="tinyint" />
+    <Property Name="CrtdProduct" Type="tinyint" />
+    <Property Name="DeleteProduct" Type="tinyint" />
+    <Property Name="UpdateProduct" Type="tinyint" />
+    <Property Name="ApproveProduct" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="RoomId" />
+    </Key>
+    <Property Name="RoomId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+    <Property Name="ViewCount" Type="bigint" />
+    <Property Name="LikeCount" Type="bigint" />
+    <Property Name="CommentCount" Type="bigint" />
+    <Property Name="IsCommentEnabled" Type="tinyint" />
+    <Property Name="RoomType" Type="int" />
+    <Property Name="RoomTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="RoomDetail" Type="text" />
+    <Property Name="RoomName" Type="nvarchar" MaxLength="500" />
+    <Property Name="RoomDes" Type="nvarchar(max)" />
+    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="OldPrice" Type="float" />
+    <Property Name="NewPrice" Type="float" />
+    <Property Name="HotelId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ShippingAddress">
+    <Key>
+      <PropertyRef Name="LocationId" />
+    </Key>
+    <Property Name="LocationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LocationName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="CityId" Type="int" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Zipcode" Type="varchar" MaxLength="50" />
+    <Property Name="DistrictId" Type="int" />
+    <Property Name="WardId" Type="int" />
+    <Property Name="StreetId" Type="int" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="CustomerId" Type="bigint" />
+    <Property Name="MapCode" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TagId" />
+    </Key>
+    <Property Name="TagId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TagNM" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Tour">
+    <Key>
+      <PropertyRef Name="TourId" />
+    </Key>
+    <Property Name="TourId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+    <Property Name="TourCD" Type="varchar" MaxLength="200" />
+    <Property Name="ViewCount" Type="bigint" />
+    <Property Name="LikeCount" Type="bigint" />
+    <Property Name="CommentCount" Type="bigint" />
+    <Property Name="IsCommentEnabled" Type="tinyint" />
+    <Property Name="TourType" Type="int" />
+    <Property Name="TourTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="TourDetail" Type="nvarchar(max)" />
+    <Property Name="TourName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TourDes" Type="nvarchar(max)" />
+    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="OldPrice" Type="float" />
+    <Property Name="NewPrice" Type="float" />
+    <Property Name="StartName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StartId" Type="int" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="EndName" Type="nvarchar" MaxLength="250" />
+    <Property Name="EndId" Type="int" />
+    <Property Name="NumPeople" Type="int" />
+    <Property Name="GuideName" Type="nvarchar" MaxLength="250" />
+    <Property Name="GuideId" Type="bigint" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="250" />
+    <Property Name="Including" Type="nvarchar(max)" />
+    <Property Name="NotIncluding" Type="nvarchar(max)" />
+    <Property Name="PartnerName" Type="nvarchar" MaxLength="250" />
+    <Property Name="PartnerAdress" Type="nvarchar" MaxLength="250" />
+    <Property Name="CancelTour" Type="nvarchar(max)" />
+    <Property Name="ChangeTour" Type="nvarchar(max)" />
+    <Property Name="Note" Type="nvarchar(max)" />
+    <Property Name="TourClassId" Type="int" />
+    <Property Name="TourClassName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="TransactionHis">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="bigint" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CrtdDT" Type="datetime" Nullable="false" />
+    <Property Name="MoneyNbrBefore" Type="float" Nullable="false" />
+    <Property Name="MoneyNbrTran" Type="float" Nullable="false" />
+    <Property Name="MoneyNbrAffter" Type="float" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" MaxLength="500" />
+    <Property Name="UserTransaction" Type="bigint" />
+    <Property Name="UserTransactionName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMail" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreationDate" Type="datetime" />
+    <Property Name="ApprovalDate" Type="datetime" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="IsLocked" Type="bit" Nullable="false" />
+    <Property Name="PasswordQuestion" Type="nvarchar(max)" />
+    <Property Name="PasswordAnswer" Type="nvarchar(max)" />
+    <Property Name="ActivationToken" Type="nvarchar" MaxLength="200" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime2" Precision="7" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CMND" Type="bigint" />
+    <Property Name="FolerName" Type="nvarchar" MaxLength="250" />
+    <Property Name="GenderId" Type="int" />
+    <Property Name="GenderName" Type="nvarchar" MaxLength="50" />
+    <Property Name="OldPassword" Type="nvarchar" MaxLength="250" />
+    <Property Name="BirthDay" Type="datetime" />
+    <Property Name="ActiveCode" Type="nvarchar" MaxLength="250" />
+    <Property Name="ParentID" Type="bigint" />
+    <Property Name="CompanyID" Type="bigint" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="250" />
+    <Property Name="BankAdress" Type="nvarchar" MaxLength="500" />
+    <Property Name="BankAccountHolder" Type="nvarchar" MaxLength="250" />
+    <Property Name="BankAccountNbr" Type="nvarchar" MaxLength="250" />
+    <Property Name="Money" Type="float" />
+    <Property Name="Code" Type="nvarchar" MaxLength="20" />
+    <Property Name="CrtdDTCode" Type="datetime" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserAdress" Type="nvarchar" MaxLength="500" />
+    <Property Name="AccountName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="UserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Userhists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CrtdUID" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="IPadress" Type="nvarchar" MaxLength="250" />
+    <Property Name="ActionObjId" Type="bigint" />
+    <Property Name="ActionTypeId" Type="int" />
+    <Property Name="Tablename" Type="nvarchar" MaxLength="250" />
+    <Property Name="FldName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Oldvalue" Type="nvarchar(max)" />
+    <Property Name="Newvalue" Type="nvarchar(max)" />
+    <Property Name="ActionObjName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ActionTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ObjTypeId" Type="int" />
+  </EntityType>
+  <EntityType Name="UserLogin">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRegistrationToken">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="Token" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="RoleId" Type="bigint" Nullable="false" />
+    <Property Name="CrtdDT" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_Classification_Classification">
+    <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+    <End Role="Classification1" Type="Self.Classification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classification">
+        <PropertyRef Name="ClassificationId" />
+      </Principal>
+      <Dependent Role="Classification1">
+        <PropertyRef Name="ParentClassificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Classification_ClassificationScheme">
+    <End Role="ClassificationScheme" Type="Self.ClassificationScheme" Multiplicity="1" />
+    <End Role="Classification" Type="Self.Classification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassificationScheme">
+        <PropertyRef Name="ClassificationSchemeId" />
+      </Principal>
+      <Dependent Role="Classification">
+        <PropertyRef Name="ClassificationSchemeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Classification_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Classification" Type="Self.Classification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Classification">
+        <PropertyRef Name="CrtdUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClassificationScheme_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ClassificationScheme" Type="Self.ClassificationScheme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassificationScheme">
+        <PropertyRef Name="CrtdUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentItem_Classification">
+    <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+    <End Role="ContentItem" Type="Self.ContentItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classification">
+        <PropertyRef Name="ClassificationId" />
+      </Principal>
+      <Dependent Role="ContentItem">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContentTag_Tag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="ContentTag" Type="Self.ContentTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagId" />
+      </Principal>
+      <Dependent Role="ContentTag">
+        <PropertyRef Name="TagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Microsite_Classification">
+    <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+    <End Role="Microsite" Type="Self.Microsite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classification">
+        <PropertyRef Name="ClassificationId" />
+      </Principal>
+      <Dependent Role="Microsite">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Classification">
+    <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classification">
+        <PropertyRef Name="ClassificationId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionHis_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="TransactionHis" Type="Self.TransactionHis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TransactionHis">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserClaim_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Userhists_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Userhists" Type="Self.Userhists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Userhists">
+        <PropertyRef Name="CrtdUID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLogin_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="alluneedbModelStoreContainer">
+    <EntitySet Name="Classification" EntityType="Self.Classification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClassificationScheme" EntityType="Self.ClassificationScheme" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentComment" EntityType="Self.ContentComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentItem" EntityType="Self.ContentItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentTag" EntityType="Self.ContentTag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CountLike" EntityType="Self.CountLike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DisplayContent" EntityType="Self.DisplayContent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NotifiRequest" EntityType="Self.NotifiRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ObjectRelate" EntityType="Self.ObjectRelate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductInforExt" EntityType="Self.ProductInforExt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RelatedContentItem" EntityType="Self.RelatedContentItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShippingAddress" EntityType="Self.ShippingAddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionHis" EntityType="Self.TransactionHis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Userhists" EntityType="Self.Userhists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Classification_Classification" Association="Self.FK_Classification_Classification">
+      <End Role="Classification" EntitySet="Classification" />
+      <End Role="Classification1" EntitySet="Classification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Classification_ClassificationScheme" Association="Self.FK_Classification_ClassificationScheme">
+      <End Role="ClassificationScheme" EntitySet="ClassificationScheme" />
+      <End Role="Classification" EntitySet="Classification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Classification_User" Association="Self.FK_Classification_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Classification" EntitySet="Classification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClassificationScheme_User" Association="Self.FK_ClassificationScheme_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ClassificationScheme" EntitySet="ClassificationScheme" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentItem_Classification" Association="Self.FK_ContentItem_Classification">
+      <End Role="Classification" EntitySet="Classification" />
+      <End Role="ContentItem" EntitySet="ContentItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContentTag_Tag" Association="Self.FK_ContentTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="ContentTag" EntitySet="ContentTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Microsite_Classification" Association="Self.FK_Microsite_Classification">
+      <End Role="Classification" EntitySet="Classification" />
+      <End Role="Microsite" EntitySet="Microsite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Classification" Association="Self.FK_Product_Classification">
+      <End Role="Classification" EntitySet="Classification" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionHis_User" Association="Self.FK_TransactionHis_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="TransactionHis" EntitySet="TransactionHis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserClaim" EntitySet="UserClaim" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Userhists_User" Association="Self.FK_Userhists_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Userhists" EntitySet="Userhists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserLogin" EntitySet="UserLogin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

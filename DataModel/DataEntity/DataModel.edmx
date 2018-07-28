@@ -1,0 +1,2957 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="alluneedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Classification">
+          <Key>
+            <PropertyRef Name="ClassificationId" />
+          </Key>
+          <Property Name="ClassificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentClassificationId" Type="int" />
+          <Property Name="ParentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClassificationNM" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ClassificationDesc" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ClassificationMetakeyword" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ClassificationMetaDes" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ClassificationSchemeId" Type="int" Nullable="false" />
+          <Property Name="ClassificationCD" Type="varchar" MaxLength="20" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsEnabled" Type="tinyint" Nullable="false" />
+          <Property Name="IsSystem" Type="tinyint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LstModDT" Type="datetime" />
+          <Property Name="LstModUID" Type="bigint" />
+          <Property Name="LstModUserName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="I18N" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ClassificationScheme">
+          <Key>
+            <PropertyRef Name="ClassificationSchemeId" />
+          </Key>
+          <Property Name="ClassificationSchemeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassificationSchemeNM" Type="nvarchar" MaxLength="250" />
+          <Property Name="ClassificationSchemeDesc" Type="nvarchar(max)" />
+          <Property Name="IsSystem" Type="tinyint" />
+          <Property Name="IsHeirarchy" Type="tinyint" />
+          <Property Name="SchemeCD" Type="varchar" MaxLength="50" />
+          <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LstModDT" Type="datetime" />
+          <Property Name="LstModUID" Type="bigint" />
+          <Property Name="LstModUserName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="site_url" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_email" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_facebook" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_stwitter" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_skype" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_google" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_youtube" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_googleanalytics" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_copyright" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="site_homephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="site_homephone2" Type="nvarchar" MaxLength="20" />
+          <Property Name="site_description" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_metadatakeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="site_metadadescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="site_logo_url" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_favico_url" Type="nvarchar" MaxLength="500" />
+          <Property Name="site_full_adress" Type="nvarchar" MaxLength="1000" />
+          <Property Name="site_ward" Type="nvarchar" MaxLength="200" />
+          <Property Name="site_street" Type="nvarchar" MaxLength="200" />
+          <Property Name="site_district" Type="nvarchar" MaxLength="200" />
+          <Property Name="site_city" Type="nvarchar" MaxLength="200" />
+          <Property Name="site_width_thumb" Type="int" />
+          <Property Name="site_height_thumb" Type="int" />
+          <Property Name="site_page_size" Type="int" />
+        </EntityType>
+        <EntityType Name="ContentComment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentCommentId" Type="bigint" />
+          <Property Name="ContentObjId" Type="bigint" />
+          <Property Name="ContentObjName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="CommentText" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdUerName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdGuestUserId" Type="uniqueidentifier" />
+          <Property Name="LikeCount" Type="bigint" />
+          <Property Name="LastLikedDT" Type="datetime" />
+          <Property Name="IPAddress" Type="varchar" MaxLength="20" />
+          <Property Name="ObjTypeId" Type="int" />
+          <Property Name="ObjTypeName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="ContentItem">
+          <Key>
+            <PropertyRef Name="ContentItemId" />
+          </Key>
+          <Property Name="ContentItemId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="ParentId" Type="bigint" />
+          <Property Name="ContentItemCD" Type="varchar" MaxLength="20" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="LikeCount" Type="bigint" />
+          <Property Name="CommentCount" Type="bigint" />
+          <Property Name="ObjTypeId" Type="int" />
+          <Property Name="IsCommentEnabled" Type="tinyint" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="ContentText" Type="nvarchar(max)" />
+          <Property Name="ContentTitle" Type="nvarchar" MaxLength="500" />
+          <Property Name="ContentExcerpt" Type="nvarchar(max)" />
+          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Indexed" Type="tinyint" />
+          <Property Name="MicrositeID" Type="bigint" />
+          <Property Name="MicrositeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CateMicrositeID" Type="int" />
+          <Property Name="CateMicrositeName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="ContentTag">
+          <Key>
+            <PropertyRef Name="ObjcontentId" />
+            <PropertyRef Name="TagId" />
+            <PropertyRef Name="ObjTypeId" />
+          </Key>
+          <Property Name="ObjcontentId" Type="bigint" Nullable="false" />
+          <Property Name="TagId" Type="bigint" Nullable="false" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="ObjTypeId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CountLike">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMicrosite" Type="bigint" />
+          <Property Name="IdProduct" Type="bigint" />
+          <Property Name="IdUser" Type="bigint" />
+          <Property Name="DateLike" Type="datetime" />
+          <Property Name="TypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="DisplayContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContentId" Type="bigint" />
+          <Property Name="DisplayType" Type="int" />
+          <Property Name="ObjType" Type="int" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="StartDT" Type="datetime" />
+          <Property Name="EndDT" Type="datetime" />
+          <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+          <Property Name="DisplayOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="ExceptionLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="ErrorMessage" Type="nvarchar(max)" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="100" />
+          <Property Name="Action" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="GeoArea">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AreaTypeId" Type="int" />
+          <Property Name="AreaTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AreaLocationCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="AreaDistrictId" Type="int" />
+          <Property Name="AreaProvineId" Type="int" />
+          <Property Name="AreaParentId" Type="int" />
+          <Property Name="AreaDes" Type="ntext" />
+          <Property Name="lng" Type="nvarchar" MaxLength="50" />
+          <Property Name="lat" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaWardId" Type="int" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="HotelId" />
+          </Key>
+          <Property Name="HotelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="LikeCount" Type="bigint" />
+          <Property Name="CommentCount" Type="bigint" />
+          <Property Name="IsCommentEnabled" Type="tinyint" />
+          <Property Name="HotelType" Type="int" />
+          <Property Name="HotelTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="HotelDetail" Type="text" />
+          <Property Name="HotelName" Type="nvarchar" MaxLength="500" />
+          <Property Name="HotelDes" Type="nvarchar(max)" />
+          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="OldPrice" Type="float" />
+          <Property Name="NewPrice" Type="float" />
+          <Property Name="FullAdress" Type="nvarchar" MaxLength="250" />
+          <Property Name="District" Type="int" />
+          <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
+          <Property Name="City" Type="int" />
+          <Property Name="CitytName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Ward" Type="int" />
+          <Property Name="WardName" Type="nvarchar" MaxLength="250" />
+          <Property Name="LocationCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="Note" Type="ntext" />
+          <Property Name="Hotline1" Type="nvarchar" MaxLength="250" />
+          <Property Name="Hotline2" Type="nvarchar" MaxLength="250" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="250" />
+          <Property Name="lng" Type="nvarchar" MaxLength="50" />
+          <Property Name="lat" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckInTime" Type="nchar" MaxLength="10" />
+          <Property Name="CheckOutTime" Type="nchar" MaxLength="10" />
+          <Property Name="Include" Type="ntext" />
+        </EntityType>
+        <EntityType Name="MediaContent">
+          <Key>
+            <PropertyRef Name="MediaContentId" />
+          </Key>
+          <Property Name="MediaContentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaContentGuidId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="250" />
+          <Property Name="FullURL" Type="nvarchar" MaxLength="500" />
+          <Property Name="ThumbURL" Type="nvarchar" MaxLength="500" />
+          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="MediaContentSize" Type="bigint" />
+          <Property Name="EXIFInfo" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaTypeId" Type="int" />
+          <Property Name="ObjTypeId" Type="int" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="ViewCount" Type="bigint" Nullable="false" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="250" />
+          <Property Name="AlternativeText" Type="nvarchar" MaxLength="160" />
+          <Property Name="MediaDesc" Type="nvarchar" MaxLength="500" />
+          <Property Name="ContentObjId" Type="bigint" />
+          <Property Name="ContentObjName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LinkHref" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="MicroClassification">
+          <Key>
+            <PropertyRef Name="MicroClassifiId" />
+          </Key>
+          <Property Name="MicroClassifiId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MicroParentClassifiId" Type="bigint" />
+          <Property Name="MicroParentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="MicroClassifiNM" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="MicroClassifiDesc" Type="nvarchar" MaxLength="2000" />
+          <Property Name="MicroClassifiMetakeyword" Type="nvarchar" MaxLength="2000" />
+          <Property Name="MicroClassifiMetaDes" Type="nvarchar" MaxLength="2000" />
+          <Property Name="MicroClassifiSchemeId" Type="int" Nullable="false" />
+          <Property Name="MicroClassifiCD" Type="varchar" MaxLength="20" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsEnabled" Type="tinyint" Nullable="false" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="MicroID" Type="bigint" />
+          <Property Name="MicroName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Microsite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="CreatUserName" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatUserId" Type="bigint" />
+          <Property Name="ApprovalDate" Type="datetime" />
+          <Property Name="ApprUserName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ApprUserId" Type="bigint" />
+          <Property Name="FullAdress" Type="nvarchar" MaxLength="500" />
+          <Property Name="HomePhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="100" />
+          <Property Name="Facebook" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Google" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MapCode" Type="nvarchar" MaxLength="1" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+          <Property Name="Website" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LicensePP" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LicenseNbr" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LicenseDate" Type="datetime" />
+          <Property Name="LicenseLocation" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CMDDNbr" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CMDDDate" Type="datetime" />
+          <Property Name="CMDDLocation" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Type" Type="int" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CataType" Type="int" />
+          <Property Name="CataTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="NbrOfProduct" Type="int" />
+          <Property Name="NbrOfSussDeal" Type="int" />
+          <Property Name="ImgLogo" Type="nvarchar" MaxLength="500" />
+          <Property Name="ImgLogoThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Metakeyword" Type="nvarchar" MaxLength="4000" />
+          <Property Name="MetaDescription" Type="nvarchar" MaxLength="4000" />
+          <Property Name="FriendlyUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorTop" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorBottom" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorTextTop" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorTextBottom" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerId" Type="bigint" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="NotifiRequest">
+          <Key>
+            <PropertyRef Name="NotifiRequestId" />
+          </Key>
+          <Property Name="NotifiRequestId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjectRelate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObjContentId" Type="bigint" />
+          <Property Name="ObjContentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ClassType" Type="int" />
+          <Property Name="ClassTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ObjType" Type="int" />
+          <Property Name="ObjTypeName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="OrderProducts">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="OrderId" Type="bigint" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Unitprice" Type="float" />
+          <Property Name="Discount" Type="float" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerId" Type="bigint" />
+          <Property Name="EmloyeeId" Type="bigint" />
+          <Property Name="EmloyeeName" Type="nvarchar" MaxLength="150" />
+          <Property Name="PaymentMethodId" Type="int" />
+          <Property Name="PaymentMethodName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ShippingMethodId" Type="int" />
+          <Property Name="ShippingMethodName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Cost" Type="float" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="PaIdDT" Type="datetime" />
+          <Property Name="PlaceDT" Type="datetime" />
+          <Property Name="DeliverDT" Type="datetime" />
+          <Property Name="Coupon" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedUId" Type="bigint" />
+          <Property Name="ApprovedName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastApprovedDT" Type="datetime" />
+          <Property Name="NameCustomerBuy" Type="nvarchar" MaxLength="100" />
+          <Property Name="AddressCustomer" Type="nvarchar" MaxLength="1000" />
+          <Property Name="PhoneCustomer" Type="nchar" MaxLength="50" />
+          <Property Name="EmailCustomer" Type="varchar" MaxLength="150" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdProvince" Type="int" />
+          <Property Name="NameProvince" Type="nvarchar" MaxLength="260" />
+          <Property Name="IdDistrict" Type="int" />
+          <Property Name="NameDistrict" Type="nvarchar" MaxLength="250" />
+          <Property Name="IdWard" Type="int" />
+          <Property Name="NameWard" Type="nvarchar" MaxLength="50" />
+          <Property Name="MicrositeId" Type="bigint" />
+          <Property Name="MicrositeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="MicroStatus" Type="int" />
+          <Property Name="MicroStatusName" Type="nvarchar(max)" />
+          <Property Name="MicroNote" Type="nchar" MaxLength="10" />
+          <Property Name="TranStatus" Type="int" />
+          <Property Name="TranStatusName" Type="nchar" MaxLength="10" />
+          <Property Name="TranNote" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="ParentId" Type="bigint" />
+          <Property Name="ProductCD" Type="varchar" MaxLength="200" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="LikeCount" Type="bigint" />
+          <Property Name="CommentCount" Type="bigint" />
+          <Property Name="IsCommentEnabled" Type="tinyint" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ProductDetail" Type="nvarchar(max)" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ProductDes" Type="nvarchar(max)" />
+          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="Indexed" Type="tinyint" />
+          <Property Name="OldPrice" Type="float" />
+          <Property Name="NewPrice" Type="float" />
+          <Property Name="BrandNameID" Type="int" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="250" />
+          <Property Name="PriorityDay" Type="datetime" />
+          <Property Name="Units" Type="int" />
+          <Property Name="UnitsName" Type="nvarchar" MaxLength="250" />
+          <Property Name="MadeIn" Type="int" />
+          <Property Name="MadeInName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CorlorID" Type="int" />
+          <Property Name="CorlorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Depth" Type="nvarchar" MaxLength="50" />
+          <Property Name="With" Type="nvarchar" MaxLength="50" />
+          <Property Name="Height" Type="nvarchar" MaxLength="50" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusProductType" Type="int" />
+          <Property Name="StatusProductTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PromotionFrom" Type="datetime" />
+          <Property Name="PromotionTo" Type="datetime" />
+          <Property Name="PromotionAmount" Type="int" />
+          <Property Name="SupportTimeID" Type="int" />
+          <Property Name="SupportTimeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SKUCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TranTypeID" Type="int" />
+          <Property Name="TranTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MicrositeID" Type="bigint" />
+          <Property Name="MicrositeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CateMicrositeID" Type="bigint" />
+          <Property Name="CateMicrositeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="BuyCount" Type="bigint" />
+          <Property Name="IsEvent" Type="int" />
+          <Property Name="TranWith" Type="nvarchar" MaxLength="50" />
+          <Property Name="TranDepth" Type="nvarchar" MaxLength="50" />
+          <Property Name="TranHeight" Type="nvarchar" MaxLength="50" />
+          <Property Name="TranWeight" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductInforExt">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Size" Type="int" />
+          <Property Name="Color" Type="int" />
+          <Property Name="SKU" Type="nvarchar" MaxLength="50" />
+          <Property Name="ColorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PromotionContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainContentId" Type="bigint" />
+          <Property Name="MainContentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="MainCateId" Type="int" />
+          <Property Name="MainCatetName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ObjType" Type="int" />
+          <Property Name="ObjTypeName" Type="nvarchar" MaxLength="160" />
+          <Property Name="PromotionType" Type="int" />
+          <Property Name="PromotionTypeName" Type="nvarchar" MaxLength="260" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="CrtdName" Type="nvarchar" MaxLength="260" />
+          <Property Name="StartDT" Type="datetime" />
+          <Property Name="EndDT" Type="datetime" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="SubContentId" Type="bigint" />
+          <Property Name="SubContentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="PromotionPercent" Type="int" />
+          <Property Name="PromotionAmount" Type="int" />
+        </EntityType>
+        <EntityType Name="RelatedContentItem">
+          <Key>
+            <PropertyRef Name="SubjectContentItemId" />
+            <PropertyRef Name="ObjContentItemId" />
+            <PropertyRef Name="ContentRelatedTypeId" />
+          </Key>
+          <Property Name="SubjectContentItemId" Type="bigint" Nullable="false" />
+          <Property Name="ObjContentItemId" Type="bigint" Nullable="false" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="IsDisabled" Type="tinyint" />
+          <Property Name="ContentRelatedTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RoleDes" Type="nvarchar(max)" />
+          <Property Name="CrtdPost" Type="tinyint" />
+          <Property Name="DeletePost" Type="tinyint" />
+          <Property Name="UpdatePost" Type="tinyint" />
+          <Property Name="ApprovePost" Type="tinyint" />
+          <Property Name="IsAdmin" Type="tinyint" />
+          <Property Name="CrtdComment" Type="tinyint" />
+          <Property Name="DeleteComment" Type="tinyint" />
+          <Property Name="UpdateComment" Type="tinyint" />
+          <Property Name="ApproveComment" Type="tinyint" />
+          <Property Name="CrtdProduct" Type="tinyint" />
+          <Property Name="DeleteProduct" Type="tinyint" />
+          <Property Name="UpdateProduct" Type="tinyint" />
+          <Property Name="ApproveProduct" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="LikeCount" Type="bigint" />
+          <Property Name="CommentCount" Type="bigint" />
+          <Property Name="IsCommentEnabled" Type="tinyint" />
+          <Property Name="RoomType" Type="int" />
+          <Property Name="RoomTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="RoomDetail" Type="text" />
+          <Property Name="RoomName" Type="nvarchar" MaxLength="500" />
+          <Property Name="RoomDes" Type="nvarchar(max)" />
+          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="OldPrice" Type="float" />
+          <Property Name="NewPrice" Type="float" />
+          <Property Name="HotelId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="ShippingAddress">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Zipcode" Type="varchar" MaxLength="50" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="WardId" Type="int" />
+          <Property Name="StreetId" Type="int" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerId" Type="bigint" />
+          <Property Name="MapCode" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagNM" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourId" />
+          </Key>
+          <Property Name="TourId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
+          <Property Name="TourCD" Type="varchar" MaxLength="200" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="LikeCount" Type="bigint" />
+          <Property Name="CommentCount" Type="bigint" />
+          <Property Name="IsCommentEnabled" Type="tinyint" />
+          <Property Name="TourType" Type="int" />
+          <Property Name="TourTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="TourDetail" Type="nvarchar(max)" />
+          <Property Name="TourName" Type="nvarchar" MaxLength="500" />
+          <Property Name="TourDes" Type="nvarchar(max)" />
+          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
+          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
+          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="OldPrice" Type="float" />
+          <Property Name="NewPrice" Type="float" />
+          <Property Name="StartName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StartId" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EndName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EndId" Type="int" />
+          <Property Name="NumPeople" Type="int" />
+          <Property Name="GuideName" Type="nvarchar" MaxLength="250" />
+          <Property Name="GuideId" Type="bigint" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="250" />
+          <Property Name="Including" Type="nvarchar(max)" />
+          <Property Name="NotIncluding" Type="nvarchar(max)" />
+          <Property Name="PartnerName" Type="nvarchar" MaxLength="250" />
+          <Property Name="PartnerAdress" Type="nvarchar" MaxLength="250" />
+          <Property Name="CancelTour" Type="nvarchar(max)" />
+          <Property Name="ChangeTour" Type="nvarchar(max)" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="TourClassId" Type="int" />
+          <Property Name="TourClassName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TransactionHis">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CrtdDT" Type="datetime" Nullable="false" />
+          <Property Name="MoneyNbrBefore" Type="float" Nullable="false" />
+          <Property Name="MoneyNbrTran" Type="float" Nullable="false" />
+          <Property Name="MoneyNbrAffter" Type="float" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserTransaction" Type="bigint" />
+          <Property Name="UserTransactionName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ApprovalDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+          <Property Name="PasswordQuestion" Type="nvarchar(max)" />
+          <Property Name="PasswordAnswer" Type="nvarchar(max)" />
+          <Property Name="ActivationToken" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime2" Precision="7" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CMND" Type="bigint" />
+          <Property Name="FolerName" Type="nvarchar" MaxLength="250" />
+          <Property Name="GenderId" Type="int" />
+          <Property Name="GenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="OldPassword" Type="nvarchar" MaxLength="250" />
+          <Property Name="BirthDay" Type="datetime" />
+          <Property Name="ActiveCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="ParentID" Type="bigint" />
+          <Property Name="CompanyID" Type="bigint" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="250" />
+          <Property Name="BankAdress" Type="nvarchar" MaxLength="500" />
+          <Property Name="BankAccountHolder" Type="nvarchar" MaxLength="250" />
+          <Property Name="BankAccountNbr" Type="nvarchar" MaxLength="250" />
+          <Property Name="Money" Type="float" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="CrtdDTCode" Type="datetime" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserAdress" Type="nvarchar" MaxLength="500" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Userhists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CrtdUID" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="IPadress" Type="nvarchar" MaxLength="250" />
+          <Property Name="ActionObjId" Type="bigint" />
+          <Property Name="ActionTypeId" Type="int" />
+          <Property Name="Tablename" Type="nvarchar" MaxLength="250" />
+          <Property Name="FldName" Type="nvarchar" MaxLength="250" />
+          <Property Name="Oldvalue" Type="nvarchar(max)" />
+          <Property Name="Newvalue" Type="nvarchar(max)" />
+          <Property Name="ActionObjName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ActionTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ObjTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRegistrationToken">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Token" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="RoleId" Type="bigint" Nullable="false" />
+          <Property Name="CrtdDT" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Classification_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="Classification1" Type="Self.Classification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="Classification1">
+              <PropertyRef Name="ParentClassificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classification_ClassificationScheme">
+          <End Role="ClassificationScheme" Type="Self.ClassificationScheme" Multiplicity="1" />
+          <End Role="Classification" Type="Self.Classification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassificationScheme">
+              <PropertyRef Name="ClassificationSchemeId" />
+            </Principal>
+            <Dependent Role="Classification">
+              <PropertyRef Name="ClassificationSchemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classification_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Classification" Type="Self.Classification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classification">
+              <PropertyRef Name="CrtdUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassificationScheme_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ClassificationScheme" Type="Self.ClassificationScheme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClassificationScheme">
+              <PropertyRef Name="CrtdUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentItem_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="ContentItem" Type="Self.ContentItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="ContentItem">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentTag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="ContentTag" Type="Self.ContentTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="ContentTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Microsite_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="Microsite" Type="Self.Microsite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="Microsite">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionHis_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="TransactionHis" Type="Self.TransactionHis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionHis">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClaim_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Userhists_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Userhists" Type="Self.Userhists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Userhists">
+              <PropertyRef Name="CrtdUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="alluneedbModelStoreContainer">
+          <EntitySet Name="Classification" EntityType="Self.Classification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassificationScheme" EntityType="Self.ClassificationScheme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentComment" EntityType="Self.ContentComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentItem" EntityType="Self.ContentItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentTag" EntityType="Self.ContentTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CountLike" EntityType="Self.CountLike" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DisplayContent" EntityType="Self.DisplayContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotifiRequest" EntityType="Self.NotifiRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjectRelate" EntityType="Self.ObjectRelate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductInforExt" EntityType="Self.ProductInforExt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelatedContentItem" EntityType="Self.RelatedContentItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShippingAddress" EntityType="Self.ShippingAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionHis" EntityType="Self.TransactionHis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userhists" EntityType="Self.Userhists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Classification_Classification" Association="Self.FK_Classification_Classification">
+            <End Role="Classification" EntitySet="Classification" />
+            <End Role="Classification1" EntitySet="Classification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classification_ClassificationScheme" Association="Self.FK_Classification_ClassificationScheme">
+            <End Role="ClassificationScheme" EntitySet="ClassificationScheme" />
+            <End Role="Classification" EntitySet="Classification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classification_User" Association="Self.FK_Classification_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Classification" EntitySet="Classification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassificationScheme_User" Association="Self.FK_ClassificationScheme_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ClassificationScheme" EntitySet="ClassificationScheme" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentItem_Classification" Association="Self.FK_ContentItem_Classification">
+            <End Role="Classification" EntitySet="Classification" />
+            <End Role="ContentItem" EntitySet="ContentItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentTag_Tag" Association="Self.FK_ContentTag_Tag">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="ContentTag" EntitySet="ContentTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Microsite_Classification" Association="Self.FK_Microsite_Classification">
+            <End Role="Classification" EntitySet="Classification" />
+            <End Role="Microsite" EntitySet="Microsite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Classification" Association="Self.FK_Product_Classification">
+            <End Role="Classification" EntitySet="Classification" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionHis_User" Association="Self.FK_TransactionHis_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="TransactionHis" EntitySet="TransactionHis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserClaim" EntitySet="UserClaim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Userhists_User" Association="Self.FK_Userhists_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Userhists" EntitySet="Userhists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="alluneedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Classification">
+          <Key>
+            <PropertyRef Name="ClassificationId" />
+          </Key>
+          <Property Name="ClassificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentClassificationId" Type="Int32" />
+          <Property Name="ParentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassificationNM" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassificationDesc" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ClassificationMetakeyword" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ClassificationMetaDes" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ClassificationSchemeId" Type="Int32" Nullable="false" />
+          <Property Name="ClassificationCD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="Byte" Nullable="false" />
+          <Property Name="IsSystem" Type="Byte" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LstModDT" Type="DateTime" Precision="3" />
+          <Property Name="LstModUID" Type="Int64" />
+          <Property Name="LstModUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShortNM" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <NavigationProperty Name="LstChild" Relationship="Self.FK_Classification_Classification" FromRole="Classification" ToRole="Classification1" />
+          <NavigationProperty Name="ObjPrent" Relationship="Self.FK_Classification_Classification" FromRole="Classification1" ToRole="Classification" />
+          <NavigationProperty Name="ObjClassificationScheme" Relationship="Self.FK_Classification_ClassificationScheme" FromRole="Classification" ToRole="ClassificationScheme" />
+          <NavigationProperty Name="ObjCrtdUser" Relationship="Self.FK_Classification_User" FromRole="Classification" ToRole="User" />
+          <NavigationProperty Name="LstContentItems" Relationship="Self.FK_ContentItem_Classification" FromRole="Classification" ToRole="ContentItem" />
+          <NavigationProperty Name="LstDisplayContents" Relationship="Self.FK_DisplayContent_Classification" FromRole="Classification" ToRole="DisplayContent" />
+          <NavigationProperty Name="LstMicrosites" Relationship="Self.FK_Microsite_Classification" FromRole="Classification" ToRole="Microsite" />
+          <NavigationProperty Name="Products" Relationship="alluneedbModel.FK_Product_Classification" FromRole="Classification" ToRole="Product" />
+          <Property Name="I18N" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ClassificationScheme">
+          <Key>
+            <PropertyRef Name="ClassificationSchemeId" />
+          </Key>
+          <Property Name="ClassificationSchemeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassificationSchemeNM" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ClassificationSchemeDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSystem" Type="Byte" />
+          <Property Name="IsHeirarchy" Type="Byte" />
+          <Property Name="SchemeCD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShortNM" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LstModDT" Type="DateTime" Precision="3" />
+          <Property Name="LstModUID" Type="Int64" />
+          <Property Name="LstModUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LstClassifications" Relationship="Self.FK_Classification_ClassificationScheme" FromRole="ClassificationScheme" ToRole="Classification" />
+          <NavigationProperty Name="ObjCrtdUser" Relationship="Self.FK_ClassificationScheme_User" FromRole="ClassificationScheme" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="site_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_facebook" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_stwitter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_skype" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_google" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_youtube" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_googleanalytics" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_copyright" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="site_homephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="site_homephone2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="site_description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_metadatakeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="site_metadadescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="site_logo_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_favico_url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="site_full_adress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="site_ward" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="site_street" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="site_district" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="site_city" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="site_width_thumb" Type="Int32" />
+          <Property Name="site_height_thumb" Type="Int32" />
+          <Property Name="site_page_size" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ContentComment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentCommentId" Type="Int64" />
+          <Property Name="ContentObjId" Type="Int64" />
+          <Property Name="ContentObjName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdUerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdGuestUserId" Type="Guid" />
+          <Property Name="LikeCount" Type="Int64" />
+          <Property Name="LastLikedDT" Type="DateTime" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ObjTypeId" Type="Int32" />
+          <Property Name="ObjTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ContentItem">
+          <Key>
+            <PropertyRef Name="ContentItemId" />
+          </Key>
+          <Property Name="ContentItemId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int64" />
+          <Property Name="ContentItemCD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="LikeCount" Type="Int64" />
+          <Property Name="CommentCount" Type="Int64" />
+          <Property Name="ObjTypeId" Type="Int32" />
+          <Property Name="IsCommentEnabled" Type="Byte" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="CategoryName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="ContentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ContentExcerpt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Indexed" Type="Byte" />
+          <NavigationProperty Name="ObjCategory" Relationship="Self.FK_ContentItem_Classification" FromRole="ContentItem" ToRole="Classification" />
+          <Property Name="MicrositeID" Type="Int64" />
+          <Property Name="MicrositeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CateMicrositeID" Type="Int32" />
+          <Property Name="CateMicrositeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ContentTag">
+          <Key>
+            <PropertyRef Name="ObjcontentId" />
+            <PropertyRef Name="TagId" />
+            <PropertyRef Name="ObjTypeId" />
+          </Key>
+          <Property Name="ObjcontentId" Type="Int64" Nullable="false" />
+          <Property Name="TagId" Type="Int64" Nullable="false" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="ObjTypeId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ObjTag" Relationship="Self.FK_ContentTag_Tag" FromRole="ContentTag" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="DisplayContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContentId" Type="Int64" />
+          <Property Name="DisplayType" Type="Int32" />
+          <Property Name="ObjType" Type="Int32" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="StartDT" Type="DateTime" Precision="3" />
+          <Property Name="EndDT" Type="DateTime" Precision="3" />
+          <Property Name="ShortNM" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <NavigationProperty Name="ObjDisplayType" Relationship="Self.FK_DisplayContent_Classification" FromRole="DisplayContent" ToRole="Classification" />
+        </EntityType>
+        <EntityType Name="MediaContent">
+          <Key>
+            <PropertyRef Name="MediaContentId" />
+          </Key>
+          <Property Name="MediaContentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MediaContentGuidId" Type="Guid" Nullable="false" />
+          <Property Name="Filename" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FullURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ThumbURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MediaContentSize" Type="Int64" />
+          <Property Name="EXIFInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaTypeId" Type="Int32" />
+          <Property Name="ObjTypeId" Type="Int32" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="ViewCount" Type="Int64" Nullable="false" />
+          <Property Name="Caption" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeText" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="MediaDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ContentObjId" Type="Int64" />
+          <Property Name="ContentObjName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LinkHref" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Microsite">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatUserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatUserId" Type="Int64" />
+          <Property Name="ApprovalDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprUserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ApprUserId" Type="Int64" />
+          <Property Name="FullAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Google" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MapCode" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LicensePP" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseNbr" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseDate" Type="DateTime" Precision="3" />
+          <Property Name="LicenseLocation" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CMDDNbr" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CMDDDate" Type="DateTime" Precision="3" />
+          <Property Name="CMDDLocation" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="TypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CataType" Type="Int32" />
+          <Property Name="CataTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NbrOfProduct" Type="Int32" />
+          <Property Name="NbrOfSussDeal" Type="Int32" />
+          <NavigationProperty Name="ObjClassificationType" Relationship="Self.FK_Microsite_Classification" FromRole="Microsite" ToRole="Classification" />
+          <Property Name="ImgLogo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ImgLogoThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Metakeyword" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MetaDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FriendlyUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorTop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorBottom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerId" Type="Int64" />
+          <Property Name="OwnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ColorTextTop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorTextBottom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RelatedContentItem">
+          <Key>
+            <PropertyRef Name="SubjectContentItemId" />
+            <PropertyRef Name="ObjContentItemId" />
+            <PropertyRef Name="ContentRelatedTypeId" />
+          </Key>
+          <Property Name="SubjectContentItemId" Type="Int64" Nullable="false" />
+          <Property Name="ObjContentItemId" Type="Int64" Nullable="false" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="IsDisabled" Type="Byte" />
+          <Property Name="ContentRelatedTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
+          <Property Name="CrtdPost" Type="Byte" />
+          <Property Name="DeletePost" Type="Byte" />
+          <Property Name="UpdatePost" Type="Byte" />
+          <Property Name="ApprovePost" Type="Byte" />
+          <Property Name="IsAdmin" Type="Byte" />
+          <Property Name="CrtdComment" Type="Byte" />
+          <Property Name="DeleteComment" Type="Byte" />
+          <Property Name="UpdateComment" Type="Byte" />
+          <Property Name="ApproveComment" Type="Byte" />
+          <Property Name="CrtdProduct" Type="Byte" />
+          <Property Name="DeleteProduct" Type="Byte" />
+          <Property Name="UpdateProduct" Type="Byte" />
+          <Property Name="ApproveProduct" Type="Byte" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagNM" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LstContentTags" Relationship="Self.FK_ContentTag_Tag" FromRole="Tag" ToRole="ContentTag" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ApprovalDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivationToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="7" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CMND" Type="Int64" />
+          <Property Name="FolerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GenderId" Type="Int32" />
+          <Property Name="GenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LstClassifications" Relationship="Self.FK_Classification_User" FromRole="User" ToRole="Classification" />
+          <NavigationProperty Name="LstClassificationSchemes" Relationship="Self.FK_ClassificationScheme_User" FromRole="User" ToRole="ClassificationScheme" />
+          <NavigationProperty Name="LstUserClaims" Relationship="Self.FK_UserClaim_User" FromRole="User" ToRole="UserClaim" />
+          <NavigationProperty Name="LstUserhists" Relationship="Self.FK_Userhists_User" FromRole="User" ToRole="Userhists" />
+          <NavigationProperty Name="UserLogins" Relationship="Self.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="LstRole" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
+          <Property Name="OldPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDay" Type="DateTime" Precision="3" />
+          <Property Name="ActiveCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int64" />
+          <Property Name="CompanyID" Type="Int64" />
+          <Property Name="BankName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BankAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountHolder" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccountNbr" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Money" Type="Double" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdDTCode" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="LstTransactionHis" Relationship="alluneedbModel.FK_TransactionHis_User" FromRole="User" ToRole="TransactionHi" />
+          <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AccountName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserClaim_User" FromRole="UserClaim" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Userhist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="IPadress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ActionObjId" Type="Int64" />
+          <Property Name="ActionTypeId" Type="Int32" />
+          <Property Name="Tablename" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FldName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Oldvalue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Newvalue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ObjCrtdUser" Relationship="Self.FK_Userhists_User" FromRole="Userhists" ToRole="User" />
+          <Property Name="ActionObjName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ActionTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ObjTypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ObjUser" Relationship="Self.FK_UserLogin_User" FromRole="UserLogin" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRegistrationToken">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Token" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Classification_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="Classification1" Type="Self.Classification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="Classification1">
+              <PropertyRef Name="ParentClassificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classification_ClassificationScheme">
+          <End Role="ClassificationScheme" Type="Self.ClassificationScheme" Multiplicity="1" />
+          <End Role="Classification" Type="Self.Classification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassificationScheme">
+              <PropertyRef Name="ClassificationSchemeId" />
+            </Principal>
+            <Dependent Role="Classification">
+              <PropertyRef Name="ClassificationSchemeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Classification_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Classification" Type="Self.Classification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classification">
+              <PropertyRef Name="CrtdUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentItem_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="ContentItem" Type="Self.ContentItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="ContentItem">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DisplayContent_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="DisplayContent" Type="Self.DisplayContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="DisplayContent">
+              <PropertyRef Name="DisplayType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Microsite_Classification">
+          <End Role="Classification" Type="Self.Classification" Multiplicity="0..1" />
+          <End Role="Microsite" Type="Self.Microsite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="Microsite">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassificationScheme_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ClassificationScheme" Type="Self.ClassificationScheme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClassificationScheme">
+              <PropertyRef Name="CrtdUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentTag_Tag">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="ContentTag" Type="Self.ContentTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="TagId" />
+            </Principal>
+            <Dependent Role="ContentTag">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClaim_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Userhists_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Userhists" Type="Self.Userhist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Userhists">
+              <PropertyRef Name="CrtdUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserRole">
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="alluneedbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Classifications" EntityType="Self.Classification" />
+          <EntitySet Name="ClassificationSchemes" EntityType="Self.ClassificationScheme" />
+          <EntitySet Name="Configs" EntityType="Self.Config" />
+          <EntitySet Name="ContentComments" EntityType="Self.ContentComment" />
+          <EntitySet Name="ContentItems" EntityType="Self.ContentItem" />
+          <EntitySet Name="ContentTags" EntityType="Self.ContentTag" />
+          <EntitySet Name="DisplayContents" EntityType="Self.DisplayContent" />
+          <EntitySet Name="MediaContents" EntityType="Self.MediaContent" />
+          <EntitySet Name="Microsites" EntityType="Self.Microsite" />
+          <EntitySet Name="RelatedContentItems" EntityType="Self.RelatedContentItem" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
+          <EntitySet Name="Userhists" EntityType="Self.Userhist" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="UserRegistrationTokens" EntityType="Self.UserRegistrationToken" />
+          <AssociationSet Name="FK_Classification_Classification" Association="Self.FK_Classification_Classification">
+            <End Role="Classification" EntitySet="Classifications" />
+            <End Role="Classification1" EntitySet="Classifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classification_ClassificationScheme" Association="Self.FK_Classification_ClassificationScheme">
+            <End Role="ClassificationScheme" EntitySet="ClassificationSchemes" />
+            <End Role="Classification" EntitySet="Classifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Classification_User" Association="Self.FK_Classification_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Classification" EntitySet="Classifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentItem_Classification" Association="Self.FK_ContentItem_Classification">
+            <End Role="Classification" EntitySet="Classifications" />
+            <End Role="ContentItem" EntitySet="ContentItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DisplayContent_Classification" Association="Self.FK_DisplayContent_Classification">
+            <End Role="Classification" EntitySet="Classifications" />
+            <End Role="DisplayContent" EntitySet="DisplayContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Microsite_Classification" Association="Self.FK_Microsite_Classification">
+            <End Role="Classification" EntitySet="Classifications" />
+            <End Role="Microsite" EntitySet="Microsites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassificationScheme_User" Association="Self.FK_ClassificationScheme_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ClassificationScheme" EntitySet="ClassificationSchemes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentTag_Tag" Association="Self.FK_ContentTag_Tag">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="ContentTag" EntitySet="ContentTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClaim_User" Association="Self.FK_UserClaim_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserClaim" EntitySet="UserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Userhists_User" Association="Self.FK_Userhists_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Userhists" EntitySet="Userhists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_User" Association="Self.FK_UserLogin_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLogin" EntitySet="UserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="UserRole" Association="Self.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Products" EntityType="alluneedbModel.Product" />
+          <AssociationSet Name="FK_Product_Classification" Association="alluneedbModel.FK_Product_Classification">
+            <End Role="Classification" EntitySet="Classifications" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="TransactionHis" EntityType="alluneedbModel.TransactionHi" />
+          <AssociationSet Name="FK_TransactionHis_User" Association="alluneedbModel.FK_TransactionHis_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TransactionHi" EntitySet="TransactionHis" />
+          </AssociationSet>
+          <FunctionImport Name="GetDataUserInfor">
+            <Parameter Name="username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDataUserInforMoney">
+            <Parameter Name="username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetDataUserInforTransferMoney">
+            <Parameter Name="username" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ExceptionLogs" EntityType="alluneedbModel.ExceptionLog" />
+          <EntitySet Name="OrderProducts" EntityType="alluneedbModel.OrderProduct" />
+          <EntitySet Name="Orders" EntityType="alluneedbModel.Order" />
+          <EntitySet Name="ShippingAddresses" EntityType="alluneedbModel.ShippingAddress" />
+          <EntitySet Name="MicroClassifications" EntityType="alluneedbModel.MicroClassification" />
+          <EntitySet Name="GeoAreas" EntityType="alluneedbModel.GeoArea" />
+          <EntitySet Name="PromotionContents" EntityType="alluneedbModel.PromotionContent" />
+          <EntitySet Name="NotifiRequests" EntityType="alluneedbModel.NotifiRequest" />
+          <EntitySet Name="CountLikes" EntityType="alluneedbModel.CountLike" />
+          <EntitySet Name="ProductInforExts" EntityType="alluneedbModel.ProductInforExt" />
+          <EntitySet Name="Hotels" EntityType="alluneedbModel.Hotel" />
+          <EntitySet Name="Tours" EntityType="alluneedbModel.Tour" />
+          <EntitySet Name="ObjectRelates" EntityType="alluneedbModel.ObjectRelate" />
+          <EntitySet Name="Rooms" EntityType="alluneedbModel.Room" />
+        </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int64" />
+          <Property Name="ProductCD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="LikeCount" Type="Int64" />
+          <Property Name="CommentCount" Type="Int64" />
+          <Property Name="IsCommentEnabled" Type="Byte" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="CategoryName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="Indexed" Type="Byte" />
+          <Property Name="OldPrice" Type="Double" />
+          <Property Name="NewPrice" Type="Double" />
+          <Property Name="BrandNameID" Type="Int32" />
+          <Property Name="BrandName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PriorityDay" Type="DateTime" Precision="3" />
+          <Property Name="Units" Type="Int32" />
+          <Property Name="UnitsName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MadeIn" Type="Int32" />
+          <Property Name="MadeInName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ObjCatelogry" Relationship="alluneedbModel.FK_Product_Classification" FromRole="Product" ToRole="Classification" />
+          <Property Name="CorlorID" Type="Int32" />
+          <Property Name="CorlorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Depth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="With" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusProductType" Type="Int32" />
+          <Property Name="StatusProductTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PromotionFrom" Type="DateTime" Precision="3" />
+          <Property Name="PromotionTo" Type="DateTime" Precision="3" />
+          <Property Name="PromotionAmount" Type="Int32" />
+          <Property Name="SupportTimeID" Type="Int32" />
+          <Property Name="SupportTimeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SKUCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TranTypeID" Type="Int32" />
+          <Property Name="TranTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MicrositeID" Type="Int64" />
+          <Property Name="MicrositeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CateMicrositeID" Type="Int64" />
+          <Property Name="CateMicrositeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BuyCount" Type="Int64" />
+          <Property Name="IsEvent" Type="Int32" />
+          <Property Name="TranWith" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TranDepth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TranHeight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TranWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Product_Classification">
+          <End Type="alluneedbModel.Classification" Role="Classification" Multiplicity="0..1" />
+          <End Type="alluneedbModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classification">
+              <PropertyRef Name="ClassificationId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TransactionHi">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdDT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MoneyNbrBefore" Type="Double" Nullable="false" />
+          <Property Name="MoneyNbrTran" Type="Double" Nullable="false" />
+          <Property Name="MoneyNbrAffter" Type="Double" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserTransaction" Type="Int64" />
+          <Property Name="UserTransactionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="alluneedbModel.FK_TransactionHis_User" FromRole="TransactionHi" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_TransactionHis_User">
+          <End Type="alluneedbModel.User" Role="User" Multiplicity="1" />
+          <End Type="alluneedbModel.TransactionHi" Role="TransactionHi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionHi">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExceptionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Controller" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="OrderProduct">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="OrderId" Type="Int64" Nullable="false" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Unitprice" Type="Double" />
+          <Property Name="Discount" Type="Double" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerId" Type="Int64" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="PaymentMethodName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingMethodId" Type="Int32" />
+          <Property Name="ShippingMethodName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="StatusName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaIdDT" Type="DateTime" Precision="3" />
+          <Property Name="PlaceDT" Type="DateTime" Precision="3" />
+          <Property Name="DeliverDT" Type="DateTime" Precision="3" />
+          <Property Name="Coupon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmloyeeId" Type="Int64" />
+          <Property Name="EmloyeeName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedUId" Type="Int64" />
+          <Property Name="ApprovedName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastApprovedDT" Type="DateTime" Precision="3" />
+          <Property Name="NameCustomerBuy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddressCustomer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneCustomer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="EmailCustomer" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PostCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdProvince" Type="Int32" />
+          <Property Name="IdDistrict" Type="Int32" />
+          <Property Name="IdWard" Type="Int32" />
+          <Property Name="NameProvince" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+          <Property Name="NameDistrict" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NameWard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MicrositeId" Type="Int64" />
+          <Property Name="MicrositeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MicroStatus" Type="Int32" />
+          <Property Name="MicroStatusName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MicroNote" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TranStatus" Type="Int32" />
+          <Property Name="TranStatusName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TranNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ShippingAddress">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="StatusName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="WardId" Type="Int32" />
+          <Property Name="StreetId" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Int64" />
+          <Property Name="MapCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MicroClassification">
+          <Key>
+            <PropertyRef Name="MicroClassifiId" />
+          </Key>
+          <Property Name="MicroClassifiId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MicroParentClassifiId" Type="Int32" />
+          <Property Name="MicroParentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MicroClassifiNM" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MicroClassifiDesc" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="MicroClassifiMetakeyword" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="MicroClassifiMetaDes" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="MicroClassifiSchemeId" Type="Int32" Nullable="false" />
+          <Property Name="MicroClassifiCD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FriendlyURL" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Byte" Nullable="false" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ShortNM" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="MicroID" Type="Int64" />
+          <Property Name="MicroName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GeoArea">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="Int32" Nullable="false" />
+          <Property Name="AreaName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AreaTypeId" Type="Int32" />
+          <Property Name="AreaTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AreaLocationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AreaDistrictId" Type="Int32" />
+          <Property Name="AreaProvineId" Type="Int32" />
+          <Property Name="AreaParentId" Type="Int32" />
+          <Property Name="AreaDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaWardId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PromotionContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MainContentId" Type="Int64" />
+          <Property Name="MainContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MainCateId" Type="Int32" />
+          <Property Name="MainCatetName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ObjType" Type="Int32" />
+          <Property Name="ObjTypeName" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="PromotionType" Type="Int32" />
+          <Property Name="PromotionTypeName" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="CrtdUID" Type="Int64" />
+          <Property Name="CrtdName" Type="String" MaxLength="260" FixedLength="false" Unicode="true" />
+          <Property Name="StartDT" Type="DateTime" Precision="3" />
+          <Property Name="EndDT" Type="DateTime" Precision="3" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="SubContentId" Type="Int64" />
+          <Property Name="SubContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PromotionPercent" Type="Int32" />
+          <Property Name="PromotionAmount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="NotifiRequest">
+          <Key>
+            <PropertyRef Name="NotifiRequestId" />
+          </Key>
+          <Property Name="NotifiRequestId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CountLike">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMicrosite" Type="Int64" />
+          <Property Name="IdProduct" Type="Int64" />
+          <Property Name="IdUser" Type="Int64" />
+          <Property Name="DateLike" Type="DateTime" Precision="3" />
+          <Property Name="TypeId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductInforExt">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int64" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Size" Type="Int32" />
+          <Property Name="Color" Type="Int32" />
+          <Property Name="SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="HotelId" />
+          </Key>
+          <Property Name="HotelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="LikeCount" Type="Int64" />
+          <Property Name="CommentCount" Type="Int64" />
+          <Property Name="IsCommentEnabled" Type="Byte" />
+          <Property Name="HotelType" Type="Int32" />
+          <Property Name="HotelTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="HotelDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HotelName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HotelDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="OldPrice" Type="Double" />
+          <Property Name="NewPrice" Type="Double" />
+          <Property Name="FullAdress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="Int32" />
+          <Property Name="DistrictName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="Int32" />
+          <Property Name="CitytName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Ward" Type="Int32" />
+          <Property Name="WardName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LocationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Hotline1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Hotline2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="HomePhone" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CheckInTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CheckOutTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Include" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourId" />
+          </Key>
+          <Property Name="TourId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TourCD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="LikeCount" Type="Int64" />
+          <Property Name="CommentCount" Type="Int64" />
+          <Property Name="IsCommentEnabled" Type="Byte" />
+          <Property Name="TourType" Type="Int32" />
+          <Property Name="TourTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TourDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TourName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TourDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="OldPrice" Type="Double" />
+          <Property Name="NewPrice" Type="Double" />
+          <Property Name="StartName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StartId" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EndName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EndId" Type="Int32" />
+          <Property Name="NumPeople" Type="Int32" />
+          <Property Name="GuideName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GuideId" Type="Int64" />
+          <Property Name="Contact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Including" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotIncluding" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerAdress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CancelTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChangeTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TourClassId" Type="Int32" />
+          <Property Name="TourClassName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ObjectRelate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObjContentId" Type="Int64" />
+          <Property Name="ObjContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClassType" Type="Int32" />
+          <Property Name="ClassTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ObjType" Type="Int32" />
+          <Property Name="ObjTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="RoomId" />
+          </Key>
+          <Property Name="RoomId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="LikeCount" Type="Int64" />
+          <Property Name="CommentCount" Type="Int64" />
+          <Property Name="IsCommentEnabled" Type="Byte" />
+          <Property Name="RoomType" Type="Int32" />
+          <Property Name="RoomTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RoomDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RoomName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RoomDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="OldPrice" Type="Double" />
+          <Property Name="NewPrice" Type="Double" />
+          <Property Name="HotelId" Type="Int64" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="alluneedbModelStoreContainer" CdmEntityContainer="alluneedbEntities">
+          <EntitySetMapping Name="Classifications">
+            <EntityTypeMapping TypeName="alluneedbModel.Classification">
+              <MappingFragment StoreEntitySet="Classification">
+                <ScalarProperty Name="I18N" ColumnName="I18N" />
+                <ScalarProperty Name="ClassificationId" ColumnName="ClassificationId" />
+                <ScalarProperty Name="ParentClassificationId" ColumnName="ParentClassificationId" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+                <ScalarProperty Name="ClassificationNM" ColumnName="ClassificationNM" />
+                <ScalarProperty Name="ClassificationDesc" ColumnName="ClassificationDesc" />
+                <ScalarProperty Name="ClassificationMetakeyword" ColumnName="ClassificationMetakeyword" />
+                <ScalarProperty Name="ClassificationMetaDes" ColumnName="ClassificationMetaDes" />
+                <ScalarProperty Name="ClassificationSchemeId" ColumnName="ClassificationSchemeId" />
+                <ScalarProperty Name="ClassificationCD" ColumnName="ClassificationCD" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="LstModDT" ColumnName="LstModDT" />
+                <ScalarProperty Name="LstModUID" ColumnName="LstModUID" />
+                <ScalarProperty Name="LstModUserName" ColumnName="LstModUserName" />
+                <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassificationSchemes">
+            <EntityTypeMapping TypeName="alluneedbModel.ClassificationScheme">
+              <MappingFragment StoreEntitySet="ClassificationScheme">
+                <ScalarProperty Name="ClassificationSchemeId" ColumnName="ClassificationSchemeId" />
+                <ScalarProperty Name="ClassificationSchemeNM" ColumnName="ClassificationSchemeNM" />
+                <ScalarProperty Name="ClassificationSchemeDesc" ColumnName="ClassificationSchemeDesc" />
+                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+                <ScalarProperty Name="IsHeirarchy" ColumnName="IsHeirarchy" />
+                <ScalarProperty Name="SchemeCD" ColumnName="SchemeCD" />
+                <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="LstModDT" ColumnName="LstModDT" />
+                <ScalarProperty Name="LstModUID" ColumnName="LstModUID" />
+                <ScalarProperty Name="LstModUserName" ColumnName="LstModUserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configs">
+            <EntityTypeMapping TypeName="alluneedbModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="site_url" ColumnName="site_url" />
+                <ScalarProperty Name="site_name" ColumnName="site_name" />
+                <ScalarProperty Name="site_email" ColumnName="site_email" />
+                <ScalarProperty Name="site_facebook" ColumnName="site_facebook" />
+                <ScalarProperty Name="site_stwitter" ColumnName="site_stwitter" />
+                <ScalarProperty Name="site_skype" ColumnName="site_skype" />
+                <ScalarProperty Name="site_google" ColumnName="site_google" />
+                <ScalarProperty Name="site_youtube" ColumnName="site_youtube" />
+                <ScalarProperty Name="site_googleanalytics" ColumnName="site_googleanalytics" />
+                <ScalarProperty Name="site_copyright" ColumnName="site_copyright" />
+                <ScalarProperty Name="site_phone" ColumnName="site_phone" />
+                <ScalarProperty Name="site_homephone" ColumnName="site_homephone" />
+                <ScalarProperty Name="site_homephone2" ColumnName="site_homephone2" />
+                <ScalarProperty Name="site_description" ColumnName="site_description" />
+                <ScalarProperty Name="site_metadatakeyword" ColumnName="site_metadatakeyword" />
+                <ScalarProperty Name="site_metadadescription" ColumnName="site_metadadescription" />
+                <ScalarProperty Name="site_logo_url" ColumnName="site_logo_url" />
+                <ScalarProperty Name="site_favico_url" ColumnName="site_favico_url" />
+                <ScalarProperty Name="site_full_adress" ColumnName="site_full_adress" />
+                <ScalarProperty Name="site_ward" ColumnName="site_ward" />
+                <ScalarProperty Name="site_street" ColumnName="site_street" />
+                <ScalarProperty Name="site_district" ColumnName="site_district" />
+                <ScalarProperty Name="site_city" ColumnName="site_city" />
+                <ScalarProperty Name="site_width_thumb" ColumnName="site_width_thumb" />
+                <ScalarProperty Name="site_height_thumb" ColumnName="site_height_thumb" />
+                <ScalarProperty Name="site_page_size" ColumnName="site_page_size" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentComments">
+            <EntityTypeMapping TypeName="alluneedbModel.ContentComment">
+              <MappingFragment StoreEntitySet="ContentComment">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="ParentCommentId" ColumnName="ParentCommentId" />
+                <ScalarProperty Name="ContentObjId" ColumnName="ContentObjId" />
+                <ScalarProperty Name="ContentObjName" ColumnName="ContentObjName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdUerName" ColumnName="AprvdUerName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CrtdGuestUserId" ColumnName="CrtdGuestUserId" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="LastLikedDT" ColumnName="LastLikedDT" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+                <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentItems">
+            <EntityTypeMapping TypeName="alluneedbModel.ContentItem">
+              <MappingFragment StoreEntitySet="ContentItem">
+                <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+                <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+                <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+                <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+                <ScalarProperty Name="ContentItemId" ColumnName="ContentItemId" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ContentItemCD" ColumnName="ContentItemCD" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="ContentTitle" ColumnName="ContentTitle" />
+                <ScalarProperty Name="ContentExcerpt" ColumnName="ContentExcerpt" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentTags">
+            <EntityTypeMapping TypeName="alluneedbModel.ContentTag">
+              <MappingFragment StoreEntitySet="ContentTag">
+                <ScalarProperty Name="ObjcontentId" ColumnName="ObjcontentId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DisplayContents">
+            <EntityTypeMapping TypeName="alluneedbModel.DisplayContent">
+              <MappingFragment StoreEntitySet="DisplayContent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+                <ScalarProperty Name="DisplayType" ColumnName="DisplayType" />
+                <ScalarProperty Name="ObjType" ColumnName="ObjType" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="StartDT" ColumnName="StartDT" />
+                <ScalarProperty Name="EndDT" ColumnName="EndDT" />
+                <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaContents">
+            <EntityTypeMapping TypeName="alluneedbModel.MediaContent">
+              <MappingFragment StoreEntitySet="MediaContent">
+                <ScalarProperty Name="LinkHref" ColumnName="LinkHref" />
+                <ScalarProperty Name="MediaContentId" ColumnName="MediaContentId" />
+                <ScalarProperty Name="MediaContentGuidId" ColumnName="MediaContentGuidId" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="FullURL" ColumnName="FullURL" />
+                <ScalarProperty Name="ThumbURL" ColumnName="ThumbURL" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MediaContentSize" ColumnName="MediaContentSize" />
+                <ScalarProperty Name="EXIFInfo" ColumnName="EXIFInfo" />
+                <ScalarProperty Name="MediaTypeId" ColumnName="MediaTypeId" />
+                <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="AlternativeText" ColumnName="AlternativeText" />
+                <ScalarProperty Name="MediaDesc" ColumnName="MediaDesc" />
+                <ScalarProperty Name="ContentObjId" ColumnName="ContentObjId" />
+                <ScalarProperty Name="ContentObjName" ColumnName="ContentObjName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Microsites">
+            <EntityTypeMapping TypeName="alluneedbModel.Microsite">
+              <MappingFragment StoreEntitySet="Microsite">
+                <ScalarProperty Name="ColorTextBottom" ColumnName="ColorTextBottom" />
+                <ScalarProperty Name="ColorTextTop" ColumnName="ColorTextTop" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="ColorBottom" ColumnName="ColorBottom" />
+                <ScalarProperty Name="ColorTop" ColumnName="ColorTop" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
+                <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
+                <ScalarProperty Name="Metakeyword" ColumnName="Metakeyword" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImgLogoThumb" ColumnName="ImgLogoThumb" />
+                <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CreatUserName" ColumnName="CreatUserName" />
+                <ScalarProperty Name="CreatUserId" ColumnName="CreatUserId" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="ApprUserName" ColumnName="ApprUserName" />
+                <ScalarProperty Name="ApprUserId" ColumnName="ApprUserId" />
+                <ScalarProperty Name="FullAdress" ColumnName="FullAdress" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="Google" ColumnName="Google" />
+                <ScalarProperty Name="MapCode" ColumnName="MapCode" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="LicensePP" ColumnName="LicensePP" />
+                <ScalarProperty Name="LicenseNbr" ColumnName="LicenseNbr" />
+                <ScalarProperty Name="LicenseDate" ColumnName="LicenseDate" />
+                <ScalarProperty Name="LicenseLocation" ColumnName="LicenseLocation" />
+                <ScalarProperty Name="CMDDNbr" ColumnName="CMDDNbr" />
+                <ScalarProperty Name="CMDDDate" ColumnName="CMDDDate" />
+                <ScalarProperty Name="CMDDLocation" ColumnName="CMDDLocation" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="CataType" ColumnName="CataType" />
+                <ScalarProperty Name="CataTypeName" ColumnName="CataTypeName" />
+                <ScalarProperty Name="NbrOfProduct" ColumnName="NbrOfProduct" />
+                <ScalarProperty Name="NbrOfSussDeal" ColumnName="NbrOfSussDeal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedContentItems">
+            <EntityTypeMapping TypeName="alluneedbModel.RelatedContentItem">
+              <MappingFragment StoreEntitySet="RelatedContentItem">
+                <ScalarProperty Name="SubjectContentItemId" ColumnName="SubjectContentItemId" />
+                <ScalarProperty Name="ObjContentItemId" ColumnName="ObjContentItemId" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="ContentRelatedTypeId" ColumnName="ContentRelatedTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="alluneedbModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ApproveProduct" ColumnName="ApproveProduct" />
+                <ScalarProperty Name="UpdateProduct" ColumnName="UpdateProduct" />
+                <ScalarProperty Name="DeleteProduct" ColumnName="DeleteProduct" />
+                <ScalarProperty Name="CrtdProduct" ColumnName="CrtdProduct" />
+                <ScalarProperty Name="ApproveComment" ColumnName="ApproveComment" />
+                <ScalarProperty Name="UpdateComment" ColumnName="UpdateComment" />
+                <ScalarProperty Name="DeleteComment" ColumnName="DeleteComment" />
+                <ScalarProperty Name="CrtdComment" ColumnName="CrtdComment" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="ApprovePost" ColumnName="ApprovePost" />
+                <ScalarProperty Name="UpdatePost" ColumnName="UpdatePost" />
+                <ScalarProperty Name="DeletePost" ColumnName="DeletePost" />
+                <ScalarProperty Name="CrtdPost" ColumnName="CrtdPost" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleDes" ColumnName="RoleDes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="alluneedbModel.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="TagNM" ColumnName="TagNM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="alluneedbModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="UserAdress" ColumnName="UserAdress" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="CrtdDTCode" ColumnName="CrtdDTCode" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="BankAccountNbr" ColumnName="BankAccountNbr" />
+                <ScalarProperty Name="BankAccountHolder" ColumnName="BankAccountHolder" />
+                <ScalarProperty Name="BankAdress" ColumnName="BankAdress" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ActiveCode" ColumnName="ActiveCode" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="OldPassword" ColumnName="OldPassword" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="ActivationToken" ColumnName="ActivationToken" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="FolerName" ColumnName="FolerName" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="GenderName" ColumnName="GenderName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClaims">
+            <EntityTypeMapping TypeName="alluneedbModel.UserClaim">
+              <MappingFragment StoreEntitySet="UserClaim">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Userhists">
+            <EntityTypeMapping TypeName="alluneedbModel.Userhist">
+              <MappingFragment StoreEntitySet="Userhists">
+                <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+                <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+                <ScalarProperty Name="ActionObjName" ColumnName="ActionObjName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="IPadress" ColumnName="IPadress" />
+                <ScalarProperty Name="ActionObjId" ColumnName="ActionObjId" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="Tablename" ColumnName="Tablename" />
+                <ScalarProperty Name="FldName" ColumnName="FldName" />
+                <ScalarProperty Name="Oldvalue" ColumnName="Oldvalue" />
+                <ScalarProperty Name="Newvalue" ColumnName="Newvalue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="alluneedbModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRegistrationTokens">
+            <EntityTypeMapping TypeName="alluneedbModel.UserRegistrationToken">
+              <MappingFragment StoreEntitySet="UserRegistrationToken">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRole" TypeName="alluneedbModel.UserRole" StoreEntitySet="UserRole">
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="alluneedbModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="TranWeight" ColumnName="TranWeight" />
+                <ScalarProperty Name="TranHeight" ColumnName="TranHeight" />
+                <ScalarProperty Name="TranDepth" ColumnName="TranDepth" />
+                <ScalarProperty Name="TranWith" ColumnName="TranWith" />
+                <ScalarProperty Name="IsEvent" ColumnName="IsEvent" />
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+                <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+                <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+                <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+                <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+                <ScalarProperty Name="TranTypeName" ColumnName="TranTypeName" />
+                <ScalarProperty Name="TranTypeID" ColumnName="TranTypeID" />
+                <ScalarProperty Name="SKUCode" ColumnName="SKUCode" />
+                <ScalarProperty Name="SupportTimeName" ColumnName="SupportTimeName" />
+                <ScalarProperty Name="SupportTimeID" ColumnName="SupportTimeID" />
+                <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+                <ScalarProperty Name="PromotionTo" ColumnName="PromotionTo" />
+                <ScalarProperty Name="PromotionFrom" ColumnName="PromotionFrom" />
+                <ScalarProperty Name="StatusProductTypeName" ColumnName="StatusProductTypeName" />
+                <ScalarProperty Name="StatusProductType" ColumnName="StatusProductType" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="With" ColumnName="With" />
+                <ScalarProperty Name="Depth" ColumnName="Depth" />
+                <ScalarProperty Name="CorlorName" ColumnName="CorlorName" />
+                <ScalarProperty Name="CorlorID" ColumnName="CorlorID" />
+                <ScalarProperty Name="MadeInName" ColumnName="MadeInName" />
+                <ScalarProperty Name="MadeIn" ColumnName="MadeIn" />
+                <ScalarProperty Name="UnitsName" ColumnName="UnitsName" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="PriorityDay" ColumnName="PriorityDay" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="BrandNameID" ColumnName="BrandNameID" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="ProductDes" ColumnName="ProductDes" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDetail" ColumnName="ProductDetail" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="ProductCD" ColumnName="ProductCD" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionHis">
+            <EntityTypeMapping TypeName="alluneedbModel.TransactionHi">
+              <MappingFragment StoreEntitySet="TransactionHis">
+                <ScalarProperty Name="UserTransactionName" ColumnName="UserTransactionName" />
+                <ScalarProperty Name="UserTransaction" ColumnName="UserTransaction" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="MoneyNbrAffter" ColumnName="MoneyNbrAffter" />
+                <ScalarProperty Name="MoneyNbrTran" ColumnName="MoneyNbrTran" />
+                <ScalarProperty Name="MoneyNbrBefore" ColumnName="MoneyNbrBefore" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExceptionLogs">
+            <EntityTypeMapping TypeName="alluneedbModel.ExceptionLog">
+              <MappingFragment StoreEntitySet="ExceptionLogs">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderProducts">
+            <EntityTypeMapping TypeName="alluneedbModel.OrderProduct">
+              <MappingFragment StoreEntitySet="OrderProducts">
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="alluneedbModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="TranNote" ColumnName="TranNote" />
+                <ScalarProperty Name="TranStatusName" ColumnName="TranStatusName" />
+                <ScalarProperty Name="TranStatus" ColumnName="TranStatus" />
+                <ScalarProperty Name="MicroNote" ColumnName="MicroNote" />
+                <ScalarProperty Name="MicroStatusName" ColumnName="MicroStatusName" />
+                <ScalarProperty Name="MicroStatus" ColumnName="MicroStatus" />
+                <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+                <ScalarProperty Name="MicrositeId" ColumnName="MicrositeId" />
+                <ScalarProperty Name="NameWard" ColumnName="NameWard" />
+                <ScalarProperty Name="NameDistrict" ColumnName="NameDistrict" />
+                <ScalarProperty Name="NameProvince" ColumnName="NameProvince" />
+                <ScalarProperty Name="IdWard" ColumnName="IdWard" />
+                <ScalarProperty Name="IdDistrict" ColumnName="IdDistrict" />
+                <ScalarProperty Name="IdProvince" ColumnName="IdProvince" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="EmailCustomer" ColumnName="EmailCustomer" />
+                <ScalarProperty Name="PhoneCustomer" ColumnName="PhoneCustomer" />
+                <ScalarProperty Name="AddressCustomer" ColumnName="AddressCustomer" />
+                <ScalarProperty Name="NameCustomerBuy" ColumnName="NameCustomerBuy" />
+                <ScalarProperty Name="LastApprovedDT" ColumnName="LastApprovedDT" />
+                <ScalarProperty Name="ApprovedName" ColumnName="ApprovedName" />
+                <ScalarProperty Name="ApprovedUId" ColumnName="ApprovedUId" />
+                <ScalarProperty Name="EmloyeeName" ColumnName="EmloyeeName" />
+                <ScalarProperty Name="EmloyeeId" ColumnName="EmloyeeId" />
+                <ScalarProperty Name="Coupon" ColumnName="Coupon" />
+                <ScalarProperty Name="DeliverDT" ColumnName="DeliverDT" />
+                <ScalarProperty Name="PlaceDT" ColumnName="PlaceDT" />
+                <ScalarProperty Name="PaIdDT" ColumnName="PaIdDT" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="ShippingMethodName" ColumnName="ShippingMethodName" />
+                <ScalarProperty Name="ShippingMethodId" ColumnName="ShippingMethodId" />
+                <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShippingAddresses">
+            <EntityTypeMapping TypeName="alluneedbModel.ShippingAddress">
+              <MappingFragment StoreEntitySet="ShippingAddress">
+                <ScalarProperty Name="MapCode" ColumnName="MapCode" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="StreetId" ColumnName="StreetId" />
+                <ScalarProperty Name="WardId" ColumnName="WardId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MicroClassifications">
+            <EntityTypeMapping TypeName="alluneedbModel.MicroClassification">
+              <MappingFragment StoreEntitySet="MicroClassification">
+                <ScalarProperty Name="MicroName" ColumnName="MicroName" />
+                <ScalarProperty Name="MicroID" ColumnName="MicroID" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="MicroClassifiCD" ColumnName="MicroClassifiCD" />
+                <ScalarProperty Name="MicroClassifiSchemeId" ColumnName="MicroClassifiSchemeId" />
+                <ScalarProperty Name="MicroClassifiMetaDes" ColumnName="MicroClassifiMetaDes" />
+                <ScalarProperty Name="MicroClassifiMetakeyword" ColumnName="MicroClassifiMetakeyword" />
+                <ScalarProperty Name="MicroClassifiDesc" ColumnName="MicroClassifiDesc" />
+                <ScalarProperty Name="MicroClassifiNM" ColumnName="MicroClassifiNM" />
+                <ScalarProperty Name="MicroParentName" ColumnName="MicroParentName" />
+                <ScalarProperty Name="MicroParentClassifiId" ColumnName="MicroParentClassifiId" />
+                <ScalarProperty Name="MicroClassifiId" ColumnName="MicroClassifiId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeoAreas">
+            <EntityTypeMapping TypeName="alluneedbModel.GeoArea">
+              <MappingFragment StoreEntitySet="GeoArea">
+                <ScalarProperty Name="AreaWardId" ColumnName="AreaWardId" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="AreaDes" ColumnName="AreaDes" />
+                <ScalarProperty Name="AreaParentId" ColumnName="AreaParentId" />
+                <ScalarProperty Name="AreaProvineId" ColumnName="AreaProvineId" />
+                <ScalarProperty Name="AreaDistrictId" ColumnName="AreaDistrictId" />
+                <ScalarProperty Name="AreaLocationCode" ColumnName="AreaLocationCode" />
+                <ScalarProperty Name="AreaTypeName" ColumnName="AreaTypeName" />
+                <ScalarProperty Name="AreaTypeId" ColumnName="AreaTypeId" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionContents">
+            <EntityTypeMapping TypeName="alluneedbModel.PromotionContent">
+              <MappingFragment StoreEntitySet="PromotionContent">
+                <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+                <ScalarProperty Name="PromotionPercent" ColumnName="PromotionPercent" />
+                <ScalarProperty Name="SubContentName" ColumnName="SubContentName" />
+                <ScalarProperty Name="SubContentId" ColumnName="SubContentId" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="EndDT" ColumnName="EndDT" />
+                <ScalarProperty Name="StartDT" ColumnName="StartDT" />
+                <ScalarProperty Name="CrtdName" ColumnName="CrtdName" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="PromotionTypeName" ColumnName="PromotionTypeName" />
+                <ScalarProperty Name="PromotionType" ColumnName="PromotionType" />
+                <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+                <ScalarProperty Name="ObjType" ColumnName="ObjType" />
+                <ScalarProperty Name="MainCatetName" ColumnName="MainCatetName" />
+                <ScalarProperty Name="MainCateId" ColumnName="MainCateId" />
+                <ScalarProperty Name="MainContentName" ColumnName="MainContentName" />
+                <ScalarProperty Name="MainContentId" ColumnName="MainContentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotifiRequests">
+            <EntityTypeMapping TypeName="alluneedbModel.NotifiRequest">
+              <MappingFragment StoreEntitySet="NotifiRequest">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="NotifiRequestId" ColumnName="NotifiRequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CountLikes">
+            <EntityTypeMapping TypeName="alluneedbModel.CountLike">
+              <MappingFragment StoreEntitySet="CountLike">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="DateLike" ColumnName="DateLike" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdMicrosite" ColumnName="IdMicrosite" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductInforExts">
+            <EntityTypeMapping TypeName="alluneedbModel.ProductInforExt">
+              <MappingFragment StoreEntitySet="ProductInforExt">
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotels">
+            <EntityTypeMapping TypeName="alluneedbModel.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="Include" ColumnName="Include" />
+                <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+                <ScalarProperty Name="Hotline2" ColumnName="Hotline2" />
+                <ScalarProperty Name="Hotline1" ColumnName="Hotline1" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="WardName" ColumnName="WardName" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="CitytName" ColumnName="CitytName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="FullAdress" ColumnName="FullAdress" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="HotelDes" ColumnName="HotelDes" />
+                <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+                <ScalarProperty Name="HotelDetail" ColumnName="HotelDetail" />
+                <ScalarProperty Name="HotelTypeName" ColumnName="HotelTypeName" />
+                <ScalarProperty Name="HotelType" ColumnName="HotelType" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="alluneedbModel.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="TourClassName" ColumnName="TourClassName" />
+                <ScalarProperty Name="TourClassId" ColumnName="TourClassId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ChangeTour" ColumnName="ChangeTour" />
+                <ScalarProperty Name="CancelTour" ColumnName="CancelTour" />
+                <ScalarProperty Name="PartnerAdress" ColumnName="PartnerAdress" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="NotIncluding" ColumnName="NotIncluding" />
+                <ScalarProperty Name="Including" ColumnName="Including" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="GuideId" ColumnName="GuideId" />
+                <ScalarProperty Name="GuideName" ColumnName="GuideName" />
+                <ScalarProperty Name="NumPeople" ColumnName="NumPeople" />
+                <ScalarProperty Name="EndId" ColumnName="EndId" />
+                <ScalarProperty Name="EndName" ColumnName="EndName" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="StartId" ColumnName="StartId" />
+                <ScalarProperty Name="StartName" ColumnName="StartName" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="TourDes" ColumnName="TourDes" />
+                <ScalarProperty Name="TourName" ColumnName="TourName" />
+                <ScalarProperty Name="TourDetail" ColumnName="TourDetail" />
+                <ScalarProperty Name="TourTypeName" ColumnName="TourTypeName" />
+                <ScalarProperty Name="TourType" ColumnName="TourType" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="TourCD" ColumnName="TourCD" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="TourId" ColumnName="TourId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjectRelates">
+            <EntityTypeMapping TypeName="alluneedbModel.ObjectRelate">
+              <MappingFragment StoreEntitySet="ObjectRelate">
+                <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+                <ScalarProperty Name="ObjType" ColumnName="ObjType" />
+                <ScalarProperty Name="ClassTypeName" ColumnName="ClassTypeName" />
+                <ScalarProperty Name="ClassType" ColumnName="ClassType" />
+                <ScalarProperty Name="ObjContentName" ColumnName="ObjContentName" />
+                <ScalarProperty Name="ObjContentId" ColumnName="ObjContentId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="alluneedbModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="RoomDes" ColumnName="RoomDes" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="RoomDetail" ColumnName="RoomDetail" />
+                <ScalarProperty Name="RoomTypeName" ColumnName="RoomTypeName" />
+                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

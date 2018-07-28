@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a3a89c9d7c84a41b8d15094cb8b9152" Name="Diagram1" ZoomLevel="73">
+        <EntityTypeShape EntityType="alluneedbModel.Classification" Width="2" PointX="7.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.ClassificationScheme" Width="1.875" PointX="4.875" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.Config" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.ContentComment" Width="1.5" PointX="13.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.ContentItem" Width="1.5" PointX="9.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.ContentTag" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.DisplayContent" Width="1.5" PointX="9.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.ExceptionLog" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.MediaContent" Width="1.5" PointX="15.875" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.Microsite" Width="2" PointX="10.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.RelatedContentItem" Width="2.375" PointX="4.125" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.Role" Width="1.5" PointX="0.5" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.Tag" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.User" Width="1.75" PointX="2.5" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.UserClaim" Width="1.5" PointX="5.625" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.Userhist" Width="1.5" PointX="0.5" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.UserLogin" Width="1.5" PointX="5.5" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="alluneedbModel.UserRegistrationToken" Width="2" PointX="15.125" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="alluneedbModel.FK_Classification_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_Classification_ClassificationScheme" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_Classification_User" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_ContentItem_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_DisplayContent_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_Microsite_Classification" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_ClassificationScheme_User" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_ContentTag_Tag" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_UserClaim_User" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_Userhists_User" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.FK_UserLogin_User" ManuallyRouted="false" />
+        <AssociationConnector Association="alluneedbModel.UserRole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="alluneedbModel.Product" Width="1.5" PointX="8.375" PointY="27.75" />
+        <AssociationConnector Association="alluneedbModel.FK_Product_Classification" />
+        <EntityTypeShape EntityType="alluneedbModel.TransactionHi" Width="1.875" PointX="5" PointY="30.875" />
+        <AssociationConnector Association="alluneedbModel.FK_TransactionHis_User" />
+        <EntityTypeShape EntityType="alluneedbModel.OrderProduct" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Order" Width="1.5" PointX="7.5" PointY="0.5" />
+        <EntityTypeShape EntityType="alluneedbModel.ShippingAddress" Width="2.375" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="alluneedbModel.MicroClassification" Width="2" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="alluneedbModel.GeoArea" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="alluneedbModel.PromotionContent" Width="2" PointX="6.375" PointY="10.75" />
+        <EntityTypeShape EntityType="alluneedbModel.NotifiRequest" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="alluneedbModel.CountLike" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="alluneedbModel.ProductInforExt" Width="1.5" PointX="12.375" PointY="6.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Hotel" Width="1.5" PointX="16.375" PointY="8.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Tour" Width="1.5" PointX="18.375" PointY="0.75" />
+        <EntityTypeShape EntityType="alluneedbModel.ObjectRelate" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Room" Width="1.5" PointX="18.375" PointY="11.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

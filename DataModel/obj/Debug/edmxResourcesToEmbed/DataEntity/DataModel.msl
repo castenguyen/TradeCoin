@@ -1,0 +1,810 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="alluneedbModelStoreContainer" CdmEntityContainer="alluneedbEntities">
+    <EntitySetMapping Name="Classifications">
+      <EntityTypeMapping TypeName="alluneedbModel.Classification">
+        <MappingFragment StoreEntitySet="Classification">
+          <ScalarProperty Name="I18N" ColumnName="I18N" />
+          <ScalarProperty Name="ClassificationId" ColumnName="ClassificationId" />
+          <ScalarProperty Name="ParentClassificationId" ColumnName="ParentClassificationId" />
+          <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+          <ScalarProperty Name="ClassificationNM" ColumnName="ClassificationNM" />
+          <ScalarProperty Name="ClassificationDesc" ColumnName="ClassificationDesc" />
+          <ScalarProperty Name="ClassificationMetakeyword" ColumnName="ClassificationMetakeyword" />
+          <ScalarProperty Name="ClassificationMetaDes" ColumnName="ClassificationMetaDes" />
+          <ScalarProperty Name="ClassificationSchemeId" ColumnName="ClassificationSchemeId" />
+          <ScalarProperty Name="ClassificationCD" ColumnName="ClassificationCD" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="LstModDT" ColumnName="LstModDT" />
+          <ScalarProperty Name="LstModUID" ColumnName="LstModUID" />
+          <ScalarProperty Name="LstModUserName" ColumnName="LstModUserName" />
+          <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassificationSchemes">
+      <EntityTypeMapping TypeName="alluneedbModel.ClassificationScheme">
+        <MappingFragment StoreEntitySet="ClassificationScheme">
+          <ScalarProperty Name="ClassificationSchemeId" ColumnName="ClassificationSchemeId" />
+          <ScalarProperty Name="ClassificationSchemeNM" ColumnName="ClassificationSchemeNM" />
+          <ScalarProperty Name="ClassificationSchemeDesc" ColumnName="ClassificationSchemeDesc" />
+          <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+          <ScalarProperty Name="IsHeirarchy" ColumnName="IsHeirarchy" />
+          <ScalarProperty Name="SchemeCD" ColumnName="SchemeCD" />
+          <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="LstModDT" ColumnName="LstModDT" />
+          <ScalarProperty Name="LstModUID" ColumnName="LstModUID" />
+          <ScalarProperty Name="LstModUserName" ColumnName="LstModUserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configs">
+      <EntityTypeMapping TypeName="alluneedbModel.Config">
+        <MappingFragment StoreEntitySet="Config">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="site_url" ColumnName="site_url" />
+          <ScalarProperty Name="site_name" ColumnName="site_name" />
+          <ScalarProperty Name="site_email" ColumnName="site_email" />
+          <ScalarProperty Name="site_facebook" ColumnName="site_facebook" />
+          <ScalarProperty Name="site_stwitter" ColumnName="site_stwitter" />
+          <ScalarProperty Name="site_skype" ColumnName="site_skype" />
+          <ScalarProperty Name="site_google" ColumnName="site_google" />
+          <ScalarProperty Name="site_youtube" ColumnName="site_youtube" />
+          <ScalarProperty Name="site_googleanalytics" ColumnName="site_googleanalytics" />
+          <ScalarProperty Name="site_copyright" ColumnName="site_copyright" />
+          <ScalarProperty Name="site_phone" ColumnName="site_phone" />
+          <ScalarProperty Name="site_homephone" ColumnName="site_homephone" />
+          <ScalarProperty Name="site_homephone2" ColumnName="site_homephone2" />
+          <ScalarProperty Name="site_description" ColumnName="site_description" />
+          <ScalarProperty Name="site_metadatakeyword" ColumnName="site_metadatakeyword" />
+          <ScalarProperty Name="site_metadadescription" ColumnName="site_metadadescription" />
+          <ScalarProperty Name="site_logo_url" ColumnName="site_logo_url" />
+          <ScalarProperty Name="site_favico_url" ColumnName="site_favico_url" />
+          <ScalarProperty Name="site_full_adress" ColumnName="site_full_adress" />
+          <ScalarProperty Name="site_ward" ColumnName="site_ward" />
+          <ScalarProperty Name="site_street" ColumnName="site_street" />
+          <ScalarProperty Name="site_district" ColumnName="site_district" />
+          <ScalarProperty Name="site_city" ColumnName="site_city" />
+          <ScalarProperty Name="site_width_thumb" ColumnName="site_width_thumb" />
+          <ScalarProperty Name="site_height_thumb" ColumnName="site_height_thumb" />
+          <ScalarProperty Name="site_page_size" ColumnName="site_page_size" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentComments">
+      <EntityTypeMapping TypeName="alluneedbModel.ContentComment">
+        <MappingFragment StoreEntitySet="ContentComment">
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="ParentCommentId" ColumnName="ParentCommentId" />
+          <ScalarProperty Name="ContentObjId" ColumnName="ContentObjId" />
+          <ScalarProperty Name="ContentObjName" ColumnName="ContentObjName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdUerName" ColumnName="AprvdUerName" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="CrtdGuestUserId" ColumnName="CrtdGuestUserId" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="LastLikedDT" ColumnName="LastLikedDT" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+          <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentItems">
+      <EntityTypeMapping TypeName="alluneedbModel.ContentItem">
+        <MappingFragment StoreEntitySet="ContentItem">
+          <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+          <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+          <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+          <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+          <ScalarProperty Name="ContentItemId" ColumnName="ContentItemId" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="ContentItemCD" ColumnName="ContentItemCD" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+          <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+          <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+          <ScalarProperty Name="ContentTitle" ColumnName="ContentTitle" />
+          <ScalarProperty Name="ContentExcerpt" ColumnName="ContentExcerpt" />
+          <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+          <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+          <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+          <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentTags">
+      <EntityTypeMapping TypeName="alluneedbModel.ContentTag">
+        <MappingFragment StoreEntitySet="ContentTag">
+          <ScalarProperty Name="ObjcontentId" ColumnName="ObjcontentId" />
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DisplayContents">
+      <EntityTypeMapping TypeName="alluneedbModel.DisplayContent">
+        <MappingFragment StoreEntitySet="DisplayContent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="DisplayType" ColumnName="DisplayType" />
+          <ScalarProperty Name="ObjType" ColumnName="ObjType" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="StartDT" ColumnName="StartDT" />
+          <ScalarProperty Name="EndDT" ColumnName="EndDT" />
+          <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MediaContents">
+      <EntityTypeMapping TypeName="alluneedbModel.MediaContent">
+        <MappingFragment StoreEntitySet="MediaContent">
+          <ScalarProperty Name="LinkHref" ColumnName="LinkHref" />
+          <ScalarProperty Name="MediaContentId" ColumnName="MediaContentId" />
+          <ScalarProperty Name="MediaContentGuidId" ColumnName="MediaContentGuidId" />
+          <ScalarProperty Name="Filename" ColumnName="Filename" />
+          <ScalarProperty Name="FullURL" ColumnName="FullURL" />
+          <ScalarProperty Name="ThumbURL" ColumnName="ThumbURL" />
+          <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+          <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+          <ScalarProperty Name="MediaContentSize" ColumnName="MediaContentSize" />
+          <ScalarProperty Name="EXIFInfo" ColumnName="EXIFInfo" />
+          <ScalarProperty Name="MediaTypeId" ColumnName="MediaTypeId" />
+          <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="Caption" ColumnName="Caption" />
+          <ScalarProperty Name="AlternativeText" ColumnName="AlternativeText" />
+          <ScalarProperty Name="MediaDesc" ColumnName="MediaDesc" />
+          <ScalarProperty Name="ContentObjId" ColumnName="ContentObjId" />
+          <ScalarProperty Name="ContentObjName" ColumnName="ContentObjName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Microsites">
+      <EntityTypeMapping TypeName="alluneedbModel.Microsite">
+        <MappingFragment StoreEntitySet="Microsite">
+          <ScalarProperty Name="ColorTextBottom" ColumnName="ColorTextBottom" />
+          <ScalarProperty Name="ColorTextTop" ColumnName="ColorTextTop" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="ColorBottom" ColumnName="ColorBottom" />
+          <ScalarProperty Name="ColorTop" ColumnName="ColorTop" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
+          <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
+          <ScalarProperty Name="Metakeyword" ColumnName="Metakeyword" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImgLogoThumb" ColumnName="ImgLogoThumb" />
+          <ScalarProperty Name="ImgLogo" ColumnName="ImgLogo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="CreatUserName" ColumnName="CreatUserName" />
+          <ScalarProperty Name="CreatUserId" ColumnName="CreatUserId" />
+          <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+          <ScalarProperty Name="ApprUserName" ColumnName="ApprUserName" />
+          <ScalarProperty Name="ApprUserId" ColumnName="ApprUserId" />
+          <ScalarProperty Name="FullAdress" ColumnName="FullAdress" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+          <ScalarProperty Name="Google" ColumnName="Google" />
+          <ScalarProperty Name="MapCode" ColumnName="MapCode" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="LicensePP" ColumnName="LicensePP" />
+          <ScalarProperty Name="LicenseNbr" ColumnName="LicenseNbr" />
+          <ScalarProperty Name="LicenseDate" ColumnName="LicenseDate" />
+          <ScalarProperty Name="LicenseLocation" ColumnName="LicenseLocation" />
+          <ScalarProperty Name="CMDDNbr" ColumnName="CMDDNbr" />
+          <ScalarProperty Name="CMDDDate" ColumnName="CMDDDate" />
+          <ScalarProperty Name="CMDDLocation" ColumnName="CMDDLocation" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="CataType" ColumnName="CataType" />
+          <ScalarProperty Name="CataTypeName" ColumnName="CataTypeName" />
+          <ScalarProperty Name="NbrOfProduct" ColumnName="NbrOfProduct" />
+          <ScalarProperty Name="NbrOfSussDeal" ColumnName="NbrOfSussDeal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelatedContentItems">
+      <EntityTypeMapping TypeName="alluneedbModel.RelatedContentItem">
+        <MappingFragment StoreEntitySet="RelatedContentItem">
+          <ScalarProperty Name="SubjectContentItemId" ColumnName="SubjectContentItemId" />
+          <ScalarProperty Name="ObjContentItemId" ColumnName="ObjContentItemId" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+          <ScalarProperty Name="ContentRelatedTypeId" ColumnName="ContentRelatedTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="alluneedbModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="ApproveProduct" ColumnName="ApproveProduct" />
+          <ScalarProperty Name="UpdateProduct" ColumnName="UpdateProduct" />
+          <ScalarProperty Name="DeleteProduct" ColumnName="DeleteProduct" />
+          <ScalarProperty Name="CrtdProduct" ColumnName="CrtdProduct" />
+          <ScalarProperty Name="ApproveComment" ColumnName="ApproveComment" />
+          <ScalarProperty Name="UpdateComment" ColumnName="UpdateComment" />
+          <ScalarProperty Name="DeleteComment" ColumnName="DeleteComment" />
+          <ScalarProperty Name="CrtdComment" ColumnName="CrtdComment" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="ApprovePost" ColumnName="ApprovePost" />
+          <ScalarProperty Name="UpdatePost" ColumnName="UpdatePost" />
+          <ScalarProperty Name="DeletePost" ColumnName="DeletePost" />
+          <ScalarProperty Name="CrtdPost" ColumnName="CrtdPost" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RoleDes" ColumnName="RoleDes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="alluneedbModel.Tag">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="TagId" ColumnName="TagId" />
+          <ScalarProperty Name="TagNM" ColumnName="TagNM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="alluneedbModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+          <ScalarProperty Name="UserAdress" ColumnName="UserAdress" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <ScalarProperty Name="CrtdDTCode" ColumnName="CrtdDTCode" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Money" ColumnName="Money" />
+          <ScalarProperty Name="BankAccountNbr" ColumnName="BankAccountNbr" />
+          <ScalarProperty Name="BankAccountHolder" ColumnName="BankAccountHolder" />
+          <ScalarProperty Name="BankAdress" ColumnName="BankAdress" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ActiveCode" ColumnName="ActiveCode" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="OldPassword" ColumnName="OldPassword" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+          <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+          <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+          <ScalarProperty Name="ActivationToken" ColumnName="ActivationToken" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="CMND" ColumnName="CMND" />
+          <ScalarProperty Name="FolerName" ColumnName="FolerName" />
+          <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+          <ScalarProperty Name="GenderName" ColumnName="GenderName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserClaims">
+      <EntityTypeMapping TypeName="alluneedbModel.UserClaim">
+        <MappingFragment StoreEntitySet="UserClaim">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Userhists">
+      <EntityTypeMapping TypeName="alluneedbModel.Userhist">
+        <MappingFragment StoreEntitySet="Userhists">
+          <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+          <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+          <ScalarProperty Name="ActionObjName" ColumnName="ActionObjName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="IPadress" ColumnName="IPadress" />
+          <ScalarProperty Name="ActionObjId" ColumnName="ActionObjId" />
+          <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+          <ScalarProperty Name="Tablename" ColumnName="Tablename" />
+          <ScalarProperty Name="FldName" ColumnName="FldName" />
+          <ScalarProperty Name="Oldvalue" ColumnName="Oldvalue" />
+          <ScalarProperty Name="Newvalue" ColumnName="Newvalue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLogins">
+      <EntityTypeMapping TypeName="alluneedbModel.UserLogin">
+        <MappingFragment StoreEntitySet="UserLogin">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRegistrationTokens">
+      <EntityTypeMapping TypeName="alluneedbModel.UserRegistrationToken">
+        <MappingFragment StoreEntitySet="UserRegistrationToken">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserRole" TypeName="alluneedbModel.UserRole" StoreEntitySet="UserRole">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="alluneedbModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="TranWeight" ColumnName="TranWeight" />
+          <ScalarProperty Name="TranHeight" ColumnName="TranHeight" />
+          <ScalarProperty Name="TranDepth" ColumnName="TranDepth" />
+          <ScalarProperty Name="TranWith" ColumnName="TranWith" />
+          <ScalarProperty Name="IsEvent" ColumnName="IsEvent" />
+          <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+          <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+          <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+          <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+          <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+          <ScalarProperty Name="TranTypeName" ColumnName="TranTypeName" />
+          <ScalarProperty Name="TranTypeID" ColumnName="TranTypeID" />
+          <ScalarProperty Name="SKUCode" ColumnName="SKUCode" />
+          <ScalarProperty Name="SupportTimeName" ColumnName="SupportTimeName" />
+          <ScalarProperty Name="SupportTimeID" ColumnName="SupportTimeID" />
+          <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+          <ScalarProperty Name="PromotionTo" ColumnName="PromotionTo" />
+          <ScalarProperty Name="PromotionFrom" ColumnName="PromotionFrom" />
+          <ScalarProperty Name="StatusProductTypeName" ColumnName="StatusProductTypeName" />
+          <ScalarProperty Name="StatusProductType" ColumnName="StatusProductType" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="With" ColumnName="With" />
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="CorlorName" ColumnName="CorlorName" />
+          <ScalarProperty Name="CorlorID" ColumnName="CorlorID" />
+          <ScalarProperty Name="MadeInName" ColumnName="MadeInName" />
+          <ScalarProperty Name="MadeIn" ColumnName="MadeIn" />
+          <ScalarProperty Name="UnitsName" ColumnName="UnitsName" />
+          <ScalarProperty Name="Units" ColumnName="Units" />
+          <ScalarProperty Name="PriorityDay" ColumnName="PriorityDay" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="BrandNameID" ColumnName="BrandNameID" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+          <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+          <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+          <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+          <ScalarProperty Name="ProductDes" ColumnName="ProductDes" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductDetail" ColumnName="ProductDetail" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+          <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="ProductCD" ColumnName="ProductCD" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionHis">
+      <EntityTypeMapping TypeName="alluneedbModel.TransactionHi">
+        <MappingFragment StoreEntitySet="TransactionHis">
+          <ScalarProperty Name="UserTransactionName" ColumnName="UserTransactionName" />
+          <ScalarProperty Name="UserTransaction" ColumnName="UserTransaction" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="MoneyNbrAffter" ColumnName="MoneyNbrAffter" />
+          <ScalarProperty Name="MoneyNbrTran" ColumnName="MoneyNbrTran" />
+          <ScalarProperty Name="MoneyNbrBefore" ColumnName="MoneyNbrBefore" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionLogs">
+      <EntityTypeMapping TypeName="alluneedbModel.ExceptionLog">
+        <MappingFragment StoreEntitySet="ExceptionLogs">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Controller" ColumnName="Controller" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderProducts">
+      <EntityTypeMapping TypeName="alluneedbModel.OrderProduct">
+        <MappingFragment StoreEntitySet="OrderProducts">
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="alluneedbModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="TranNote" ColumnName="TranNote" />
+          <ScalarProperty Name="TranStatusName" ColumnName="TranStatusName" />
+          <ScalarProperty Name="TranStatus" ColumnName="TranStatus" />
+          <ScalarProperty Name="MicroNote" ColumnName="MicroNote" />
+          <ScalarProperty Name="MicroStatusName" ColumnName="MicroStatusName" />
+          <ScalarProperty Name="MicroStatus" ColumnName="MicroStatus" />
+          <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+          <ScalarProperty Name="MicrositeId" ColumnName="MicrositeId" />
+          <ScalarProperty Name="NameWard" ColumnName="NameWard" />
+          <ScalarProperty Name="NameDistrict" ColumnName="NameDistrict" />
+          <ScalarProperty Name="NameProvince" ColumnName="NameProvince" />
+          <ScalarProperty Name="IdWard" ColumnName="IdWard" />
+          <ScalarProperty Name="IdDistrict" ColumnName="IdDistrict" />
+          <ScalarProperty Name="IdProvince" ColumnName="IdProvince" />
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="EmailCustomer" ColumnName="EmailCustomer" />
+          <ScalarProperty Name="PhoneCustomer" ColumnName="PhoneCustomer" />
+          <ScalarProperty Name="AddressCustomer" ColumnName="AddressCustomer" />
+          <ScalarProperty Name="NameCustomerBuy" ColumnName="NameCustomerBuy" />
+          <ScalarProperty Name="LastApprovedDT" ColumnName="LastApprovedDT" />
+          <ScalarProperty Name="ApprovedName" ColumnName="ApprovedName" />
+          <ScalarProperty Name="ApprovedUId" ColumnName="ApprovedUId" />
+          <ScalarProperty Name="EmloyeeName" ColumnName="EmloyeeName" />
+          <ScalarProperty Name="EmloyeeId" ColumnName="EmloyeeId" />
+          <ScalarProperty Name="Coupon" ColumnName="Coupon" />
+          <ScalarProperty Name="DeliverDT" ColumnName="DeliverDT" />
+          <ScalarProperty Name="PlaceDT" ColumnName="PlaceDT" />
+          <ScalarProperty Name="PaIdDT" ColumnName="PaIdDT" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ShippingMethodName" ColumnName="ShippingMethodName" />
+          <ScalarProperty Name="ShippingMethodId" ColumnName="ShippingMethodId" />
+          <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
+          <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShippingAddresses">
+      <EntityTypeMapping TypeName="alluneedbModel.ShippingAddress">
+        <MappingFragment StoreEntitySet="ShippingAddress">
+          <ScalarProperty Name="MapCode" ColumnName="MapCode" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="StreetId" ColumnName="StreetId" />
+          <ScalarProperty Name="WardId" ColumnName="WardId" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MicroClassifications">
+      <EntityTypeMapping TypeName="alluneedbModel.MicroClassification">
+        <MappingFragment StoreEntitySet="MicroClassification">
+          <ScalarProperty Name="MicroName" ColumnName="MicroName" />
+          <ScalarProperty Name="MicroID" ColumnName="MicroID" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="MicroClassifiCD" ColumnName="MicroClassifiCD" />
+          <ScalarProperty Name="MicroClassifiSchemeId" ColumnName="MicroClassifiSchemeId" />
+          <ScalarProperty Name="MicroClassifiMetaDes" ColumnName="MicroClassifiMetaDes" />
+          <ScalarProperty Name="MicroClassifiMetakeyword" ColumnName="MicroClassifiMetakeyword" />
+          <ScalarProperty Name="MicroClassifiDesc" ColumnName="MicroClassifiDesc" />
+          <ScalarProperty Name="MicroClassifiNM" ColumnName="MicroClassifiNM" />
+          <ScalarProperty Name="MicroParentName" ColumnName="MicroParentName" />
+          <ScalarProperty Name="MicroParentClassifiId" ColumnName="MicroParentClassifiId" />
+          <ScalarProperty Name="MicroClassifiId" ColumnName="MicroClassifiId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GeoAreas">
+      <EntityTypeMapping TypeName="alluneedbModel.GeoArea">
+        <MappingFragment StoreEntitySet="GeoArea">
+          <ScalarProperty Name="AreaWardId" ColumnName="AreaWardId" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lng" ColumnName="lng" />
+          <ScalarProperty Name="AreaDes" ColumnName="AreaDes" />
+          <ScalarProperty Name="AreaParentId" ColumnName="AreaParentId" />
+          <ScalarProperty Name="AreaProvineId" ColumnName="AreaProvineId" />
+          <ScalarProperty Name="AreaDistrictId" ColumnName="AreaDistrictId" />
+          <ScalarProperty Name="AreaLocationCode" ColumnName="AreaLocationCode" />
+          <ScalarProperty Name="AreaTypeName" ColumnName="AreaTypeName" />
+          <ScalarProperty Name="AreaTypeId" ColumnName="AreaTypeId" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PromotionContents">
+      <EntityTypeMapping TypeName="alluneedbModel.PromotionContent">
+        <MappingFragment StoreEntitySet="PromotionContent">
+          <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+          <ScalarProperty Name="PromotionPercent" ColumnName="PromotionPercent" />
+          <ScalarProperty Name="SubContentName" ColumnName="SubContentName" />
+          <ScalarProperty Name="SubContentId" ColumnName="SubContentId" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="EndDT" ColumnName="EndDT" />
+          <ScalarProperty Name="StartDT" ColumnName="StartDT" />
+          <ScalarProperty Name="CrtdName" ColumnName="CrtdName" />
+          <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="PromotionTypeName" ColumnName="PromotionTypeName" />
+          <ScalarProperty Name="PromotionType" ColumnName="PromotionType" />
+          <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+          <ScalarProperty Name="ObjType" ColumnName="ObjType" />
+          <ScalarProperty Name="MainCatetName" ColumnName="MainCatetName" />
+          <ScalarProperty Name="MainCateId" ColumnName="MainCateId" />
+          <ScalarProperty Name="MainContentName" ColumnName="MainContentName" />
+          <ScalarProperty Name="MainContentId" ColumnName="MainContentId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NotifiRequests">
+      <EntityTypeMapping TypeName="alluneedbModel.NotifiRequest">
+        <MappingFragment StoreEntitySet="NotifiRequest">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NotifiRequestId" ColumnName="NotifiRequestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CountLikes">
+      <EntityTypeMapping TypeName="alluneedbModel.CountLike">
+        <MappingFragment StoreEntitySet="CountLike">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="DateLike" ColumnName="DateLike" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+          <ScalarProperty Name="IdMicrosite" ColumnName="IdMicrosite" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductInforExts">
+      <EntityTypeMapping TypeName="alluneedbModel.ProductInforExt">
+        <MappingFragment StoreEntitySet="ProductInforExt">
+          <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+          <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hotels">
+      <EntityTypeMapping TypeName="alluneedbModel.Hotel">
+        <MappingFragment StoreEntitySet="Hotel">
+          <ScalarProperty Name="Include" ColumnName="Include" />
+          <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+          <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="lng" ColumnName="lng" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="Hotline2" ColumnName="Hotline2" />
+          <ScalarProperty Name="Hotline1" ColumnName="Hotline1" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="WardName" ColumnName="WardName" />
+          <ScalarProperty Name="Ward" ColumnName="Ward" />
+          <ScalarProperty Name="CitytName" ColumnName="CitytName" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="FullAdress" ColumnName="FullAdress" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+          <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+          <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+          <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+          <ScalarProperty Name="HotelDes" ColumnName="HotelDes" />
+          <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+          <ScalarProperty Name="HotelDetail" ColumnName="HotelDetail" />
+          <ScalarProperty Name="HotelTypeName" ColumnName="HotelTypeName" />
+          <ScalarProperty Name="HotelType" ColumnName="HotelType" />
+          <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+          <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tours">
+      <EntityTypeMapping TypeName="alluneedbModel.Tour">
+        <MappingFragment StoreEntitySet="Tour">
+          <ScalarProperty Name="TourClassName" ColumnName="TourClassName" />
+          <ScalarProperty Name="TourClassId" ColumnName="TourClassId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="ChangeTour" ColumnName="ChangeTour" />
+          <ScalarProperty Name="CancelTour" ColumnName="CancelTour" />
+          <ScalarProperty Name="PartnerAdress" ColumnName="PartnerAdress" />
+          <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+          <ScalarProperty Name="NotIncluding" ColumnName="NotIncluding" />
+          <ScalarProperty Name="Including" ColumnName="Including" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="GuideId" ColumnName="GuideId" />
+          <ScalarProperty Name="GuideName" ColumnName="GuideName" />
+          <ScalarProperty Name="NumPeople" ColumnName="NumPeople" />
+          <ScalarProperty Name="EndId" ColumnName="EndId" />
+          <ScalarProperty Name="EndName" ColumnName="EndName" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="StartId" ColumnName="StartId" />
+          <ScalarProperty Name="StartName" ColumnName="StartName" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+          <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+          <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+          <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+          <ScalarProperty Name="TourDes" ColumnName="TourDes" />
+          <ScalarProperty Name="TourName" ColumnName="TourName" />
+          <ScalarProperty Name="TourDetail" ColumnName="TourDetail" />
+          <ScalarProperty Name="TourTypeName" ColumnName="TourTypeName" />
+          <ScalarProperty Name="TourType" ColumnName="TourType" />
+          <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+          <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="TourCD" ColumnName="TourCD" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="TourId" ColumnName="TourId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ObjectRelates">
+      <EntityTypeMapping TypeName="alluneedbModel.ObjectRelate">
+        <MappingFragment StoreEntitySet="ObjectRelate">
+          <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
+          <ScalarProperty Name="ObjType" ColumnName="ObjType" />
+          <ScalarProperty Name="ClassTypeName" ColumnName="ClassTypeName" />
+          <ScalarProperty Name="ClassType" ColumnName="ClassType" />
+          <ScalarProperty Name="ObjContentName" ColumnName="ObjContentName" />
+          <ScalarProperty Name="ObjContentId" ColumnName="ObjContentId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="alluneedbModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+          <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+          <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+          <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+          <ScalarProperty Name="RoomDes" ColumnName="RoomDes" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+          <ScalarProperty Name="RoomDetail" ColumnName="RoomDetail" />
+          <ScalarProperty Name="RoomTypeName" ColumnName="RoomTypeName" />
+          <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+          <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+          <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+          <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
