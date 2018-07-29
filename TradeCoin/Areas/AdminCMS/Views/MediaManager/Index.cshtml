@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataViewModel;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<AlbumMediaViewModels>
+
+@{
+    ViewBag.Title = "MediaManager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+<!-- Main content -->
+
+<section class="content-header">
+    <h1>Danh Sách Allbum</h1>
+</section>
+<section class="content">
+   
+    <div class="row">
+        <div class='col-sm-3 pull-right'>
+            <a href='@Url.Action("CreateAlbum", "MediaManager", null)' class='btn btn-block btn-success btn-flat '>Tạo mới Album</a>
+        </div>
+        <div class="col-md-12 box">
+            <div class="post">
+                <div class='row margin-bottom'>
+                @foreach (AlbumMediaViewModels _val in Model)
+                { 
+                 <div class='col-md-6'>
+                        <div class='box box-primary'>
+                            <div class='user-block'>
+                                <img class='img-circle img-bordered-sm' src='@_val.ImgCrtdUser' alt='user image'>
+                                <span class='username'>
+                                    <a href="#">@_val.Album.ClassificationNM</a>
+                                </span>
+                                <span class='description'>Có tất cả @_val.NbrPic.ToString() hình ảnh</span>
+                            </div><!-- /.user-block -->
+                            <img class='img-responsive' src='@_val.ImgAvatars' alt='Photo'>
+                            <ul class="list-inline">
+                                <li><a href="@Url.Action("DetailAllbum", "MediaManager", new { id = @_val.Album.ClassificationId })" class="link-black text-sm"><i class="fa fa-search margin-r-5"></i> Chi tiết</a></li>
+                                <li><a href="#" class="link-black text-sm"><i class="fa fa-edit margin-r-5"></i> Chỉnh sửa</a></li>
+                                <li><a href="#" class="link-black text-sm"><i class="fa fa-trash margin-r-5"></i> Xoá</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- /.col -->
+                
+                
+                }
+                   
+                    
+                 
+                </div><!-- /.row -->
+
+            </div>
+            <div class="box-footer clearfix">
+                @if (Model.PageCount > 1)
+                {
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

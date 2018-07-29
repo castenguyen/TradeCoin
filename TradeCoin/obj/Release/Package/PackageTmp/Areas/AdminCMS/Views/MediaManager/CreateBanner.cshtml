@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Create New Banner";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+    string bare_url = AppDomain.CurrentDomain.BaseDirectory;
+    string folderimg = bare_url + "images";
+}
+@using Microsoft.AspNet.Identity
+@using DataModel.DataViewModel;
+@model BannerViewModels
+<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Thêm mới Banner</h2>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("CreateBanner", "MediaManager", FormMethod.Post, new { role = "form", id = "CreateForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body">
+                        <div class="col-md-9">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Filename">Tên Banner</label>
+                                @Html.TextBoxFor(m => m.Filename, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AlternativeText, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.AlternativeText, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Filename">Caption</label>
+                                @Html.TextBoxFor(m => m.Caption, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Filename">Thông tin mở rộng</label>
+                                @Html.TextBoxFor(m => m.EXIFInfo, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Filename">Mô tả Banner</label>
+                            </div>
+                            <div class="form-group col-md-12">
+                                @Html.TextAreaFor(m => m.MediaDesc, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MetadataKeyword, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.MetadataKeyword, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MetadataDesc, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.MetadataDesc, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.LinkHref, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.LinkHref, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary margin">Submit</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.Action("_UploadImagePartial")
+                        </div>
+                    </div><!-- /.box-body -->
+                    @*<div class="box-footer col-md-9">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>*@
+                }
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+
+    </div>   <!-- /.row -->
+</section>
+<script>
+
+    //$(document).ready(function () {
+
+    //    var rules = {
+
+    //        FriendlyURL: "required"
+    //        , CategoryId: "required"
+    //        , ContentTitle: "required"
+    //        , ContentExcerpt: "required"
+    //        , ContentText: "required"
+    //        , MetadataKeyword: "required"
+    //        , MetadataDesc: "required"
+    //        , ImgdefaultId: {
+    //           required: true,
+    //           min: 1,
+    //           number: true
+    //        },
+
+    //    };
+    //    var messages = {
+    //        FriendlyURL: "Please check FriendlyURL "
+    //        , CategoryId: "Please check CategoryId"
+    //        , ContentTitle: "Please check ContentTitle"
+    //        , ContentExcerpt: "Please check ContentExcerpt"
+    //        , ContentText: "Please check ContentText"
+    //        , MetadataKeyword: "Please check MetadataKeyword"
+    //        , MetadataDesc: "Please check MetadataDesc"
+    //        , ImgdefaultId: "Please check ImgdefaultId"
+
+    //    };
+
+    //    ValidationForm({
+    //        ctrID: "CreateForm"
+    //        , rules: rules
+    //        , messages: messages
+    //    })
+
+
+    //});
+
+</script>

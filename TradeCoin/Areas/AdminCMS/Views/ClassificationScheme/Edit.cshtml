@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNet.Identity
+@model DataModel.DataViewModel.ClassificationSchemeViewModels
+@{
+    ViewBag.Title = "Edit ClassificationScheme";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Sửa @Model.ClassificationSchemeNM</h2>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("Edit", "ClassificationScheme", FormMethod.Post, new {id ="editForm", @class = "", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body">
+
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                        <div class="form-group col-md-9">
+                            @Html.LabelFor(m => m.ParentList, new { @class = "col-md-4 control-label" })
+                            @Html.DropDownListFor(c => c.ParentClassificationSchemeId, Model.ParentList as SelectList, "Select...", new { @class = "form-control" })
+                            @*@Html.TextBoxFor(m => m.ParentList, new { @class = "form-control" })*@
+                        </div>
+
+                        <div class="form-group col-md-9">
+                            @Html.LabelFor(m => m.ClassificationSchemeNM, new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.ClassificationSchemeNM, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-9">
+                            @Html.LabelFor(m => m.ClassificationSchemeDesc, new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.ClassificationSchemeDesc, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-9">
+                            @Html.LabelFor(m => m.SchemeCD, new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.SchemeCD, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-9">
+                            @Html.LabelFor(m => m.ShortNM, new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.ShortNM, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-9">
+                            @Html.LabelFor(m => m.IsSystemVM, new { @class = "col-md-4 control-label" })
+                            @Html.CheckBoxFor(m => m.IsSystemVM)
+                        </div>
+
+                        <div class="form-group col-md-9">
+                            @Html.HiddenFor(m=>m.ClassificationSchemeId)
+                            @Html.HiddenFor(m => m.CrtdDT)
+                            @Html.HiddenFor(m => m.CrtdUID)
+                            @Html.HiddenFor(m => m.IsHeirarchy)
+                            @Html.HiddenFor(m => m.LstModDT)
+                            @Html.HiddenFor(m => m.LstModUID)
+
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div><!-- /.box-body -->
+                    @*<div class="box-footer col-md-9">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>*@
+                }
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+        <!-- right column -->
+
+    </div>   <!-- /.row -->
+</section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //alert("haha");
+        var rules = {
+            ClassificationSchemeNM: "required"
+            , ClassificationSchemeDesc: "required"
+            , SchemeCD: "required"
+            , ShortNM: "required"
+            , IsSystemVM: "required"
+        };
+        var messages = {
+            ClassificationSchemeNM: "Please enter ClassificationSchemeNM "
+            , ClassificationSchemeDesc: "Please enter ClassificationSchemeDesc"
+            , SchemeCD: "Please enter SchemeCD"
+            , ShortNM: "Please enter ShortNM"
+            , IsSystemVM: "Please check IsSystemVM"
+        };
+
+        ValidationForm({
+            ctrID: "editForm"
+            , rules: rules
+            , messages: messages
+        })
+    });
+
+
+</script>

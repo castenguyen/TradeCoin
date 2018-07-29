@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Quản Lý Đơn hàng";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+
+@model OrderDetailViewModel
+
+}
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="~/Areas/AdminCMS/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- InputMask -->
+<script src="~/Areas/AdminCMS/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="~/Areas/AdminCMS/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="~/Areas/AdminCMS/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Chi tiết đơn hàng</h2>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+                    @using (Html.BeginForm("OrderDetail", "OrderManager", FormMethod.Post, new { @class = "", role = "form", id = "CreateForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(s => s.MainObjOrder.Id)
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Mã đơn hàng</label>
+                                @Html.TextBoxFor(m => m.MainObjOrder.NameCustomerBuy, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Tên khách hàng</label>
+                                @Html.TextBoxFor(m => m.MainObjOrder.NameCustomerBuy, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Email khách hàng</label>
+                                @Html.TextBoxFor(m => m.MainObjOrder.EmailCustomer, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+
+                          
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Điện thoại</label>
+                                @Html.TextBoxFor(m => m.MainObjOrder.PhoneCustomer, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ngày đặt hàng</label>
+                                @Html.TextBoxFor(m => m.MainObjOrder.PaIdDT, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+
+                            @*<div class="form-group">
+                                <label class="col-md-4 control-label">Ngày giao hàng</label>
+                                @Html.TextBoxFor(m => m.MainObjOrder.PlaceDT, new { @class = "form-control", @data_inputmask="'alias':'dd/mm/yyyy'" })
+                            </div>*@
+
+                            <div class="form-group">
+                                <label>Date masks:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    @*<input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask>*@
+                                    @Html.TextBoxFor(m => m.MainObjOrder.PlaceDT, new { @class = "form-control", @data_inputmask = "'alias': 'mm/dd/yyyy'", data_mask="" })
+                                  
+                                </div><!-- /.input group -->
+                            </div><!-- /.form group -->
+
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Địa chỉ giao hàng</label>
+                                <div class="col-md-4">
+                                    @Model.MainObjOrder.NameProvince - @Model.MainObjOrder.NameDistrict - @Model.MainObjOrder.NameWard
+                                    - @Model.MainObjOrder.AddressCustomer
+                                </div>
+                              
+                            </div>
+
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 10px">Số Lượng</th>
+                                        <th></th>
+                                        <th>Tên</th>
+                                        <th>Đơn giá</th>
+                                        <th style="width: 40px">Thành tiền</th>
+                                    </tr>
+                                    @foreach (OrderProductExt _val in Model.lstProduct)
+                                    {
+                                        <tr>
+                                            <td>@_val.Quantity</td>
+                                            <td><img src="~/@_val.MediaThumb" class="" /></td>
+                                            <td>@_val.ProductName</td>
+                                            <td>@_val.NewPrice</td>
+                                            <td><span class="badge bg-red">@_val.Unitprice</span></td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Ghi Chú</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Trạng thái</label>
+                                @Html.DropDownListFor(c => c.Status, Model.lstStatus as SelectList, "Select...", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary margin">Submit</button>
+                            </div>
+
+
+
+
+                        </div>
+
+                    }
+
+                </div>
+            </div><!-- /.box-body -->
+
+
+        </div><!-- /.box -->
+
+
+    </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>
+<script>
+    $(function () {
+        $("[data-mask]").inputmask();
+        $("#datemask").inputmask("dd/mm/yyyy", { "placeholder": "dd/mm/yyyy" });
+    })
+    //Date range picker
+
+
+
+</script>

@@ -1,0 +1,79 @@
+﻿@model DataModel.DataViewModel.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_MainLayout.cshtml";
+}
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="phodulich.net"><b>CHOBIKER</b></a>
+        </div>
+        <div class="register-box-body">
+            <p class="login-box-msg">Register a new membership</p>
+         @using (Html.BeginForm("Register", "AccountAdmin", FormMethod.Post, new { @class = ""}))
+{
+      @Html.AntiForgeryToken()
+               @Html.ValidationSummary("", new { @class = "text-danger" })
+
+             
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control",placeholder="Email" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+             
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Tên dầy đủ" })
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+
+
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control",placeholder="Password" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control",placeholder="Xác nhận Password" })
+                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox"> Đồng ý điều khoàn sử dụng <a href="#">terms</a>
+                            </label>
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <input type="submit" class="btn btn-primary btn-block btn-flat" value="Đăng Ký" />
+                        @*<button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>*@
+                    </div><!-- /.col -->
+                </div>
+}
+            <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>Đăng Nhập bàng tài khoản Facebook</a>
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Đăng Nhập bàng tài khoản Google+</a>
+            </div>
+            <a href="@Url.Action("Login", "AccountAdmin")" class="text-center">Tôi đã có tài khoản</a>
+        </div><!-- /.form-box -->
+    </div><!-- /.register-box -->
+    <!-- jQuery 2.1.4 -->
+    <script src="~/Areas/AdminCMS/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="~/Areas/AdminCMS/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/Areas/AdminCMS/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+</body>

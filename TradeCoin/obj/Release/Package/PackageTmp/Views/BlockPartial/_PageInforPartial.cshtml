@@ -1,0 +1,20 @@
+﻿@using DataModel.DataViewModel;
+@model IEnumerable<PageInforViewModel>
+<table class="page-info">
+    <tr>
+        <td>
+            <span style="line-height: 20px">
+                @foreach (PageInforViewModel _item in Model)
+                {
+                    if (@_item.PageContent != null)
+                    {
+                        <a href="@Url.Action("PageInfor", "Home", new { FriendlyUrl = _item.PageTitle.FriendlyURL })">
+                            <li>@_item.PageContent.ContentTitle</li>
+                        </a>
+                    }
+
+                }
+            </span>
+        </td>
+    </tr>
+</table>

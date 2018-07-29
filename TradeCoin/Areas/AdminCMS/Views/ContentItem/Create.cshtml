@@ -1,0 +1,189 @@
+﻿@using Microsoft.AspNet.Identity
+@model DataModel.DataViewModel.ContentItemViewModels
+@{
+    ViewBag.Title = "Create New ContentItem";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+    string bare_url = AppDomain.CurrentDomain.BaseDirectory;
+    string folderimg = bare_url + "images";
+}
+
+<script src="~/Areas/AdminCMS/plugins/ckeditor/ckeditor.js"></script>
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Thêm mới bài viếtm</h2>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("Create", "ContentItem", FormMethod.Post, new { role = "form", id = "CreateForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body">
+                        <div class="col-md-9">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ContentTitle, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.ContentTitle, new { @class = "form-control", onchange = "return InputTitle(this.value,event)" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FriendlyURL, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.FriendlyURL, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ContentExcerpt, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.ContentExcerpt, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ContentText, new { @class = "col-md-9 control-label" })
+                            </div>
+                            <div class="form-group col-md-12">
+                                @Html.TextAreaFor(m => m.ContentText, new { @class = "" })
+                            </div>
+                            @*@Html.Action("_RelatedContent")*@
+                            @*@Html.Partial("_RelatedContent")*@
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MetadataKeyword, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.MetadataKeyword, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MetadataDesc, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.MetadataDesc, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.IsCommentEnabledVM, new { @class = "col-md-4 control-label" })
+                                @Html.CheckBoxFor(m => m.IsCommentEnabledVM)
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary margin">Submit</button>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                    
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CatalogryList, new {@class = "control-label"})
+                                @Html.DropDownListFor(c => c.CategoryId, Model.CatalogryList as SelectList, "Select...", new {@class = "form-control"})
+
+                            </div>
+                            @Html.Action("_UploadImagePartial")
+                            @*@Html.Action("_RelatedTag")*@
+                            @*@Html.Partial("_RelatedTag")*@
+                        </div>
+                    </div><!-- /.box-body -->
+                    @*<div class="box-footer col-md-9">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>*@
+                }
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+
+    </div>   <!-- /.row -->
+</section>
+<script>
+
+    $(document).ready(function () {
+
+
+        CKEDITOR.replace("ContentText", {
+            filebrowserBrowseUrl: '@folderimg.ToString()',
+            filebrowserUploadUrl: '@Url.Action("CK_ImgUpload", "Extension")',
+            toolbar: 'full',
+            toolbarCanCollapse: true,
+            uiColor: '#8AB8F3',
+            height: "400",
+            width: "100%"
+            //  baseHref: "@bare_url.ToString()"
+        });
+
+
+
+        var rules = {
+
+            FriendlyURL: "required"
+            , CategoryId: "required"
+            , ContentTitle: "required"
+            , ContentExcerpt: "required"
+            , ContentText: "required"
+            , MetadataKeyword: "required"
+            , MetadataDesc: "required"
+            //, ImgdefaultId: {
+            //   required: true,
+            //   min: 1,
+            //   number: true
+            //},
+
+        };
+        var messages = {
+            FriendlyURL: "Please check FriendlyURL "
+            , CategoryId: "Please check CategoryId"
+            , ContentTitle: "Please check ContentTitle"
+            , ContentExcerpt: "Please check ContentExcerpt"
+            , ContentText: "Please check ContentText"
+            , MetadataKeyword: "Please check MetadataKeyword"
+            , MetadataDesc: "Please check MetadataDesc"
+            //, ImgdefaultId: "Please check ImgdefaultId"
+
+        };
+
+        ValidationForm({
+            ctrID: "CreateForm"
+            , rules: rules
+            , messages: messages
+        })
+
+
+    });
+
+    function InputTitle(value, event) {
+        if (value > 100)
+        { return false; }
+        var friendlyurl = ToFriendlyUrl(value);
+        $.ajax({
+            url: "@Url.Action("GetFriendlyurlFromTitle", "Extension", null)",
+            type: "POST",
+            data: {
+                friendlyurl: friendlyurl,
+                objtype: 1002
+            },
+            dataType: "JSON",
+            success: function (data) {
+                JSON.stringify(data);
+                $("#FriendlyURL").val(data);
+            }
+        });
+    }
+
+    $(document).on('change', '#cb_Indexed', function () {
+        if (this.checked) {
+            // checkbox is checked
+            $("input[name='Indexed']").val(1);
+        } else {
+            $("input[name='Indexed']").val(0);
+        }
+    });
+
+
+    $("#TestAPI").click(function () {
+        $.ajax({
+            url: "/api/PDLService/CostOrderCheck",
+            type: "GET",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+</script>

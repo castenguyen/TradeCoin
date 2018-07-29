@@ -1,0 +1,62 @@
+﻿@using DataModel.DataViewModel
+@using DataModel.DataEntity
+
+@model RightSliderBarViewModel
+
+
+<div class="col-sm-3 aside-main">
+    <div class="widget">
+        <h3 class="widget-title">Sản phẩm xem nhiều</h3>
+        <div class="widget-body">
+            <div class="beta-sales beta-lists">
+                @foreach (ProductItemViewModel _item in Model.LstProductViewMore)
+                {
+                    string prefixlink = _item.Obicate.FriendlyURL;
+                    if (_item.Obicate.ObjPrent != null)
+                    {
+                        prefixlink = _item.Obicate.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+
+                  <div class="media beta-sales-item">
+                      <a class="pull-left" href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"><img src="~/@_item.ObiProduct.MediaThumb" alt="@_item.ObiProduct.ProductName"></a>
+                    <div class="media-body">
+                        <a href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"> @_item.ObiProduct.ProductName</a><br>
+                        <span class="beta-sales-price">@_item.ObiProduct.NewPrice vnđ/kg</span>
+                    </div>
+                </div>
+
+                }
+
+            </div>
+        </div>
+    </div> <!-- best sellers widget -->
+
+    <div class="widget">
+        <h3 class="widget-title">Sản phẩm mới</h3>
+        <div class="widget-body">
+            <div class="beta-sales beta-lists">
+                @foreach (ProductItemViewModel _item in Model.LstProductNews)
+                {
+                    string prefixlink = _item.Obicate.FriendlyURL;
+                    if (_item.Obicate.ObjPrent != null)
+                    {
+                        prefixlink = _item.Obicate.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    <div class="media beta-sales-item">
+                        <a class="pull-left" href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"><img src="~/@_item.ObiProduct.MediaThumb" alt="@_item.ObiProduct.ProductName"></a>
+                        <div class="media-body">
+                            <a href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"> @_item.ObiProduct.ProductName</a><br>
+                            <span class="beta-sales-price">@_item.ObiProduct.NewPrice vnđ/kg</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div> <!-- best sellers widget -->
+
+
+
+
+
+
+</div> <!-- .aside -->

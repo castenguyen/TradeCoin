@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Product List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model ListProductViewModel
+
+@{
+    Classification Objcata = Model.CataObj;
+    string prefixlink = Objcata.FriendlyURL;
+    if (Objcata.ObjPrent != null)
+    { prefixlink = Objcata.ObjPrent.FriendlyURL + "/" + prefixlink; }
+}
+
+<div class="breadcrumbs-v4">
+    <div class="container">
+
+        <ul class="breadcrumb-v4-in">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">@Model.CataObj.ClassificationNM</a></li>
+
+        </ul>
+    </div><!--/end container-->
+</div>
+<!--=== End Breadcrumbs v4 ===-->
+<!--=== Content Part ===-->
+<div class="content container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="filter-results">
+                <div class="row illustration-v2 margin-bottom-30">
+
+                    @foreach (Product _val in Model.lstProduct)
+                    {
+
+                        <div class="col-md-3">
+                            <div class="product-img">
+                                <a href="@prefixlink/@_val.FriendlyURL" class="product-img-brd">
+                                    <img class="full-width img-responsive" src="~/@_val.MediaUrl" alt="@_val.ProductName" style="width: 240.5px;height: 240.5px">
+                                </a>
+
+                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Đặt hàng</a>
+                                <div class="shop-rgba-dark-green rgba-banner">New</div>
+                            </div>
+                            <div class="product-description product-description-brd margin-bottom-30">
+                                <div class="overflow-h margin-bottom-5">
+                                    <div class="pull-left">
+                                        <h4 class="title-price"><a href="~/@prefixlink/@_val.FriendlyURL">@_val.ProductName</a></h4>
+                                        <span class="gender text-uppercase">@Model.CataObj.ClassificationNM</span>
+                                        <span class="gender">Xuất Xứ - Cansy's Garden</span>
+                                        @if (_val.NewPrice.HasValue)
+                                        {
+                                            <span class="title-price">@_val.NewPrice.Value.ToString("N0") đ/ @_val.UnitsName</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="title-price">Liên hệ</span>
+                                        }
+
+                                    </div>
+                                </div>
+                                <ul class="list-inline product-ratings">
+                                    <li><i class="rating-selected fa fa-star"></i></li>
+                                    <li><i class="rating-selected fa fa-star"></i></li>
+                                    <li><i class="rating-selected fa fa-star"></i></li>
+                                    <li><i class="rating fa fa-star"></i></li>
+                                    <li><i class="rating fa fa-star"></i></li>
+                                    <li class="like-icon">
+                                        <a data-original-title="Add to wishlist"
+                                           data-toggle="tooltip" data-placement="left" class="tooltips"
+                                           href="#"><i class="fa fa-heart"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+            </div><!--/end filter resilts-->
+
+
+        </div>
+    </div><!--/end row-->
+</div><!--/end container-->
+<!--=== End Content Part ===-->

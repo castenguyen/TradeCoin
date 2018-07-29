@@ -1,0 +1,166 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model ProductAdminViewModel
+
+@{
+    ViewBag.Title = "ProductManager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        var state_val = $("input[name=StateId]").val();
+        var cata_val = $("input[name=CatalogryId]").val();
+
+        console.log(state_val);
+        console.log(cata_val);
+
+        var statename = $(".main_state_lst_" + state_val).html();
+        var catename = $(".main_cata_lst_" + cata_val).html();
+
+        console.log(statename);
+        console.log(catename);
+
+        $(".main_state_name").html(statename);
+        $(".main_cata_name").html(catename);
+
+    });
+
+
+</script>
+<input type="hidden" value="@Model.ProductState" name="StateId" />
+<input type="hidden" value="@Model.ProductCatalogry" name="CatalogryId" />
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Sản Phẩm</h3>
+                    <div class="box-tools">
+                        <a href="@Url.Action("Create", "ProductManager", null)" class="btn btn-primary">Thêm mới sản phẩm</a>
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <div id="example1_filter" class="dataTables_filter">
+                        @using (Html.BeginForm("Index", "ProductManager", FormMethod.Post, new { id = "filterForm", role = "form" }))
+                        {
+                            <label>Tên sản phẩm:@Html.TextBoxFor(s => s.FillterProductName, new { @class = "form-control input-sm", placeholder = "" })</label>
+                            <label>Mã sản phẩm:@Html.TextBoxFor(s => s.FillterProductCD, new { @class = "form-control input-sm", placeholder = "" })</label>
+                            <label>Mã SKU :@Html.TextBoxFor(s => s.FillterSKU, new { @class = "form-control input-sm", placeholder = "" })</label>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.ProductState, Model.lstProductState as SelectList, "Trạng thái...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.ProductCatalogry, Model.lstProductCatalogry as SelectList, "Danh mục...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary margin">Tìm</button>
+                            </div>
+                        }
+
+                    </div>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+
+                                <th>Name</th>
+                                <th>Ngày tạo</th>
+                                <th>Người tạo</th>
+                                <th>Mã SP</th>
+                                <th>Mã SKU</th>
+                                <th>Thuộc</th>
+                                <th>Trạng thái</th>
+                                <th width="15%">Action</th>
+                            </tr>
+                            @{
+                                foreach (var _val in Model.lstMainProduct)
+                                {
+                                    <tr>
+
+                                        <td><a href="@Url.Action("Edit", "ProductManager", new { id = _val.ProductId })">@_val.ProductName</a></td>
+                                        <td>@_val.CrtdDT</td>
+                                        <td>@_val.CrtdUserName</td>
+                                        <td>@_val.ProductCD</td>
+                                        <td>@_val.SKUCode</td>
+                                        <td>@_val.CategoryName</td>
+                                        <td>@_val.StateName</td>
+                                        <td>
+                                            @if (_val.StateId == (int)EnumCore.StateType.cho_duyet)
+                                            {
+                                                <a href="@Url.Action("ChangeState", "ProductManager", new { id = _val.ProductId, state = (int)EnumCore.StateType.khong_cho_phep })">Disable</a>
+                                                <span>|</span>
+                                                <a href="@Url.Action("ChangeState", "ProductManager", new { id = _val.ProductId, state = (int)EnumCore.StateType.cho_phep })">Enable</a>
+                                            }
+                                            @if (_val.StateId == (int)EnumCore.StateType.cho_phep)
+                                            {
+                                                <a href="@Url.Action("ChangeState", "ProductManager", new { id = _val.ProductId, state = (int)EnumCore.StateType.khong_cho_phep })">Disable</a>
+                                            }
+                                            @if (_val.StateId == (int)EnumCore.StateType.khong_cho_phep)
+                                            {
+                                                <a href="@Url.Action("ChangeState", "ProductManager", new { id = _val.ProductId, state = (int)EnumCore.StateType.cho_phep })">Enable</a>
+                                            }
+                                            @*| <a href="@Url.Action("AddMoreImage", "ProductManager", new { id = _val.ProductId })" >Thêm hình</a>*@
+                                            @*| <a href="@Url.Action("Create", "Promotion", new { pro_id = _val.ProductId })">Khuyến Mãi</a>*@
+                                            | <a href="@Url.Action("Edit", "ProductManager", new { id = _val.ProductId })">Sửa</a>
+                                            | <a href="@Url.Action("Delete", "ProductManager", new { id = _val.ProductId })" onclick="return confirm('Bạn chắc chắn muốn xoá ?');">Xoá</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainProduct.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainProduct, page => Url.Action("Index", new
+                   {
+                       page,
+                       ProductState = Model.ProductState,
+                       ProductCatalogry = Model.ProductCatalogry,
+                       FillterSKU = Model.FillterSKU,
+                       FillterProductCD = Model.FillterProductCD,
+                       FixFlag = Model.FixFlag
+                   }))
+                    }
+                </div>
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>
+<script>
+
+    $(document).ready(function () {
+        $("#ParentCatelogry").change(function () {
+            var ids = $(this).val();
+            $.ajax({
+                data: null,
+                url: '@Url.Action("GetLstcatelogryProductByparent", "ProductManager")' + '?id=' + ids,
+                success: function (data) {
+
+                    $("#ProductCatalogry option").each(function () {
+                        $(this).remove();
+                    });
+                    $("#ProductCatalogry").append('<option value="" selected>--Vui lòng chọn--</option>');
+
+                    $(data).each(function (index, data) { // GETTING ERROR HERE
+                        $("#ProductCatalogry").append('<option value="' + data.value + '">' +
+                            data.text + '</option>');
+                    });
+                }
+            });
+        });
+    });
+
+</script>

@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Classification";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+    string dis = "Disable";
+    string En = "Enable";
+}
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using PagedList;
+@using PagedList.Mvc;
+@model ClassifiIndexViewModels
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Classification thuộc @ViewBag.SchemeNM</h3>
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">ClassificationScheme</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">All</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                        <a href="@Url.Action("Create", "Classification", new {SchemeId=Model.SchemeId,classId=Model.classId})" class="btn btn-primary">ADD NEW</a>
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th style="width:20%">Name</th>
+                                <th>Người tạo</th>
+                                <th>Mô tả</th>
+                                <th>Thuộc ClassificationSheme</th>
+                                <th>Trạng Thái</th>
+                                <th>Thứ tự hiển thị</th>
+                                <th>Edit</th>
+                                <th>Sắp Xếp</th>
+                                <th>Xoá</th>
+                            </tr>
+                            @{
+                                foreach (Classification _val in Model.MainLst)
+                                {
+                                    <tr>
+                                        <td>@_val.ClassificationId</td>
+                                        <td><a href="@Url.Action("Index", "Classification", new { area = "AdminCMS", SchemeId = _val.ClassificationSchemeId,classId = _val.ClassificationId })">@_val.ClassificationNM</a></td>
+                                        <td>@_val.CrtdUserName</td>
+                                        <td>@_val.ClassificationMetaDes</td>
+                                        <td>@_val.ObjClassificationScheme.ClassificationSchemeNM</td>
+                                        <td>
+                                            @if (_val.IsEnabled == 1)
+                                            { <span>Enable</span>}
+                                            else
+                                            {
+                                                <span>Disable</span>
+                                            }
+                                    </td>
+                                    <td>@_val.DisplayOrder</td>
+                                    <td>@Html.ActionLink("Edit", "Edit", "Classification", new { Classid = _val.ClassificationId }, null)</td>
+                                    <td>
+                                        <a href="@Url.Action("OrderbyDe", "Classification", new { area = "AdminCMS",
+                                                    IdChange = _val.ClassificationId, _ParentClass = _val.ParentClassificationId, _SchemeId = _val.ClassificationSchemeId })"><i class="fa fa-arrow-up"></i></a>
+                                    <td>
+                                        <a href="@Url.Action("Delete", "Classification", new
+                                                {
+                                                    area = "AdminCMS",
+                                                    IdChange = _val.ClassificationId,
+                                                    _ParentClass = _val.ParentClassificationId,
+                                                    _SchemeId = _val.ClassificationSchemeId
+                                                })">Delete</a>
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.MainLst.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.MainLst, page => Url.Action("Index", new { page, SchemeId = Model.SchemeId, classId = Model.classId }))
+                    }
+                </div>
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>

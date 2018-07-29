@@ -1,0 +1,144 @@
+﻿@using DataModel.DataEntity
+@using DataModel.DataViewModel
+@using DataModel.DataStore
+
+@model DetailProductViewModel
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Classification Objcata = Model.CataObj;
+    string prefixlink = Objcata.FriendlyURL;
+    int flagnum = 1;
+    if (Objcata.ObjPrent != null)
+    { prefixlink = Objcata.ObjPrent.FriendlyURL + "/" + prefixlink; }
+
+
+}
+
+<div class="container">
+    <div id="content">
+        <div class="row">
+            <div class="col-sm-9 main-content pull-right">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row" id="ItemFull">
+                            <img src="~/@Model.lstImage.First().FullURL" alt="">
+                        </div>
+                        <div class="row">
+                            @foreach (MediaContent _item in Model.lstImage)
+                            {
+                                <div class="col-sm-2">
+                                    <img src="~/@_item.FullURL" alt="" class="ItemThumb" onclick="javascript:ChangeUrlImage('@_item.FullURL')">
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                    <script>
+                        function ChangeUrlImage(url) {
+                           $("#ItemFull > img").attr("src", "");
+                           $("#ItemFull > img").attr("src", "/"+url);
+                        }
+                    </script>
+                    <div class="col-sm-4">
+                        <h5>@Model.MainProduct.ProductName</h5>
+                        <table class="table portfolio-table">
+                            <tr>
+                                <th>Giá :</th>
+                                <td>@Model.MainProduct.NewPrice</td>
+                            </tr>
+                           
+                        </table>
+                        <a href="#" class="beta-btn primary">Mua hàng<i class="fa fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h5>Thông tin chi tiết</h5>
+                        <p>
+                          @Html.Raw(Model.MainProduct.ProductDetail)
+                        </p>
+                        <div class="space20">&nbsp;</div>
+                    </div>
+                </div>
+
+
+                @*<div class="row">
+                    <hr class="mt40">
+                    <div class="space20">&nbsp;</div>
+                    <h2>There Are 4 Comments</h2>
+                    <div class="space10">&nbsp;</div>
+                    <div class="comment depth-1 media">
+                        <img src="~/Content/assets/dest/images/comments/1.jpg" alt="" class="avatar pull-left">
+                        <div class="media-body">
+                            <p class="font-large">Posted by <a href="#">Andy</a> on September 23, 2013, 11:59 am   | <a href="#">Reply</a></p>
+                            <p class="font-large">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut </p>
+                        </div>
+                    </div>
+                    <div class="comment depth-2 media">
+                        <img src="~/Content/assets/dest/images/comments/2.jpg" alt="" class="avatar pull-left">
+                        <div class="media-body">
+                            <p class="font-large">Posted by <a href="#">Monica</a> on September 23, 2013, 11:59 am   | <a href="#">Reply</a></p>
+                            <p class="font-large">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut </p>
+                        </div>
+                    </div>
+                    <div class="space20">&nbsp;</div>
+                    <hr class="mb40">
+
+                    <h2>Nhận xét</h2>
+                    <div class="space20">&nbsp;</div>
+                    <form action="#" method="post" class="contact-form">
+                        <div class="form-block">
+                            <input name="your-name" type="text" placeholder="Name*:">
+                        </div>
+                        <div class="form-block">
+                            <input name="your-email" type="email" placeholder="Email (will not be published)*:">
+                        </div>
+                        <div class="form-block">
+                            <input name="your-subject" type="url" placeholder="Website:">
+                        </div>
+                        <div class="form-block">
+                            <textarea name="your-message" placeholder="Comment"></textarea>
+                        </div>
+                        <div class="form-block">
+                            <button type="submit" class="beta-btn primary">Submit Comment <i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </form>
+
+                </div>*@<!--Comment-->
+
+
+
+                <div class="row">
+                    <div class="space50">&nbsp;</div>
+                    <div class="beta-products-list">
+                        <h4>Sản phẩm cùng loại</h4>
+                        <div class="row">
+                            @foreach(Product _item in Model.lstSameProduct)
+                            {
+                               <div class="col-sm-4 ">
+                                <div class="single-item">
+                                    <div class="single-item-header">
+                                        <a href="~/@prefixlink/@_item.FriendlyURL"><img src="~/@_item.MediaThumb" alt=""></a>
+                                    </div>
+                                    <div class="single-item-body">
+                                        <p class="single-item-title">@_item.ProductName</p>
+                                        <p class="single-item-price">
+                                            <span>@_item.NewPrice</span>
+                                        </p>
+                                    </div>
+                                    <div class="single-item-caption">
+                                        <a class="beta-btn primary" href="~/@prefixlink/@_item.FriendlyURL">Chi tiết <i class="fa fa-chevron-right"></i></a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div> <!-- .beta-products-list -->
+                </div><!--sap cùng loai-->
+            </div> <!-- .main-content -->
+            @Html.Action("RightSlidePartial2", "Home")
+        </div>
+    </div> <!-- #content -->
+</div> <!-- .container -->

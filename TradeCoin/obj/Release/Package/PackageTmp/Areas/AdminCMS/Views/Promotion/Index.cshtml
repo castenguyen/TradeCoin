@@ -1,0 +1,128 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@model PromotionIndexAdminViewModel
+@{
+    ViewBag.Title = "Promotion Manager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="~/Areas/AdminCMS/plugins/timepicker/bootstrap-timepicker.min.css">
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Nội Dung khuyến mãi</h3>
+                    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+
+                </div><!-- /.box-header -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách nội dung khuyến mại</h3>
+
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Lọc theo danh mục sản phẩm</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">All</a></li>
+                                <li class="divider"></li>
+                                @foreach (SelectListObj _val in Model.lstCatelo)
+                                {
+                                    <li>
+                                        <a class="main_state_lst_@_val.value" href="@Url.Action("Index", "Promotion",
+                                        new { CatelogryId = _val.value, PromotionType = Model.PromotionTypeId, page = Model.pageNum })">@_val.text</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Lọc theo tên khuyến mãi</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">All</a></li>
+                                <li class="divider"></li>
+                                @foreach (SelectListObj _val in Model.lstPromotionType)
+                                {
+                                    <li>
+                                        <a class="main_state_lst_@_val.value" href="@Url.Action("Index", "Promotion",
+                                        new { PromotionType = _val.value, CatelogryId = Model.CatelogryId, page = Model.pageNum })">@_val.text</a>
+                                      </li>
+                                }
+
+                            </ul>
+                        </div>
+                   
+                    </div>
+
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Tên khuyến mãi</th>
+                                <th>Thời gian khuyến mãi</th>
+                                <th>Sắp xếp</th>
+                                <th>Xoá</th>
+                            </tr>
+                            @foreach (PromotionContent item in Model.MainLstContent)
+                            {
+                                <tr>
+                                    <td>@item.MainContentName</td>
+                                    <td> <span class="label label-success">@item.PromotionTypeName</span></td>
+                                    <td>@item.StartDT - @item.EndDT</td>
+                                    <td>
+                                        <a href="@Url.Action("")"><i class="fa fa-arrow-up"></i> </a> <a href="@Url.Action("")"><i class="fa fa-arrow-down"></i></a>
+                                    </td>
+                                    <td><a href="@Url.Action("Delete", "Promotion", new { PromotionId = item.Id, ProductId = item.MainContentId})" class="btn btn-block btn-danger btn-xs">Remove</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.MainLstContent.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.MainLstContent, page => Url.Action("Index", new { page, CatelogryId = Model.CatelogryId, PromotionType = Model.PromotionTypeId }))
+                    }
+                </div>
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+
+
+
+    </div>   <!-- /.row -->
+</section>
+<script>
+    $(function () {
+
+        $('#reservation').daterangepicker();
+        $('#reservation2').daterangepicker();
+        $('#reservation3').daterangepicker();
+
+
+    })
+    //Date range picker
+
+
+
+</script>
+
+
+
+

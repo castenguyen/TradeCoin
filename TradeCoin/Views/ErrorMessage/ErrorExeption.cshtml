@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Page404";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thông báo</title>
+    <link href="~/Content/style_404.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <!--start-wrap--->
+    <div class="wrap">
+        <!---start-header---->
+        <div class="header">
+            <div class="logo">
+                <h1><a href="#">Ohh</a></h1>
+            </div>
+        </div>
+        <!---End-header---->
+        <!--start-content------>
+        <div class="content">
+            <img src="~/Content/Images/error-img.png" title="error" />
+            <p><span><label>O</label>hh.....</span>Nội dung yêu cầu không khả dụng</p>
+            <a href="@Url.Action("Index","Home")">Về trang chủ</a>
+            <div class="copy-right">
+                <p>&#169 Công ty Allunee 2016 | Build by <a href="@Url.Action("Index","Home")">Allunne Corp</a></p>
+            </div>
+        </div>
+        <!--End-Cotent------>
+    </div>
+    <!--End-wrap--->
+</body>
+</html>
+

@@ -1,0 +1,161 @@
+﻿@using Microsoft.AspNet.Identity
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="~/Areas/AdminCMS/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+@if (Request.IsAuthenticated)
+{ 
+       <div class="pull-left info">
+                <p>@User.Identity.GetUserName()</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+
+}
+         
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+                <a href="@Url.Action("Index", "Dashboard", new { area= "AdminCMS" })">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="@Url.Action("Index", "ClassificationScheme", new { area= "AdminCMS" })">
+                    <i class="fa fa-files-o"></i>
+                    <span>Quản Lý Danh Mục</span>
+                </a>
+            </li>
+         
+            <li>
+                <a href="@Url.Action("Index", "CommentManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-comments"></i> <span>Quản lý Comment</span>
+                </a>
+            </li>
+
+
+            <li class="treeview">
+                <a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Quản lý Tin Tức</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Bài Viết</a></li>
+                    <li><a href="@Url.Action("Create", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Bài Viết</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Quản lý Trang Thông Tin</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("PageInforIndex", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Bài Viết</a></li>
+                    <li><a href="@Url.Action("CreatePageInfor", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Bài Viết</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="@Url.Action("Index", "ProductManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Quản lý Sản Phẩm</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "ProductManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất Cả Sản Phẩm</a></li>
+                    <li><a href="@Url.Action("Create", "ProductManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Sản Phẩm</a></li>
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-user"></i>
+                    <span>Quản lý Media</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Hình Ảnh</a></li>
+                    <li><a href="@Url.Action("BannerManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Banner</a></li>
+                    <li><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Video</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="@Url.Action("Create", "DisplayManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-comments"></i> <span>Quản lý Nội Dung Hiển Thị</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="@Url.Action("Index", "ContentTag", new { area = "AdminCMS" })">
+                    <i class="fa fa-tags"></i> <span>Quản lý Tag</span>
+                </a>
+            </li>
+            
+            <li class="treeview">
+                <a href="@Url.Action("Manage", "AccountAdmin", new { area = "AdminCMS" })">
+                    <i class="fa fa-user"></i>
+                    <span>Quản lý Tài Khoản</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Manage", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Đổi Password</a></li>
+                    <li><a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Profile</a></li>
+                    <li><a href="@Url.Action("ManagerUser", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Quản lý User</a></li>
+                </ul>
+            </li>
+
+
+            <li>
+                <a href="@Url.Action("Index", "Config", new { area = "AdminCMS" })">
+                    <i class="fa fa-lock"></i> <span>Cấu Hình</span>
+                </a>
+            </li>
+
+            <li class="treeview">
+                <a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Quản lý lịch sử</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả lịch sử lỗi</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="@Url.Action("Index", "ShopCartManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Quản lý Đơn hàng</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "ShopCartManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Đơn hàng</a></li>
+                </ul>
+            </li>
+
+
+            <li>
+                <a href="@Url.Action("Index", "Promotion", new { area = "AdminCMS" })">
+                    <i class="fa fa-lock"></i> <span>Khuyến mãi</span>
+                </a>
+            </li>
+
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

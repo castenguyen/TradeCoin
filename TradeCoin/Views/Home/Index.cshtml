@@ -1,0 +1,792 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model IndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+@*@foreach (HomeListProductViewModel _item in Model.HomeProduct)
+                {
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+
+
+                    foreach (Product val in _item.lstProduct)
+                    {
+                        <div class="col-sm-4">
+                            <div class="blog-item main-product">
+                                <div class="bets-img-hover">
+                                    <a href="~/@prefixlink/@val.FriendlyURL"><img src="~/@val.MediaThumb" alt="@val.ProductName" width="100%"></a>
+                                </div>
+                                <div class="blog-item-body">
+                                    <div class="space25">&nbsp;</div>
+                                    <h5 class="blog-item-title other-title"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h5>
+                                    <div class="space5">&nbsp;</div>
+                                    <p class="blog-item-excerpt">
+                                        @val.NewPrice vnđ/kg
+                                    </p>
+                                    <a href="~/@prefixlink/@val.FriendlyURL">Chi tiết<i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+    @Html.Action("RightSlidePartial2", "Home")
+
+
+
+            @foreach (ContentItem _item in Model.lstNews)
+            {
+
+                <div class="col-sm-4 ">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })"><img src="@_item.MediaUrl" alt="@_item.ContentTitle"></a>
+
+                        </div>
+                        <div class="beta-timer">
+
+                            <span>@_item.CrtdDT</span>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space30">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">
+                                <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
+                                    @_item.ContentTitle
+                                </a>
+                            </h5>
+                            <div class="space10">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                @_item.ContentExcerpt
+                            </p>
+                            <div class="space20">&nbsp;</div>
+                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })" class="read-more beta-btn primary">Chi tiết<i class="fa fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            }*@
+
+<!--=== Slider ===-->
+<div class="tp-banner-container">
+    <div class="tp-banner">
+        <ul>
+            <!-- SLIDE -->
+            <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 1">
+                <!-- MAIN IMAGE -->
+                <img src="~/Content/assets/img/1.jpg" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+
+                <div class="tp-caption revolution-ch1 sft start"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="100"
+                     data-speed="1500"
+                     data-start="500"
+                     data-easing="Back.easeInOut"
+                     data-endeasing="Power1.easeIn"
+                     data-endspeed="300">
+                    PHONG LAN GIÁ SỈ<br>
+                    <strong>Chuyên cung cấp hoa phong lan giá sỉ</strong>
+
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption sft"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="380"
+                     data-speed="1600"
+                     data-start="1800"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Chi tiết</a>
+                </div>
+            </li>
+            <!-- END SLIDE -->
+            <!-- SLIDE -->
+            <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
+                <!-- MAIN IMAGE -->
+                <img src="~/Content/assets/img/5.jpg" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+
+                <div class="tp-caption revolution-ch3 sft start"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="140"
+                     data-speed="1500"
+                     data-start="500"
+                     data-easing="Back.easeInOut"
+                     data-endeasing="Power1.easeIn"
+                     data-endspeed="300">
+                    CÂY GIỐNG GIÁ SỈ CHO NHÀ VƯỜN
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption revolution-ch4 sft"
+                     data-x="center"
+                     data-hoffset="-14"
+                     data-y="210"
+                     data-speed="1400"
+                     data-start="2000"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    TƯ VẤN KỶ THUẬT TRỒNG VÀ CHĂM SÓC PHONG LAN
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption sft"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="300"
+                     data-speed="1600"
+                     data-start="1800"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Chi tiết</a>
+                </div>
+            </li>
+            <!-- END SLIDE -->
+            <!-- SLIDE -->
+            <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 3">
+                <!-- MAIN IMAGE -->
+                <img src="~/Content/assets/img/3.jpg" alt="darkblurbg" data-bgfit="cover" data-bgposition="right top" data-bgrepeat="no-repeat">
+
+                <div class="tp-caption revolution-ch3 sft start"
+                     data-x="right"
+                     data-hoffset="5"
+                     data-y="130"
+                     data-speed="1500"
+                     data-start="500"
+                     data-easing="Back.easeInOut"
+                     data-endeasing="Power1.easeIn"
+                     data-endspeed="300">
+                    <strong>PHONG LAN GIÁ SỈ</strong>
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption revolution-ch4 sft"
+                     data-x="right"
+                     data-hoffset="0"
+                     data-y="210"
+                     data-speed="1400"
+                     data-start="2000"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    CUNG CẤP VẬT TƯ TRỒNG LAN
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption sft"
+                     data-x="right"
+                     data-hoffset="0"
+                     data-y="300"
+                     data-speed="1600"
+                     data-start="2800"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Chi tiết</a>
+                </div>
+            </li>
+            <!-- END SLIDE -->
+            <!-- SLIDE -->
+            <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 4">
+                <!-- MAIN IMAGE -->
+                <img src="~/Content/assets/img/2.jpg" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+
+                <div class="tp-caption revolution-ch1 sft start"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="100"
+                     data-speed="1500"
+                     data-start="500"
+                     data-easing="Back.easeInOut"
+                     data-endeasing="Power1.easeIn"
+                     data-endspeed="300">
+                    PHONG LAN GIÁ SỈ
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption revolution-ch2 sft"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="280"
+                     data-speed="1400"
+                     data-start="2000"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    CUNG CẤP HÀNG NUÔI CẤY CHAI MÔ THÁI
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption sft"
+                     data-x="center"
+                     data-hoffset="0"
+                     data-y="370"
+                     data-speed="1600"
+                     data-start="2800"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+
+                    <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Chi tiết</a>
+                </div>
+            </li>
+            <!-- END SLIDE -->
+            <!-- SLIDE -->
+            <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 5">
+                <!-- MAIN IMAGE -->
+                <img src="~/Content/assets/img/4.jpg" alt="darkblurbg" data-bgfit="cover" data-bgposition="right top" data-bgrepeat="no-repeat">
+
+                <div class="tp-caption revolution-ch5 sft start"
+                     data-x="right"
+                     data-hoffset="5"
+                     data-y="130"
+                     data-speed="1500"
+                     data-start="500"
+                     data-easing="Back.easeInOut"
+                     data-endeasing="Power1.easeIn"
+                     data-endspeed="300">
+                    <strong>PHONG LAN GIÁ SỈ</strong>
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption revolution-ch4 sft"
+                     data-x="right"
+                     data-hoffset="-14"
+                     data-y="210"
+                     data-speed="1400"
+                     data-start="2000"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    HỖ TRỢ VẬN CHUYỂN HÀNG TOÀN QUỐC
+                </div>
+
+                <!-- LAYER -->
+                <div class="tp-caption sft"
+                     data-x="right"
+                     data-hoffset="0"
+                     data-y="300"
+                     data-speed="1600"
+                     data-start="2800"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="300"
+                     data-endeasing="Power1.easeIn"
+                     data-captionhidden="off"
+                     style="z-index: 6">
+                    <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Chi tiết</a>
+                </div>
+            </li>
+            <!-- END SLIDE -->
+        </ul>
+        <div class="tp-bannertimer tp-bottom"></div>
+    </div>
+</div>
+<!--=== End Slider ===-->
+<!--=== Product Content ===-->
+<div class="container content-md">
+    <!--===BANNER QUẢNG CÁO Illustration v1 ===-->
+    <div class="row margin-bottom-60">
+        <div class="col-md-6 md-margin-bottom-30">
+            <div class="overflow-h">
+                <div class="illustration-v1 illustration-img1">
+                    <div class="illustration-bg">
+                        <div class="illustration-ads ad-details-v1">
+                            <h3>MỪNG KHAI TRƯƠNG <strong>GIẢM NGAY</strong> 30% - 60% </h3>
+                            <a class="btn-u btn-brd btn-brd-hover btn-u-light" href="#">Đặt hàng ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="overflow-h">
+                <a class="illustration-v1 illustration-img2" href="#">
+                    <span class="illustration-bg">
+                        <span class="illustration-ads ad-details-v2">
+                            <span class="item-time">Miễn phí vận chuyển</span>
+                        </span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div><!--/end row-->
+    <!--=== End Illustration v1 ===-->
+
+    <div class="heading heading-v1 margin-bottom-20">
+        <h2>LAN QUÝ HIẾM</h2>
+        @*<p> Sản phẩm tủ làm từ gỗ sồi mỹ với kiểu dáng đẹp, màu sắc tự nhiên, phôi liệu dày và chắc chắn.</p>*@
+    </div>
+
+    <!--===TỦ GỖ Illustration v2 ===-->
+    <div class="illustration-v2 margin-bottom-60">
+        <div class="customNavigation margin-bottom-25">
+            <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+            <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+        </div>
+        <ul class="list-inline owl-slider">
+            @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+            {
+                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.lan_quy_hiem)
+                {
+
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    foreach (Product val in _item.lstProduct)
+                    {
+                        <li class="item">
+                            <div class="product-img">
+                                <a href="~/@prefixlink/@val.FriendlyURL"><img class="full-width img-responsive" src="~/@val.MediaThumb" alt="@val.ProductName"></a>
+                                <!--<a class="product-review" href="shop-ui-inner.html">Quick review</a>
+                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>-->
+                            </div>
+                            <div class="product-description product-description-brd">
+                                <div class="overflow-h margin-bottom-5">
+                                    <div class="pull-left">
+                                        <h4 class="title-price"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
+                                        @*<span class="gender text-uppercase">Men</span>*@
+                                        <span class="gender">@val.ProductDes</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="title-price line-through">@val.OldPrice vnđ</span>
+                                        <span class="title-price">@val.NewPrice</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+
+                }
+
+            }
+        </ul>
+    </div>
+    <!--=== End Illustration v2 ===-->
+
+    <div class="heading heading-v1 margin-bottom-40">
+        <h2>LAN RỪNG</h2>
+        @*<p> Sản phẩm kệ gỗ gồi được thiết kế đơn giản, hiện đại và nổi bật bởi gam màu sáng tự nhiên phù hợp với mọi thiết kế.</p>*@
+    </div>
+
+    <!--===KỆ GỖ Illustration v2 ===-->
+    <div class="row illustration-v2 margin-bottom-60">
+
+        @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+        {
+            if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.lan_rung)
+            {
+
+                string prefixlink = _item.CataObj.FriendlyURL;
+                if (_item.CataObj.ObjPrent != null)
+                {
+                    prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                }
+                foreach (Product val in _item.lstProduct)
+                {
+                    <div class="col-md-3 col-sm-6 md-margin-bottom-30">
+                        <div class="product-img">
+                            <a href="~/@prefixlink/@val.FriendlyURL"><img class="full-width img-responsive" src="~/@val.MediaThumb" alt="@val.ProductName"></a>
+                        </div>
+                        <div class="product-description product-description-brd">
+                            <div class="overflow-h margin-bottom-5">
+                                <div class="pull-left">
+                                    <h4 class="title-price"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
+                                    @*<span class="gender text-uppercase">Cao cấp</span>*@
+                                    <span class="gender">@val.ProductDes</span>
+                                </div>
+
+                                <div class="product-price">
+                                    <span class="title-price line-through">@val.OldPrice vnđ</span>
+                                    <span class="title-price">@val.NewPrice vnđ</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+
+        }
+
+
+
+
+    </div>
+    <!--=== End Illustration v2 ===-->
+
+    <div class="heading heading-v1 margin-bottom-20">
+        <h2>VANDA - MOKARA - ASCO</h2>
+        @*<p> Sản phẩm giường làm từ gỗ sồi mỹ với kiểu dáng đẹp, màu sắc tự nhiên, phôi liệu dày và chắc chắn.</p>*@
+    </div>
+
+    <!--===GIƯỜNG GỖ Illustration v2 ===-->
+    <div class="illustration-v2 md-margin-bottom-30">
+        <div class="customNavigation margin-bottom-25">
+            <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+            <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+        </div>
+
+        <ul class="list-inline owl-slider">
+
+            @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+            {
+                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.van_da)
+                {
+
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    foreach (Product val in _item.lstProduct)
+                    {
+
+                        <li class="item">
+                            <div class="product-img">
+                                <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="~/@val.MediaThumb" alt="@val.ProductName"></a>
+                                <!--<a class="product-review" href="shop-ui-inner.html">Quick review</a>
+                                <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>-->
+                            </div>
+                            <div class="product-description product-description-brd">
+                                <div class="overflow-h margin-bottom-5">
+                                    <div class="pull-left">
+                                        <h4 class="title-price"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
+                                        @*<span class="gender text-uppercase">Men</span>*@
+                                        <span class="gender">@val.ProductDes</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="title-price line-through">@val.OldPrice vnđ</span>
+                                        <span class="title-price">@val.NewPrice vnđ</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    }
+                }
+
+            }
+        </ul>
+    </div>
+    <!--=== End Illustration v2 ===-->
+
+</div>
+<!--=== End Product Content ===-->
+
+<div class="container">
+
+    <!--=== Illustration v4 ===-->
+    <div class="row illustration-v4 margin-bottom-30">
+        <div class="col-md-4">
+            <div class="heading heading-v1 margin-bottom-20">
+                <h2>DENDROBIUM</h2>
+            </div>
+
+            @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+            {
+                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.dendro)
+                {
+
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    foreach (Product val in _item.lstProduct)
+                    {
+
+
+                        <div class="thumb-product">
+                            <img class="thumb-product-img" src="~/@val.MediaThumb" alt="">
+                            <div class="thumb-product-in">
+                                <h4><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
+                                <span class="thumb-product-type">@val.ProductDes</span>
+                            </div>
+                            <ul class="list-inline overflow-h">
+                                <li class="thumb-product-price line-through">@val.OldPrice vnđ</li>
+                                <li class="thumb-product-price">@val.NewPrice vnđ</li>
+
+                            </ul>
+                        </div>
+                    }
+                }
+
+            }
+        </div>
+        <div class="col-md-4">
+            <div class="heading heading-v1 margin-bottom-20">
+                <h2>CÂY GIỐNG - CHAI MÔ</h2>
+            </div>
+
+
+            @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+            {
+                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.cay_giong_chai_mo)
+                {
+
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    foreach (Product val in _item.lstProduct)
+                    {
+
+
+                        <div class="thumb-product">
+                            <img class="thumb-product-img" src="~/@val.MediaThumb" alt="">
+                            <div class="thumb-product-in">
+                                <h4><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
+                                <span class="thumb-product-type">>@val.ProductDes</span>
+                            </div>
+                            <ul class="list-inline overflow-h">
+                                <li class="thumb-product-price line-through">@val.OldPrice vnđ</li>
+                                <li class="thumb-product-price">@val.NewPrice vnđ</li>
+
+                            </ul>
+                        </div>
+                    }
+                }
+
+            }
+
+
+        </div>
+        <div class="col-md-4 padding">
+            <div class="heading heading-v1 margin-bottom-20">
+                <h2>HỒ ĐIỆP</h2>
+            </div>
+            @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+            {
+                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.ho_diep)
+                {
+
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    foreach (Product val in _item.lstProduct)
+                    {
+
+
+                        <div class="thumb-product">
+                            <img class="thumb-product-img" src="~/@val.MediaThumb" alt="">
+                            <div class="thumb-product-in">
+                                <h4><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
+                                <span class="thumb-product-type">>@val.ProductDes</span>
+                            </div>
+                            <ul class="list-inline overflow-h">
+                                <li class="thumb-product-price line-through">@val.OldPrice vnđ</li>
+                                <li class="thumb-product-price">@val.NewPrice vnđ</li>
+
+                            </ul>
+                        </div>
+                    }
+                }
+
+            }
+        </div>
+    </div><!--/end row-->
+    <!--=== End Illustration v4 ===-->
+    <!--===DỊCH VỤ Service ===-->
+    <div class="heading heading-v1 margin-bottom-20">
+        <h2>VÌ SAO CHỌN CHÚNG TÔI</h2>
+        <p> Đến với Phong Lan Giá Sỉ bạn sẽ có được những sản phẩm ưng ý nhất cũng như thông tin tư vấn để nuôi dưỡng đam mê của mình</p>
+    </div>
+
+    <div class="row margin-bottom-60">
+        @{ int i = 1; }
+        @foreach (ContentItem _item in Model.lstWhy)
+        {
+            if (i == 1)
+            {
+                <div class="col-md-4 product-service md-margin-bottom-30">
+                    <div class="product-service-heading">
+                        <i class="icon-refresh"></i>
+
+                    </div>
+                    <div class="product-service-in">
+                        <h3>@_item.ContentTitle</h3>
+                        <p>@_item.ContentExcerpt</p>
+                        @*<a href="#">+Read More</a>*@
+                    </div>
+                </div>
+            }
+
+            else if (i == 2)
+            {
+                <div class="col-md-4 product-service md-margin-bottom-30">
+                    <div class="product-service-heading">
+                        <i class="icon-earphones-alt"></i>
+                    </div>
+                    <div class="product-service-in">
+                        <h3>@_item.ContentTitle</h3>
+                        <p>@_item.ContentExcerpt</p>
+                        @*<a href="#">+Read More</a>*@
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="col-md-4 product-service md-margin-bottom-30">
+                    <div class="product-service-heading">
+
+                        <i class="fa fa-truck"></i>
+                    </div>
+                    <div class="product-service-in">
+                        <h3>@_item.ContentTitle</h3>
+                        <p>@_item.ContentExcerpt</p>
+                        @*<a href="#">+Read More</a>*@
+                    </div>
+                </div>
+
+            }
+            i++;
+        }
+    </div><!--/end row-->
+    <!--=== End Product Service ===-->
+
+</div><!--/end cotnainer-->
+<!--===Ý KIẾN KHACH HÀNG Twitter-Block ===-->
+<div class="parallaxBg twitter-block margin-bottom-60">
+    <div class="container">
+        <div class="heading heading-v1 margin-bottom-20">
+            <h2>Ý KIẾN KHÁCH HÀNG</h2>
+        </div>
+
+        <div id="carousel-example-generic-v5" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li class="active rounded-x" data-target="#carousel-example-generic-v5" data-slide-to="0"></li>
+                <li class="rounded-x" data-target="#carousel-example-generic-v5" data-slide-to="1"></li>
+                <li class="rounded-x" data-target="#carousel-example-generic-v5" data-slide-to="2"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                @{
+                    int k = 1;
+                }
+                @foreach (ContentItem _item in Model.lstIdeas)
+                {
+                    if (k == 1)
+                    {
+                        <div class="item active">
+                            <p>@Html.Raw(_item.ContentText)<p>
+                            <p><a href="@_item.ContentExcerpt">@_item.ContentTitle</a></p>
+                            @*<ul class="list-inline twitter-icons">
+                                    <li><a href="#"><i class="fa fa-reply"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                </ul>*@
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="item">
+                            <p>@Html.Raw(_item.ContentText)<p>
+                            <p><a href="@_item.ContentExcerpt">@_item.ContentTitle</a></p>
+
+                        </div>
+                    }
+                    k++;
+                }
+
+
+            </div>
+
+            <div class="carousel-arrow">
+                <a class="left carousel-control" href="#carousel-example-generic-v5" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic-v5" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=== End Twitter-Block ===-->
+<!--===ĐỐI TÁC Sponsors ===-->
+<!--=== End Sponsors ===-->
+
+<div class="container full-width" style="padding-top:0px;padding-bottom:0px;background: url(./Content/assets/img/idea.png) 0% 0 repeat;background-position:0% 0px;">
+    <div class="heading heading-v1 margin-bottom-20">
+        <h2>BÀI VIẾT</h2>
+    </div>
+    <div class="illustration-v2">
+        <div class="customNavigation margin-bottom-25">
+            <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+            <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+        </div>
+        <ul class="list-inline owl-slider">
+            @foreach (ContentItem _item in Model.lstNews)
+            {
+                <li class="item">
+                    <div class="product-img product-img-brd">
+                        <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
+                            <img class="full-width img-responsive" src="~/@_item.MediaUrl" alt="@_item.ContentTitle">
+                        </a>
+
+                    </div>
+                    <div class="product-description product-description-brd">
+                        <div class="overflow-h margin-bottom-5">
+                            <div class="pull-left">
+                                <h4 class="title-price"><a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">@_item.ContentTitle</a></h4>
+
+                                <span class="gender">@_item.ContentExcerpt</span>
+                            </div>
+                            @*<div class="product-price">
+                                    <span class="title-price line-through">@val.OldPrice vnđ</span>
+                                    <span class="title-price">@val.NewPrice</span>
+                                </div>*@
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+

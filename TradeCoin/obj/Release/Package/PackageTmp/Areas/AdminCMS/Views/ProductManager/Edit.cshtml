@@ -1,0 +1,336 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity
+@using DataModel.DataViewModel
+@using DataModel.Extension
+@model DataModel.DataViewModel.ProductViewModels
+@{
+    ViewBag.Title = "Edit ContentItem";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+    string bare_url = AppDomain.CurrentDomain.BaseDirectory;
+    string folderimg = bare_url + "images";
+}
+
+<script src="~/Areas/AdminCMS/plugins/ckeditor/ckeditor.js"></script>
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <!-- form start -->
+            @using (Html.BeginForm("Edit", "ProductManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.ProductId)
+                <div class="col-md-9">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h2 class="box-title">Thông tin cơ bản</h2>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductName, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", onchange = "return InputTitle(this.value,event)" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FriendlyURL, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.FriendlyURL, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductDes, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.ProductDes, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductDetail, new { @class = "col-md-9 control-label" })
+                            </div>
+                            <div class="form-group col-md-12">
+                                @Html.TextAreaFor(m => m.ProductDetail, new { @class = "" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MetadataKeyword, new { @class = "col-md-4 control-label" })
+                                @Html.TextAreaFor(m => m.MetadataKeyword, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MetadataDesc, new { @class = "col-md-4 control-label" })
+                                @Html.TextAreaFor(m => m.MetadataDesc, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.IsCommentEnabledVM, new { @class = "col-md-4 control-label" })
+                                @Html.CheckBoxFor(m => m.IsCommentEnabledVM)
+                            </div>
+                        </div>
+
+                    </div><!-- /.box -->
+
+             
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary margin">Hoàn thất cập nhật sản phẩm</button>
+                            </div>
+
+                        </div>
+
+                    </div><!-- /.box -->
+
+                </div>
+
+                <div class="col-md-3">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h2 class="box-title">Thông tin chi tiết</h2>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                           
+
+                            <div class="form-group">
+                                <label class="control-label">Danh mục chi tiết</label>
+                               
+                                    @Html.DropDownListFor(c => c.CategoryId, Model.CatalogryList as SelectList, "Select...", new { @class = "form-control" })
+                              
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ProductCD, new { @class = "control-label col-md-12" })
+                                @Html.TextBoxFor(m => m.ProductCD, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.SKUCode, new { @class = "control-label col-md-12" })
+                                @Html.TextBoxFor(m => m.SKUCode, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.OldPrice, new { @class = "col-md-12 control-label" })
+                                @Html.TextBoxFor(m => m.OldPrice, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.NewPrice, new { @class = "col-md-12 control-label" })
+                                @Html.TextBoxFor(m => m.NewPrice, new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MadeInName, new { @class = "control-label" })<a href="javascript:UpdateSellectlist(4006)" class="pull-right">Cập nhật</a>
+                                @Html.DropDownListFor(c => c.MadeIn, Model.MadeInList as SelectList, "Select...", new { @class = "form-control" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Units, new { @class = "control-label" })<a href="javascript:UpdateSellectlist(4007)" class="pull-right">Cập nhật</a>
+                                @Html.DropDownListFor(c => c.Units, Model.UnitsList as SelectList, "Select...", new { @class = "form-control" })
+                            </div>
+                           
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CorlorID, new { @class = "control-label" })<a href="javascript:UpdateSellectlist(4013)" class="pull-right">Cập nhật</a>
+                                @Html.DropDownListFor(c => c.CorlorID, Model.CorlorList as SelectList, "Select...", new { @class = "form-control " })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.SupportTimeID, new { @class = "control-label" })<a href="javascript:UpdateSellectlist(4015)" class="pull-right">Cập nhật</a>
+                                @Html.DropDownListFor(c => c.SupportTimeID, Model.SupportTimeList as SelectList, "Select...", new { @class = "form-control" })
+                            </div>
+
+                   
+
+                        </div>
+                    </div><!-- /.box -->
+
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h2 class="box-title">Hình ảnh sản phẩm</h2>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Hình minh hoạ</label>
+                                <input type="file" id="Default_files" name="Default_files" value="Chọn và upload">
+
+                            </div>
+                            <div class="form-group">
+                                <img class="img-responsive" src="/@Model.MediaThumb" id="blah" alt="Photo">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Hình chi tiết</label>
+                                <input type="file" id="Default_files" multiple="multiple" name="Detail_files" value="Chọn và upload">
+
+                            </div>
+                            <div class="form-group">
+                                @foreach (MediaContent _item in Model.lstDetailImage)
+                                {
+                                    <div class="row" id="BlockMedia_@_item.MediaContentId">
+                                        <img class="img-responsive col-md-10" style="margin-bottom:20px" src="~/@_item.FullURL" alt="Photo">
+                                        <a href="javascript:DeleteDetailImage(@_item.MediaContentId)">Xoá</a>
+                                    </div>
+
+                                }
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div><!-- /.box -->
+
+
+                </div>
+            }
+
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+
+    </div>   <!-- /.row -->
+</section>
+<script>
+
+    $(document).ready(function () {
+
+        CKEDITOR.replace("ProductDetail", {
+            filebrowserBrowseUrl: '@folderimg.ToString()',
+            filebrowserUploadUrl: '@Url.Action("CK_ImgUpload", "Extension")',
+            toolbar: 'full',
+            uiColor: '#8AB8F3',
+            height: "400",
+            width: "100%"
+            //  baseHref: "@bare_url.ToString()"
+        });
+
+
+        var rules = {
+            FriendlyURL: "required"
+      , CategoryId: "required"
+      , ProductName: "required"
+      , ProductDes: "required"
+      , ProductDetail: "required"
+      , MetadataKeyword: "required"
+      , MetadataDesc: "required"
+      , ImgdefaultId: {
+          required: true,
+          min: 1,
+          number: true
+      },
+
+        };
+        var messages = {
+            FriendlyURL: "Vui lòng kiểm tra đường dẩn thân thiện "
+            , CategoryId: "Vui lòng kiểm tra danh mục"
+            , ProductName: "Vui lòng kiểm tra tên sản phẩm"
+            , ProductDes: "Vui lòng kiểm tra mô tả sản phẩm"
+            , ProductDetail: "Vui lòng kiểm tra mô tả chi tiết sản phẩm"
+            , MetadataKeyword: "Vui lòng kiểm tra từ khoá SEO"
+            , MetadataDesc: "Vui lòng kiểm tra mô tả SEO"
+
+
+        };
+
+        ValidationForm({
+            ctrID: "CreateForm"
+            , rules: rules
+            , messages: messages
+        })
+
+
+
+
+
+
+
+    });
+  
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#Default_files").change(function () {
+        readURL(this);
+    });
+
+
+    function InputTitle(value, event) {
+        if (value > 100)
+        { return false; }
+        var friendlyurl = ToFriendlyUrl(value);
+        $.ajax({
+            url: "@Url.Action("GetFriendlyurlFromTitle", "Extension", null)",
+            type: "POST",
+            data: {
+                friendlyurl: friendlyurl,
+                objtype: 6010
+            },
+            dataType: "JSON",
+            success: function (data) {
+                JSON.stringify(data);
+                $("#FriendlyURL").val(data);
+            }
+        });
+    }
+
+   
+
+
+
+    function DeleteDetailImage(value) {
+        $.ajax({
+            url: "@Url.Action("DeleteDetailImage", "Extension", null)",
+            type: "POST",
+            data: {
+                MediaContentId: value,
+                objtype: 6010
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data == 1) {
+                    alert("Đã xoá hình khỏi server");
+                    $("#BlockMedia_" + value).remove();
+                }
+            }
+        });
+    }
+
+    function UpdateSellectlist(Type) {
+        if (Type == 4013)
+            var tmp = "#CorlorID";
+        if (Type == 4015)
+            var tmp = "#SupportTimeID";
+        if (Type == 4006)
+            var tmp = "#MadeIn";
+        if (Type == 4007)
+            var tmp = "#Units";
+
+        var ids = Type;
+        $.ajax({
+            data: null,
+            url: '@Url.Action("GetSelectListBySchemeId", "ProductManager")' + '?id=' + ids,
+            success: function (data) {
+
+                $(tmp + ">option").each(function () {
+                    $(this).remove();
+                });
+                $(tmp).append('<option value="" selected>--Vui lòng chọn--</option>');
+
+                $(data).each(function (index, data) { // GETTING ERROR HERE
+                    $(tmp).append('<option value="' + data.value + '">' +
+                        data.text + '</option>');
+                });
+            }
+        });
+    }
+
+</script>

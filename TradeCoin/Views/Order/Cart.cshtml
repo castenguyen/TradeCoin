@@ -1,0 +1,319 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+
+@model IndexViewHomeModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["cart"] != null && (Session["cart"] as Dictionary<long, ItemCartViewModel>).Count > 0)
+{
+    <div class="bg-popup">
+    </div>
+    <div class="popup-buy-product" id="form-login-popup">
+        <div class="popup-box-header">
+            <span>CHÚ Ý...</span>
+            <span class="popup-box-close popup-box-buy-product-close">x</span>
+        </div>
+        <div class="wrap-box-form">
+            <div class="pop-lg-content">
+                <span class="alert-msg-pbp">Bạn có muốn xoá sản phẩm này khỏi giỏ hàng không???</span>
+                <div class="pop-lg-group">
+                    <a class="btn-control-left" href="javascript:;" style="width: 48%;">Đồng ý</a>
+                    <a class="btn-control-right" href="javascript:;" style="width: 48%;">Không đồng ý</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="width_1200">
+        <div class="shoppingCartContainer">
+            <div class="cartNav cartNavTop">
+                <div class="left">
+                    <h3>Thông tin giỏ hàng</h3>
+                    @*Đây không phải giỏ hàng của bạn ??? Click <a href="javascript:;">vào đây </a> để hủy giỏ hàng*@
+                </div>
+            </div>
+            <div class="cartProductsContainer darkGrayText bodyCopy">
+                <div class="columnHeads">
+                    <div class="columnHeadsRow">
+                        <div class="columnCell column1 titleItems">
+                            <h4 class="items">Sản phẩm</h4>
+                        </div>
+                        <div class="rightColumns">
+                            <div class="columnCell column3 titlePrice">
+                                <h4 class="price">Giá bán</h4>
+                            </div>
+                            <div class="columnCell column4 titleQuantity">
+                                <h4 class="quantity">Số lượng</h4>
+                            </div>
+                            <div class="columnCell column5 titleTotalPrice">
+                                <h4 class="totalPrice">Thành tiền</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="productContainerBody">
+                    @if (Session["cart"] != null)
+                    {
+                        foreach (KeyValuePair<long, ItemCartViewModel> item in (Session["cart"] as Dictionary<long, ItemCartViewModel>))
+                        {
+                            <li id="sku_202831-46O-M7W9" class="productContainer ">
+                                @using (Html.BeginForm("BuyItem", "Order",new { id = item.Key}, FormMethod.Post, new { id = "form-submit-buy-item" + item.Value.Product.ProductId }))
+                                {
+                                    @*@Html.AntiForgeryToken()*@
+                                    @*@Html.Hidden("idProduct", item.Value.Product.ProductId)*@
+                                    @Html.Hidden("urlReturn", Request.Path)
+                                    <div class="productContainerRow">
+                                        <div class="columnCell column1 productImage">
+                                            <a tabindex="-1" href="@Url.Action("ProductDetails", "Product", new { id = item.Value.Product.ProductId, FriendlyUrl = item.Value.Product.FriendlyURL })" target="_blank">
+                                                <img width="160" height="134" src="@item.Value.Product.MediaThumb" alt="@item.Value.Product.ProductName">
+                                            </a>
+                                        </div>
+                                        <div class="columnCell column2 productDetails">
+                                            <div class="pNfo">
+                                                <h2 class="MuseoRounded700">
+                                                    <a href="@Url.Action("ProductDetails", "Product", new { id = item.Value.Product.ProductId, FriendlyUrl = item.Value.Product.FriendlyURL })" target="_blank">
+                                                        @item.Value.Product.ProductName
+                                                    </a>
+                                                </h2>
+                                                @*<p class="productId darkText">
+                                                    Item #202831-46O-M7W9
+                                                    <br>
+                                                    <strong>Trong kho </strong>
+                                                </p>
+                                                <p class="productVariation darkText">
+                                                    Colour:
+                                                    <span>&nbsp;Bijou Blue / White</span><br>
+                                                    Size UK:
+                                                    <span>&nbsp;M6</span>
+                                                    <br>
+                                                </p>*@
+                                            </div>
+
+                                        </div>
+                                        <div class="rightColumns">
+                                            <div class="columnCell column3 productPrice ">
+                                                <div class="price">
+                                                    <div class="clearfix">
+                                                        <div class="mobileLabel">Price: </div>
+                                                        <div class="darkText nonLowerCase">@string.Format("{0:#,###.##}", (item.Value.Product.NewPrice > 0 ? item.Value.Product.NewPrice : item.Value.Product.OldPrice)) vnđ</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="columnCell column4 productQuantity">
+                                                <div class="clearfix">
+                                                    <div class="mobileLabel">Qty:</div>
+                                                    <div class="select65">
+                                                        <div class="select superCuteFormElemWrapper">
+                                                            <select title="quantity" rel="currentProductId_202831-46O-M7W9" class="changeQuantity superCuteFormElem" id="dwfrm_cart_shipments_i0_items_i0_quantity" name="quantity">
+                                                                @for (var i = 1; i < 10; i++)
+                                                                {
+                                                                    <option value="@i" @(item.Value.Quantity == i ? "selected" : null )>@i</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="columnCell column5 productPriceTotal">
+                                                <div class="price">
+                                                    <div class="mobileLabel">total price:</div>
+
+                                                    <div class="darkText bold">@string.Format("{0:#,###.##}", item.Value.TotalPrice) vnđ</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="wishlistDelete clearfix">
+
+                                        <li>
+                                            <a rel="94b1f7b7dead6e0c4d62c3ffee" href="javascript:;" class="removeLessThan960 editItem iframe cboxElement">Cập nhập</a>
+                                            <span class="removeLessThan960">|</span>
+                                        </li>
+
+                                        <li><a href="javascript:;" class="wishMove" onclick="saveFavorite(@item.Key);">Thêm vào yêu thích</a></li>
+
+                                        <li>
+                                            <span>|</span>
+                                            <a href="javascript:;" rel="dwfrm_cart_shipments_i0_items_i0_deleteProduct" class="removeItem">Huỷ bỏ</a>
+                                        </li>
+
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-footer-main">
+                    <div class="cart-footer-table totalsTbl">
+                        @if (Session["cart"] != null)
+                        {
+                            double totalPrice = (Session["cart"] as Dictionary<long, ItemCartViewModel>).Sum(x => x.Value.TotalPrice);
+                            double vat = totalPrice * 0.1;
+                            //double shipping = 100000;
+                            //double sum = totalPrice + vat;// + shipping;
+                            <table style="">
+                                <tr>
+                                    <td>Tổng tiền</td>
+                                    <td>@String.Format("{0:N0}", totalPrice - vat) vnđ</td>
+                                </tr>
+                                <tr>
+                                    <td>Thuế</td>
+                                    <td>@String.Format("{0:N0}", vat) vnđ</td>
+                                </tr>
+                                @*<tr>
+                                    <td>Phí Shipping</td>
+                                    <td>@String.Format("{0:N0}", shipping) vnđ</td>
+                                    </tr>
+                                *@
+                                <tr>
+                                    <td>Tổng dự kiến</td>
+                                    <td>@String.Format("{0:N0}", totalPrice) vnđ</td>
+                                </tr>
+                            </table>
+                        }
+                    </div>
+                </div>
+                <div style="margin-bottom:20px; width:100%; float:left;">
+
+                    @if (Session["cart"] != null && (Session["cart"] as Dictionary<long, ItemCartViewModel>).Count > 0)
+                    {
+                        <div class="cartNavButtons">
+                            <button value="true" name="" type="button" class="btn-product  whiteText active" id="checkout0" onclick="location.href = '@Url.Action("Checkout", "Order")'" style="cursor:pointer;"><span> Thanh toán giỏ hàng này. </span></button>
+                        </div>
+                        <div class="cartNavButtons" style="margin-right:20px;">
+                            <button value="true" name="" type="button" class="btn-product  whiteText active" id="checkout0" onclick="location.href = '@Url.Action("Index", "Home")'" style="cursor:pointer;"><span> Tiếp tục mua hàng.</span></button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="cartNavButtons">
+                            <button value="true" name="" type="button" class="btn-product  whiteText active" id="checkout0" onclick="location.href = '@Url.Action("Index","Home")'" style="cursor:pointer;"><span> Tiếp tục mua hàng.</span></button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function saveFavorite(idProduct) {
+            if (navigator.cookieEnabled) {
+                var chk_cookie = document.cookie.indexOf('favorite=');
+                if (chk_cookie == -1) {
+                    var datetime = new Date();
+                    datetime.setDate(datetime.getDate() + 365);
+                    document.cookie = 'favorite=' + idProduct + '_' + ';path=/;expires=' + datetime.toUTCString();
+                    document.cookie = 'favorites=' + idProduct + '_' + ';path=/;expires=' + datetime.toUTCString();
+                    $(".favorite>span").text(1);
+                } else {
+                    var lstItem = document.cookie.split(';');
+                    for (var i = 0; i < lstItem.length; i++) {
+                        if (lstItem[i].indexOf('favorite=') != -1) {
+                            var finalStr = idProduct + '_';
+                            var new_lstItem = lstItem[i].indexOf(finalStr) !== -1 ? lstItem[i].replace(finalStr, '') : lstItem[i] + finalStr;
+                            var strCount = new_lstItem.substring(0, new_lstItem.length - 1).replace('favorite=', '').trim().split('_');
+                            var countFavorite = strCount[0] === "favorite" ? 0 : strCount.length;
+                            $(".favorite>span").text(countFavorite);
+                            var datetime = new Date();
+                            datetime.setDate(datetime.getDate() + 365);
+                            document.cookie = new_lstItem + ';path=/;expires=' + datetime.toUTCString();
+                            break;
+                        }
+                    }
+                }
+            } else {
+                alert('Trình duyệt của bạn không hỗ trợ tính năng lưu này hoặc đã bị tắt chức năng cookie.\nVui lòng cập nhật phiên bản mới nhất hoặc bật chức năng cookie của trình duyệt');
+            }
+        }
+        $(function () {
+
+            var range__slider = $(".range__slider").eq(0).width();
+            console.log(range__slider);
+            var per_1 = 21 / 100 * range__slider;
+            var per_2 = 85 / 100 * range__slider;
+            $(".range__slider__left").css("left", per_1);
+            $(".range__slider__right").css("left", per_2);
+            $(".range__slider__gap").css("left", per_1);
+            $(".range__slider__gap").css("width", (per_2 - per_1));
+            $(".xt_effect_gianhang").click(function () {
+                //console.log($('.list_gian_hang').css("margin-right"));
+                if ($('.list_gian_hang').css("margin-right") == "0px") {
+                    $('.list_gian_hang').animate({
+                        'margin-right': '1200px',
+                        opacity: '0.5',
+                    }, { duration: 2000 });
+                    $('.list_gian_hang').animate({
+                        'margin-right': '-1002px',
+                        opacity: '1',
+                    }, { duration: 0 });
+                    $('.list_gian_hang').animate({
+                        'margin-right': '0px',
+                        //opacity: '1',
+                    }, { duration: 2000 });
+                }
+
+            });
+            var obj = null;
+            $(".removeItem").click(function () {
+                $(".popup-buy-product,.bg-popup").fadeIn(200);
+                obj = $(this);
+            });
+            $("a.btn-control-left").click(function () {
+                obj.closest('form').find("select[name=quantity] option:selected").val(0);
+                obj.closest('form').submit();
+            });
+            $(".bg-popup").click(function () {
+                $(".bg-popup,.popup-buy-product").fadeOut(500, function () {
+                    $(this).css("display", "none");
+                });
+            });
+
+            $(".popup-box-buy-product-close,.btn-control-right").click(function () {
+                $(".popup-buy-product,.bg-popup").fadeOut(500, function () {
+                    $(this).css("display", "none");
+                });
+            });
+
+            $(".editItem").click(function () {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}
+@section styles{
+    <style>
+        .san-pham-home {
+            width: 100%;
+            height: 150px;
+            background: #00AEEF;
+            text-align: center;
+            font-weight: bold;
+            color: black;
+            padding-top: 70px;
+            font-size: 39px;
+        }
+
+        .news-home {
+            width: 100%;
+            height: 150px;
+            background: orange;
+            text-align: center;
+            font-weight: bold;
+            color: black;
+            padding-top: 70px;
+            font-size: 39px;
+        }
+    </style>
+}

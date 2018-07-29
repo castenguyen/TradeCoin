@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Under Construction</title>
+	<link href='http://fonts.googleapis.com/css?family=Dosis:300,400' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/dest/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/dest/css/under-construction.min.css">
+	<link rel="stylesheet" title="style" href="assets/dest/css/style.css">
+	<link rel="stylesheet" href="assets/dest/css/animate.css">
+</head>
+<body>
+<div class="beta-under-body">
+<div class="container">
+	
+	<div class="elastic-construction2 col-sm-9">
+		<div class="uc-header">
+			<div class="pull-left auto-width-left">
+				<a href="index.html" id="uc-logo"><img src="assets/dest/images/logo_white.png" alt=""></a>
+			</div>
+			<nav class="pull-right uc-menu auto-width-right">
+				<a href="index.html">Home</a> <span>|</span>
+				<a href="#">About</a> <span>|</span>
+				<a href="#">Contacts</a>
+			</nav>
+		</div>
+		
+		<div class="uc-body2">
+			<h1>We are working hard to finish our amazing new website!</h1>
+			<h5>We are Almost Done...</h5>
+			<div class="space40">&nbsp;</div>
+			<div class="col-sm-8 beta-coming">
+			<div id="uc-countdown2"></div>
+			</div>
+			<div class="space40">&nbsp;</div>
+			<div class="clear"></div>
+			<div class="beta-subscribers  beta-coming">
+				
+				<form action="#">
+					<input class="" type="text" placeholder="Enter your email for subscribe">
+					<button class="" type="submit">Subscribe <i class="fa fa-chevron-right"></i></button>
+				</form>
+				
+			</div>
+		</div>
+		
+	</div>
+	</div>
+	</div>
+	<script src="assets/dest/js/jquery.js"></script>
+	<script src="assets/dest/vendors/countdown/jquery.plugin.min.js"></script>
+	<script src="assets/dest/vendors/countdown/jquery.countdown.min.js"></script>
+	<!--customjs-->
+	<script>
+		jQuery(function() {
+			var untilDate = new Date("10 10 2014");
+			jQuery('#uc-countdown2').countdown({
+				until: untilDate,
+				padZeroes: true
+			}); 
+		});
+	</script>
+	<script>
+	 jQuery(document).ready(function($) {
+                'use strict';
+				
+// color box
+
+//color
+      jQuery('#style-selector').animate({
+      left: '-213px'
+    });
+
+    jQuery('#style-selector a.close').click(function(e){
+      e.preventDefault();
+      var div = jQuery('#style-selector');
+      if (div.css('left') === '-213px') {
+        jQuery('#style-selector').animate({
+          left: '0'
+        });
+        jQuery(this).removeClass('icon-angle-left');
+        jQuery(this).addClass('icon-angle-right');
+      } else {
+        jQuery('#style-selector').animate({
+          left: '-213px'
+        });
+        jQuery(this).removeClass('icon-angle-right');
+        jQuery(this).addClass('icon-angle-left');
+      }
+    });
+				});
+	</script>
+</body>
+</html>

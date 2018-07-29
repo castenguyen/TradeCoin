@@ -1,0 +1,274 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@model PromotionContentViewModel
+@{
+    ViewBag.Title = "Promotion Manager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet" href="~/Areas/AdminCMS/plugins/timepicker/bootstrap-timepicker.min.css">
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Nội Dung khuyến mãi cho sản phẩm - @Model.Mainpro.ProductName</h3>
+                    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+
+
+                    <div class="col-md-5">
+                        @using (Html.BeginForm("Create", "Promotion", FormMethod.Post, new { @class = "", role = "form", onsubmit = "return ValidateCreatePromotionForm()" }))
+                        {
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Quản Lý Nội Dung khuyến mãi cho sản phẩm</h3>
+                                </div>
+                                <div class="box-body">
+
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-12 control-label">Tên sản phẩm</label>
+                                        @Html.TextBoxFor(m => m.Mainpro.ProductName, new { @class = "form-control", @readonly = "reaonly", @placeholder = @Model.Mainpro.ProductName })
+                                        @Html.HiddenFor(s => s.MainContentId)
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-12 control-label">Loại Khuyến Mãi</label>
+                                        @Html.DropDownListFor(c => c.PromotionType, Model.LstPromotionType as SelectList, "Select...", new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>Thời Gian Khuyến Mãi</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.TextBoxFor(m => m.DateTimeTxt, new { @class = "form-control pull-right", id = "reservation" })
+                                        </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+
+                                    <div class="form-group col-md-12" id="ParentblockPlusProduct">
+                                        <label class="col-md-12 control-label">Sản phẩm kèm theo</label>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        @Html.HiddenFor(s => s.ObjType, new { Value = (int)EnumCore.ObjTypeId.san_pham })
+                                        <div class="form-group">
+                                            <label>   </label>
+                                            <button type="submit" class="btn btn-primary">Tạo khuyến mãi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-7" style="margin-top:10px">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Chọn sản phẩm kèm theo</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body no-padding">
+                                <div class="mailbox-controls">
+                                    <div class="btn-group">
+                                        <label >Chọn sản phẩm kèm theo</label>
+                                        @Html.DropDownList("ParentCatelogry", Model.lstProductCatalogry as SelectList, "Select...", new { @class = "form-control" })
+                                    </div><!-- /.btn-group -->
+                                    <div class="btn-group">
+                                        <label >Chọn sản phẩm kèm theo</label>
+                                        @Html.DropDownListFor(c => c.ProductCatalogry, new SelectList(string.Empty, "Value", "Text"), "Danh mục...", new { @class = "form-control " })
+                                    </div><!-- /.btn-group -->
+                                </div>
+                                @*<div class="mailbox-controls">
+                                    <div class="btn-group" style="margin-top:5px">
+                                        <label>Mã sản phẩm</label>
+                                        <input class="form-control input-sm" id="FillterProductCD" name="FillterProductCD" placeholder="" type="text" value="">
+                                    </div>
+                                    <div class="btn-group" style="margin-top:5px">
+                                        <label>Mã SKU</label>
+                                        <input class="form-control input-sm" id="FillterProductCD" name="FillterProductCD" placeholder="" type="text" value="">
+                                    </div>
+                                    <div class="btn-group" style="margin-top:15px">
+                                        <button type="button" class="btn btn-primary">Tìm</button>
+                                    </div>
+                                </div>*@
+
+                                <div class="table-responsive mailbox-messages">
+                                    <table class="table table-hover table-striped">
+                                        <tbody id="tbllstProduct">
+                                            <tr>
+                                                <th class="mailbox-subject"><b>Tên sản phẩm</b></th>
+                                                <th class="mailbox-name">Gía sản phẩm</th>
+                                                <th class="mailbox-name">Mã sản phẩm</th>
+                                                <th class="mailbox-name"> Mã SKU</th>
+                                                <th class="mailbox-date"></th>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="box-footer no-padding">
+                                <div class="mailbox-controls">
+                                    <button class="btn btn-default btn-sm"><i class="fa fa-arrow-left"></i></button>
+                                    <button class="btn btn-default btn-sm"><i class="fa fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+
+                        </div><!-- /. box -->
+                    </div><!-- /.col -->
+
+                </div><!-- /.box-body -->
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách nội dung khuyến mại</h3>
+
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Lọc theo vùng hiển thị</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">All</a></li>
+                                <li class="divider"></li>
+                                @*@foreach (SelectListItem val in Model.LstProduct)
+                                    {
+                                        <li><a href="@Url.Action("Create", "DisplayManager", new { DisplayTypeId = val.Value })">@val.Text</a></li>
+                                    }*@
+                            </ul>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Tên khuyến mãi</th>
+                                <th>Thời gian khuyến mãi</th>
+                                <th>Sắp xếp</th>
+                                <th>Xoá</th>
+                            </tr>
+                            @foreach (PromotionContent item in Model.LstPromotionContent)
+                            {
+                                <tr>
+                                    <td>@item.MainContentName</td>
+                                    <td> <span class="label label-success">@item.PromotionTypeName</span></td>
+                                    <td>@item.StartDT - @item.EndDT</td>
+                                    <td>
+                                        <a href="@Url.Action("")"><i class="fa fa-arrow-up"></i> </a> <a href="@Url.Action("")"><i class="fa fa-arrow-down"></i></a>
+                                    </td>
+                                    <td><a href="@Url.Action("Delete", "Promotion", new { PromotionId = item.Id, ProductId = item.MainContentId})" class="btn btn-block btn-danger btn-xs">Remove</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+
+
+
+    </div>   <!-- /.row -->
+</section>
+
+
+
+
+<script>
+    $(function () {
+
+        $('#reservation').daterangepicker();
+        $('#reservation2').daterangepicker();
+        $('#reservation3').daterangepicker();
+
+
+    })
+
+    function ValidateCreatePromotionForm() {
+        var PromotionType = $('#PromotionType > option:selected').val();
+        if (PromotionType == null || PromotionType == 0)
+        {
+            return false;
+        } 
+        var DateTimeTxt = $('#reservation').val();
+        if (DateTimeTxt == null || DateTimeTxt == "")
+        {
+            return false;
+        }
+        return true;
+    }
+
+    //Date range picker
+    $(document).ready(function () {
+        $("#ParentCatelogry").change(function () {
+            var ids = $(this).val();
+            $.ajax({
+                data: null,
+                url: '@Url.Action("GetLstcatelogryProductByparent", "ProductManager")' + '?id=' + ids,
+                success: function (data) {
+
+                    $("#ProductCatalogry option").each(function () {
+                        $(this).remove();
+                    });
+                    $("#ProductCatalogry").append('<option value="" selected>--Vui lòng chọn--</option>');
+
+                    $(data).each(function (index, data) { // GETTING ERROR HERE
+                        $("#ProductCatalogry").append('<option value="' + data.value + '">' +
+                            data.text + '</option>');
+                    });
+                }
+            });
+        });
+
+        $("#ProductCatalogry").change(function () {
+            var ids = $(this).val();
+            $.ajax({
+                data: null,
+                url: '@Url.Action("GetSelectListProductByCate", "Promotion")' + '?id=' + ids,
+                success: function (data) {
+                    $("#tbllstProduct .pritem").each(function () {
+                        $(this).remove();
+                    });
+                    $(data).each(function (index, data) { // GETTING ERROR HERE
+                        var tmp = new Product(data);
+                        $("#tbllstProduct").append(' <tr class="pritem"><td class="mailbox-subject"><b>' +
+                            tmp.ProductName +
+                            '</b></td><td class="mailbox-name">' +
+                            tmp.NewPrice +
+                            '</td><td class="mailbox-name">' +
+                            tmp.ProductCD +
+                            '</td><td class="mailbox-name">' +
+                            tmp.SKUCode +
+                            '</td><td class="mailbox-date"><a href="javascript:AddProductToPromotion(' + tmp.ProductId + ',\'' + tmp.ProductName + '\');"><i class="fa fa-fw fa-plus"></i>Thêm</a></td></tr>');
+                    });
+                }
+            });
+        });
+
+
+    });
+
+   
+
+</script>
+
+
+
+

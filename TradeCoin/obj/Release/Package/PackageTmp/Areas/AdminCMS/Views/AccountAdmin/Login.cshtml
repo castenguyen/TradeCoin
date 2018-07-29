@@ -1,0 +1,67 @@
+﻿@model DataModel.DataViewModel.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_MainLayout.cshtml";
+}
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>CHOBIKER</b></a>
+        </div><!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Vui lòng nhập đầy đủ thông tin</p>
+            @using (Html.BeginForm("Login", "AccountAdmin", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Tên truy cập" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback">@Html.ValidationMessageFor(m => m.Email, "")</span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback">@Html.ValidationMessageFor(m => m.Password, "")</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <input type="submit" value="Sign In" class="btn btn-primary btn-block btn-flat" />
+                    
+                    </div><!-- /.col -->
+                </div>
+            }
+            <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Đăng nhập bằng Facebook </a>
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Đăng nhập bằng Google+</a>
+            </div><!-- /.social-auth-links -->
+            <a href="@Url.Action("ForgotPassword", "AccountAdmin")">Quên mật khẩu</a><br>
+            <a href="@Url.Action("Register", "AccountAdmin")" class="text-center">Đăng ký tài khoản mới</a>
+            @*<a href="@Url.Action("Register", "AccountAdmin")" class="text-center">Đăng ký tài khoản mới</a>*@
+        </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+    <!-- jQuery 2.1.4 -->
+    <script src="~/Areas/AdminCMS/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="~/Areas/AdminCMS/bootstrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/Areas/AdminCMS/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+</body>

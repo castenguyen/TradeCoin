@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BetaDesign &mdash; Accordion and Toggles</title>
+	<link href='http://fonts.googleapis.com/css?family=Dosis:300,400' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/dest/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/dest/vendors/colorbox/example3/colorbox.css">
+	<link rel="stylesheet" title="style" href="assets/dest/css/style.css">
+	<link rel="stylesheet" href="assets/dest/css/animate.css">
+</head>
+<body>
+	
+	<div id="header">
+		<div class="header-top">
+			<div class="container">
+				<div class="pull-left auto-width-left">
+					<ul class="top-menu menu-beta l-inline">
+						<li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+						<li><a href="#"><i class="fa fa-sitemap"></i> Sitemap</a></li>
+					</ul>
+				</div>
+				<div class="pull-right auto-width-right">
+					<ul class="top-details menu-beta l-inline">
+						<li><a href="#"><i class="fa fa-user"></i> Your Account</a></li>
+						<li class="hidden-xs">
+							<select name="languages">
+								<option value="en">English</option>
+								<option value="ro">Romana</option>
+								<option value="ru">Rusa</option>
+							</select>
+						</li>
+						<li class="hidden-xs">
+							<select name="currency">
+								<option value="usd">USD</option>
+								<option value="eur">EUR</option>
+								<option value="ron">RON</option>
+							</select>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div> <!-- .container -->
+		</div> <!-- .header-top -->
+		<div class="header-body">
+			<div class="container beta-relative">
+				<div class="pull-left">
+					<a href="index.html" id="logo"><img src="assets/dest/images/logo.png" alt=""></a>
+					<span class="slogan">a premium HTML Template</span>
+				</div>
+				<div class="pull-right beta-components space-left ov">
+					<div class="space10">&nbsp;</div>
+					<div class="beta-comp">
+						<form role="search" method="get" id="searchform" action="/">
+					        <input type="text" value="" name="s" id="s" placeholder="Search entire store here..." />
+					        <button class="fa fa-search" type="submit" id="searchsubmit"></button>
+						</form>
+					</div>
+
+					<div class="beta-comp">
+						<div class="cart">
+							<div class="beta-select"><i class="fa fa-shopping-cart"></i> Cart (empty) <i class="fa fa-chevron-down"></i></div>
+							<div class="beta-dropdown cart-body">
+								<div class="cart-item">
+									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
+									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
+									<div class="media">
+										<a class="pull-left" href="#"><img src="assets/dest/images/products/cart/1.png" alt=""></a>
+										<div class="media-body">
+											<span class="cart-item-title">Sample Woman Top</span>
+											<span class="cart-item-options">Size: XS; Colar: Navy</span>
+											<span class="cart-item-amount">1*<span>$49.50</span></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="cart-item">
+									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
+									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
+									<div class="media">
+										<a class="pull-left" href="#"><img src="assets/dest/images/products/cart/2.png" alt=""></a>
+										<div class="media-body">
+											<span class="cart-item-title">Sample Woman Top</span>
+											<span class="cart-item-options">Size: XS; Colar: Navy</span>
+											<span class="cart-item-amount">1*<span>$49.50</span></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="cart-item">
+									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
+									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
+									<div class="media">
+										<a class="pull-left" href="#"><img src="assets/dest/images/products/cart/3.png" alt=""></a>
+										<div class="media-body">
+											<span class="cart-item-title">Sample Woman Top</span>
+											<span class="cart-item-options">Size: XS; Colar: Navy</span>
+											<span class="cart-item-amount">1*<span>$49.50</span></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="cart-caption">
+									<div class="cart-total text-right">Subtotal: <span class="cart-total-value">$34.55</span></div>
+									<div class="clearfix"></div>
+
+									<div class="center">
+										<div class="space10">&nbsp;</div>
+										<a href="checkout.html" class="beta-btn primary text-center">Checkout <i class="fa fa-chevron-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div> <!-- .cart -->
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div> <!-- .container -->
+		</div> <!-- .header-body -->
+		<div class="header-bottom">
+			<div class="container">
+				<a class="visible-xs beta-menu-toggle pull-right" href="#"><span class='beta-menu-toggle-text'>Menu</span> <i class="fa fa-bars"></i></a>
+				<div class="visible-xs clearfix"></div>
+				<nav class="main-menu">
+					<ul class="l-inline ov">
+						<li><a href="index.html">Home</a>
+							<ul class="sub-menu">
+								<li><a href="home_10.html">Home Portfolio</a></li>
+								<li><a href="home_4.html">Company Intro 1</a></li>
+								<li><a href="home_5.html">Company Intro 2</a></li>
+								<li><a href="home_7.html">Company Intro 3</a></li>
+								<li><a href="home_6.html">Home Classic 1</a></li>
+								<li><a href="home_8.html">Home Classic 2</a></li>
+								<li><a href="home_9.html">Home Classic 3</a></li>
+								<li><a href="index.html">Home Shop 1</a></li>
+								<li><a href="home_2.html">Home Shop 2</a></li>
+								<li><a href="home_3.html">Home Shop 3</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Pages</a>
+							<ul class="sub-menu">
+								<li><a href="about_1.html">About 1</a></li>
+								<li><a href="about_2.html">About 2</a></li>
+								<li><a href="testimonials.html">Testimonials</a></li>
+								<li><a href="text_page.html">Text Page</a></li>
+								<li><a href="typography.html">Typography</a></li>
+								<li><a href="accordion_toggles.html">Accordion and Toggles</a></li>
+								<li><a href="buttons.html">Buttons</a></li>
+								<li><a href="custom_callout_box.html">Custom Callout Box</a></li>
+								<li><a href="404.html">Page 404</a></li>
+								<li><a href="under_construction.html">Coming Soon</a></li>
+							</ul>
+						</li>
+						<li><a href="features.html">Features</a></li>
+						<li><a href="#">Portfolio</a>
+							<ul class="sub-menu">
+								<li><a href="portfolio_type_a.html">Portfolio type A</a></li>
+								<li><a href="#">Portfolio type B</a>
+									<ul class="sub-menu">
+										
+										<li><a href="portfolio_3col.html">Portfolio B - 3 Columns</a></li>
+										<li><a href="portfolio_4col.html">Portfolio B - 4 Columns</a></li>
+									</ul>
+								</li>
+								<li><a href="portfolio_single.html">Portfolio Item</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Blog</a>
+							<ul class="sub-menu">
+								<li><a href="blog_fullwidth_1col.html">Blog Full Width</a>
+									<ul class="sub-menu">
+										<li><a href="blog_fullwidth_2col.html">Blog Full Width - 2 Columns</a></li>
+										<li><a href="blog_fullwidth_3col.html">Blog Full Width - 3 Columns</a></li>
+										<li><a href="blog_fullwidth_4col.html">Blog Full Width - 4 Columns</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Blog Type A</a>
+									<ul class="sub-menu">
+										<li><a href="blog_with_sidebarleft_type_a.html">Blog A - Left Sidebar</a></li>
+										<li><a href="blog_with_sidebarright_type_a.html">Blog A - Right Sidebar</a></li>
+									</ul>
+								</li>
+								<li><a href="blog_with_sidebarleft_type_b.html">Blog Type B</a></li>
+								<li><a href="#">Blog Type C</a>
+									<ul class="sub-menu">
+										<li><a href="blog_with_sidebarleft_type_c.html">Blog C - Left Sidebar</a></li>
+										<li><a href="blog_with_sidebarleft_type_c_2cols.html">Blog C - 2 Columns</a></li>
+									</ul>
+								</li>
+								<li><a href="blog_with_sidebarleft_type_d.html">Blog Type D</a></li>
+								<li><a href="#">Blog Type E</a>
+									<ul class="sub-menu">
+										<li><a href="blog_with_sidebarleft_type_e.html">Blog E - Left Sidebar</a></li>
+										<li><a href="blog_with_2sidebars_type_e.html">Blog E - 2 Sidebars</a></li>
+									</ul>
+								</li>
+								<li><a href="#">Blog Single Post</a></li>
+							</ul>
+						</li>
+						<li><a href="index.html">Shop</a>
+							<ul class="sub-menu">
+								<li><a href="index.html">Home Shop 1</a></li>
+								<li><a href="home_2.html">Home Shop 2</a></li>
+								<li><a href="home_3.html">Home Shop 3</a></li>
+								<li><a href="checkout.html">Checkout</a></li>
+								<li><a href="pricing.html">Pricing</a></li>
+								<li><a href="shopping_cart.html">Shopping Cart</a></li>
+								<li><a href="product.html">Product</a></li>
+							</ul>
+						</li>
+						<li><a href="contacts.html">Contact</a></li>
+					</ul>
+					<div class="clearfix"></div>
+				</nav>
+			</div> <!-- .container -->
+		</div> <!-- .header-bottom -->
+	</div> <!-- #header -->
+
+	<div class="inner-header">
+		<div class="container">
+			<div class="pull-left">
+				<h6 class="inner-title">Accordion and Toggles</h6>
+			</div>
+			<div class="pull-right">
+				<div class="beta-breadcrumb font-large">
+					<a href="#">Pages</a> / <span>Accordion and Toggles</span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div id="content">
+			<div class="row">
+				<div class="col-sm-9">
+					<p>You can choose between 2 styles according to your website look and feel. There are also 3 types of Actions: One section, multiple sections or a specific section open at a time.</p>
+					<h5>Fancy Style</h5>
+					<p>One toggle open in a time</p>
+
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="panel-group" id="accordion">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOne" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+							          <i class="fa fa-pencil"></i> Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwo" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+							          <i class="fa fa-th"></i> Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThree" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+						<div class="col-sm-4">
+							<div class="panel-group" id="accordion2">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOneTwo">
+							          Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneTwo" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwoTwo">
+							          Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoTwo" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseThreeTwo">
+							          Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeTwo" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+					</div>
+
+					<div class="space20">&nbsp;</div>
+					<p>Multiple toggle open in a time</p>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="panel-group">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" href="#collapseOneThree">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneThree" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" href="#collapseTwoThree">
+							          Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoThree" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" href="#collapseThreeThree">
+							         Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeThree" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+						<div class="col-sm-8">
+							<div class="panel-group">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" href="#collapseOneFour">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneFour" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" href="#collapseTwoFour">
+							          <i class="fa fa-pencil"></i> Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoFour" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" href="#collapseThreeFour">
+							          <i class="fa fa-th"></i> Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeFour" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+					</div>
+
+					<div class="space20">&nbsp;</div>
+					<p>One toggle open by default specified by user</p>
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="panel-group" id="accordion3">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOneFive">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneFive" class="panel-collapse collapse in">
+							      <div class="panel-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime plcere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quidam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion3" href="#collapseTwoFive">
+							          <i class="fa fa-pencil"></i> Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoFive" class="panel-collapse collapse">
+							      <div class="panel-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime plcere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quidam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion3" href="#collapseThreeFive">
+							          <i class="fa fa-th"></i> Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeFive" class="panel-collapse collapse">
+							      <div class="panel-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime plcere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quidam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+						<div class="col-sm-4">
+							<div class="panel-group" id="accordion4">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOneSix">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneSix" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseTwoSix">
+							          Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoSix" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion4" href="#collapseThreeSix">
+							         Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeSix" class="panel-collapse collapse in">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+					</div>
+
+					<div class="space20">&nbsp;</div>
+					<h5>Simple Style</h5>
+					<div class="row">
+						<div class="col-sm-8">
+							<div class="panel-group beta-accordion-b" id="accordion5">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOneSeven">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneSeven" class="panel-collapse collapse">
+							      <div class="panel-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime plcere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quidam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion5" href="#collapseTwoSeven">
+							          <i class="fa fa-pencil"></i> Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoSeven" class="panel-collapse collapse">
+							      <div class="panel-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime plcere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quidam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion5" href="#collapseThreeSeven">
+							          <i class="fa fa-th"></i> Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeSeven" class="panel-collapse collapse">
+							      <div class="panel-body">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime plcere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quidam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+						<div class="col-sm-4">
+							<div class="panel-group beta-accordion-b" id="accordion6">
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion6" href="#collapseOneEight">
+							          <i class="fa fa-picture-o"></i> Amazing sliders <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOneEight" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion6" href="#collapseTwoEight">
+							          <i class="fa fa-th"></i> Unlimited colors <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseTwoEight" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							  <div class="panel panel-default">
+							    <div class="panel-heading">
+							      <h4 class="panel-title">
+							        <a data-toggle="collapse" data-parent="#accordion6" href="#collapseThreeEight">
+							         <i class="fa fa-picture-o"></i> Tones of shortcodes <span class="accordion-circle"><i class="fa fa-plus"></i></span>
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseThreeEight" class="panel-collapse collapse">
+							      <div class="panel-body">
+							        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+							      </div>
+							    </div>
+							  </div>
+							</div> <!-- end of accordion -->
+						</div>
+					</div>
+
+				</div>
+				<div class="col-sm-3">
+					<ul class="aside-menu">
+						<li><a href="#">Typography</a></li>
+						<li><a href="#">Buttons</a></li>
+						<li><a href="#">Dividers</a></li>
+						<li><a href="#">Columns</a></li>
+						<li><a href="#">Icon box</a></li>
+						<li><a href="#">Notifications</a></li>
+						<li><a href="#">Progress bars and Skill meter</a></li>
+						<li><a href="#">Tabs</a></li>
+						<li><a href="#">Testimonial</a></li>
+						<li><a href="#">Video</a></li>
+						<li><a href="#">Social icons</a></li>
+						<li><a href="#">Carousel sliders</a></li>
+						<li><a href="#">Custom List</a></li>
+						<li><a href="#">Image frames &amp; gallery</a></li>
+						<li><a href="#">Google Maps</a></li>
+						<li><a href="#">Accordion and Toggles</a></li>
+						<li class="is-active"><a href="#">Custom callout box</a></li>
+						<li><a href="#">Page section</a></li>
+						<li><a href="#">Mini callout box</a></li>
+						<li><a href="#">Content box</a></li>
+						<li><a href="#">Computer sliders</a></li>
+						<li><a href="#">Pricing &amp; Data tables</a></li>
+						<li><a href="#">Process Builders</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> <!-- #content -->
+	</div> <!-- .container -->
+
+	<div id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="widget">
+						<h4 class="widget-title">Instagram Feed</h4>
+						<div id="beta-instagram-feed"><div></div></div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="widget">
+						<h4 class="widget-title">Information</h4>
+						<div>
+							<ul>
+								<li><a href="blog_fullwidth_2col.html"><i class="fa fa-chevron-right"></i> Web Design</a></li>
+								<li><a href="blog_fullwidth_2col.html"><i class="fa fa-chevron-right"></i> Web development</a></li>
+								<li><a href="blog_fullwidth_2col.html"><i class="fa fa-chevron-right"></i> Marketing</a></li>
+								<li><a href="blog_fullwidth_2col.html"><i class="fa fa-chevron-right"></i> Tips</a></li>
+								<li><a href="blog_fullwidth_2col.html"><i class="fa fa-chevron-right"></i> Resources</a></li>
+								<li><a href="blog_fullwidth_2col.html"><i class="fa fa-chevron-right"></i> Illustrations</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+				<div class="col-sm-10">
+					<div class="widget">
+						<h4 class="widget-title">Contact Us</h4>
+						<div>
+							<div class="contact-info">
+								<i class="fa fa-map-marker"></i>
+								<p>30 South Park Avenue San Francisco, CA 94108 Phone: +78 123 456 78</p>
+								<p>Nemo enim ipsam voluptatem quia voluptas sit asnatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</p>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="widget">
+						<h4 class="widget-title">Newsletter Subscribe</h4>
+						<form action="#" method="post">
+							<input type="email" name="your_email">
+							<button class="pull-right" type="submit">Subscribe <i class="fa fa-chevron-right"></i></button>
+						</form>
+					</div>
+				</div>
+			</div> <!-- .row -->
+		</div> <!-- .container -->
+	</div> <!-- #footer -->
+	<div class="copyright">
+		<div class="container">
+			<p class="pull-left">Privacy policy. (&copy;) 2014</p>
+			<p class="pull-right pay-options">
+				<a href="#"><img src="assets/dest/images/pay/master.jpg" alt="" /></a>
+				<a href="#"><img src="assets/dest/images/pay/pay.jpg" alt="" /></a>
+				<a href="#"><img src="assets/dest/images/pay/visa.jpg" alt="" /></a>
+				<a href="#"><img src="assets/dest/images/pay/paypal.jpg" alt="" /></a>
+			</p>
+			<div class="clearfix"></div>
+		</div> <!-- .container -->
+	</div> <!-- .copyright -->
+	
+
+	<!-- include js files -->
+	<script src="assets/dest/js/jquery.js"></script>
+	<script src="assets/dest/vendors/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="assets/dest/vendors/bxslider/jquery.bxslider.min.js"></script>
+	<script src="assets/dest/vendors/colorbox/jquery.colorbox-min.js"></script>
+	<script src="assets/dest/vendors/animo/Animo.js"></script>
+	<script src="assets/dest/vendors/dug/dug.js"></script>
+	<script src="assets/dest/js/scripts.min.js"></script>
+	<!--customjs-->
+	<script type="text/javascript">
+    $(function() {
+        // this will get the full URL at the address bar
+        var url = window.location.href;
+
+        // passes on every "a" tag
+        $(".main-menu a").each(function() {
+            // checks if its the same on the address bar
+            if (url == (this.href)) {
+                $(this).closest("li").addClass("active");
+				$(this).parents('li').addClass('parent-active');
+            }
+        });
+    });   
+
+
+</script>
+<script>
+	 jQuery(document).ready(function($) {
+                'use strict';
+				
+// color box
+
+//color
+      jQuery('#style-selector').animate({
+      left: '-213px'
+    });
+
+    jQuery('#style-selector a.close').click(function(e){
+      e.preventDefault();
+      var div = jQuery('#style-selector');
+      if (div.css('left') === '-213px') {
+        jQuery('#style-selector').animate({
+          left: '0'
+        });
+        jQuery(this).removeClass('icon-angle-left');
+        jQuery(this).addClass('icon-angle-right');
+      } else {
+        jQuery('#style-selector').animate({
+          left: '-213px'
+        });
+        jQuery(this).removeClass('icon-angle-right');
+        jQuery(this).addClass('icon-angle-left');
+      }
+    });
+				});
+	</script>
+</body>
+</html>

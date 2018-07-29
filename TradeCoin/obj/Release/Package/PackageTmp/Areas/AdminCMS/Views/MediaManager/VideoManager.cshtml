@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Banner Manager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+@using DataModel.DataEntity;
+@model IEnumerable<MediaContent>
+<section class="content">
+    <div class='col-sm-12'>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Danh Sách Video</h3>
+                        <div class="box-tools">
+                            <div class="input-group" style="width: 350px;">
+                                <div class="input-group-btn">
+                                    <a href='@Url.Action("CreateVideo", "MediaManager", null)' class='btn btn-block btn-success btn-flat '>Thêm Mới Video</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tr>
+                                <th width="30%">Image</th>
+                                <th width="15%" >EXIFInfo</th>
+                                <th width="15%">Caption</th>
+                                <th width="15%">MediaDesc</th>
+                                <th width="7%">ViewCount</th>
+                                <th width="18%">Action</th>
+                            </tr>
+                            @foreach (MediaContent item in Model)
+                            { 
+                                  <tr>
+                                <td><img class="img-responsive" src="~/@item.ThumbURL" alt="Photo" width="100%"></td>
+                                <td>@item.EXIFInfo</td>
+                                      <td>@item.Caption</td>
+                                      <td>@item.MediaDesc</td>
+                                <td><span class="label label-success">@item.ViewCount</span></td>
+                                <td>
+                                    <a href='@Url.Action("EditBanner", "MediaManager", new { id=item.MediaContentId})'>Edit</a> |
+                                    <a href='@Url.Action("DeleteBanner", "MediaManager", new { id = item.MediaContentId })'>Delete</a>
+                                   
+                                </td>
+                            </tr>
+                            
+                            }
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+        </div>
+    </div>
+
+</section>

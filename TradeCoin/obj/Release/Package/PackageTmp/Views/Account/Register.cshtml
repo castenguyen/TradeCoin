@@ -1,0 +1,375 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataViewModel;
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký tài khoản";
+    Layout = null;
+}
+<html lang="vi">
+<head>
+    <title>Đăng ký gian hàng</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+    <link href="~/Content/css-register-microsite.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/datepicker-vi.js"></script>
+</head>
+<body>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="bg-popup">
+        </div>
+        <div class="popup-login" id="form-login-popup">
+            <div class="popup-box-header">
+                <span>ĐĂNG NHẬP VÀO HỆ THỐNG</span>
+                <span class="popup-box-close popup-box-login-close">x</span>
+            </div>
+            <div class="wrap-box-form">
+                <div class="pop-lg-header">
+                    <span>Đăng nhập bằng:</span>
+                    <a href="javascript:;">
+                        <img src="~/Content/Images/icon-facebook.png" alt="login facebook" />
+                    </a>
+                    <a href="javascript:;">
+                        <img src="~/Content/Images/icon-google-plus.png" alt="login google plus" />
+                    </a>
+                </div>
+                <div class="pop-lg-content">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form-login-submit" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("isAjax", true)
+                        <div class="pop-lg-group">
+                            <img class="pop-lg-control-label" src="~/Content/Images/icon-user.png" />
+                            <input type="text" required class="pop-lg-control" name="AccountName" id="AccountName" value="" placeholder="Vui lòng nhập tài khoản hoặc email" />
+                        </div>
+                        <div class="pop-lg-group">
+                            <img class="pop-lg-control-label" src="~/Content/Images/icon-unlocked.png" />
+                            <input type="password" required class="pop-lg-control" name="Password" id="Password" value="" placeholder="Vui lòng nhập mật khẩu" />
+                        </div>
+                        <div class="pop-lg-group-last">
+                            <span style="display:inline-block;padding-top: 8px;"><input type="checkbox" name="RememberMe" id="RememberMe" value="True" />Ghi nhớ tài khoản</span>
+                            <a class="question" href="javascript:;">Quên mật khẩu?</a>
+                        </div>
+                        <div class="pop-lg-group-last">
+                            <input type="submit" value="Đăng nhập" style="background:#03456D; cursor:pointer; color:#fff;font-weight:bold;width:100%;" class="pop-lg-control" />
+                        </div>
+                    }
+                </div>
+                <div class="pop-lg-footer">
+                    <span>Bạn chưa có tài khoản?</span>
+                    <a href="javascript:;" class="btn-click_register">Đăng ký ngay</a>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="wrapper-container">
+        <header class="header">
+            <div class="row">
+                <div class="pull-left-header">
+                    <a href="@Url.Action("Index","Home")"><img src="~/Content/Images/logoallunee.png" alt="Công ty Allunee" /></a>
+                </div>
+                <div class="pull-right-header">
+                    <ul class="menu-right-header">
+                        <li><a href="javascript:;" class="btn-click_login">Đăng nhập</a></li>
+                        <li>Allunee (8h - 17h từ T2 - T6)</li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <section class="wrapper-content">
+            <div class="row">
+                <div class="container-left-func">
+                    <p class="title-text">Chỉ cần 1 tài khoản duy nhất để đăng nhập vào mọi dịch vụ của Allunee</p>
+                    <div class="box-member">
+                        <div class="box-main">
+                            <a href="#"></a>
+                            <a href="#"></a>
+                        </div>
+                        <div class="box-service">
+                            <ul class="service-item">
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="title-text2">Lợi ích của thành viên khi tham gia</p>
+                    <div class="box-benefit">
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show1"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Đảm bảo vận chuyển đúng hẹn, giá tốt nhất</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show2"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Đảm bảo bán hàng theo thông tin niêm yết</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show3"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Miễn hoàn toàn phí giao dịch</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show4"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Đảm bảo vận chuyển đúng hẹn, giá tốt nhất</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show5"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Đảm bảo dịch vụ hậu mãi theo đúng niêm yết</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show6"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Tích lũy tối thiểu 1% cho lần mua sau</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show7"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Nhận 50.000Đ khi giao dịch không thành công do gian hàng đăng sai thông tin</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show8"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Cơ hội tham gia vào các chương trình trúng thưởng hàng tháng</p>
+                            </div>
+                        </div>
+                        <div class="item-box-benefit">
+                            <div class="item-benefit-header">
+                                <div class="icon-box">
+                                    <span class="item-show9"></span>
+                                </div>
+                            </div>
+                            <div class="item-benefit-content">
+                                <div class="arrow-box"></div>
+                                <p>Được nhận tin tức khuyến mãi hữu ích mỗi ngày</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-right-func">
+                    <p class="title-h1-right-func">ĐĂNG KÝ TÀI KHOẢN</p>
+                    <div class="box-social">
+                        <a href="#">
+                            <div class="item-social">
+                                <p>Facebook</p>
+                            </div>
+                        </a>
+                        <a>
+                            <div class="item-social">
+                                <p>Google</p>
+                            </div>
+                        </a>
+                    </div>
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "form-register-submit" }))
+                    {
+                        @Html.ValidationSummary(false)
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("isAjax", false)
+                        <p class="title-h3-right-func">hoặc đăng ký bằng email</p>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => x.Email, new { placeholder = "Email của bạn", @class = "form-control" })
+                        </div>
+
+
+                        <div class="box-type-store">
+                            <h4 style="margin-bottom:10px;">Giới tính: </h4>
+                            <label>@Html.RadioButtonFor(x => x.Gender, ((int)EnumCore.Classification.gioi_tinh_nam)) Nam</label>
+                            <label>@Html.RadioButtonFor(x => x.Gender, ((int)EnumCore.Classification.gioi_tinh_nu)) Nữ</label>
+                            <label>@Html.RadioButtonFor(x => x.Gender, ((int)EnumCore.Classification.gioi_tinh_khac), new { @checked = "checked" }) Khác</label>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => x.FullName, new { placeholder = "Họ và tên", @class = "form-control" })
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => x.Phone, new { placeholder = "Số điện thoại của bạn", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(x => x.Password, new { placeholder = "Mật khẩu", @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(x => x.ConfirmPassword, new { placeholder = "Xác nhận mật khẩu", @class = "form-control" })
+                        </div>
+                        <div class="box-type-store">
+                            <div style="margin-bottom:5px;">
+                                @Html.CheckBoxFor(x => x.RegisterSendEmail)
+                                <span>Đăng ký nhận bản tin Allunee.vn</span>
+                            </div>
+                            <div>
+                                @Html.CheckBoxFor(x => x.AcceptPolicyAllunee)
+                                <a href="javascript:;" style="color:#03456D; font-weight:bold;" id="allowPolicy">Tôi đồng ý với điều khoản sử dụng</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="submit" value="ĐĂNG KÝ" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="row">
+                <div class="box-text-policy">
+                    <span><a href="#">Điều khoản dịch vụ</a></span>
+                    <span> | </span>
+                    <span><a href="#">Chính sách bảo mật</a></span>
+                </div>
+                <div class="copyright-allunee">
+                    <a href="#">© 2016 bởi Allunee</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        $("#form-login-submit").validate({
+            rules: {
+                AccountName: {
+                    required: true,
+                    maxlength: 255
+                },
+                Password: {
+                    required: true,
+                    maxlength: 50,
+                    minlength: 6
+                }
+            },
+            messages: {
+                AccountName: {
+                    required: 'Không được bỏ trống',
+                    maxlength: 'Tối đa {0} ký tự'
+                },
+                Password: {
+                    required: 'Không được bỏ trống',
+                    maxlength: 'Tối đa {0} ký tự',
+                    minlength: 'Tối thiểu {0} ký tự'
+                }
+            }
+        });
+        $(function () {
+            $("#form-login-submit").submit(function (e) {
+                e.preventDefault();
+                if ($("#form-login-submit").valid()) {
+                    var form = new FormData($(this)[0]);
+                    $.ajax({
+                        url: '@Url.Action("Login", "Account")',
+                        type: 'POST',
+                        data: form,
+                        contentType: false,
+                        processData: false,
+                        success: function (result) {
+                            if (result)
+                                location.reload();
+                            else {
+                                $("#form-login-submit>span").remove();
+                                $("#form-login-submit").append('<span style="color:red;">* Đăng nhập thất bại</span>');
+                            }
+                        }
+                    });
+                } else {
+                    $("#form-login-submit>span").remove();
+                    $("#form-login-submit").append('<span style="color:red;">* Kiểm tra lại thông tin đăng nhập</span>');
+                }
+            });
+            $(".bg-popup").click(function () {
+                $(".bg-popup,#form-login-popup").fadeOut(500, function () {
+                    $(this).css("display", "none");
+                });
+            });
+
+            $(".popup-box-login-close").click(function () {
+                $("#form-login-popup,.bg-popup").fadeOut(500, function () {
+                    $(this).css("display", "none");
+                });
+            });
+            $(".btn-click_login").click(function () {
+                $("#form-login-popup,.bg-popup").fadeIn(500);
+            });
+            $(".btn-click_register").click(function () {
+                $("#form-login-popup,.bg-popup").fadeOut(200, function () {
+                    $(this).css("display", "none");
+                    $("#txtUsername").focus();
+                });
+            });
+            $("#date-time").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd-mm-yy',
+                defaultDate: '01-01-1990'
+            });
+            $(".choice-type").change(function () {
+                var value = $(this).val();
+                if (value === 'False') {
+                    $(".show-type").hide(500, function () {
+                        $(".show-type").css('display', 'none');
+                    });
+                } else {
+                    $(".show-type").show(500, function () {
+                        $(".show-type").css('display', 'block');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

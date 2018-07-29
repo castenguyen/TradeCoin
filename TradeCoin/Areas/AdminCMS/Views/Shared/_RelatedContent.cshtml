@@ -1,0 +1,116 @@
+﻿
+@using DataModel.DataViewModel;
+@model IEnumerable<SelectListViewModels>
+@{
+    string hiddenlstcontent = "";
+    int i=1;
+    //['1', '2', '4']
+    if (Model.Count()>0)
+    {
+        foreach (SelectListViewModels _val in Model)
+        {
+            if(i==Model.Count())
+            {
+                 hiddenlstcontent = hiddenlstcontent + _val.Value.ToString() ;
+            }
+            else
+            {
+                hiddenlstcontent = hiddenlstcontent + _val.Value.ToString() + ",";
+            }
+            i++;
+        }
+
+    }
+}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var _arraycheckselect = $("#hiddenlstcontent").val();
+            var res = _arraycheckselect.split(",");
+            LoadRelatedContentSelectlist();
+            function LoadRelatedContentSelectlist() {
+                $.ajax({
+                    data: null,
+                    url: '@Url.Action("RelatedContent", "ContentItem")',
+                    success: function (data) {
+
+                        $(data).each(function (index, data) {
+                            $("#related_content").append('<option value="' + data.ContentItemId + '">' + data.ContentTitle + '</option>');
+                        });
+                        if (_arraycheckselect != "")
+                        {
+                            $(res).each(function (index, dt) {
+                                $('#related_content option').each(function () {
+                                    if ($(this).val() == dt) {
+                                        $(this).prop('selected', true);
+                                    }
+                                })
+                            });
+                        }
+                      
+
+                        $('#related_content').multiselect({
+                            includeSelectAllOption: true,
+                            enableFiltering: true,
+                            enableFullValueFiltering: true,
+                            onChange: function (options, select, checked) {
+                                $('.datashow').empty();
+                                var selectedOptions = $('#related_content option:selected');
+                                $('#related_content option:selected').each(function () {
+                                    $('.datashow').append('<span class="btn bg-olive btn-flat margin2 option_2">' + $(this).html() + '</span>');
+                                });
+                            },
+                            optionClass: function (element) {
+                                var value = $(element).val();
+                                if (value % 2 == 0) {
+                                    return 'even';
+                                }
+                                else {
+                                    return 'odd';
+                                }
+                            },
+                            buttonText: function (options, select) {
+                                if (options.length === 0) {
+                                    return 'Chưa chọn nội dung';
+                                }
+                                else if (options.length > 2) {
+                                    return 'Đã chọn ' + options.length + ' nội dung';
+                                }
+                                else {
+                                    var labels = [];
+                                    options.each(function () {
+                                        if ($(this).attr('label') !== undefined) {
+                                            labels.push($(this).attr('label'));
+                                        }
+                                        else {
+                                            labels.push($(this).html());
+                                        }
+                                    });
+                                    return labels.join(', ') + '';
+                                }
+                            }
+                        });
+
+                    }
+                });
+
+            }
+
+        });
+
+
+    </script>
+
+<div class="form-group col-md-12 example">
+    <div class="title">Nội dung liên quan</div>
+    <div class="col-sm-12">
+        <select id="related_content" name="related_content" multiple="multiple"></select>
+        <input type="hidden" name="hiddenlstcontent" id="hiddenlstcontent" value="@hiddenlstcontent" />
+    </div>
+
+    <div class="col-sm-12 datashow">
+       
+    </div>
+
+ 
+</div>

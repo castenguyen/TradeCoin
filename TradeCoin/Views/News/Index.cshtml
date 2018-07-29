@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "News List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DataModel.DataViewModel;
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@model ListNewViewModel
+
+
+<div class="breadcrumbs-v4">
+    <div class="container">
+
+        <h1><span class="shop-green">@Model.CataObj.ClassificationNM</span></h1>
+
+    </div>
+</div>
+
+
+<div class="content container">
+    <div class="row">
+        <div class="filter-results">
+            <div class="row illustration-v2 margin-bottom-30">
+
+
+                @foreach (ContentItem _item in Model.lstNews)
+                {
+
+                    <div class="col-md-3">
+                        <div class="product-img product-img-brd" style="overflow:hidden">
+                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
+                                <img class="full-width img-responsive" src="~/@_item.MediaUrl" alt="@_item.ContentTitle">
+                            </a>
+
+                            @*<a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Đặt hàng</a>*@
+                            <div class="shop-rgba-dark-green rgba-banner">New</div>
+                        </div>
+                        <div class="product-description product-description-brd margin-bottom-30">
+                            <div class="overflow-h margin-bottom-5">
+                                <div class="pull-left">
+                                    <h4 class="title-price"><a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">@ExtFunction.CatChuoi(_item.ContentTitle, 25)</a></h4>
+                                    @*<span class="gender text-uppercase">@Model.CataObj.ClassificationNM</span>*@
+                                    <span class="gender"> @ExtFunction.CatChuoi(_item.ContentExcerpt, 70)</span>
+                                </div>
+                                <div class="product-price">
+                                    <span class="title-price">@_item.CrtdDT.Value.ToString()</span>
+                                </div>
+                            </div>
+                            <ul class="list-inline product-ratings">
+                                <li><i class="rating-selected fa fa-star"></i></li>
+                                <li><i class="rating-selected fa fa-star"></i></li>
+                                <li><i class="rating-selected fa fa-star"></i></li>
+                                <li><i class="rating fa fa-star"></i></li>
+                                <li><i class="rating fa fa-star"></i></li>
+                                <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="left" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+

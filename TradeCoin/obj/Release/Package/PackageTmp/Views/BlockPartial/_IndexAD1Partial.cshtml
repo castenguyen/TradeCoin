@@ -1,0 +1,12 @@
+﻿@using DataModel.DataViewModel;
+@model HomeSliderPartialViewModel
+
+@if (!String.IsNullOrEmpty(Model.MediaUrl)){
+    <div class="row">
+        <div class="width_1200" style="background: white; ">
+            <div class="ads_home">
+                <a href="@Model.LinkHref"> <img src="~/@Model.MediaUrl" /></a>
+            </div>
+        </div>
+    </div>
+}

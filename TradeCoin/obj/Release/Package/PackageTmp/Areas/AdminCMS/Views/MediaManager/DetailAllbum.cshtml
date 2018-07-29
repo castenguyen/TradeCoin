@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model DetailAlbumViewModel
+
+
+@{
+    ViewBag.Title = "MediaManager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    var numberImage = Model.lstImage.Count();
+    var displayMessage = "";
+    if (numberImage > 0)
+    {
+        displayMessage = "có tất cả " + numberImage.ToString() + " hình ảnh";
+    }
+    else
+    {
+        displayMessage = "Hiện tại sản phẩm chưa có hình ảnh";
+    }
+}
+<section class="content-header">
+    <h1>AllBumm Hình 1</h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12 box box-primary">
+            <div class="post">
+                <div class='user-block'>
+                    <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user6-128x128.jpg' alt='user image'>
+                    <div class='username'>
+                        <a href="#">Admin</a>
+
+                    </div>
+                    <div class='description'>@displayMessage</div>
+                    @using (Html.BeginForm("DetailAllbum", "MediaManager", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group pull-right">
+                            <label for="exampleInputFile">Thêm hình cho bộ sưu tập</label>
+                            <input class="choose-file" type="file" id="files" name="files" multiple="multiple" />
+                            <input type="hidden" value="@Model.Album.ClassificationId" name="_abid" />
+                            <input type="submit" value="Upload You Image" title="Upload" />
+                        </div>
+                    }
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Danh sách Album</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Album 1</a></li>
+                                <li><a href="#">Album 2</a></li>
+                                <li><a href="#">Album 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div><!-- /.user-block -->
+                <div class='row margin-bottom'>
+                    <div class='col-sm-12'>
+                        <div class='row'>
+                        @foreach (MediaContent _item in Model.lstImage)
+                        { 
+                        <div class='col-sm-3'>
+                            <img class='img-responsive' src='~/@_item.FullURL' alt='Photo'>
+                                <ul class="list-inline">
+                                    <li><a href="@Url.Action("Edit", "MediaManager", new { id = _item.MediaContentId })" class="link-black text-sm"><i class="fa fa-edit margin-r-5"></i> Chi tiết</a></li>
+                                    <li><a href="@Url.Action("DeleteImage", "MediaManager", new { id = _item.MediaContentId, abid=_item.ContentObjId })" class="link-black text-sm"><i class="fa fa-trash margin-r-5"></i> Xoá</a></li>
+                                </ul>
+                            </div><!-- /.col -->
+                        }
+                        </div><!-- /.row -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@model OrderIndexViewModel
+@{
+    ViewBag.Title = "Quản Lý Đơn hàng";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        var state_val = $("input[name=StateId]").val();
+        var statename = $(".main_state_lst_" + state_val).html();
+        $(".main_state_name").html(statename);
+    });
+</script>
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Đơn hàng</h3>
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger main_state_name">Trạng thái</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@Url.Action("Index", "ContentItem",
+                                    new { state = 0, page = Model.pageNum })">Tất cả trạng thái</a>
+                                </li>
+                                <li class="divider"></li>
+                                @foreach (SelectListObj _val in Model.lstState)
+                                {
+                                    <li>
+                                        <a class="main_state_lst_@_val.value" href="@Url.Action("Index", "ContentItem",
+                                    new { state = _val.value, page = Model.pageNum })">@_val.text</a>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên khách hàng</th>
+                                <th>Điện thoại khách hàng</th>
+                                <th>Email khách hàng</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Ngày giao</th>
+                                <th>Tình trạng</th>
+                                <th width="30%">Action</th>
+                            </tr>
+                            @{
+                                foreach (Order _val in Model.lstMainOrder)
+                                {
+                                    <tr>
+                                        <td>@_val.Id</td>
+                                        <td><a href="#">@_val.NameCustomerBuy</a></td>
+                                        <td>@_val.PhoneCustomer</td>
+                                        <td>@_val.EmailCustomer</td>
+                                        <td>@_val.PaIdDT</td>
+                                        <td>@_val.PlaceDT</td>
+                                        <td>@_val.StatusName</td>
+                                        <td>
+                                            <a href="@Url.Action("OrderDetail", "ShopCartManager", new { id = _val.Id })" class="btn bg-olive">Chi tiết</a> |
+                                            <a href="javascript:;" onclick="DeleteOrderItem(@_val.Id);" class="btn bg-olive">Xoá</a></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainOrder.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainOrder, page => Url.Action("Index", new { page, state = Model.lstState }))
+                    }
+                </div>
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>
+<script>
+    function DeleteOrderItem(OrderId) {
+        var yn = confirm('Chú ý: bạn sẽ xoá vĩnh viễn đơn đặt hàng này');
+        if (yn) {
+            location.href = '@Url.Action("DeleteOrder","ShopCartManager")?id=' + OrderId;
+        }
+    }
+</script>

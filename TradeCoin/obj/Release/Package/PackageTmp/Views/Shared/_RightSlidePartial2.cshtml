@@ -1,0 +1,126 @@
+﻿@using DataModel.DataViewModel
+@using DataModel.DataEntity
+
+@model RightSliderBarViewModel
+
+
+<div class="col-sm-3 aside">
+    <ul class="aside-menu">
+        @foreach (SubMenuViewModels _item in Model.CataList)
+        {
+            if (_item.lstChild.Count() > 0)
+            {  <li><a href="~/@_item.Parent.FriendlyURL">@_item.Parent.ClassificationNM</a></li>
+                @*<li>
+                    <a href="#">@_item.Parent.ClassificationNM</a>
+                    <div class="wrap-popup">
+                        <div class="popup">
+                            <div class="row">
+                                <div class="col-md-3 has-sep">
+                                    <ul class="nav">
+                                        @foreach (Classification _val in _item.lstChild)
+                                        {
+                                            <li><a href="~/@_item.Parent.FriendlyURL/@_val.FriendlyURL">@_val.ClassificationNM</a></li>}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>*@
+            }
+            else
+            {
+                <li><a href="~/@_item.Parent.FriendlyURL">@_item.Parent.ClassificationNM</a></li>
+            }
+        }
+    </ul>
+    <div class="space10">&nbsp;</div>
+    <div class="widget">
+        <h3 class="widget-title">Sản phẩm xem nhiều</h3>
+        <div class="widget-body">
+            <div class="beta-sales beta-lists">
+                @foreach (ProductItemViewModel _item in Model.LstProductViewMore)
+                {
+                    string prefixlink = _item.Obicate.FriendlyURL;
+                    if (_item.Obicate.ObjPrent != null)
+                    {
+                        prefixlink = _item.Obicate.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+
+                  <div class="media beta-sales-item">
+                      <a class="pull-left" href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"><img src="~/@_item.ObiProduct.MediaThumb" alt="@_item.ObiProduct.ProductName"></a>
+                    <div class="media-body">
+                        <a href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"> @_item.ObiProduct.ProductName</a>
+                        <span class="beta-sales-price">@_item.ObiProduct.NewPrice</span>
+                    </div>
+                </div>
+
+                }
+
+            </div>
+        </div>
+    </div> <!-- best sellers widget -->
+
+    <div class="widget">
+        <h3 class="widget-title">Sản phẩm mới</h3>
+        <div class="widget-body">
+            <div class="beta-sales beta-lists">
+                @foreach (ProductItemViewModel _item in Model.LstProductNews)
+                {
+                    string prefixlink = _item.Obicate.FriendlyURL;
+                    if (_item.Obicate.ObjPrent != null)
+                    {
+                        prefixlink = _item.Obicate.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    <div class="media beta-sales-item">
+                        <a class="pull-left" href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"><img src="~/@_item.ObiProduct.MediaThumb" alt="@_item.ObiProduct.ProductName"></a>
+                        <div class="media-body">
+                            <a href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"> @_item.ObiProduct.ProductName</a>
+                            <span class="beta-sales-price">@_item.ObiProduct.NewPrice</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div> <!-- best sellers widget -->
+
+    <!-- <div class="widget">
+        <h3 class="widget-title">Twitter Feeds</h3>
+        <div class="widget-body">
+            <div class="twitter-feed beta-lists">
+                <div class="tweet">
+                    <i class="fa fa-twitter"></i>
+                    <div class="tweet-body">
+                        <p><a href="#">@@ShopaHolic</a> Proin feugiat mattis ante sed adipiscing velit sodales.</p>
+                        <small class="tweet-time">25 Minutes ago</small>
+                    </div>
+                </div>
+                <div class="tweet">
+                    <i class="fa fa-twitter"></i>
+                    <div class="tweet-body">
+                        <p>Proin feugiat mattis ante sed adipiscing velit sodales. <a href="#">http://shopaholic.com</a></p>
+                        <small class="tweet-time">25 Minutes ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> twitter feeds widget -->
+
+  <!--   <div class="widget">
+        <h3 class="widget-title">Tags</h3>
+        <div class="widget-body">
+            <div class="beta-tags">
+                <a href="blog_fullwidth_2col.html">Amazing</a>
+                <a href="blog_fullwidth_2col.html">Shop</a>
+                <a href="blog_fullwidth_2col.html">Themes</a>
+                <a href="blog_fullwidth_2col.html">Clean</a>
+                <a href="blog_fullwidth_2col.html">Responsiveness</a>
+                <a href="blog_fullwidth_2col.html">Multipurpose</a>
+                <a href="blog_fullwidth_2col.html">Creative</a>
+                <a href="blog_fullwidth_2col.html">Brands</a>
+                <a href="blog_fullwidth_2col.html">Categories</a>
+            </div>
+        </div>
+    </div> tags cloud widget -->
+
+
+</div> <!-- .aside -->

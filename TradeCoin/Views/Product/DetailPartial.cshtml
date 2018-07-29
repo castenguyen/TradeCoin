@@ -1,0 +1,173 @@
+﻿@using DataModel.DataEntity
+@using DataModel.DataViewModel
+@using DataModel.DataStore
+@model DetailProductViewModel
+@{
+
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    Classification Objcata = Model.CataObj;
+    string prefixlink = Objcata.FriendlyURL;
+    int flagnum = 1;
+    if (Objcata.ObjPrent != null)
+    { prefixlink = Objcata.ObjPrent.FriendlyURL + "/" + prefixlink; }
+
+
+}
+
+
+@*@foreach (Product _item in Model.lstSameProduct)
+    {
+        <div class="col-sm-4 ">
+            <div class="single-item">
+                <div class="single-item-header">
+                    <a href="~/@prefixlink/@_item.FriendlyURL"><img src="~/@_item.MediaThumb" alt=""></a>
+                </div>
+                <div class="single-item-body">
+                    <p class="single-item-title">@_item.ProductName</p>
+                    <p class="single-item-price">
+                        <span>@_item.NewPrice vnđ/kg</span>
+                    </p>
+                </div>
+                <div class="single-item-caption">
+                    <a class="beta-btn primary" href="~/@prefixlink/@_item.FriendlyURL">Chi tiết <i class="fa fa-chevron-right"></i></a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+
+@*<div class="col-sm-8">
+        <div class="row" id="ItemFull">
+            <img src="~/@Model.MainProduct.MediaUrl" alt="">
+        </div>
+        <div class="row">
+            @foreach (MediaContent _item in Model.lstImage)
+            {
+                <div class="col-sm-2">
+                    <img src="~/@_item.FullURL" alt="" class="ItemThumb" onclick="javascript:ChangeUrlImage('@_item.FullURL')">
+                </div>
+            }
+        </div>
+        <script>
+                            function ChangeUrlImage(url) {
+                                $("#ItemFull > img").attr("src", "");
+                                $("#ItemFull > img").attr("src", "/" + url);
+                            }
+        </script>
+
+    </div>
+    <h5>@Model.MainProduct.ProductName</h5>
+    <td>@Model.MainProduct.NewPrice vnđ/kg</td>
+    @Html.Raw(Model.MainProduct.ProductDetail)*@
+
+
+<!--=== Shop Product ===-->
+<div class="shop-product">
+    <!-- Breadcrumbs v5 -->
+    <div class="container">
+        <ul class="breadcrumb-v5">
+            <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+            <li><a href="#">@Model.CataObj.ClassificationNM</a></li>
+            <li class="active">@Model.MainProduct.ProductName</li>
+        </ul>
+    </div>
+    <!-- End Breadcrumbs v5 -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 md-margin-bottom-50">
+                <div class="ms-showcase2-template">
+                    <!-- Master Slider -->
+                    <div class="master-slider ms-skin-default" id="masterslider">
+                        <div class="ms-slide">
+                            <img class="ms-brd" src="~/@Model.MainProduct.MediaUrl" data-src="http://phonglangiasi.com/@Model.MainProduct.MediaUrl" alt="@Model.MainProduct.ProductName">
+                            <img class="ms-thumb" src="~/@Model.MainProduct.MediaUrl" alt="thumb">
+                        </div>
+
+                        @foreach (MediaContent _item in Model.lstImage)
+                        {
+                            <div class="ms-slide">
+                                <img class="ms-brd" src="~/@_item.FullURL" data-src="http://phonglangiasi.com/@_item.FullURL" alt="@Model.MainProduct.ProductName">
+                                <img class="ms-thumb" src="~/@_item.FullURL" alt="thumb">
+                            </div>
+                        }
+                    </div>
+                    <!-- End Master Slider -->
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="shop-product-heading">
+                    <h2>@Model.MainProduct.ProductName</h2>
+                    <ul class="list-inline shop-product-social">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                    </ul>
+                </div><!--/end shop product social-->
+
+                <ul class="list-inline product-ratings margin-bottom-30">
+                    <li><i class="rating-selected fa fa-star"></i></li>
+                    <li><i class="rating-selected fa fa-star"></i></li>
+                    <li><i class="rating-selected fa fa-star"></i></li>
+                    <li><i class="rating fa fa-star"></i></li>
+                    <li><i class="rating fa fa-star"></i></li>
+
+                </ul><!--/end shop product ratings-->
+
+                <p>@Html.Raw(Model.MainProduct.ProductDetail)</p><br>
+
+                <ul class="list-inline shop-product-prices margin-bottom-30">
+                    <li class="shop-red">@Model.MainProduct.NewPrice đ/@Model.MainProduct.UnitsName</li>
+                    @*<li class="line-through">$70.00</li>*@
+                    <li><small class="shop-bg-red time-day-left">Xuất Xứ : Cansy's Garden</small></li>
+                </ul><!--/end shop product prices-->
+            </div>
+        </div><!--/end row-->
+    </div>
+</div>
+<!--=== End Shop Product ===-->
+<!--=== Illustration v2 ===-->
+<div class="container">
+    <div class="heading heading-v1 margin-bottom-20">
+        <h2>Sản phẩm khác</h2>
+        <p>Sản phẩm được chọn lựa tốt nhất khi đến tay người tiêu dùng ,chất lượng đảm bảo</p>
+    </div>
+
+    <div class="illustration-v2 margin-bottom-60">
+        <div class="customNavigation margin-bottom-25">
+            <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+            <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+        </div>
+
+        <ul class="list-inline owl-slider">
+
+
+            @foreach (Product _item in Model.lstSameProduct)
+            {
+                <li class="item">
+                    <a href="~/@prefixlink/@_item.FriendlyURL"><img class="img-responsive" src="~/@_item.MediaThumb" alt=""></a>
+                    <div class="product-description-v2">
+                        <div class="margin-bottom-5">
+                            <h4 class="title-price"><a href="~/@prefixlink/@_item.FriendlyURL">@_item.ProductName</a></h4>
+                            <span class="title-price">@_item.NewPrice vnđ/kg</span>
+                        </div>
+                        <ul class="list-inline product-ratings">
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                        </ul>
+                    </div>
+                </li>
+            }
+
+
+        </ul>
+    </div>
+</div>
+<!--=== End Illustration v2 ===-->

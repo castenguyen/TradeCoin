@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "News List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DataModel.DataViewModel;
+@using DataModel.DataEntity;
+@model ListNewViewModel
+
+
+<div class="inner-header">
+    <div class="container">
+        <div class="pull-left">
+            <h6 class="inner-title">@Model.CataObj.ClassificationNM</h6>
+        </div>
+        @*<div class="pull-right">
+            <div class="beta-breadcrumb font-large">
+                <a href="index.html">Home</a> / <span>Blog</span>
+            </div>
+        </div>*@
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="content">
+        <div class="row">
+            @Html.Action("LeftSlidePartial", "Home")
+
+            <div class="col-sm-6">
+                @foreach (ContentItem _item in Model.lstNews)
+                {
+                    <div class="beta-blog beta-blog-a">
+                        <div class="beta-blog-header">
+                            <div class="media">
+                                <div class="pull-left">
+                                    <span class="beta-blog-type pull-left"><i class="fa fa-picture-o"></i></span>
+                                    <span class="beta-blog-date pull-left">
+                                        <span class="beta-blog-month">@_item.CrtdDT.Value.ToString("MM")</span>
+                                        <span class="beta-blog-day">@_item.CrtdDT.Value.ToString("dd")</span>
+                                    </span>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="beta-blog-title">
+                                        <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
+                                            @_item.ContentTitle
+                                        </a>
+                                    </h5>
+                                    <p>
+                                        Đăng bởi: <a href="#">@_item.CrtdUserName</a> 
+                                        @*<a href="#">12 Comments</a> |
+                                        In <a href="blog_fullwidth_2col.html">Business</a>,
+                                        <a href="blog_fullwidth_2col.html">Education</a>,
+                                        <a href="blog_fullwidth_2col.html">Health</a>*@
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row beta-blog-content">
+                            <div class="col-sm-6"><a href="single_type_image.html"><img src="~/@_item.MediaUrl" alt=""></a></div>
+                            <div class="col-sm-6">
+                                <p>
+                                    @_item.ContentExcerpt
+                            </p>
+                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })" class="beta-btn primary">
+                                Chi tiết<i class="fa fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div> <!-- .beta-blog item -->
+
+                }
+                @*<div class="beta-pagination text-center">
+                    <a href="#"><i class="fa fa-chevron-left"></i></a>
+                    <a href="#" class="is-active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">...</a>
+                    <a href="#"><i class="fa fa-chevron-right"></i></a>
+                </div>*@
+            </div>
+
+            @Html.Action("RightSlidePartial", "Home")
+
+
+        </div>
+    </div> <!-- #content -->
+</div> <!-- .container -->

@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "News Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var url = Request.Url.ToString();
+}
+@using DataModel.DataViewModel;
+@using DataModel.DataEntity;
+@model DetailNewViewModel
+
+<style>
+    .infoDiv {
+        height: 100px;
+        width: 200px;
+        -webkit-user-select: none;
+        background-color: white;
+    }
+</style>
+
+<div class="container content">
+    <div class="row margin-bottom-20">
+
+
+        <div class="col-md-3 filter-by-block md-margin-bottom-60">
+
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                THÔNG TIN CHUNG
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul class="list-unstyled checkbox-list">
+
+                                @foreach (ContentItem _Item in Model.lstSameNews)
+                                {
+                                    <li>
+                                        <i></i>
+                                        <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _Item.FriendlyURL, CataFriendlyUrl = _Item.ObjCategory.FriendlyURL, id = _Item.ContentItemId })">@_Item.ContentTitle</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/end panel group-->
+        </div>
+
+            <div class="col-md-9 md-margin-bottom-40">
+                <div class="headline"><h2>@Model.MainNews.ContentTitle</h2></div>
+                <div class="row">
+                    <img class="img-responsive margin-bottom-20" src="~/@Model.MainNews.MediaUrl" alt="">
+                    <p style="text-align:justify">
+                        @Html.Raw(Model.MainNews.ContentText)
+                    </p>
+                </div>
+            </div>
+    </div>
+</div>

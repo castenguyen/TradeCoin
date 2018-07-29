@@ -1,0 +1,47 @@
+﻿@using DataModel.DataViewModel;
+@using DataModel.DataEntity;
+@model PageInforDetail
+
+@{
+    ViewBag.Title = "About";
+}
+<div class="row">
+    <div class="width_1200">
+        <div class="wrapper-content-left">
+            <div class="wrapper-text">
+                <h1 style="color:#FAA719;">@Model.PageTitle.ClassificationNM</h1>
+                <div class="content_container">
+                    <p style="text-align:justify; line-height:20px;"><b>@Html.Raw(@Model.PageContent.ContentText)</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-content-right">
+            <div class="img-logo">
+                <img src="~/Content/Images/logoallunee.png" alt="Allunee.vn" />
+            </div>
+        </div>
+        <div class="wrapper-content-right">
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/logo-thuong-truong.png" alt="Báo Thương Trường" />
+            </div>
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/allunee-coffe.png" alt="Allunee cà phê" />
+            </div>
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/allunee-media.png" alt="Allunee truyền thông" />
+            </div>
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/allunee-travel.png" alt="Allunee du lịch" />
+            </div>
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/allunee-ticketing.png" alt="Allunee vé máy bay" />
+            </div>
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/allunee-restaurant.png" alt="Allunee nhà hàng khách sạn" />
+            </div>
+            <div class="img-logo-small">
+                <img src="~/Content/Images/icon-system-allunee/allunee-quy-tinh-nguoi-viet.png" alt="Allunee quỹ tình người việt" />
+            </div>
+        </div>
+    </div>
+</div>

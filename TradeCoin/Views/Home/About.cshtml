@@ -1,0 +1,210 @@
+﻿
+
+
+@{
+    ViewBag.Title = "News Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@using DataModel.DataViewModel;
+@using DataModel.DataEntity;
+@model DetailNewViewModel
+
+<style>
+    .infoDiv {
+        height: 100px;
+        width: 200px;
+        -webkit-user-select: none;
+        background-color: white;
+    }
+</style>
+
+<div class="breadcrumbs-v4">
+    <div class="container">
+        <h1><span class="shop-green">CHÍNH SÁCH HOẠT ĐỘNG</span></h1>
+    </div>
+</div>
+
+<div class="container content">
+    <div class="row margin-bottom-20">
+
+       
+            @Html.Action("RightSlidePartial2", "Home")
+   
+
+        <div class="col-md-9 md-margin-bottom-40">
+            <div class="headline"><h2>Chính sách hoạt động</h2></div>
+            <div class="row">
+
+                <h2 class="text-center wow fadeInDown">Quy trình mua hàng</h2>
+                <h5 class="other-title text-center wow fadeInLeft">
+                    Mua Hàng :<br>
+                    Xem và mua hàng trực tiếp tại địa chỉ : Đường 35 Hiệp Bình, P.Hiệp Bình Chánh, Q.Thủ Đức, TP.HCM<br>
+                    Đặt hàng online :<br>
+                    Gửi đơn đặt hàng cho chúng tôi bằng 1 trong các cách sau :<br>
+                    -Đặt hàng qua hệ thống đặt hàng trên website www.phonglangiasi.com.<br>
+                    -Đặt hàng qua email phonglangiasi@gmail.com.<br>
+                    Hoặc liên hệ với số di động : 0906 316 422 (Gặp Nguyễn Huy)<br>
+                </h5>
+                <hr>
+                <div class="space20">&nbsp;</div>
+
+
+            </div>
+
+            <div class="row">
+                <h3 class="text-center wow fadeInDown">Quy trình Thanh Toán :</h3>
+                <h6>
+                    Quý khách có thể thanh toán trực tiếp lúc giao dịch hoặc Quý khách chuyển vào tài khoản ACB của chúng tôi
+                    khi thanh toán quý khách hàng cần lưu ý :<br>
+                    Quý khách vui lòng chuyển khoản qua ngân hàng trong phần " Nội dung thanh toán ",
+                    Quý khách ghi rõ Tên khách hàng và số điện thoại đã dùng đặt hàng (VD: AKHANH + 09XXXXXXXX ).<br>
+                    Sau khi thanh toán Quý khách vui lòng thông báo với chúng  để chúng tôi hoàn tất đơn hàng cho Quý khách.<br>
+                    Để tiện cho việc thanh toán quý khách hàng có thể chọn lựa trong các ngân hàng sau
+
+                </h6>
+                <div class="space20">&nbsp;</div>
+
+                <div class="col-sm-4">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="#"><img src="~/Content/assets/dest/img/acb.jpg" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space25">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">Ngân hàng thương mại cổ phần Á Châu</h5>
+                            <div class="space5">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                Chủ tài khoản: Nguyễn Quốc Huy<br>
+                                Số Tài Khoản: 188160789<br>
+                                Ngân hàng: ACB (PGD Nguyễn Văn Trỗi TP HCM)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="#"><img src="~/Content/assets/dest/img/vietcombank.jpg" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space25">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">Ngân hàng thương mại cổ phần Ngoại thương Việt Nam</h5>
+                            <div class="space5">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                Chủ tài khoản: Nguyễn Quốc Huy<br>
+                                Số Tài Khoản: 0931004180365<br>
+                                Ngân hàng : Vietcombank (Chi nhánh Hoàng Mai - Hà Nội)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="#"><img src="~/Content/assets/dest/img/techcombank.png" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space25">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">Ngân hàng TMCP Kỹ thương Việt Nam</h5>
+                            <div class="space5">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                Chủ tài khoản: Nguyễn Quốc Huy<br>
+                                Số Tài Khoản: 190 3087 2008 011<br>
+                                Ngân hàng : Techcombank (Chi nhánh Phan Văn Trị)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space50">&nbsp;</div>
+
+
+                <div class="col-sm-4">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="#"><img src="~/Content/assets/dest/img/bo-to-ga-si-sacombank.png" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space25">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">Ngân hàng thương mại cổ phần Sài Gòn Thương Tín</h5>
+                            <div class="space5">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                Chủ tài khoản: Trần Thanh Trang<br>
+                                Số Tài Khoản: 060142383449<br>
+                                Ngân hàng: Sacombank (PGD BINH TRIEU TP HCM)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="#"><img src="~/Content/assets/dest/img/logo-agribank-botogiasi.jpg" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space25">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">Ngân hàng Nông nghiệp và Phát triển Nông thôn Việt Nam</h5>
+                            <div class="space5">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                Chủ tài khoản: Trần Thanh Trang<br>
+                                Số Tài Khoản: 1904206321722<br>
+                                Ngân hàng : Agribank (Chi nhánh Miền Đông)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="blog-item">
+                        <div class="bets-img-hover">
+                            <a href="#"><img src="~/Content/assets/dest/img/HDbank-logo-botogiasi.jpg" alt="" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-item-body">
+                            <div class="space25">&nbsp;</div>
+                            <h5 class="blog-item-title other-title">Ngân hàng thương mại cổ phần Phát triển Nhà Thành phố Hồ Chí Minh</h5>
+                            <div class="space5">&nbsp;</div>
+                            <p class="blog-item-excerpt">
+                                Chủ tài khoản: Trần Thanh Trang<br>
+                                Số Tài Khoản: 015704070019395<br>
+                                Ngân hàng : HDBank (PGD Bình Thạnh)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space70">&nbsp;</div>
+            <div class="row">
+                <h2 class="text-center wow fadeInDown">Điều lệ vận chuyển</h2>
+                <div class="space20">&nbsp;</div>
+                <div class="col-sm-6 beta-dropcap beta-dropcap-a wow fadeInLeft">
+                    <h5>
+                        Khách hàng ở TP.HCM : Giao hàng tận nơi, free ship cho đơn hàng trên 300k<br>
+                        Khách hàng ở nơi khác: thu phí theo giá cước chuyển phát nhanh của bưu điện<br>
+                        Tất cả các đơn hàng đều được thực hiện trong vòng tối đa 48h sau khi nhận được xác nhận đặt hàng
+                        (phương thức chuyển phát nhanh có thể mất thêm 24-48h phụ thuộc vào địa phương cần vận chuyển hàng tới)
+                    </h5>
+
+                </div>
+                <div class="col-sm-6 wow fadeInDown">
+                    <p>
+                        <h5>
+                            Lưu ý: Khách hàng ở tỉnh thành khác phải đặt cọc trước khi cúng tôi gửi hàng(Nếu là trường hợp ship COD), sau khi
+                            nhận được hàng quý khách kiểm tra hàng kỷ càng trước khi thanh toán cho nhân viên vận chuyển , Phong Lan Giá Sỉ sẽ gửi hàng đóng gói, \
+                            cam kết hàng đến nơi 100% và sản phẩm giống như trên website hoặc hình gửi trước cho khách hàng xem.
+                            Xin cảm ơn.
+                        </h5>
+                    </p>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,181 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model UserAndRoles
+@{
+
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Phân Quyền</h3>
+                    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+
+                    <h2 class="page-header">Thông tin tài khoản :@Model.ObjUser.FullName</h2>
+                    <p>Email : @Model.ObjUser.EMail</p>
+                    <p>Số điện thoại : @Model.ObjUser.PhoneNumber</p>
+                    <p>Ngày tạo : @Model.ObjUser.CreationDate</p>
+
+                    <p>Ngày được duyệt : @Model.ObjUser.ApprovalDate</p>
+                    <p>Lần đăng nhập cuối cùng : @Model.ObjUser.LastLoginDate</p>
+                    <p>
+                        Trạng thái :
+                        @if (@Model.ObjUser.LockoutEnabled == true)
+                        {  <strong> Đang tạm khoá</strong>
+                            <a href="@Url.Action("ChangeState", "AccountAdmin", new { id = Model.ObjUser.Id, state = false })"
+                               class="btn bg-olive btn-flat margin">Kích hoat</a>
+                        }
+                        else
+                        {
+                            <strong> Đang hoạt động</strong>
+                            <a href="@Url.Action("ChangeState", "AccountAdmin", new { id = Model.ObjUser.Id, state = true })"
+                               class="btn bg-olive btn-flat margin">Tạm Khoá</a>
+                        }
+                    </p>
+                    <p>
+                        Xác nhận Email :
+                        @if (@Model.ObjUser.EmailConfirmed == false)
+                        {  <strong> Chưa xác nhận</strong>
+                            <a href="#"
+                               class="btn bg-olive btn-flat margin">Yêu cầu xác nhận</a>
+                        }
+                        else
+                        {
+                            <strong> Đã xác nhận</strong>
+
+                        }
+                    </p>
+                    <p>
+                        Xác nhận Phone :
+                        @if (@Model.ObjUser.PhoneNumberConfirmed == false)
+                        {  <strong> Chưa xác nhận</strong>
+                            <a href="#"
+                               class="btn bg-olive btn-flat margin">Yêu cầu xác nhận</a>
+                        }
+                        else
+                        {
+                            <strong> Đã xác nhận</strong>
+                        }
+                    </p>
+
+                    <h2 class="page-header">Danh sách Quyền @Model.ObjUser.FullName</h2>
+                    <table class="table table-hover col-md-6">
+                        <tbody>
+                            <tr>
+                                <th>Role Name</th>
+                                <th>Xoá</th>
+                            </tr>
+                            @foreach (string _val in Model.LstCurRole)
+                            {
+                                <tr>
+                                    <td> <span class="label label-success">@_val</span></td>
+                                    <td><a href="@Url.Action("RemoveUserRole", "AccountAdmin", new { Id = Model.ObjUser.Id, RoleName = _val })" class="btn btn-block btn-danger btn-xs">Xoá</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div><!-- /.box-body -->
+
+
+
+                <div class="box-body">
+
+                    <h2 class="page-header">Thêm quyền cho @Model.ObjUser.FullName</h2>
+                    <table class="table table-hover col-md-6">
+                        <tbody>
+                            <tr>
+                                <th>Role Name</th>
+                                <th>Xoá</th>
+                            </tr>
+                            @foreach (SelectListItem _val in Model.LstAllRole )
+                            {
+                                <tr>
+                                    <td> <span class="label label-success">@_val.Text</span></td>
+                                    <td><a href="@Url.Action("AddUserRole", "AccountAdmin", new { Id = Model.ObjUser.Id, RoleName = _val.Text  })" class="btn btn-block btn-danger btn-xs">Thêm</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                @*<div class="box-footer col-md-9">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>*@
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Lịch sử thao tác</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">Nội dung gần đây</a></li>
+                            @*<li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+                                <li><a href="#settings" data-toggle="tab">Settings</a></li>*@
+                        </ul>
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                                <ul class="timeline timeline-inverse">
+
+                                    @foreach (Userhist _val in Model.ObjUser.LstUserhists.Take(20))
+                                    {
+                                        <li class="time-label">
+                                            <span class="bg-red">
+                                                @_val.CrtdDT
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-envelope bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> @_val.CrtdDT</span>
+                                                <h3 class="timeline-header"><a href="#"></a> @_val.ActionTypeName</h3>
+                                                <div class="timeline-body">
+                                                    @_val.ActionTypeName với @_val.ActionObjName vào lúc @_val.CrtdDT tại địa chỉ IP @_val.IPadress
+                                                </div>
+                                                <div class="timeline-footer">
+                                                    <a class="btn btn-primary btn-xs">Read more</a>
+                                                    <a class="btn btn-danger btn-xs">Delete</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div><!-- /.tab-pane -->
+
+                        </div><!-- /.tab-content -->
+                    </div><!-- /.nav-tabs-custom -->
+
+                </div><!-- /.box-body -->
+                @*<div class="box-footer col-md-9">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>*@
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+        <!-- right column -->
+
+    </div>   <!-- /.row -->
+</section>

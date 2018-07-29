@@ -1,0 +1,111 @@
+﻿@using DataModel.DataViewModel;
+@model IEnumerable<SelectListViewModels>
+@{
+    string hiddenlsttag = "";
+    int i = 1;
+
+    if (Model.Count() > 0)
+    {
+        foreach (SelectListViewModels _val in Model)
+        {
+            if (i == Model.Count())
+            {
+                hiddenlsttag = hiddenlsttag + _val.Value.ToString();
+            }
+            else
+            {
+                hiddenlsttag = hiddenlsttag + _val.Value.ToString() + ",";
+            }
+            i++;
+        }
+
+    }
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        var _arraycheckselecttag = $("#hiddenlsttag").val();
+        var res2 = _arraycheckselecttag.split(",");
+
+        loadrelatedtagselectlist();
+        function loadrelatedtagselectlist() {
+            $.ajax({
+                data: null,
+                url: '@Url.Action("GetRelatedTag", "ContentItem")',
+                success: function (data) {
+                    $(data).each(function (index, data) {
+                        $("#related_tag").append('<option value="' + data.TagId + '">' + data.TagNM + '</option>');
+                    });
+
+                    if (_arraycheckselecttag != "") {
+                        $(res2).each(function (index, dt) {
+                            $('#related_tag option').each(function () {
+                                if ($(this).val() == dt) {
+                                    $(this).prop('selected', true);
+                                }
+                            })
+                        });
+                    }
+
+                    $('#related_tag').multiselect({
+                        includeSelectAllOption: true,
+                        enableFiltering: true,
+                        onChange: function (options, select, checked) {
+                            $('.datatagshow').empty();
+                            var selectedOptions = $('#related_tag option:selected');
+                            $('#related_tag option:selected').each(function () {
+                                $('.datatagshow').append('<span class="btn bg-olive btn-flat margin2 option_2">' + $(this).html() + '</span>');
+                            });
+                        },
+                        optionClass: function (element) {
+                            var value = $(element).val();
+                            if (value % 2 == 0) {
+                                return 'even';
+                            }
+                            else {
+                                return 'odd';
+                            }
+                        },
+                        buttonText: function (options, select) {
+                            if (options.length === 0) {
+                                return 'Chưa chọn từ khoá';
+                            }
+                            else if (options.length > 2) {
+                                return 'Đã chọn ' + options.length + ' từ khoá';
+                            }
+                            else {
+                                var labels = [];
+                                options.each(function () {
+                                    if ($(this).attr('label') !== undefined) {
+                                        labels.push($(this).attr('label'));
+                                    }
+                                    else {
+                                        labels.push($(this).html());
+                                    }
+                                });
+                                return labels.join(', ') + '';
+                            }
+                        }
+                    });
+                }
+            });
+
+        }
+
+    });
+</script>
+
+
+<div class="form-group example">
+    <div class="title">Từ khoá liên quan</div>
+    <div class="col-sm-12">
+        <select id="related_tag" name="related_tag" multiple="multiple"></select>
+        <input type="hidden" name="hiddenlsttag" id="hiddenlsttag" value="@hiddenlsttag" />
+    </div>
+    <div class="col-sm-12 datatagshow">
+    </div>
+
+</div>
+
+

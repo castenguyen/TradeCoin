@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "CommentManager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@model ContentCommentIndexViewModels
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Bình Luận</h3>
+                    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Trạng Thái</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Tất cả</a></li>
+                                <li class="divider"></li>
+                                @foreach (SelectListObj _val in Model.lstCommentState)
+                                {
+                                    <li><a href="@Url.Action("Index", "CommentManager", new { filterstate = _val.value, page = Model.pageNum })">@_val.text</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Tên User | IP</th>
+                                <th>Tên Nội Dung</th>
+                                <th width="30%">Nội Dung Bình Luận</th>
+                                <th>Trạng Thái</th>
+                                <th width="10%">Thao Tác</th>
+                                <th width="10%">Trả Lời Bởi| IP</th>
+                            </tr>
+                            @foreach (ContentComment item in Model.lstMainComment)
+                            {
+                                 if (item.StateId == (int)EnumCore.StateType.cho_duyet)
+                                {
+                                    <tr class="bg-white">
+                                        <td><p>@item.FullName</p><p>@item.IPAddress</p></td>
+                                        <td><p class="text-red">@item.ContentObjName</p></td>
+                                        <td>
+                                            
+                                            <p>
+                                                @item.CommentText
+                                            </p>
+                                        </td>
+                                        <td><p>@item.ObjTypeName</p></td>
+                                        <td>
+                                            <p>
+                                                @Html.ActionLink("Disable", "ChangeState", "CommentManager",
+                                                    new { id = item.CommentId, state = (int)EnumCore.StateType.khong_cho_phep, page = Model.pageNum, filterstate =Model.CommentState}, null)
+                                            <span>|</span>
+                                                @Html.ActionLink("Enable", "ChangeState", "CommentManager",
+                                                    new { id = item.CommentId, state = (int)EnumCore.StateType.cho_phep, page = Model.pageNum, filterstate = Model.CommentState }, null)
+                                            </p>
+                                        </td>
+                                        <td><p>Nguyễn Huy</p><p>112.78.2.61</p></td>
+                                    </tr>
+                                }
+                                
+                                
+                                
+                                if (item.StateId == (int)EnumCore.StateType.cho_phep)
+                                {
+                                    <tr class="bg-white">
+                                        <td><p>@item.FullName</p><p>@item.IPAddress</p></td>
+                                        <td><p class="text-red">@item.ContentObjName</p></td>
+                                        <td>
+                                            <p class="text-red">Được duyệt bởi  vào lúc @item.AprvdDT bởi @item.AprvdUerName</p>
+                                            <p>
+                                                @item.CommentText
+                                            </p>
+                                        </td>
+                                        <td><p>@item.ObjTypeName</p></td>
+                                        <td>
+                                            <p>
+                                                @Html.ActionLink("Disable", "ChangeState", "CommentManager",
+                                                    new { id = item.CommentId, state = (int)EnumCore.StateType.khong_cho_phep, page = Model.pageNum, filterstate =Model.CommentState}, null)
+                                            </p><p>
+                                               Enable
+                                            </p>
+                                        </td>
+                                        <td><p>Nguyễn Huy</p><p>112.78.2.61</p></td>
+                                    </tr>
+                                }
+                                if (item.StateId == (int)EnumCore.StateType.khong_cho_phep)
+                                {
+                                    <tr class="bg-gray">
+                                        <td><p>@item.FullName</p><p>@item.IPAddress</p></td>
+                                        <td><p class="text-red">@item.ContentObjName</p></td>
+                                        <td>
+                                          
+                                            <p>
+                                                @item.CommentText
+                                            </p>
+                                        </td>
+                                        <td><p>@item.ObjTypeName</p></td>
+                                        <td>
+                                            <p>
+                                               Disable
+                                            </p><p>
+                                                @Html.ActionLink("Enable", "ChangeState", "CommentManager",
+                                                new { id = item.CommentId, state = (int)EnumCore.StateType.cho_phep, page = Model.pageNum, filterstate = Model.CommentState }, null)
+                                            </p>
+                                        </td>
+                                        <td><p>Nguyễn Huy</p><p>112.78.2.61</p></td>
+                                    </tr>
+                                }
+
+
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainComment.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainComment, page => Url.Action("Index", new { page, filterstate = Model.CommentState }))
+                    }
+                </div>
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>

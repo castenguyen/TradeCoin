@@ -1,0 +1,183 @@
+﻿@using Microsoft.AspNet.Identity
+@model DataModel.DataEntity.Config
+@{
+    ViewBag.Title = "Config";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <h2 class="box-title">Sửa Web Config</h2>
+                <div class="box-header with-border">
+                    
+                    <a id="btnEdit" name="btnEdit"  class="btn btn-app">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("Edit", "Config", FormMethod.Post, new {id= "form1", @class = "", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body">
+                        
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Site Url", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_url, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Site Name", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_name, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Email", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_email, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Facebook site", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_facebook, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Twitter site", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_stwitter, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Skype", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_skype, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Google site", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_google, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Youtobe site", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_youtube, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Google analytics site", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_googleanalytics, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Copyright", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_copyright, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Phone", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_phone, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Description", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_description, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Home Phone", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_homephone, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Meta data keyword", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_metadatakeyword, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Home Phone 2", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_homephone2, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Meta data description", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_metadadescription, new { @class = "form-control" })
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            @Html.Label("Logo Url", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_logo_url, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.Label("Favico Url", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_favico_url, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Full address", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_full_adress, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Ward", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_ward, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Street", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_street, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("District", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_district, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("City", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_city, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("width thumb", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_width_thumb, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Height thumb", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_height_thumb, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.Label("Pase size", new { @class = "col-md-4 control-label" })
+                            @Html.TextBoxFor(m => m.site_page_size, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-9">
+                            @Html.HiddenFor(m => m.Id)
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="@Url.Action("Index", "Config", new { area= "AdminCMS" })" type="button" class="btn btn-primary" id="btnHuy" name="btnHuy">Cancel</a>
+                        </div>
+                    </div><!-- /.box-body -->
+                    @*<div class="box-footer col-md-9">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>*@
+                }
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+        <!-- right column -->
+
+    </div>   <!-- /.row -->
+</section>
+<script>
+    $current = true;
+
+    $('#form1 input').prop("readonly", $current);
+    $('#btnHuy').hide();
+
+    $('#btnEdit').click(function () {
+        $('#form1 input').prop("readonly", !$current);
+        $('#btnHuy').show();
+        $current = !$current;
+    });
+
+    $("#form1").validate({
+        rules: {
+            site_height_thumb: {
+                number: true
+            },
+            site_page_size: {
+                number: true
+            }
+        }
+    });
+</script>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IdentityConnection-Web.config Connection String" description="IdentityConnection Connection String used in web.config by the application to access the database." defaultValue="data source=NGUYENHUY-PC;&#xD;&#xA;         initial catalog=daiad81d_chobiker;&#xD;&#xA;         integrated security=True;&#xD;&#xA;         MultipleActiveResultSets=True;App=IdentitySample" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\WEB\\ASP\\chobiker\\Alluneecms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='IdentityConnection']/@connectionString" />
+  </parameter>
+  <parameter name="alluneedbEntities-Web.config Connection String" description="alluneedbEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/DataEntity.DataModel.csdl|res://*/DataEntity.DataModel.ssdl|res://*/DataEntity.DataModel.msl;&#xD;&#xA;         provider=System.Data.SqlClient;provider connection string=&quot;&#xD;&#xA;         data source=NGUYENHUY-PC;&#xD;&#xA;         initial catalog=daiad81d_chobiker;&#xD;&#xA;         integrated security=True;&#xD;&#xA;         MultipleActiveResultSets=True;&#xD;&#xA;         App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\WEB\\ASP\\chobiker\\Alluneecms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='alluneedbEntities']/@connectionString" />
+  </parameter>
+  <parameter name="Alluneecms.Models.ApplicationDbContext-Web.config Connection String" description="Alluneecms.Models.ApplicationDbContext Connection String used in web.config by the application to access the database." defaultValue="Alluneecms.Models.ApplicationDbContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\WEB\\ASP\\chobiker\\Alluneecms\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Alluneecms.Models.ApplicationDbContext']/@connectionString" />
+  </parameter>
+</parameters>

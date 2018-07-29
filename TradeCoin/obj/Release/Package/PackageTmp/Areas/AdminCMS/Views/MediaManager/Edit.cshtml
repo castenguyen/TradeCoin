@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+
+@model MediaContent
+
+@{
+    ViewBag.Title = "Edit Image";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+<!-- Main content -->
+
+<section class="content-header">
+    <h1>Edit Image</h1>
+</section>
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12 box">
+            <div class="post">
+                <div class='row margin-bottom'>
+                    <div class='col-md-8'>
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Thông Tin</h3>
+                            </div><!-- /.box-header -->
+                            <!-- form start -->
+                            @using (Html.BeginForm("Edit", "MediaManager", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="box-body">
+                                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Filename, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.Filename, new { @class = "form-control", disabled = "true" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ThumbURL, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.ThumbURL, new { @class = "form-control", disabled = "true" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FullURL, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.FullURL, new { @class = "form-control", disabled = "true" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.CrtdDT, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.CrtdDT, new { @class = "form-control", disabled = "true" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MediaDesc, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.MediaDesc, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MetadataDesc, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.MetadataDesc, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.MetadataKeyword, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.MetadataKeyword, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Caption, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.Caption, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.AlternativeText, new { @class = "col-sm-2 control-label" })
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(m => m.AlternativeText, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+
+
+
+                                </div><!-- /.box-body -->
+                                <div class="box-footer">
+                                    @Html.HiddenFor(m => m.MediaContentId)
+                                    <button type="reset" class="btn btn-default">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right">Update</button>
+                                </div><!-- /.box-footer -->
+                            }
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-sm-4">
+                        <img class="img-responsive" src="/@Model.FullURL" alt="Photo">
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+
+            </div>
+        </div>
+    </div>
+</section>

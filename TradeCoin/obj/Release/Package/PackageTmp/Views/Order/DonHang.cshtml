@@ -1,0 +1,180 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+
+@model InformationOrderViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="width_1200">
+        <div class="order_header">
+            @*<div class="order_header_icon">
+
+                </div>*@
+        </div>
+
+        <div class="status-orders-block">
+            <div class="status-orders-left">
+                <dl>
+                    <dt>Shop:</dt>
+                    @{ int coutCompany = 0;}
+                    @foreach (ItemInforProductViewModel item in Model.OrderProduct.Distinct())
+                    {
+                        long microId = item.MicrositeId;
+                        string microName = item.MicrositeId != 0 && item.MicrositeName != null ? item.MicrositeName : "Cty Allunee";
+                        if (microName == "Cty Allunee" && coutCompany == 0)
+                        {
+                            coutCompany++;
+                            <dd><a title="" href="@Url.Action("Index","Home")">@microName</a></dd>
+                        }
+                        if (coutCompany == 0 && microName != "Cty Allunee")
+                        {
+                            <dd><a title="" href="#@microId">@microName)</a></dd>
+                        }
+                    }
+                </dl>
+                <dl>
+                    <dt>Mã số đơn hàng</dt>
+                    <dd style="color:red;font-weight:bold; font-size:18px;">#@Model.Order.OrderCode</dd>
+                </dl>
+                <dl>
+                    <dt>Hình thức thanh toán:</dt>
+                    <dd>Thanh toán tận nơi</dd>
+                </dl>
+            </div>
+
+            <div class="status-orders-right">
+                <div class="box-status">
+                    <div class="tl">Tình trạng đơn hàng</div>
+                    <div class="cont">
+                        <div class="box-steps">
+                            <div class="step @(Model.Order.StatusId == (int)EnumCore.StatusOrder.don_hang_duoc_ghi_nhan?"current":"done")">
+                                <span>
+                                    <i style="color: white;" class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </span>
+                                <p>Đơn hàng được ghi nhận</p>
+                            </div>
+                            <div class="step @(Model.Order.StatusId == (int)EnumCore.StatusOrder.nguoi_ban_xac_nhan_don_hang?"current":"done")">
+                                <span>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </span>
+                                <p>Ghi nhận đơn hàng</p>
+                            </div>
+                            <div class="step @(Model.Order.StatusId == (int)EnumCore.StatusOrder.hang_da_duoc_chuyen_di?"current":"done")">
+                                <span>
+                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                </span>
+                                <p>Hàng đã được chuyển đi</p>
+                            </div>
+                            <div class="step @(Model.Order.StatusId == (int)EnumCore.StatusOrder.don_hang_hoan_tat?"current":"done")">
+                                <span>
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </span>
+                                <p>Đơn hàng đã hoàn tất</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-status">
+                    <div class="tl">Sản phẩm</div>
+                    @foreach (ItemInforProductViewModel item in Model.OrderProduct)
+                    {
+                        <div class="cont">
+                            <div class="item cls">
+                                <img width="80" height="80" alt="@item.ProductName" src="@item.ThumbUrl">
+                                <div class="info">
+                                    <a title="@item.ProductName" href="@Url.Action("ProductDetails","Product",new { id = item.ProductId, FriendlyUrl = item.FriendlyUrl })">@item.ProductName</a>
+                                    <p>
+                                        <span>Số lượng:</span> @item.Quantity
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+                <div class="box-status">
+                    <div class="tl">Thông tin nhận hàng</div>
+                    <div class="cont">
+                        <div class="nn">
+                            <p><span>Người nhận:</span> <b>@Model.Order.NameCustomerBuy</b></p>
+                            <p><span>Số điện thoại:</span> <b>@Model.Order.PhoneCustomer</b></p>
+                            <p><span>Email:</span> <b>@Model.Order.EmailCustomer</b></p>
+                            <p><span>Địa chỉ:</span>@Model.Order.AddressCustomer (xã/phường @Model.Order.NameWard, quận/huyện @Model.Order.NameDistrict, tỉnh/tp  @Model.Order.NameProvince)</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".xt_effect_gianhang").click(function () {
+            //console.log($('.list_gian_hang').css("margin-right"));
+            if ($('.list_gian_hang').css("margin-right") == "0px") {
+                $('.list_gian_hang').animate({
+                    'margin-right': '1200px',
+                    opacity: '0.5',
+                }, { duration: 2000 });
+                $('.list_gian_hang').animate({
+                    'margin-right': '-1002px',
+                    opacity: '1',
+                }, { duration: 0 });
+                $('.list_gian_hang').animate({
+                    'margin-right': '0px',
+                    //opacity: '1',
+                }, { duration: 2000 });
+            }
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var range__slider = $(".range__slider").eq(0).width();
+        console.log(range__slider);
+        var per_1 = 21 / 100 * range__slider;
+        var per_2 = 85 / 100 * range__slider;
+        $(".range__slider__left").css("left", per_1);
+        $(".range__slider__right").css("left", per_2);
+        $(".range__slider__gap").css("left", per_1);
+        $(".range__slider__gap").css("width", (per_2 - per_1));
+    });
+</script>
+<style>
+    .san-pham-home {
+        width: 100%;
+        height: 150px;
+        background: #00AEEF;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        padding-top: 70px;
+        font-size: 39px;
+    }
+
+    .news-home {
+        width: 100%;
+        height: 150px;
+        background: orange;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        padding-top: 70px;
+        font-size: 39px;
+    }
+</style>

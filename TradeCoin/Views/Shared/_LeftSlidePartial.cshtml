@@ -1,0 +1,62 @@
+﻿@using DataModel.DataViewModel
+@using DataModel.DataEntity
+
+@model RightSliderBarViewModel
+
+<div class="col-sm-3 aside-main">
+    <div class="widget">
+        <h3 class="widget-title">Sản phẩm mới</h3>
+        <div class="widget-body">
+            <div class="beta-sales beta-lists">
+                @foreach (ProductItemViewModel _item in Model.LstProductNews)
+                {
+                    string prefixlink = _item.Obicate.FriendlyURL;
+                    if (_item.Obicate.ObjPrent != null)
+                    {
+                        prefixlink = _item.Obicate.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    <div class="media beta-sales-item">
+                        <a class="pull-left" href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"><img src="~/@_item.ObiProduct.MediaThumb" alt="@_item.ObiProduct.ProductName"></a>
+                        <div class="media-body">
+                            <a href="~/@prefixlink/@_item.ObiProduct.FriendlyURL"> @_item.ObiProduct.ProductName</a>
+                            <span class="beta-sales-price">@_item.ObiProduct.NewPrice</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div> <!-- best sellers widget -->
+
+    <div class="widget-main">
+        <h5 class="widget-main-title">Hướng dẩn</h5>
+        <div class="widget-main-body">
+            <div class="twitter-feed beta-lists">
+
+                @foreach (ContentItem _item in Model.lstPolixyNews)
+                {
+                    <div class="tweet">
+                        <i class="fa fa-twitter"></i>
+                        <div class="tweet-body">
+                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
+                                <h5 class="tweet-title">@_item.ContentTitle</h5>
+                            </a>
+                            <small class="tweet-time">@_item.CrtdDT</small>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @*<div class="widget-main">
+            <h5 class="widget-main-title">L</h5>
+            <div class="widget-main-body">
+                <div class="beta-calendar"></div>
+            </div>
+        </div>*@
+</div>

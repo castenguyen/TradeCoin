@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Product List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model  IEnumerable<ListProductViewModel>
+
+@{
+    Classification Objcata = ViewBag.MainCata;
+    string prefixlink = Objcata.FriendlyURL;
+
+}
+<div class="container">
+    <div id="content">
+        <div class="row">
+            <div class="col-sm-9 main-content pull-right">
+                @foreach (ListProductViewModel _val in Model)
+                {
+                    <div class="beta-products-list">
+                        <h4>@_val.CataObj.ClassificationNM</h4>
+                <div class="beta-products-details">
+                    <p class="pull-left">438 styles found | <a href="#">View all</a></p>
+                    <p class="pull-right">
+                        <span class="sort-by">Sort by </span>
+                        <select name="sortproducts" class="beta-select-primary">
+                            <option value="desc">Latest</option>
+                            <option value="popular">Popular</option>
+                            <option value="rating">Rating</option>
+                            <option value="best">Best</option>
+                        </select>
+                    </p>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row">
+                    @foreach (Product _item in _val.lstProduct)
+                    {
+                        <div class="col-sm-4 ">
+                            <div class="single-item">
+                                <div class="single-item-header">
+                                    <a href="product.html"><img src="~/Content/~/Content/assets/dest/images/products/1.jpg" alt=""></a>
+                                </div>
+                                <div class="single-item-body">
+                                    <p class="single-item-title">Sample Woman Top</p>
+                                    <p class="single-item-price">
+                                        <span>$34.55</span>
+                                    </p>
+                                </div>
+                                <div class="single-item-caption">
+                                    <a class="add-to-cart pull-left" href="shopping_cart.html"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="beta-btn primary" href="product.html">Details <i class="fa fa-chevron-right"></i></a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div> <!-- .beta-products-list -->
+                    <div class="space50">&nbsp;</div>
+                }
+            </div> <!-- .main-content -->
+            @Html.Action("RightSlidePartial2", "Home")
+        </div>
+    </div> <!-- #content -->
+</div> <!-- .container -->

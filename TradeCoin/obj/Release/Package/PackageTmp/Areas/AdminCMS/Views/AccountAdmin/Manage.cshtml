@@ -1,0 +1,158 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@model DataModel.DataViewModel.ManageUserViewModel
+@{
+    ViewBag.Title = "UserManager";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-4">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@ViewBag.StatusMessage</h3>
+                    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+                    @using (Html.BeginForm("Manage", "AccountAdmin", FormMethod.Post, new { @class = "", role = "form" }))
+                    {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.FullName, new { @class = "col-md-4 control-label" })
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @readonly = true })
+                </div>
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = true })
+                </div>
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.OldPassword, new { @class = "col-md-4 control-label" })
+                    @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.NewPassword, new { @class = "col-md-4 control-label" })
+                    @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+                    }
+                 
+
+                </div><!-- /.box-body -->
+                @*<div class="box-footer col-md-9">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>*@
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+        <!-- right column -->
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    @*<img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">*@
+                    <h3 class="profile-username text-center">@User.Identity.GetUserName()</h3>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Số lượng bài đăng</b> <a class="pull-right">1000</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Nội dung Media</b> <a class="pull-right">543</a>
+                        </li>
+                    </ul>
+                    @*<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>*@
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+            <!-- About Me Box -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Thông tin chính</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <strong><i class="fa fa-book margin-r-5"></i> Tên</strong>
+                    <p class="text-muted">
+                       @User.Identity.GetUserName()
+                        
+                    </p>
+                    <hr>
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Số điện thoại</strong>
+                    <p class="text-muted">0988824243</p>
+                    <hr>
+                    <strong><i class="fa fa-pencil margin-r-5"></i>Danh sách Role</strong>
+                    <p>
+                        @foreach (Role _val in Model._User.LstRole)
+                        {
+                           
+                             <span class="label label-danger">@_val.Name.ToString()</span>
+                        }
+                    </p>
+                    <hr>
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Chú Ý</strong>
+                    <p>Đây là khu vực dành riêng cho quản trị viên của website. 
+                    IP của bạn đã được lưu lại. Nếu không có quyền truy cập, 
+                    vui lòng không thao tác ở đây, hoặc bạn sẽ bị chặn khi truy 
+                    cập vào website. Quản trị viên lưu ý đăng nhập đúng và thoát 
+                    sau khi sử dụng xong.</p>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+        <div class="col-md-5">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Nội dung gần đây</a></li>
+                    @*<li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+                    <li><a href="#settings" data-toggle="tab">Settings</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <ul class="timeline timeline-inverse">
+                         
+                            @foreach (Userhist _val in Model.Myhistory)
+                            { 
+                              <li class="time-label">
+                                <span class="bg-red">
+                                 @_val.CrtdDT
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope bg-blue"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> @_val.CrtdDT</span>
+                                    <h3 class="timeline-header"><a href="#"></a> @_val.ActionTypeName</h3>
+                                    <div class="timeline-body">
+                                      @_val.ActionTypeName với @_val.ActionObjName vào lúc @_val.CrtdDT tại địa chỉ IP @_val.IPadress
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <a class="btn btn-primary btn-xs">Read more</a>
+                                        <a class="btn btn-danger btn-xs">Delete</a>
+                                    </div>
+                                </div>
+                            </li>
+                            }
+                        </ul>
+                    </div><!-- /.tab-pane -->
+           
+                </div><!-- /.tab-content -->
+            </div><!-- /.nav-tabs-custom -->
+        </div>
+    </div>   <!-- /.row -->
+</section>

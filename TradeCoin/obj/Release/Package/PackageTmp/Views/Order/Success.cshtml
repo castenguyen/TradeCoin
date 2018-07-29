@@ -1,0 +1,162 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+
+@model IndexViewHomeModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="width_1200 success_block">
+        <div class="order_success_header">
+            <div class="order_success_header_icon">
+
+            </div>
+            <strong>Đặt hàng thành công</strong>
+        </div>
+
+        <div class="content-order">
+            <span class="ic-check"></span>
+            <p>Chào <strong><span class="yel">quý khách,</span></strong></p>
+            <p>
+                Quý khách vừa đặt thành công sản phẩm của shop <a href="http://www.allunee.com/shop/sang-chanhshop/" class="shopName" title="Sang-ChanhShop">Sang-ChanhShop</a>, mã đơn hàng của quý khách là:
+                <a href="http://www.allunee.com/kiem-tra-don-hang/?increment_id=130813326&amp;email=fullcaca@gmail.com" title="Xem đơn hàng 130813326"><strong><span class="yel">130813326</span></strong></a>.
+            </p>
+
+            <p>
+                Sau khi shop xác nhận có hàng, sản phẩm sẽ được giao hàng đến địa chỉ của quý khách tại
+                <strong>Hồ Chí Minh</strong> trong 1.5 ngày.
+            </p>
+
+            <p class="g-link">
+                <a title="Chi tiết đơn hàng" href="@Url.Action("DonHang","Order",new { id = ViewData["IdOrder"] })">Chi tiết đơn hàng</a>
+                <a title="Giỏ hàng" href="@Url.Action("LisOrderCustomer","Order")">Danh sách đơn hàng</a>
+                <a title="Tiếp tục mua sắm" href="@Url.Action("Index","Home")">Tiếp tục mua sắm</a>
+            </p>
+            <p>Mọi thông tin về đơn hàng sẽ được gửi tới email của quý khách, vui lòng kiểm tra email để biết thêm chi tiết.</p>
+            <p>Cảm ơn quý khách đã tin tưởng và giao dịch tại <a href="http://www.allunee.com/" title="www.allunee.com"><span class="red">www.allunee.com</span></a></p>
+            <p>Ban quản trị allunee.com</p>
+            <div class="contact-info">
+                <div>Mọi thắc mắc vui lòng liên hệ: <strong>1900 636 109</strong></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="width_1200" style="background: white;">
+        <div class="street">
+            <div class="line_left"></div>
+            <div class="street_title" style="">
+                <span style="font-size: 18px;">Có thể bạn quan tâm</span>
+
+            </div>
+            <a class="street_xemthem xt_effect_1" href="javascript:void(0)"> </a>
+            <div class="line_right"></div>
+        </div>
+
+        <div class="product_style_1 xemthem_1">
+            @for (var i = 0; i < 5; i++)
+            {
+                <div class="product_item">
+                    <div class="title">
+                        Trà Ô long nhân sâm HQ
+                        <br />
+                        <span class="pro_sale_price">420.000 VND</span> <span class="pro_price">500.000 VND</span>
+                    </div>
+                    <!-- style="background: url('https://farm9.staticflickr.com/8716/17216549416_c841fd1419_o.jpg') center; -ms-background-size: cover; background-size: cover; " -->
+                    <div class="product_img" img-data="https://farm9.staticflickr.com/8716/17216549416_c841fd1419_o.jpg">
+                        <div class="sale_off">
+                            <span style="color: white; position: absolute; top: 15px; left: 11px;">15%</span>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="product_style_1 xemthem_1">
+            @for (var i = 0; i < 5; i++)
+            {
+                <div class="product_item">
+                    <div class="title">
+                        Trà Ô long nhân sâm HQ
+                        <br />
+                        <span class="pro_sale_price">420.000 VND</span> <span class="pro_price">500.000 VND</span>
+                    </div>
+                    <!-- style="background: url('https://farm9.staticflickr.com/8716/17216549416_c841fd1419_o.jpg') center; -ms-background-size: cover; background-size: cover; " -->
+                    <div class="product_img" img-data="https://farm9.staticflickr.com/8716/17216549416_c841fd1419_o.jpg">
+                        <div class="sale_off">
+                            <span style="color: white; position: absolute; top: 15px; left: 11px;">15%</span>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".xt_effect_gianhang").click(function () {
+            //console.log($('.list_gian_hang').css("margin-right"));
+            if ($('.list_gian_hang').css("margin-right") == "0px") {
+                $('.list_gian_hang').animate({
+                    'margin-right': '1200px',
+                    opacity: '0.5',
+                }, { duration: 2000 });
+                $('.list_gian_hang').animate({
+                    'margin-right': '-1002px',
+                    opacity: '1',
+                }, { duration: 0 });
+                $('.list_gian_hang').animate({
+                    'margin-right': '0px',
+                    //opacity: '1',
+                }, { duration: 2000 });
+            }
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function() {
+        var range__slider = $(".range__slider").eq(0).width();
+        console.log(range__slider);
+        var per_1 = 21 / 100 * range__slider;
+        var per_2 = 85 / 100 * range__slider;
+        $(".range__slider__left").css("left", per_1);
+        $(".range__slider__right").css("left", per_2);
+        $(".range__slider__gap").css("left", per_1);
+        $(".range__slider__gap").css("width", (per_2 - per_1));
+    });
+</script>
+<style>
+    .san-pham-home {
+        width: 100%;
+        height: 150px;
+        background: #00AEEF;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        padding-top: 70px;
+        font-size: 39px;
+    }
+
+    .news-home {
+        width: 100%;
+        height: 150px;
+        background: orange;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        padding-top: 70px;
+        font-size: 39px;
+    }
+</style>

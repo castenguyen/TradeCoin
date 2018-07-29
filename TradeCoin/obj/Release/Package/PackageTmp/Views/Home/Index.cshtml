@@ -1,0 +1,106 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model IndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="container">
+    <div id="content">
+        <div class="row">
+
+            <div class="col-sm-9 main-content pull-right">
+
+
+
+
+                <div class="beta-banner">
+                    <div class="fullwidthbanner-container-home">
+                        <div class="fullwidthbanner">
+                            <div class="bannercontainer">
+                                <div class="banner">
+                                    <ul>
+
+                                        @foreach (HomeSliderPartialViewModel _val in Model.HomeSlider)
+                                        {
+                                           <li data-transition="boxfade" data-slotamount="20">
+                                                   <img src="~/@_val.MediaUrl" alt="image" />
+                                               <div class="caption randomrotate regular_button" data-x="600" data-y="380" data-speed="700" data-start="3200" data-easing="easeOutBack">Mua ngay</div>
+                                                 </li>
+
+                                        }
+
+                                        <!-- THE FIRST SLIDE 
+                                     
+
+                                        <li data-transition="boxfade" data-slotamount="20">
+                                            <img src="~/Content/~/Content/assets/dest/images/thumbs/bkg-3.jpg" alt="background">
+                                            <div class="caption lfl" data-x="0" data-y="160" data-speed="700" data-start="2500" data-easing="easeOutBack"><img src="~/Content/assets/dest/images/thumbs/shop/slide4-1.png" alt="slider image" /></div>
+                                            <div class="caption lfr" data-x="600" data-y="180" data-speed="800" data-start="2000" data-easing="easeOutBack"><img src="~/Content/assets/dest/images/thumbs/slider3/layer2.png" alt="image" /></div>
+                                            <div class="caption lfr" data-x="600" data-y="300" data-speed="800" data-start="2400" data-easing="easeOutBack"><img src="~/Content/assets/dest/images/thumbs/slider3/layer3.png" alt="image" /></div>
+                                            <div class="caption randomrotate regular_button" data-x="600" data-y="380" data-speed="700" data-start="3200" data-easing="easeOutBack">buy theme</div>
+                                        </li>-->
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tp-bannertimer"></div>
+                        </div>
+                    </div>
+                    <!--slider-->
+                </div> <!-- .beta-banner -->
+
+
+
+
+                @foreach (HomeListProductViewModel _item in Model.HomeProduct)
+                {
+
+                    string prefixlink = _item.CataObj.FriendlyURL;
+                    if (_item.CataObj.ObjPrent != null)
+                    {
+                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
+                    }
+                    
+                    <div class="space50">&nbsp;</div>
+                    <div class="beta-products-list">
+                        <h4>@_item.CataObj.ClassificationNM</h4>
+                        <div class="row">
+                           @foreach (Product val in _item.lstProduct)
+                           { 
+                            <div class="col-sm-4 ">
+                                <div class="single-item">
+                                    <div class="single-item-header">
+                                        <a href="~/@prefixlink/@val.FriendlyURL"><img src="~/@val.MediaThumb" alt="@val.ProductName"></a>
+                                    </div>
+                                    <div class="single-item-body">
+                                        <p class="single-item-title">@val.ProductName</p>
+                                        <p class="single-item-price">
+                                            <span>@val.NewPrice</span>
+                                        </p>
+                                    </div>
+                                    <div class="single-item-caption">
+                                        @*<a class="add-to-cart pull-left" href="shopping_cart.html"><i class="fa fa-shopping-cart"></i></a>*@
+                                        <a class="beta-btn primary" href="~/@prefixlink/@val.FriendlyURL">Chi tiết <i class="fa fa-chevron-right"></i></a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                           }
+                           
+                        </div>
+                    </div> <!-- .beta-products-list -->
+
+
+                }
+
+            </div> <!-- .main-content -->
+            @Html.Action("RightSlidePartial2", "Home")
+        </div>
+    </div> <!-- #content -->
+</div> <!-- .container -->

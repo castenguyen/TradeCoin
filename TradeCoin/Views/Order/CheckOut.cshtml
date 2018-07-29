@@ -1,0 +1,459 @@
+﻿@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+
+@model CheckoutViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int countlangnghe = 1;
+}
+
+<div class="row">
+    <div class="width_1200">
+        <div class="left" style="width: 60%;">
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "checkout_form", style = "margin-top: 20px;" }))
+            {
+                @Html.ValidationSummary(false)
+                @Html.AntiForgeryToken()
+                <div class="checkout_block">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <button class="btn-product">Đăng nhập</button> @:nếu bạn đã có tài khoản . Hoặc tiếp tục mua hàng bên dưới:
+                    }
+                    else
+                    {
+                        <span>Nhập vào biểu mẵu bên dưới</span>
+                    }
+                </div>
+
+                <div class="checkout_block shippingAddress">
+                    <h6 class="rfe-step">
+                        <span class="rfe-step-num">1</span>
+                        Thông tin và địa chỉ giao hàng
+                    </h6>
+                    <div id="shippingForm">
+                        <div class="rfe-row rfe-row-m10">
+                            <div class="rfe-col-10">
+                                <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_address1" class="rfe-label">
+                                    <strong class="req">*</strong>
+                                    Họ và tên của bạn
+                                </label><!-- END: label -->
+                                <div class="rfe-input">
+                                    <div class="rfe-input-in">
+                                        @Html.TextBoxFor(x => x.FullName, new { id = "dwfrm_root_singleshipping_shippingAddress_addressFields_firstName", @class = "dw-input required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rfe-row rfe-row-m10">
+                            <div class="rfe-col-10">
+                                <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_address1" class="rfe-label">
+                                    <strong class="req">*</strong>
+                                    Địa chỉ
+                                </label><!-- END: label -->
+                                <div class="rfe-input">
+                                    <div class="rfe-input-in">
+                                        @Html.TextBoxFor(x => x.UserAdress, new { id = "dwfrm_root_singleshipping_shippingAddress_addressFields_address1", @class = "dw-input address1 required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rfe-row">
+                            <div class="rfe-col-2 rfe-postcode">
+                                <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_zip" class="rfe-label">
+                                    Mã bưu chính
+                                </label><!-- END: label -->
+                                <div class="rfe-input">
+                                    <div class="rfe-input-in">
+                                        @Html.TextBoxFor(x => x.PostalCode, new { id = "dwfrm_root_singleshipping_shippingAddress_addressFields_zip", @class = "dw-input uppercase" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*
+                                <div class="rfe-col-5">
+                                    <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_city" class="rfe-label">
+                                        <strong class="req">*</strong>
+                                        Tỉnh / Thành phố
+                                    </label><!-- END: label -->
+                                    <div class="rfe-input">
+                                        <div class="rfe-input-in">
+                                            <input type="text" maxlength="25" value="" name="dwfrm_root_singleshipping_shippingAddress_addressFields_city" id="dwfrm_root_singleshipping_shippingAddress_addressFields_city" class="dw-input required">
+                                        </div>
+                                    </div>
+                                </div>
+                            *@
+                            <div class="rfe-col-3">
+                                <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_country" class="rfe-label">
+                                    <strong class="req">*</strong> Tỉnh thành phố
+                                </label>
+                                <div class="rfe-input rfe-input-inline">
+                                    <div class="selectDiv">
+                                        <span class="selectDefault"></span>
+                                        @Html.DropDownListFor(x => x.IdProvice, Model.ListItemCity, new { @class = "selectBox", data_type = 1 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rfe-col-3">
+                                <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_country" class="rfe-label">
+                                    <strong class="req">*</strong> Quận huyện
+                                </label>
+                                <div class="rfe-input rfe-input-inline">
+                                    <div class="selectDiv">
+                                        <span class="selectDefault"></span>
+                                        @Html.DropDownListFor(x => x.IdDistrict, Model.ListItemDistrict, new { @class = "selectBox", data_type = 2 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rfe-col-3" style="margin-top: 20px;">
+                                <label for="dwfrm_root_singleshipping_shippingAddress_addressFields_country" class="rfe-label">
+                                    <strong class="req">*</strong> Xã phường
+                                </label>
+                                <div class="rfe-input rfe-input-inline">
+                                    <div class="selectDiv">
+                                        <span class="selectDefault"></span>
+                                        @Html.DropDownListFor(x => x.IdWard, Model.ListItemWard, new { @class = "selectBox" })
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+
+                                $("select.selectBox").each(function () {
+                                    var defaulttext = $(this).find('option:selected').text();
+                                    $(this).parent().find('.selectDefault').text(defaulttext);
+                                });
+
+                                $('.selectBox').on('change', function () {
+                                    var defaulttext2 = $(this).find('option:selected').text();
+                                    var idCbo = $(this).find('option:selected').val();
+                                    $(this).parent().find('.selectDefault').text(defaulttext2);
+                                    var tp = $(this).attr('data-type');
+                                    if (tp == 1 || tp == 2) {
+                                        $.ajax({
+                                            url: '@Url.Action("GetCombobox", "Order")/' + idCbo,
+                                            type: 'POST',
+                                            contentType: 'application/json; charset=utf-8',
+                                            success: function (rs) {
+                                                var str = tp == 1 ? '<option>Vui lòng chọn Quận/Huyện</option>' : '<option>Vui lòng chọn Phường/Xã</option>';
+                                                for (var i = 0 ; i < rs.length; i++) {
+                                                    console.log(rs[0].text);
+                                                    str += '<option value="' + rs[i].value + '">' + rs[i].text + '</option>';
+                                                }
+                                                if (tp == 1) {
+                                                    $("select#IdDistrict").empty();
+                                                    $("select#IdDistrict").parent().find('span.selectDefault').text('Vui lòng chọn Quận/Huyện');
+                                                    $("select#IdDistrict").append($(str));
+                                                    $("select#IdWard").empty();
+                                                    $("select#IdWard").parent().find('span.selectDefault').text('Vui lòng chọn Phường/Xã');
+                                                }
+                                                else {
+                                                    $("select#IdWard").empty();
+                                                    $("select#IdWard").parent().find('span.selectDefault').text('Vui lòng chọn Phường/Xã');
+                                                    $("select#IdWard").append($(str));
+                                                }
+
+                                            }, error: function (err) {
+                                                //location.reload();
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                        </div>
+
+                        <div class="rfe-row">
+                            <div class="rfe-col-5">
+                                <label for="" class="rfe-label">
+                                    <strong class="req">*</strong>
+                                    Điện thoại
+                                </label><!-- END: label -->
+
+                                <div class="rfe-input">
+                                    <div class="rfe-input-in">
+                                        @Html.TextBoxFor(x => x.PhoneNumber, new { id = "shippingAddressPhone", @class = "dw-input required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rfe-col-5">
+                                <label for="" class="rfe-label">
+                                    <strong class="req">*</strong>
+                                    Email
+                                </label><!-- END: label -->
+                                <div class="rfe-input">
+                                    <div class="rfe-input-in">
+                                        @Html.TextBoxFor(x => x.EMail, new { id = "shippingAddressEmail", @class = "dw-input required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="checkout_block paymentMethod">
+                    <h6 class="rfe-step">
+                        <span class="rfe-step-num">2</span>
+                        shipping method
+                    </h6>
+                    <div id="shippingMethodForm">
+                        <div class="rfe-shipping-table-line active singleMethod">
+                            <p>
+                                Boxme Logistics
+                                @Html.RadioButtonFor(x => x.IdShippingMethod, 0, new { @checked = "checked" })
+                            </p>
+                            <p>
+                                Hình thức vân chuyển khác (Đang cập nhật)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout_block paymentMethod">
+                    <h6 class="rfe-step">
+                        <span class="rfe-step-num">2</span>
+                        payment method
+                    </h6>
+                    <div id="paymentMethodForm">
+                        <div class="rfe-shipping-table-line active singleMethod">
+                            <p>
+                                Thanh toán khi nhận hàng
+                                @Html.RadioButtonFor(x => x.IdPaymentMethod, 0, new { @checked = "checked" })
+                            </p>
+                            <p>
+                                Hình thức thanh toán khác (Đang cập nhật)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout_submit" style="">
+                    <button class="btn-product btn-add-to-cart" scopeid="lbMpProductBuyBox">
+                        <i class="fa fa-cart-plus" aria-hidden="true" style="font-size: 25px;"></i>
+                        Hoàn tất mua hàng
+                    </button>
+                </div>
+            }
+        </div>
+
+        <div class="right" style="width: 35%;">
+            <div class="rfe-side-in">
+                <div class="rfe-side-head">
+                    <div class="rfe-side-head-in">
+                        Đơn hàng của bạn
+                    </div>
+                    <div class="rfe-side-head-link">
+                        <a href="@Url.Action("Cart", "Category")">Chỉnh sửa giỏ hàng</a>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    jQuery(document).ready(function () {
+                        jQuery(".items ul li:odd").addClass("alt");
+                        jQuery(".items ul li:first").addClass("added");
+                    });
+                </script>
+                <ul class="minicart-list">
+                    @if (Session["cart"] != null)
+                    {
+                        foreach (KeyValuePair<long, ItemCartViewModel> item in Session["cart"] as Dictionary<long, ItemCartViewModel>)
+                        {
+                            <li class="minicart-list-item">
+                                <div class="minicart-list-item-side">
+                                    <img width="72" height="60" alt="@item.Value.Product.ProductName" src="@item.Value.Product.MediaUrl">
+                                </div>
+
+                                <div class="minicart-list-item-main">
+                                    <div class="pNfo">
+                                        <div class="minicart-list-item-main-description">
+                                            <div class="minicart-col-main">
+                                                <h2 class="MuseoRounded700">
+                                                    <!-- mp_trans_disable_start -->
+                                                    @item.Value.Product.ProductName
+                                                    <!-- mp_trans_disable_end -->
+                                                </h2>
+                                                <!-- Showing size and color of the product -->
+                                                <div class="minicart-list-item-main-description-in darkGrayText">
+                                                    Colour:
+                                                    <span>&nbsp;Bijou Blue / White</span><br>
+                                                    Size UK:
+                                                    <span>&nbsp;M6</span>
+                                                    <br>
+                                                    Số lượng: <span class="blackText">@item.Value.Quantity</span>
+                                                </div>
+                                                <p aria-hidden="true" class="hidden">
+                                                </p>
+                                            </div>
+                                            <div class="minicart-col-side">
+                                                <div class="pAct">
+                                                    <h6 class="blackText bold arial nonLowerCase">@string.Format("{0:#,###.##}", item.Value.Product.NewPrice > 0 ? item.Value.Product.NewPrice : item.Value.Product.OldPrice) vnđ</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+                <div class="rfe-total-table-container">
+                    <table class="rfe-total-table">
+                        <thead>
+                            <tr class="subTotal">
+                                <td class="item">
+                                    <strong>Tiền chưa tính thuế</strong>
+                                </td>
+                                <td class="cost">
+                                    @{ 
+                                        double totalPrice = 0;
+                                        if (Session["cart"]!=null)
+                                        {
+                                            totalPrice = (Session["cart"] as Dictionary<long, ItemCartViewModel>).Sum(x => x.Value.TotalPrice);
+                                        }
+                                        double vat = totalPrice * 0.1;
+                                    }
+                                    @if (Session["cart"] != null)
+                                    {
+                                        <strong>@string.Format("{0:N0}",totalPrice - vat) vnđ</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>00.00 vnđ</strong>
+                                    }
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="shippingContainer shipping highlightContainer" style="">
+                                <td class="shipping-desc item">
+                                    shipping
+                                </td>
+
+                                <td class="shipping-cost cost">@*100,000 vnđ*@Miễn phí</td>
+                            </tr>
+
+                            <tr class="taxes" style="">
+                                <td class="item"><strong>Thuế</strong></td>
+                                <td class="cost">@*Tất cả mặt hàng đã có thuế VAT*@10% VAT trên tổng đơn hàng</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="estimatedTotal highlightContainer" style="">
+                                <td class="item">
+                                    <strong>Tổng cộng số tiền</strong>
+                                </td>
+                                <td class="cost">
+                                    <strong class="estimated-total cost">
+                                        @if (Session["cart"] != null)
+                                        {
+                                            <span>
+                                                @string.Format("{0:#,###.##}", totalPrice) vnđ
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span>0.00 vnđ</span>
+                                        }
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".xt_effect_gianhang").click(function () {
+            //console.log($('.list_gian_hang').css("margin-right"));
+            if ($('.list_gian_hang').css("margin-right") == "0px") {
+                $('.list_gian_hang').animate({
+                    'margin-right': '1200px',
+                    opacity: '0.5',
+                }, { duration: 2000 });
+                $('.list_gian_hang').animate({
+                    'margin-right': '-1002px',
+                    opacity: '1',
+                }, { duration: 0 });
+                $('.list_gian_hang').animate({
+                    'margin-right': '0px',
+                    //opacity: '1',
+                }, { duration: 2000 });
+            }
+
+        });
+        //$("#checkout_form").validate({
+        //    rules: {
+        //        FullName: {
+        //            required:true,
+        //            maxlength:250
+        //        },
+        //        UserAdress: {
+        //            required: true,
+        //            maxlength: 500
+        //        },
+        //        PostalCode: {
+        //            required: true,
+        //            maxlength: 50
+        //        },
+        //        PhoneNumber: {
+        //            required: true,
+        //            maxlength: 50
+        //        },
+        //        EMail: {
+        //            required: true,
+        //            maxlength: 50,
+        //            email:true
+        //        }
+        //    },
+        //    messages: {
+
+        //    }
+        //});
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        var range__slider = $(".range__slider").eq(0).width();
+        console.log(range__slider);
+        var per_1 = 21 / 100 * range__slider;
+        var per_2 = 85 / 100 * range__slider;
+        $(".range__slider__left").css("left", per_1);
+        $(".range__slider__right").css("left", per_2);
+        $(".range__slider__gap").css("left", per_1);
+        $(".range__slider__gap").css("width", (per_2 - per_1));
+    });
+</script>
+<style>
+    .san-pham-home {
+        width: 100%;
+        height: 150px;
+        background: #00AEEF;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        padding-top: 70px;
+        font-size: 39px;
+    }
+
+    .news-home {
+        width: 100%;
+        height: 150px;
+        background: orange;
+        text-align: center;
+        font-weight: bold;
+        color: black;
+        padding-top: 70px;
+        font-size: 39px;
+    }
+</style>

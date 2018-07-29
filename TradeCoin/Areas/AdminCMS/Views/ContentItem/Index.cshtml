@@ -1,0 +1,154 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@model ContentItemIndexViewModel
+@{
+    ViewBag.Title = "ContentItem";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        var state_val = $("input[name=StateId]").val();
+        var cata_val = $("input[name=CatalogryId]").val();
+
+        var statename = $(".main_state_lst_" + state_val).html();
+        var catename = $(".main_cata_lst_" + cata_val).html();
+
+        $(".main_state_name").html(statename);
+        $(".main_cata_name").html(catename);
+
+    });
+</script>
+
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Bài Viết</h3>
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger main_state_name">Trạng thái</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@Url.Action("Index", "ContentItem",
+                                    new { state = 0, catalogry = Model.ContentCatalogry, page = Model.pageNum })">Tất cả trạng thái</a>
+                                </li>
+                                <li class="divider"></li>
+                                @foreach (SelectListObj _val in Model.lstContentState)
+                                {
+                                    <li>
+                                        <a class="main_state_lst_@_val.value" href="@Url.Action("Index", "ContentItem",
+                                    new { state = _val.value, catalogry = Model.ContentCatalogry, page = Model.pageNum })">@_val.text</a>
+                                </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger main_cata_name">Loại bài viết</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@Url.Action("Index", "ContentItem",
+                                    new { catalogry = 0, state = Model.ContentState, page =Model.pageNum})">Tất cả danh mục</a>
+                                </li>
+                                <li class="divider"></li>
+                                @foreach (SelectListObj _val in Model.lstContentCatalogry)
+                                {
+                                    <li>
+                                        <a class="main_cata_lst_@_val.value" href="@Url.Action("Index", "ContentItem",
+                                    new { catalogry = _val.value, state = Model.ContentState, page =Model.pageNum})">@_val.text</a>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        <a href="@Url.Action("Create", "ContentItem")" class="btn btn-primary">Thêm mới Bài viết</a>
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Ngày tạo</th>
+                                <th>Người tạo</th>
+                                <th>Thuộc</th>
+                                <th>Trạng thái</th>
+                                <th width="20%">Action</th>
+                            </tr>
+                            @{
+                                foreach (ContentItem _val in Model.lstMainContent)
+                                {
+                                    <tr>
+                                        <td>@_val.ContentItemId</td>
+                                        <td><a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })">@_val.ContentTitle</a></td>
+                                        <td>@_val.CrtdDT</td>
+                                        <td>@_val.CrtdUserName</td>
+                                        <td>@_val.CategoryName</td>
+                                        <td>@_val.StateName</td>
+                                        <td>
+                                            @if (_val.StateId == (int)EnumCore.StateType.cho_phep)
+                                            {
+                                                <a href="@Url.Action("ChangeState", "ContentItem", new { id = _val.ContentItemId, state = (int)EnumCore.StateType.khong_cho_phep, ObjType=(int)EnumCore.ObjTypeId.tin_tuc })" class="btn bg-navy">Disable</a>
+                                            }
+                                            @if (_val.StateId == (int)EnumCore.StateType.khong_cho_phep)
+                                            {
+                                                <a href="@Url.Action("ChangeState", "ContentItem", new { id = _val.ContentItemId, state = (int)EnumCore.StateType.cho_phep, ObjType = (int)EnumCore.ObjTypeId.tin_tuc })" class="btn bg-olive btn-flat">Enable</a>
+                                            }
+
+                                            | <a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })" class="btn bg-maroon btn-flat">Edit</a>
+                                            | <a href="@Url.Action("Delete", "ContentItem", new { id = _val.ContentItemId })" onclick="return confirm('Bạn chắc chắn muốn xoá ?');" class="btn bg-maroon btn-flat">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                @*<div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>*@
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainContent.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainContent, page => Url.Action("Index", new { page, state = Model.ContentState, catalogry = Model.ContentCatalogry }))
+                    }
+                </div>
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>
+<script>
+   
+  
+
+   
+</script>

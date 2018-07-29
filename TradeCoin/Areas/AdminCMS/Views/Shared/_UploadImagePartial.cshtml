@@ -1,0 +1,74 @@
+﻿@using DataModel.DataViewModel;
+@model PartialUploadViewModels
+@{
+    string MediaId = "";
+    string Fullurl = ""; 
+    string Thumburl = "";
+   
+    if (Model.MediaId !=null)
+    {
+        MediaId = Model.MediaId.ToString();
+        Fullurl = Model.FullUrl;
+        Thumburl = Model.ThumbUrl;
+    }
+}
+<div class="form-group">
+    <label for="exampleInputFile">Hình</label>
+    <input type="file" id="Default_files" name="Default_files[]" value="Chọn và upload">
+   
+</div>
+<div class="form-group">
+    <input type="button" class="btn btn-primary" id="UploadDefault" value="Upload vào server">
+    <p class="help-block">Hình đại diện</p>
+</div>
+<div class="form-group imgboxdata">
+    <img class="img-responsive" src="/@Fullurl" id="blah" alt="Photo">
+    <input type="hidden" name="ImgdefaultId" id="ImgdefaultId" value="@MediaId" />
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#UploadDefault").click(function () {
+            var formdata = new FormData();
+            var inp = document.getElementById('Default_files');
+          
+            if (inp.files.length == 0)
+            {
+                alert("Chưa chọn file");
+                return;
+            }
+            for (var i = 0; i < inp.files.length; ++i) {
+                formdata.append(inp.files.item(i).name, inp.files[i]);
+            }
+            $.ajax({
+                url: '@Url.Action("UploadOneImgReturnUrl", "Extension")',
+                data: formdata,
+                type: 'POST',
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                       $(".imgboxdata").empty();
+                       $(".imgboxdata").append(' <img class="img-responsive" src="' + data[0].thumb + '" id="blah" alt="Photo">');
+                       $(".imgboxdata").append('  <input type="hidden" name="ImgdefaultId" id="ImgdefaultId" value="' + data[0].id + '" />');
+                }
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#Default_files").change(function () {
+            readURL(this);
+        });
+
+
+    });
+ 
+</script>
