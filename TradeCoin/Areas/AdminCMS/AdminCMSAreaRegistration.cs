@@ -701,10 +701,99 @@ namespace CMSPROJECT.Areas.AdminCMS
         new { controller = "Dashboard", action = "MainHeaderPartial" }
         );
 
-            
+
 
             #endregion dashboad
 
+
+            #region 
+
+
+            context.MapRoute(
+        "AdminCMS_Demo_DemoMainSliderPartial",
+        "Demo/DemoMainSlider",
+        new { controller = "Demo", action = "DemoMainSlider" }
+        );
+
+            context.MapRoute(
+        "AdminCMS_Demo_DemoMainHeaderPartial",
+        "Demo/DemoMainHeader",
+        new { controller = "Demo", action = "DemoMainHeader" }
+        );
+
+            context.MapRoute(
+               "AdminCMS_Demo_index",
+               "Demo/index",
+               new { controller = "Demo", action = "index" }
+               );
+
+            context.MapRoute(
+                "AdminCMS_Demo_MailIndex",
+                "Demo/Mail",
+                new { controller = "Demo", action = "MailIndex" }
+                );
+
+            context.MapRoute(
+                 "AdminCMS_Demo_ReplyMail",
+                 "Demo/ReplyMail",
+                 new { controller = "Demo", action = "ReplyMail" }
+                 );
+
+            context.MapRoute(
+                "AdminCMS_Demo_Register",
+                "Demo/Register",
+                new { controller = "Demo", action = "Register" }
+                );
+
+
+            context.MapRoute(
+                "AdminCMS_Demo_Login",
+                "Demo/Login",
+                new { controller = "Demo", action = "Login" }
+                );
+
+
+            context.MapRoute(
+              "AdminCMS_Demo_IndexNews",
+              "Demo/IndexNews",
+              new { controller = "Demo", action = "IndexNews" }
+              );
+
+            context.MapRoute(
+            "AdminCMS_Demo_CreateNews",
+            "Demo/CreateNews",
+            new { controller = "Demo", action = "CreateNews" }
+            );
+
+            context.MapRoute(
+          "AdminCMS_Demo_UpdateNews",
+          "Demo/UpdateNews",
+          new { controller = "Demo", action = "UpdateNews" }
+          );
+
+
+            context.MapRoute(
+            "AdminCMS_Demo_IndexTicker",
+            "Demo/IndexTicker",
+            new { controller = "Demo", action = "IndexTicker" }
+            );
+
+            context.MapRoute(
+            "AdminCMS_Demo_CreateTicker",
+            "Demo/CreateTicker",
+            new { controller = "Demo", action = "CreateTicker" }
+            );
+
+            context.MapRoute(
+          "AdminCMS_Demo_UpdateTicker",
+          "Demo/UpdateTicker",
+          new { controller = "Demo", action = "UpdateTicker" }
+          );
+
+
+
+
+            #endregion Demo
 
 
 

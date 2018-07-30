@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "CreateTicker";
+    Layout = "~/Areas/AdminCMS/Views/Demo/_DemoLayout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "CreateNews";
+    Layout = "~/Areas/AdminCMS/Views/Demo/_DemoLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Thêm mới kèo</h2>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form action="#" id="CreateForm" method="post" role="form" novalidate="novalidate">
+
+                    <div class="box-body">
+                        <div class="col-md-9">
+                            <row>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <label class="control-label col-md-9" for="ContentTitle">Tên Coin</label>
+                                        <input type="text" class="form-control">
+                                    </div><!-- /input-group -->
+
+                                    <div class="input-group">
+                                        <label class="control-label" for="ContentTitle">Vùng Bán 1</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="control-label" for="ContentTitle">Vùng Bán 2</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="control-label" for="ContentTitle">Vùng Bán 3</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                  
+
+                                    <div class="input-group">
+                                        <label class="control-label col-md-9" for="ContentTitle">Vùng Mua</label>
+                                        <input type="text" class="form-control">
+                                    </div><!-- /input-group -->
+
+                                    <div class="input-group">
+                                        <label class="control-label col-md-9" for="ContentTitle">Cắt lỗ</label>
+                                        <input type="text" class="form-control">
+                                    </div><!-- /input-group -->
+
+                                    <div class="input-group">
+                                        <label class="control-label col-md-9" for="ContentTitle">Số btc tối đa vào lệnh</label>
+                                        <input type="text" class="form-control">
+                                    </div><!-- /input-group -->
+                                </div>
+
+
+
+                            </row>
+
+                            <row>
+                                <div class="form-group">
+                                    <label class="col-md-9 control-label" for="ContentText">Đánh giá</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea id="compose-textarea" class="form-control" style="height: 300px">
+                                    <h1><u>Đánh giá</u></h1>
+                                    <h4>Subheading</h4>
+                                    <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and 
+                                                                                                                                                                                                                                           re of the moment, so blinded by desire, that they cannot foresee</p>
+                                    <ul>
+                                    <li>List item one</li>
+                                    <li>List item two</li>
+                                    <li>List item three</li>
+                                    <li>List item four</li>
+                      </ul>
+                                    <p>Thank you,</p>
+                                    <p>John Doe</p>
+                    </textarea>
+                                </div>
+
+                            </row>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary margin">Submit</button>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox"> Free
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Đêm
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Đồng
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Vàng
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Kim cương
+                                </label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Hình đại diện</label>
+                                <input type="file" id="Default_files" name="Default_files[]" value="Chọn và upload">
+
+                            </div>
+                            <div class="form-group">
+
+                                <p class="help-block">Hình đại diện</p>
+                            </div>
+                            <div class="form-group imgboxdata">
+                                <img class="img-responsive" src="/" id="blah" alt="Photo">
+                                <input type="hidden" name="ImgdefaultId" id="ImgdefaultId" value="0">
+                            </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $("#UploadDefault").click(function () {
+                                        var formdata = new FormData();
+                                        var inp = document.getElementById('Default_files');
+
+                                        if (inp.files.length == 0) {
+                                            alert("Chưa chọn file");
+                                            return;
+                                        }
+                                        for (var i = 0; i < inp.files.length; ++i) {
+                                            formdata.append(inp.files.item(i).name, inp.files[i]);
+                                        }
+                                        $.ajax({
+                                            url: '/administrator/UploadOneImgReturnUrl',
+                                            data: formdata,
+                                            type: 'POST',
+                                            dataType: 'json',
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (data) {
+                                                $(".imgboxdata").empty();
+                                                $(".imgboxdata").append(' <img class="img-responsive" src="' + data[0].thumb + '" id="blah" alt="Photo">');
+                                                $(".imgboxdata").append('  <input type="hidden" name="ImgdefaultId" id="ImgdefaultId" value="' + data[0].id + '" />');
+                                            }
+                                        });
+                                    });
+
+                                    function readURL(input) {
+                                        if (input.files && input.files[0]) {
+                                            var reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                $('#blah').attr('src', e.target.result);
+                                            }
+                                            reader.readAsDataURL(input.files[0]);
+                                        }
+                                    }
+                                    $("#Default_files").change(function () {
+                                        readURL(this);
+                                    });
+
+
+                                });
+
+                            </script>
+
+
+                        </div>
+                    </div><!-- /.box-body -->
+                </form>
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div>
+    </div>   <!-- /.row -->
+</section>
+
+
+

@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "CreateNews";
+    Layout = "~/Areas/AdminCMS/Views/Demo/_DemoLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Thêm mới bài viết</h2>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form action="#" id="CreateForm" method="post" role="form" novalidate="novalidate">
+
+                    <div class="box-body">
+                        <div class="col-md-9">
+                            <div class="validation-summary-valid text-danger" data-valmsg-summary="true">
+                                <ul>
+                                    <li style="display:none"></li>
+                                </ul>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="ContentTitle">Tên bài viết</label>
+                                <input class="form-control" data-val="true" data-val-required="The Tên bài viết field is required." id="ContentTitle" name="ContentTitle" onchange="return InputTitle(this.value,event)" type="text" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="FriendlyURL">Đường dẩn thân thiện</label>
+                                <input class="form-control" data-val="true" data-val-required="The Đường dẩn thân thiện field is required." id="FriendlyURL" name="FriendlyURL" type="text" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="ContentExcerpt">Mô tả</label>
+                                <input class="form-control" data-val="true" data-val-required="The Mô tả field is required." id="ContentExcerpt" name="ContentExcerpt" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-9 control-label" for="ContentText">Nội dung</label>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea id="compose-textarea" class="form-control" style="height: 300px">
+                                <h1><u>Nội dung bài viết</u></h1>
+                                <h4>Subheading</h4>
+                                <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and 
+                                                                                                                                                                                                                                           re of the moment, so blinded by desire, that they cannot foresee</p>
+                                <ul>
+                                <li>List item one</li>
+                                <li>List item two</li>
+                                <li>List item three</li>
+                                <li>List item four</li>
+                      </ul>
+                                <p>Thank you,</p>
+                                <p>John Doe</p>
+                    </textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="MetadataKeyword">Từ Khoá SEO</label>
+                                <input class="form-control" data-val="true" data-val-required="The Từ Khoá SEO field is required." id="MetadataKeyword" name="MetadataKeyword" type="text" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="MetadataDesc">Mô tả SEO</label>
+                                <input class="form-control" data-val="true" data-val-required="The Mô tả SEO field is required." id="MetadataDesc" name="MetadataDesc" type="text" value="">
+                            </div>
+
+                        
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary margin">Submit</button>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox"> Free
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Đêm
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Đồng
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Vàng
+                                </label><br>
+                                <label>
+                                    <input type="checkbox"> Kim cương
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" for="CatalogryList">Danh Mục</label>
+                                <select class="form-control" data-val="true" data-val-number="The field Danh mục must be a number." data-val-required="The Danh mục field is required." id="CategoryId" name="CategoryId">
+                                    <option value="">Select...</option>
+                                    <option value="10815">Bài viết</option>
+                                    <option value="11883">Ý kiến khách hàng</option>
+                                    <option value="11909">Đối Tác</option>
+                                    <option value="11910">Vì sao chọn chúng tôi?</option>
+                                    <option value="11913">Giới Thiệu</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Hình đại diện</label>
+                                <input type="file" id="Default_files" name="Default_files[]" value="Chọn và upload">
+
+                            </div>
+                            <div class="form-group">
+
+                                <p class="help-block">Hình đại diện</p>
+                            </div>
+                            <div class="form-group imgboxdata">
+                                <img class="img-responsive" src="/" id="blah" alt="Photo">
+                                <input type="hidden" name="ImgdefaultId" id="ImgdefaultId" value="0">
+                            </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $("#UploadDefault").click(function () {
+                                        var formdata = new FormData();
+                                        var inp = document.getElementById('Default_files');
+
+                                        if (inp.files.length == 0) {
+                                            alert("Chưa chọn file");
+                                            return;
+                                        }
+                                        for (var i = 0; i < inp.files.length; ++i) {
+                                            formdata.append(inp.files.item(i).name, inp.files[i]);
+                                        }
+                                        $.ajax({
+                                            url: '/administrator/UploadOneImgReturnUrl',
+                                            data: formdata,
+                                            type: 'POST',
+                                            dataType: 'json',
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (data) {
+                                                $(".imgboxdata").empty();
+                                                $(".imgboxdata").append(' <img class="img-responsive" src="' + data[0].thumb + '" id="blah" alt="Photo">');
+                                                $(".imgboxdata").append('  <input type="hidden" name="ImgdefaultId" id="ImgdefaultId" value="' + data[0].id + '" />');
+                                            }
+                                        });
+                                    });
+
+                                    function readURL(input) {
+                                        if (input.files && input.files[0]) {
+                                            var reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                $('#blah').attr('src', e.target.result);
+                                            }
+                                            reader.readAsDataURL(input.files[0]);
+                                        }
+                                    }
+                                    $("#Default_files").change(function () {
+                                        readURL(this);
+                                    });
+
+
+                                });
+
+                            </script>
+
+
+                        </div>
+                    </div><!-- /.box-body -->
+                </form>
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div>
+    </div>   <!-- /.row -->
+</section>
+
