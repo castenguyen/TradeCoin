@@ -18,233 +18,219 @@
                    @Url.Action("Contact", "Home")*@
 
 
-<div class="header-v5 header-static">
-    <!-- Topbar v3 -->
-    <div class="topbar-v3">
-        <div class="search-open">
+
+@*
+        <div class="header-v5 header-static">
+        <!-- Topbar v3 -->
+        <div class="topbar-v3">
+            <div class="search-open">
+                <div class="container">
+                    <input type="text" class="form-control" placeholder="Tìm kiếm">
+                    <div class="search-close"><i class="icon-close"></i></div>
+                </div>
+            </div>
+
             <div class="container">
-                <input type="text" class="form-control" placeholder="Tìm kiếm">
-                <div class="search-close"><i class="icon-close"></i></div>
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <ul class="left-topbar">
+                            <li>
+                                <a>Hotline : 0988824243</a>
+
+                            </li>
+                            <li>
+                                <a>Language (EN)</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+
+                        <ul class="list-inline right-topbar pull-right">
+                            <li><a href="#"><i class="fb rounded-md fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="tw rounded-md fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="gp rounded-md fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="yt rounded-md fa fa-youtube"></i></a></li>
+                        </ul>
+
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <!-- Topbar Navigation -->
-                    <ul class="left-topbar">
-                        <li>
-                            <a>Hotline : 0988824243</a>
-                            <!--<ul class="currency">
-                                <li class="active">
-                                    <a href="#">USD <i class="fa fa-check"></i></a>
-                                </li>
-                                <li><a href="#">Euro</a></li>
-                                <li><a href="#">Pound</a></li>
-                            </ul>-->
-                        </li>
-                        <li>
-                            <a>Language (EN)</a>
-                            <!--<ul class="language">
-                                <li class="active">
-                                    <a href="#">English (EN)<i class="fa fa-check"></i></a>
-                                </li>
-                                <li><a href="#">Spanish (SPN)</a></li>
-                                <li><a href="#">Russian (RUS)</a></li>
-                                <li><a href="#">German (GRM)</a></li>
-                            </ul>-->
-                        </li>
-                    </ul><!--/end left-topbar-->
-                </div>
-                <div class="col-sm-6">
-                    <!--<ul class="list-inline right-topbar pull-right">
-                        <li><a href="#">Account</a></li>
-                        <li><a href="shop-ui-add-to-cart.html">Wishlist (0)</a></li>
-                        <li><a href="shop-ui-login.html">Login</a> | <a href="shop-ui-register.html">Register</a></li>
-                        <li><i class="search fa fa-search search-button"></i></li>
-                    </ul>-->
-                    <ul class="list-inline right-topbar pull-right">
-                        <li><a href="#"><i class="fb rounded-md fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="tw rounded-md fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="gp rounded-md fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="yt rounded-md fa fa-youtube"></i></a></li>
-                    </ul>
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
 
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img id="logo-header" src="~/Content/assets/img/logo.png" alt="Logo">
+                    </a>
                 </div>
-            </div>
-        </div><!--/container-->
-    </div>
-    <!-- End Topbar v3 -->
-    <!-- Navbar -->
-    <div class="navbar navbar-default mega-menu" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">
-                    <img id="logo-header" src="~/Content/assets/img/logo.png" alt="Logo">
-                </a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-responsive-collapse">
-                <!-- Shopping Cart -->
-                @*<ul class="list-inline shop-badge badge-lists badge-icons pull-right">
-                        <li>
-                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                            <span class="badge badge-sea rounded-x">3</span>
-                            <ul class="list-unstyled badge-open mCustomScrollbar" data-mcs-theme="minimal-dark">
+
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+
+
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown active">
+                            <a href="~/" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                TRANG CHỦ
+                            </a>
+
+                        </li>
+
+                        <li class="dropdown mega-menu-fullwidth">
+                            <a href="~/tin-tuc/gioi-thieu-1/gioi-thieu-phong-lan-gia-si-11.html" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                GIỚI THIỆU
+                            </a>
+                            <ul class="dropdown-menu">
                                 <li>
-                                    <img src="~/Content/assets/img/thumb/05.jpg" alt="">
-                                    <button type="button" class="close">×</button>
-                                    <div class="overflow-h">
-                                        <span>Black Glasses</span>
-                                        <small>1 x $400.00</small>
-                                    </div>
+                                    <div class="mega-menu-content">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-12 col-xs-12 md-margin-bottom-30">
+                                                    <h3 class="mega-menu-heading">Phong Lan Giá Sỉ</h3>
+                                                    <p>
+                                                        Với mong muốn phát triển thương hiệu sản phẩm bằng nội lực,
+                                                        Phong Lan Giá Sỉ đã chú trọng vào chất lượng và giá cả của sản phẩm.
+                                                        Sản phẩm của Phong Lan Giá Sỉ thường xuyên được cập nhật mặt hàng
+                                                        và cập nhật giá cả, liên tục cung cấp cho khách hàng các sản phẩm chất
+                                                        lượng và rẻ nhất.Phong Lan Giá Sỉ luôn phù hợp với mọi nhu cầu của khách hàng
+                                                        đem đến sự hài lòng tuyệt đối cho khách hàng. Sản phẩm được bán và giao hàng toàn quốc.
+                                                    </p>
+                                                    <button type="button" class="btn-u btn-u-dark">Chi tiết</button>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4 col-xs-4 md-margin-bottom-30">
+                                                    <a href="#"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/01.jpg" alt=""></a>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4 col-xs-4 sm-margin-bottom-30">
+                                                    <a href="#"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/02.jpg" alt=""></a>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4 col-xs-4">
+                                                    <a href="#"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/03.jpg" alt=""></a>
+                                                </div>
+                                            </div><!--/end row-->
+                                        </div><!--/end container-->
+                                    </div><!--/end mega menu content-->
                                 </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown mega-menu-fullwidth">
+                            <a href="~/san-pham" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                SẢN PHẨM
+                            </a>
+                            <ul class="dropdown-menu">
                                 <li>
-                                    <img src="~/Content/assets/img/thumb/02.jpg" alt="">
-                                    <button type="button" class="close">×</button>
-                                    <div class="overflow-h">
-                                        <span>Black Glasses</span>
-                                        <small>1 x $400.00</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="~/Content/assets/img/thumb/03.jpg" alt="">
-                                    <button type="button" class="close">×</button>
-                                    <div class="overflow-h">
-                                        <span>Black Glasses</span>
-                                        <small>1 x $400.00</small>
-                                    </div>
-                                </li>
-                                <li class="subtotal">
-                                    <div class="overflow-h margin-bottom-10">
-                                        <span>Subtotal</span>
-                                        <span class="pull-right subtotal-cost">$1200.00</span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <a href="shop-ui-inner.html" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">View Cart</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <a href="shop-ui-add-to-cart.html" class="btn-u btn-u-sea-shop btn-block">Checkout</a>
+                                    <div class="mega-menu-content">
+                                        <div class="container">
+                                            <div class="row">
+                                                @foreach (SubMenuViewModels _item in Model)
+                                                {
+                                                    <div class="col-md-2 col-sm-6">
+
+                                                        <h3 class="mega-menu-heading"><a href="~/@_item.Parent.FriendlyURL">@_item.Parent.ClassificationNM</a></h3>
+                                                        <ul class="list-unstyled style-list">
+                                                            @foreach (Classification _val in _item.lstChild)
+                                                            {
+                                                                <li><a href="~/@_item.Parent.FriendlyURL/@_val.FriendlyURL">@_val.ClassificationNM</a></li>
+
+                                                            }
+                                                        </ul>
+                                                        </div>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </li>
-                    </ul>*@
-                <!-- End Shopping Cart -->
-                <!-- Nav Menu -->
-                <ul class="nav navbar-nav">
 
-                    <li class="dropdown active">
-                        <a href="~/" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                            TRANG CHỦ
-                        </a>
+                        <li class="dropdown">
+                            <a href="~/chinh-sach-hoat-dong" data-target="~/chinh-sach-hoat-dong" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                                HOẠT ĐỘNG
+                            </a>
 
-                    </li>
+                        </li>
 
-                    <li class="dropdown mega-menu-fullwidth">
-                        <a href="~/tin-tuc/gioi-thieu-1/gioi-thieu-phong-lan-gia-si-11.html" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                            GIỚI THIỆU
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="mega-menu-content">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-3 col-sm-12 col-xs-12 md-margin-bottom-30">
-                                                <h3 class="mega-menu-heading">Phong Lan Giá Sỉ</h3>
-                                                <p>
-                                                    Với mong muốn phát triển thương hiệu sản phẩm bằng nội lực,
-                                                    Phong Lan Giá Sỉ đã chú trọng vào chất lượng và giá cả của sản phẩm.
-                                                    Sản phẩm của Phong Lan Giá Sỉ thường xuyên được cập nhật mặt hàng
-                                                    và cập nhật giá cả, liên tục cung cấp cho khách hàng các sản phẩm chất
-                                                    lượng và rẻ nhất.Phong Lan Giá Sỉ luôn phù hợp với mọi nhu cầu của khách hàng
-                                                    đem đến sự hài lòng tuyệt đối cho khách hàng. Sản phẩm được bán và giao hàng toàn quốc.
-                                                </p>
-                                                <button type="button" class="btn-u btn-u-dark">Chi tiết</button>
-                                            </div>
-                                            <div class="col-md-3 col-sm-4 col-xs-4 md-margin-bottom-30">
-                                                <a href="#"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/01.jpg" alt=""></a>
-                                            </div>
-                                            <div class="col-md-3 col-sm-4 col-xs-4 sm-margin-bottom-30">
-                                                <a href="#"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/02.jpg" alt=""></a>
-                                            </div>
-                                            <div class="col-md-3 col-sm-4 col-xs-4">
-                                                <a href="#"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/03.jpg" alt=""></a>
-                                            </div>
-                                        </div><!--/end row-->
-                                    </div><!--/end container-->
-                                </div><!--/end mega menu content-->
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="~/tin-tuc/bai-viet-10815" data-target="~/tin-tuc/bai-viet-10815" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                                BÀI VIẾT
+                            </a>
 
-                    <li class="dropdown mega-menu-fullwidth">
-                        <a href="~/san-pham" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                            SẢN PHẨM
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="mega-menu-content">
-                                    <div class="container">
-                                        <div class="row">
-                                            @foreach (SubMenuViewModels _item in Model)
-                                            {
-                                                <div class="col-md-2 col-sm-6">
-
-                                                    <h3 class="mega-menu-heading"><a href="~/@_item.Parent.FriendlyURL">@_item.Parent.ClassificationNM</a></h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        @foreach (Classification _val in _item.lstChild)
-                                                        {
-                                                            <li><a href="~/@_item.Parent.FriendlyURL/@_val.FriendlyURL">@_val.ClassificationNM</a></li>
-
-                                                        }
-                                                    </ul>
-                                                    @*<a href="~/@_item.Parent.FriendlyURL"><img class="product-offers img-responsive" src="~/Content/assets/img/blog/01.jpg" alt=""></a>*@
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="~/chinh-sach-hoat-dong" data-target="~/chinh-sach-hoat-dong" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
-                            HOẠT ĐỘNG
-                        </a>
-
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="~/tin-tuc/bai-viet-10815" data-target="~/tin-tuc/bai-viet-10815" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
-                            BÀI VIẾT
-                        </a>
-
-                    </li>
+                        </li>
 
 
-                    <li class="dropdown">
-                        <a href="~/lien-he" data-target="~/lien-he" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
-                            LIÊN HỆ
-                        </a>
+                        <li class="dropdown">
+                            <a href="~/lien-he" data-target="~/lien-he" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                                LIÊN HỆ
+                            </a>
 
-                    </li>
+                        </li>
 
-                </ul>
+                    </ul>
 
+                </div>
             </div>
         </div>
+        <!-- End Navbar -->
     </div>
-    <!-- End Navbar -->
-</div>
+
+*@
+
+
+
+<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="menu-container page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#intro">
+                <span>U</span>nify
+                <!-- <img src="~/Content/assets/img/logo1.png" alt="Logo"> -->
+            </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="menu-container">
+                <ul class="nav navbar-nav">
+                    <li class="page-scroll home">
+                        <a href="#body">Home</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about">About Us</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#services">Services</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#news">News</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#contact">Contact</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="../index.html">Main</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>

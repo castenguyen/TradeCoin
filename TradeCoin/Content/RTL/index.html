@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html dir="rtl" lang="en"> <!--<![endif]-->  
+<!--[if !IE]><!--> <html dir="rtl" lang="en"> <!--<![endif]-->
 <head>
-    <title>Shop UI | Unify - Responsive Website Template</title>
+    <title>Unify | Creative One Page Theme</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -19,1521 +19,963 @@
 
     <!-- CSS Global Compulsory -->
     <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap-rtl.min.css">
-    <link rel="stylesheet" href="../assets/css/css-rtl/shop.style-rtl.css">
+    <link rel="stylesheet" href="../assets/css/css-rtl/one.style-rtl.css">
 
-    <!-- CSS Header and Footer -->
-    <link rel="stylesheet" href="../assets/css/css-rtl/headers/header-v5-rtl.css">
-    <link rel="stylesheet" href="../assets/css/css-rtl/footers/footer-v4-rtl.css">
+    <!-- CSS Footer -->
+    <link rel="stylesheet" href="../assets/css/css-rtl/footers/footer-v7-rtl.css">
 
     <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="../assets/plugins/animate.css">    
+    <link rel="stylesheet" href="../assets/plugins/animate.css">
     <link rel="stylesheet" href="../assets/plugins/line-icons/line-icons.css">
     <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/plugins/scrollbar/css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="../assets/plugins/revolution-slider/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="../assets/plugins/pace/pace-flash.css">
     <link rel="stylesheet" href="../assets/plugins/owl-carousel2/assets/owl.carousel.css">
-
-    <!-- Style Switcher -->
-    <link rel="stylesheet" href="../assets/css/plugins/style-switcher.css">
+    <link rel="stylesheet" href="../assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css">
+    <link rel="stylesheet" href="../assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css">
+    <link rel="stylesheet" href="../assets/plugins/revolution-slider/rs-plugin/css/settings.css" type="text/css" media="screen">
+    <!--[if lt IE 9]><link rel="stylesheet" href="../assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css" type="text/css" media="screen"><![endif]-->
 
     <!-- CSS Theme -->
     <link rel="stylesheet" href="../assets/css/theme-colors/default.css" id="style_color">
+    <link rel="stylesheet" href="../assets/css/theme-skins/one.dark.css">
 
     <!-- RTL Customization -->
     <link rel="stylesheet" href="../assets/css/css-rtl/rtl.css">
 
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/css-rtl/custom-rtl.css">
-</head>	
+</head>
 
-<body class="header-fixed">
-<div class="wrapper">
-    <!--=== Header v5 ===-->   
-    <div class="header-v5 header-static">
-        <!-- Topbar v3 -->
-        <div class="topbar-v3">
-            <div class="search-open">
-                <div class="container">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <div class="search-close"><i class="icon-close"></i></div>
-                </div>    
+<!--
+The #page-top ID is part of the scrolling feature.
+The data-spy and data-target are part of the built-in Bootstrap scrollspy function.
+-->
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery dark">
+    <!--=== Header ===-->
+    <nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="menu-container page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#intro">
+                    <span>U</span>nify
+                    <!-- <img src="../assets/img/logo1.png" alt="Logo"> -->
+                </a>
             </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <!-- Topbar Navigation -->
-                        <ul class="left-topbar">
-                            <li>
-                                <a>Currency (USD)</a>
-                                <ul class="currency">
-                                    <li class="active">
-                                        <a href="#">USD <i class="fa fa-check"></i></a> 
-                                    </li>
-                                    <li><a href="#">Euro</a></li>
-                                    <li><a href="#">Pound</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>Language (EN)</a>
-                                <ul class="language">
-                                    <li class="active">
-                                        <a href="#">English (EN)<i class="fa fa-check"></i></a> 
-                                    </li>
-                                    <li><a href="#">Spanish (SPN)</a></li>
-                                    <li><a href="#">Russian (RUS)</a></li>
-                                    <li><a href="#">German (GRM)</a></li>
-                                </ul>
-                            </li>   
-                        </ul><!--/end left-topbar-->
-                    </div>
-                    <div class="col-sm-6">
-                        <ul class="list-inline right-topbar pull-right">
-                            <li><a href="#">Account</a></li>
-                            <li><a href="shop-ui-add-to-cart.html">Wishlist (0)</a></li>
-                            <li><a href="shop-ui-login.html">Login</a> | <a href="shop-ui-register.html">Register</a></li>
-                            <li><i class="search fa fa-search search-button"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div><!--/container-->
-        </div>
-        <!-- End Topbar v3 -->
-
-        <!-- Navbar -->
-        <div class="navbar navbar-default mega-menu" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img id="logo-header" src="../assets/img/logo.png" alt="Logo">
-                    </a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-responsive-collapse">
-                    <!-- Shopping Cart -->
-                    <ul class="list-inline shop-badge badge-lists badge-icons pull-right">
-                        <li>
-                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                            <span class="badge badge-sea rounded-x">3</span>
-                            <ul class="list-unstyled badge-open mCustomScrollbar" data-mcs-theme="minimal-dark">
-                                <li>
-                                    <img src="../assets/img/thumb/05.jpg" alt="">
-                                    <button type="button" class="close">×</button>
-                                    <div class="overflow-h">
-                                        <span>Black Glasses</span>
-                                        <small>1<em>x</em>$400.00</small>
-                                    </div>    
-                                </li>
-                                <li>
-                                    <img src="../assets/img/thumb/02.jpg" alt="">
-                                    <button type="button" class="close">×</button>
-                                    <div class="overflow-h">
-                                        <span>Black Glasses</span>
-                                        <small>1<em>x</em>$400.00</small>
-                                    </div>    
-                                </li>
-                                <li>
-                                    <img src="../assets/img/thumb/03.jpg" alt="">
-                                    <button type="button" class="close">×</button>
-                                    <div class="overflow-h">
-                                        <span>Black Glasses</span>
-                                        <small>1<em>x</em>$400.00</small>
-                                    </div>    
-                                </li>
-                                <li class="subtotal">
-                                    <div class="overflow-h margin-bottom-10">
-                                        <span>Subtotal</span>
-                                        <span class="pull-right subtotal-cost">$1200.00</span>
-                                    </div>
-                                    <div class="row">    
-                                        <div class="col-xs-6">
-                                            <a href="shop-ui-inner.html" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">View Cart</a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <a href="shop-ui-add-to-cart.html" class="btn-u btn-u-sea-shop btn-block">Checkout</a>
-                                        </div>
-                                    </div>        
-                                </li>    
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- End Shopping Cart -->
-
-                    <!-- Nav Menu -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <div class="menu-container">
                     <ul class="nav navbar-nav">
-                        <!-- Pages -->
-                        <li class="dropdown active">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                                Pages
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="active"><a href="index.html">Shop UI</a></li>
-                                <li><a href="shop-ui-inner.html">Product Page</a></li>
-                                <li><a href="shop-ui-filter-grid.html">Filter Grid Page</a></li>
-                                <li><a href="shop-ui-filter-list.html">Filter List Page</a></li>
-                                <li><a href="shop-ui-add-to-cart.html">Checkout</a></li>
-                                <li><a href="shop-ui-login.html">Login</a></li>
-                                <li><a href="shop-ui-register.html">Register</a></li>
-                            </ul>
+                        <li class="page-scroll home">
+                            <a href="#body">Home</a>
                         </li>
-                        <!-- End Pages -->
-
-                        <!-- Promotion -->
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                                Promotion
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-submenu">
-                                    <a href="javascript:void(0);">Jeans</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Skinny Jeans</a></li>
-                                        <li><a href="#">Bootcut Jeans</a></li>
-                                        <li><a href="#">Straight Cut Jeans</a></li>
-                                    </ul>    
-                                </li>
-                                <li class="dropdown-submenu">
-                                    <a href="javascript:void(0);">Shoes</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Sandals</a></li>
-                                        <li><a href="#">Heels</a></li>
-                                    </ul>    
-                                </li>
-                            </ul>
+                        <li class="page-scroll">
+                            <a href="#about">About Us</a>
                         </li>
-                        <!-- End Promotion -->
-
-                        <!-- Gifts -->
-                        <li class="dropdown mega-menu-fullwidth">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                                Gifts
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="mega-menu-content">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-3 col-sm-12 col-xs-12 md-margin-bottom-30">
-                                                    <h3 class="mega-menu-heading">Pellentes que nec diam lectus</h3>
-                                                    <p>Proin pulvinar libero quis auctor pharet ra. Aenean fermentum met us orci, sedf eugiat augue pulvina r vitae. Nulla dolor nisl, molestie nec aliquam vitae, gravida sodals dolor...</p>
-                                                    <button type="button" class="btn-u btn-u-dark">Read More</button>
-                                                </div>
-                                                <div class="col-md-3 col-sm-4 col-xs-4 md-margin-bottom-30">
-                                                    <a href="#"><img class="product-offers img-responsive" src="../assets/img/blog/01.jpg" alt=""></a>
-                                                </div>
-                                                <div class="col-md-3 col-sm-4 col-xs-4 sm-margin-bottom-30">
-                                                    <a href="#"><img class="product-offers img-responsive" src="../assets/img/blog/02.jpg" alt=""></a>
-                                                </div>
-                                                <div class="col-md-3 col-sm-4 col-xs-4">
-                                                    <a href="#"><img class="product-offers img-responsive" src="../assets/img/blog/03.jpg" alt=""></a>
-                                                </div>
-                                            </div><!--/end row-->
-                                        </div><!--/end container-->
-                                    </div><!--/end mega menu content-->  
-                                </li>
-                            </ul><!--/end dropdown-menu-->
+                        <li class="page-scroll">
+                            <a href="#services">Services</a>
                         </li>
-                        <!-- End Gifts -->
-
-                        <!-- Books -->
-                        <li class="dropdown mega-menu-fullwidth">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
-                                Books
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="mega-menu-content">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-6">
-                                                    <h3 class="mega-menu-heading">Clothe</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">New in</a></li>
-                                                        <li><a href="#">Coats &amp; Jackets</a></li>
-                                                        <li><a href="#">Jeans</a></li>
-                                                        <li><a href="#">Dresses</a></li>
-                                                        <li><a href="#">Shorts</a> <span class="label label-danger-shop">New</span></li>
-                                                        <li><a href="#">Skirts</a></li>
-                                                        <li><a href="#">T-Shirts</a></li>
-                                                    </ul>
-                                                    <h3 class="mega-menu-heading">Shoes</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">Boots</a></li>
-                                                        <li><a href="#">FLats</a></li>
-                                                        <li><a href="#">Heels</a></li>
-                                                        <li><a href="#">Sandals</a></li>
-                                                        <li><a href="#">Sports</a></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col-md-2 col-sm-6">
-                                                    <h3 class="mega-menu-heading">Accessories</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">All accessories</a></li>
-                                                        <li><a href="#">Bags &amp; Purses</a></li>
-                                                        <li><a href="#">Scarvs &amp; Hats</a></li>
-                                                        <li><a href="#">Jewellery</a></li>
-                                                        <li><a href="#">Fragrance &amp; Beauty</a></li>
-                                                    </ul>
-                                                    <h3 class="mega-menu-heading">Lingerie</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">Linger</a> <span class="label label-danger-shop">New</span></li>
-                                                        <li><a href="#">Slippers</a></li>
-                                                    </ul>
-                                                    <h3 class="mega-menu-heading">Nightwear</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">Nightwear</a></li>
-                                                        <li><a href="#">Socks</a></li>
-                                                        <li><a href="#">Tights</a></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col-md-2 col-sm-6">
-                                                    <h3 class="mega-menu-heading">Mixed</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">New in</a></li>
-                                                        <li><a href="#">Coats &amp; Jackets</a> <span class="label label-danger-shop">New</span></li>
-                                                        <li><a href="#">Jeans</a></li>
-                                                        <li><a href="#">Dresses</a></li>
-                                                        <li><a href="#">Shorts</a></li>
-                                                        <li><a href="#">Skirts</a></li>
-                                                        <li><a href="#">T-shirts</a></li>
-                                                        <li><a href="#">Boots</a></li>
-                                                        <li><a href="#">Flats</a></li>
-                                                        <li><a href="#">Heels</a></li>
-                                                        <li><a href="#">Sandals</a></li>
-                                                        <li><a href="#">Sports</a></li>
-                                                        <li><a href="#">Socks</a></li>
-                                                        <li><a href="#">Tights</a></li>
-                                                    </ul>
-                                                </div>        
-
-                                                <div class="col-md-2 col-sm-6">
-                                                    <h3 class="mega-menu-heading">Clothe</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">New in</a></li>
-                                                        <li><a href="#">Coats &amp; Jackets</a></li>
-                                                        <li><a href="#">Jeans</a></li>
-                                                        <li><a href="#">Dresses</a></li>
-                                                        <li><a href="#">Shorts</a> <span class="label label-danger-shop">New</span></li>
-                                                        <li><a href="#">Skirts</a></li>
-                                                        <li><a href="#">T-shirts</a></li>
-                                                    </ul>
-                                                    <h3 class="mega-menu-heading">Shoes</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">Boots</a></li>
-                                                        <li><a href="#">Flats</a></li>
-                                                        <li><a href="#">Heels</a></li>
-                                                        <li><a href="#">Sandals</a></li>
-                                                        <li><a href="#">Sports</a></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col-md-2 col-sm-6">
-                                                    <h3 class="mega-menu-heading">Accessories</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">All accessories</a></li>
-                                                        <li><a href="#">Bags &amp; Purses</a></li>
-                                                        <li><a href="#">Scarvs &amp; Hats</a></li>
-                                                        <li><a href="#">Jewellery</a></li>
-                                                        <li><a href="#">Fragrance &amp; Beauty</a></li>
-                                                    </ul>
-                                                    <h3 class="mega-menu-heading">Lingerie</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">Linger</a> <span class="label label-danger-shop">New</span></li>
-                                                        <li><a href="#">Slippers</a></li>
-                                                    </ul>
-                                                    <h3 class="mega-menu-heading">Nightwear</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">Nightwear</a></li>
-                                                        <li><a href="#">Socks</a></li>
-                                                        <li><a href="#">Tights</a></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col-md-2 col-sm-6">
-                                                    <h3 class="mega-menu-heading">Mixed</h3>
-                                                    <ul class="list-unstyled style-list">
-                                                        <li><a href="#">New in</a></li>
-                                                        <li><a href="#">Coats &amp; Jackets</a> <span class="label label-danger-shop">New</span></li>
-                                                        <li><a href="#">Jeans</a></li>
-                                                        <li><a href="#">Dresses</a></li>
-                                                        <li><a href="#">Shorts</a></li>
-                                                        <li><a href="#">Skirts</a></li>
-                                                        <li><a href="#">T-shirts</a></li>
-                                                        <li><a href="#">Boots</a></li>
-                                                        <li><a href="#">Flats</a></li>
-                                                        <li><a href="#">Heels</a></li>
-                                                        <li><a href="#">Sandals</a></li>
-                                                        <li><a href="#">Sports</a></li>
-                                                        <li><a href="#">Socks</a></li>
-                                                        <li><a href="#">Tights</a> <span class="label label-danger-shop">New</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div><!--/end row-->
-                                        </div><!--/end container-->
-                                    </div><!--/end mega menu content-->  
-                                </li>
-                            </ul><!--/end dropdown-menu-->
+                        <li class="page-scroll">
+                            <a href="#news">News</a>
                         </li>
-                        <!-- End Books -->
-
-                        <!-- Clothes -->
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
-                                Clothes
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Jeans</a></li>
-                                <li><a href="#">T-shirts</a></li>
-                                <li><a href="#">Shorts</a></li>
-                            </ul>
+                        <li class="page-scroll">
+                            <a href="#portfolio">Portfolio</a>
                         </li>
-                        <!-- End Clothes -->
-
-                        <!-- Main Demo -->
-                        <li><a href="../index.html">Main Demo</a></li>
-                        <!-- Main Demo -->
+                        <li class="page-scroll">
+                            <a href="#contact">Contact</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="../index.html">Main</a>
+                        </li>
                     </ul>
-                    <!-- End Nav Menu -->
                 </div>
-            </div>    
-        </div>            
-        <!-- End Navbar -->
-    </div>
-    <!--=== End Header v5 ===-->
-
-    <!--=== Slider ===-->
-    <div class="tp-banner-container">
-        <div class="tp-banner">
-            <ul>
-                <!-- SLIDE -->
-                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 1">
-                    <!-- MAIN IMAGE -->
-                    <img src="../assets/img/1.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
-
-                    <div class="tp-caption revolution-ch1 sft start"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="100"
-                        data-speed="1500"
-                        data-start="500"
-                        data-easing="Back.easeInOut"
-                        data-endeasing="Power1.easeIn"                        
-                        data-endspeed="300">
-                        The New <br>
-                        <strong>Collection</strong><br>
-                        is here
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption sft"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="380"
-                        data-speed="1600"
-                        data-start="1800"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>
-                    </div>
-                </li>
-                <!-- END SLIDE -->
-
-                <!-- SLIDE -->
-                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
-                    <!-- MAIN IMAGE -->
-                    <img src="../assets/img/5.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
-
-                    <div class="tp-caption revolution-ch3 sft start"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="140"
-                        data-speed="1500"
-                        data-start="500"
-                        data-easing="Back.easeInOut"
-                        data-endeasing="Power1.easeIn"                        
-                        data-endspeed="300">
-                        Latest <strong>Fashion</strong> Trends
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption revolution-ch4 sft"
-                        data-x="center"
-                        data-hoffset="-14"
-                        data-y="210"
-                        data-speed="1400"
-                        data-start="2000"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        Cras non dui et quam auctor pretium.<br>
-                        Aenean enim tortr, tempus et iteus m
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption sft"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="300"
-                        data-speed="1600"
-                        data-start="1800"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>
-                    </div>
-                </li>
-                <!-- END SLIDE -->
-
-                <!-- SLIDE -->
-                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 3">
-                    <!-- MAIN IMAGE -->
-                    <img src="../assets/img/3.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="right top" data-bgrepeat="no-repeat">
-
-                    <div class="tp-caption revolution-ch3 sft start"
-                        data-x="right"
-                        data-hoffset="5"
-                        data-y="130"
-                        data-speed="1500"
-                        data-start="500"
-                        data-easing="Back.easeInOut"
-                        data-endeasing="Power1.easeIn"                        
-                        data-endspeed="300">
-                        <strong>Luxury</strong> Watches
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption revolution-ch4 sft"
-                        data-x="right"
-                        data-hoffset="0"
-                        data-y="210"
-                        data-speed="1400"
-                        data-start="2000"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        lectus. Cras non dui et quam auctor.<br>
-                        Aenean enim tortor, tempus et im
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption sft"
-                        data-x="right"
-                        data-hoffset="0"
-                        data-y="300"
-                        data-speed="1600"
-                        data-start="2800"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>
-                    </div>
-                </li>
-                <!-- END SLIDE -->
-
-                <!-- SLIDE -->
-                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 4">
-                    <!-- MAIN IMAGE -->
-                    <img src="../assets/img/2.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
-
-                    <div class="tp-caption revolution-ch1 sft start"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="100"
-                        data-speed="1500"
-                        data-start="500"
-                        data-easing="Back.easeInOut"
-                        data-endeasing="Power1.easeIn"                        
-                        data-endspeed="300">
-                        Girl's Accesories
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption revolution-ch2 sft"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="280"
-                        data-speed="1400"
-                        data-start="2000"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        Super Promo
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption sft"
-                        data-x="center"
-                        data-hoffset="0"
-                        data-y="370"
-                        data-speed="1600"
-                        data-start="2800"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">View More</a>
-                        <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>
-                    </div>
-                </li>
-                <!-- END SLIDE -->                
-
-                <!-- SLIDE -->
-                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 5">
-                    <!-- MAIN IMAGE -->
-                    <img src="../assets/img/4.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="right top" data-bgrepeat="no-repeat">
-
-                    <div class="tp-caption revolution-ch5 sft start"
-                        data-x="right"
-                        data-hoffset="5"
-                        data-y="130"
-                        data-speed="1500"
-                        data-start="500"
-                        data-easing="Back.easeInOut"
-                        data-endeasing="Power1.easeIn"                        
-                        data-endspeed="300">
-                        <strong>Jeans</strong> Collection
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption revolution-ch4 sft"
-                        data-x="right"
-                        data-hoffset="-14"
-                        data-y="210"
-                        data-speed="1400"
-                        data-start="2000"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        Cras non dui et quam auctor pretium.<br>
-                        Aenean enim tortr, tempus et iteus m
-                    </div>
-
-                    <!-- LAYER -->
-                    <div class="tp-caption sft"
-                        data-x="right"
-                        data-hoffset="0"
-                        data-y="300"
-                        data-speed="1600"
-                        data-start="2800"
-                        data-easing="Power4.easeOut"
-                        data-endspeed="300"
-                        data-endeasing="Power1.easeIn"
-                        data-captionhidden="off"
-                        style="z-index: 6">
-                        <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>
-                    </div>
-                </li>
-                <!-- END SLIDE -->
-            </ul>
-            <div class="tp-bannertimer tp-bottom"></div>            
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
-    <!--=== End Slider ===-->
+        <!-- /.container -->
+    </nav>
+    <!--=== End Header ===-->
 
-    <!--=== Product Content ===-->
-    <div class="container content-md">
-        <!--=== Illustration v1 ===-->
-        <div class="row margin-bottom-60">
-            <div class="col-md-6 md-margin-bottom-30">
-                <div class="overflow-h">
-                    <div class="illustration-v1 illustration-img1">
-                        <div class="illustration-bg">
-                            <div class="illustration-ads ad-details-v1">
-                                <h3>NEW YEAR <strong>SALE</strong> 30% - 60% <strong>off</strong></h3>
-                                <a class="btn-u btn-brd btn-brd-hover btn-u-light" href="#">Shop Now</a>
-                            </div>    
-                        </div>    
-                    </div>
-                </div>    
-            </div>
-            <div class="col-md-6">
-                <div class="overflow-h">
-                    <a class="illustration-v1 illustration-img2" href="#">
-                        <span class="illustration-bg">
-                            <span class="illustration-ads ad-details-v2">
-                                <span class="item-time">Spring 2014</span>
-                                <span class="item-name">Lacoste</span>
-                            </span>
-                        </span>
-                    </a>
-                </div>    
-            </div>
-        </div><!--/end row-->
-        <!--=== End Illustration v1 ===-->
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="fullscreenbanner-container">
+            <div class="fullscreenbanner">
+                <ul>
+                    <!-- SLIDE 1 -->
+                    <li data-transition="curtain-1" data-slotamount="5" data-masterspeed="700" data-title="Slide 1">
+                        <!-- MAIN IMAGE -->
+                        <img src="../assets/img/sliders/revolution/bg1.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
-        <div class="heading heading-v1 margin-bottom-20">
-            <h2>Featured products</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio elit, ultrices vel cursus sed, placerat ut leo. Phasellus in magna erat. Etiam gravida convallis augue non tincidunt. Nunc lobortis dapibus neque quis lacinia. Nam dapibus tellus sit amet odio venenatis</p>
-        </div>
-
-        <!--=== Illustration v2 ===-->
-        <div class="illustration-v2 margin-bottom-60">
-            <div class="customNavigation margin-bottom-25">
-                <a class="owl-btn owl-slider-prev rounded-x"><i class="fa fa-angle-left"></i></a>
-                <a class="owl-btn owl-slider-next rounded-x"><i class="fa fa-angle-right"></i></a>
-            </div>
-
-            <ul class="list-inline owl-slider">
-                <li class="item">
-                    <div class="product-img">
-                        <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/09.jpg" alt=""></a>
-                        <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    </div>
-                    <div class="product-description product-description-brd">
-                        <div class="overflow-h margin-bottom-5">
-                            <div class="pull-left">
-                                <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                                <span class="gender text-uppercase">Men</span>
-                                <span class="gender">Suits - Blazers</span>
-                            </div>    
-                            <div class="product-price">
-                                <span class="title-price">$95.00</span>
-                            </div>
-                        </div>    
-                        <ul class="list-inline product-ratings">
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                        </ul>    
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="product-img">
-                        <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/26.jpg" alt=""></a>
-                        <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    </div> 
-                    <div class="product-description product-description-brd">
-                        <div class="overflow-h margin-bottom-5">
-                            <div class="pull-left">
-                                <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                                <span class="gender text-uppercase">Women</span>
-                                <span class="gender">Suits - Blazers</span>
-                            </div>    
-                            <div class="product-price">
-                                <span class="title-price">$60.00</span>
-                                <span class="title-price line-through">$95.00</span>
-                            </div>
-                        </div>    
-                        <ul class="list-inline product-ratings">
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                        </ul>    
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="product-img">
-                        <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/11.jpg" alt=""></a>
-                        <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                        <div class="shop-rgba-red rgba-banner">Out of stock</div>
-                    </div> 
-                    <div class="product-description product-description-brd">
-                        <div class="overflow-h margin-bottom-5">
-                            <div class="pull-left">
-                                <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                                <span class="gender text-uppercase">Men</span>
-                                <span class="gender">Suits - Blazers</span>
-                            </div>    
-                            <div class="product-price">
-                                <span class="title-price">$95.00</span>
-                            </div>
-                        </div>    
-                        <ul class="list-inline product-ratings">
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                        </ul>    
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="product-img">
-                        <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/12.jpg" alt=""></a>
-                        <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                        <div class="shop-rgba-dark-green rgba-banner">New</div>
-                    </div> 
-                    <div class="product-description product-description-brd">
-                        <div class="overflow-h margin-bottom-5">
-                            <div class="pull-left">
-                                <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                                <span class="gender text-uppercase">Women</span>
-                                <span class="gender">Suits - Blazers</span>
-                            </div>    
-                            <div class="product-price">
-                                <span class="title-price">$95.00</span>
-                            </div>
-                        </div>    
-                        <ul class="list-inline product-ratings">
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                        </ul>    
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="product-img">
-                        <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/10.jpg" alt=""></a>
-                        <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    </div> 
-                    <div class="product-description product-description-brd">
-                        <div class="overflow-h margin-bottom-5">
-                            <div class="pull-left">
-                                <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                                <span class="gender text-uppercase">Women</span>
-                                <span class="gender">Suits - Blazers</span>
-                            </div>    
-                            <div class="product-price">
-                                <span class="title-price">$95.00</span>
-                            </div>
-                        </div>    
-                        <ul class="list-inline product-ratings">
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                        </ul>    
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="product-img">
-                        <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/11.jpg" alt=""></a>
-                        <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                        <div class="shop-rgba-red rgba-banner">Out of stock</div>
-                    </div> 
-                    <div class="product-description product-description-brd">
-                        <div class="overflow-h margin-bottom-5">
-                            <div class="pull-left">
-                                <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                                <span class="gender text-uppercase">Men</span>
-                                <span class="gender">Suits - Blazers</span>
-                            </div>    
-                            <div class="product-price">
-                                <span class="title-price">$95.00</span>
-                            </div>
-                        </div>    
-                        <ul class="list-inline product-ratings">
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li><i class="rating fa fa-star"></i></li>
-                            <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                        </ul>    
-                    </div>
-                </li>    
-            </ul>
-        </div> 
-        <!--=== End Illustration v2 ===-->
-
-        <!--=== Illustration v3 ===-->
-        <div class="row margin-bottom-50">
-            <div class="col-md-4 md-margin-bottom-30">
-                <div class="overflow-h">
-                    <a class="illustration-v3 illustration-img1" href="#">
-                        <span class="illustration-bg">
-                            <span class="illustration-ads">
-                                <span class="illustration-v3-category">
-                                    <span class="product-category">Men</span>
-                                    <span class="product-amount">56 Items</span>
-                                </span>    
-                            </span>    
-                        </span>    
-                    </a>
-                </div>    
-            </div>
-            <div class="col-md-4 md-margin-bottom-30">
-                <div class="overflow-h">
-                    <a class="illustration-v3 illustration-img2" href="#">
-                        <span class="illustration-bg">
-                            <span class="illustration-ads">
-                                <span class="illustration-v3-category">
-                                    <span class="product-category">Women</span>
-                                    <span class="product-amount">56 Items</span>
-                                </span>    
-                            </span>    
-                        </span>    
-                    </a>
-                </div>    
-            </div>
-            <div class="col-md-4">
-                <div class="overflow-h">
-                    <a class="illustration-v3 illustration-img3" href="#">
-                        <span class="illustration-bg">
-                            <span class="illustration-ads">
-                                <span class="illustration-v3-category">
-                                    <span class="product-category">Children</span>
-                                    <span class="product-amount">56 Items</span>
-                                </span>    
-                            </span>    
-                        </span>    
-                    </a>
-                </div>    
-            </div>
-        </div>
-        <!--=== End Illustration v3 ===-->
-
-        <div class="heading heading-v1 margin-bottom-40">
-            <h2>Latest products</h2>
-        </div>
-
-        <!--=== Illustration v2 ===-->
-        <div class="row illustration-v2">
-            <div class="col-md-3 col-sm-6 md-margin-bottom-30">
-                <div class="product-img">
-                    <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/25.jpg" alt=""></a>
-                    <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                    <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                </div>
-                <div class="product-description product-description-brd">
-                    <div class="overflow-h margin-bottom-5">
-                        <div class="pull-left">
-                            <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted222</a></h4>
-                            <span class="gender text-uppercase">Woman</span>
-                            <span class="gender">Suits - Blazers</span>
-                        </div>    
-                        <div class="product-price">
-                            <span class="title-price">$95.00</span>
+                        <!-- LAYERS -->
+                        <div class="tp-caption rs-caption-1 sft start"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="100"
+                            data-speed="800"
+                            data-start="2000"
+                            data-easing="Back.easeInOut"
+                            data-endspeed="300">
+                            WE ARE UNIFY CREATIVE TECHNOLOGY COMPANY
                         </div>
-                    </div>    
-                    <ul class="list-inline product-ratings">
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 md-margin-bottom-30">
-                <div class="product-img">
-                    <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/09.jpg" alt=""></a>
-                    <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                    <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                </div> 
-                <div class="product-description product-description-brd">
-                    <div class="overflow-h margin-bottom-5">
-                        <div class="pull-left">
-                            <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                            <span class="gender text-uppercase">Men</span>
-                            <span class="gender">Suits - Blazers</span>
-                        </div>    
-                        <div class="product-price">
-                            <span class="title-price">$60.00</span>
-                            <span class="title-price line-through">$95.00</span>
+
+                        <!-- LAYER -->
+                        <div class="tp-caption rs-caption-2 sft"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="200"
+                            data-speed="1000"
+                            data-start="3000"
+                            data-easing="Power4.easeOut"
+                            data-endspeed="300"
+                            data-endeasing="Power1.easeIn"
+                            data-captionhidden="off"
+                            style="z-index: 6">
+                            Creative freedom matters user experience.<br>
+                            We minimize the gap between technology and its audience.
                         </div>
-                    </div>    
-                    <ul class="list-inline product-ratings">
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 md-margin-bottom-30">
-                <div class="product-img">
-                    <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/10.jpg" alt=""></a>
-                    <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                    <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    <div class="shop-rgba-red rgba-banner">Out of stock</div>
-                </div> 
-                <div class="product-description product-description-brd">
-                    <div class="overflow-h margin-bottom-5">
-                        <div class="pull-left">
-                            <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                            <span class="gender text-uppercase">Women</span>
-                            <span class="gender">Suits - Blazers</span>
-                        </div>    
-                        <div class="product-price">
-                            <span class="title-price">$95.00</span>
+
+                        <!-- LAYER -->
+                        <div class="tp-caption rs-caption-3 sft"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="360"
+                            data-speed="800"
+                            data-start="3500"
+                            data-easing="Power4.easeOut"
+                            data-endspeed="300"
+                            data-endeasing="Power1.easeIn"
+                            data-captionhidden="off"
+                            style="z-index: 6">
+                            <span class="page-scroll"><a href="#about" class="btn-u btn-brd btn-brd-hover btn-u-light">Learn More</a></span>
+                            <span class="page-scroll"><a href="#portfolio" class="btn-u btn-brd btn-brd-hover btn-u-light">Our Work</a></span>
                         </div>
-                    </div>    
-                    <ul class="list-inline product-ratings">
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 md-margin-bottom-30">
-                <div class="product-img">
-                    <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="../assets/img/blog/11.jpg" alt=""></a>
-                    <a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                    <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                    <div class="shop-rgba-dark-green rgba-banner">New</div>
-                </div> 
-                <div class="product-description product-description-brd">
-                    <div class="overflow-h margin-bottom-5">
-                        <div class="pull-left">
-                            <h4 class="title-price"><a href="shop-ui-inner.html">Double-breasted</a></h4>
-                            <span class="gender text-uppercase">Men</span>
-                            <span class="gender">Suits - Blazers</span>
-                        </div>    
-                        <div class="product-price">
-                            <span class="title-price">$95.00</span>
+                    </li>
+
+                    <!-- SLIDE 2 -->
+                    <li data-transition="slideup" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
+                        <!-- MAIN IMAGE -->
+                        <img src="../assets/img/sliders/revolution/bg2.jpg" alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+
+                        <!-- LAYERS -->
+                        <div class="tp-caption rs-caption-1 sft start"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="100"
+                            data-speed="800"
+                            data-start="1500"
+                            data-easing="Back.easeInOut"
+                            data-endspeed="300">
+                            DEDICATED ADVANCED TEAM
                         </div>
-                    </div>    
-                    <ul class="list-inline product-ratings">
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating-selected fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li><i class="rating fa fa-star"></i></li>
-                        <li class="like-icon"><a data-original-title="Add to wishlist" data-toggle="tooltip" data-placement="right" class="tooltips" href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-        </div> 
-        <!--=== End Illustration v2 ===-->
-    </div>
-    <!--=== End Product Content ===-->
 
-    <!--=== Twitter-Block ===-->
-    <div class="parallaxBg twitter-block margin-bottom-60">
-        <div class="container">
-            <div class="heading heading-v1 margin-bottom-20">
-                <h2>Latest Tweets</h2>
-            </div>
+                        <!-- LAYER -->
+                        <div class="tp-caption rs-caption-2 sft"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="200"
+                            data-speed="1000"
+                            data-start="2500"
+                            data-easing="Power4.easeOut"
+                            data-endspeed="300"
+                            data-endeasing="Power1.easeIn"
+                            data-captionhidden="off"
+                            style="z-index: 6">
+                            We are creative technology company providing<br>
+                            key digital services on web and mobile.
+                        </div>
 
-            <div id="carousel-example-generic-v5" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li class="active rounded-x" data-target="#carousel-example-generic-v5" data-slide-to="0"></li>
-                    <li class="rounded-x" data-target="#carousel-example-generic-v5" data-slide-to="1"></li>
-                    <li class="rounded-x" data-target="#carousel-example-generic-v5" data-slide-to="2"></li>
-                </ol>
+                        <!-- LAYER -->
+                        <div class="tp-caption rs-caption-3 sft"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="360"
+                            data-speed="800"
+                            data-start="3500"
+                            data-easing="Power4.easeOut"
+                            data-endspeed="300"
+                            data-endeasing="Power1.easeIn"
+                            data-captionhidden="off"
+                            style="z-index: 6">
+                            <span class="page-scroll"><a href="#about" class="btn-u btn-brd btn-brd-hover btn-u-light">Learn More</a></span>
+                            <span class="page-scroll"><a href="#portfolio" class="btn-u btn-brd btn-brd-hover btn-u-light">Our Work</a></span>
+                        </div>
+                    </li>
 
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <p>Unify has reached 10000 plus sales and we just want to thank you to our all customers for being part of the Unify Template success <a href="http://bit.ly/1c0UN3Y">http://bit.ly/1c0UN3Y</a><p>
-                        <p><a href="https://twitter.com/htmlstream">@htmlstream</a></p>
-                        <ul class="list-inline twitter-icons">
-                            <li><a href="#"><i class="fa fa-reply"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="item">
-                        <p>the majority have suffered #alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum</p>
-                        <p><a href="https://twitter.com/htmlstream">@twbootstrap</a></p>
-                        <ul class="list-inline twitter-icons">
-                            <li><a href="#"><i class="fa fa-reply"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="item">
-                        <p>New 100% Free Stock Photos. Every. Single. Day. Everything you need for your creative projects. <a href="#">http://publicdomainarchive.com</a></p>
-                        <p><a href="https://twitter.com/htmlstream">@wrapbootstrap</a></p>
-                        <ul class="list-inline twitter-icons">
-                            <li><a href="#"><i class="fa fa-reply"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="carousel-arrow">
-                    <a class="left carousel-control" href="#carousel-example-generic-v5" data-slide="prev">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic-v5" data-slide="next">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </div>
-            </div>                        
-        </div>    
-    </div>
-    <!--=== End Twitter-Block ===-->
+                    <!-- SLIDE 3 -->
+                    <li data-transition="slideup" data-slotamount="5" data-masterspeed="700"  data-title="Slide 3">
+                        <!-- MAIN IMAGE -->
+                        <img src="../assets/img/sliders/revolution/bg3.jpg"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
-    <div class="container">
-        <!--=== Product Service ===-->
-        <div class="row margin-bottom-60">
-            <div class="col-md-4 product-service md-margin-bottom-30">
-                <div class="product-service-heading">
-                    <i class="fa fa-truck"></i>
-                </div>
-                <div class="product-service-in">
-                    <h3>Free Delivery</h3>
-                    <p>Integer mattis lacinia felis vel molestie. Ut eu euismod erat, tincidunt pulvinar semper veliUt porta, leo...</p>
-                    <a href="#">+Read More</a>
-                </div>
-            </div>
-            <div class="col-md-4 product-service md-margin-bottom-30">
-                <div class="product-service-heading">
-                    <i class="icon-earphones-alt"></i>
-                </div>
-                <div class="product-service-in">
-                    <h3>Customer Service</h3>
-                    <p>Integer mattis lacinia felis vel molestie. Ut eu euismod erat, tincidunt pulvinar semper veliUt porta, leo...</p>
-                    <a href="#">+Read More</a>
-                </div>
-            </div>
-            <div class="col-md-4 product-service">
-                <div class="product-service-heading">
-                    <i class="icon-refresh"></i>
-                </div>
-                <div class="product-service-in">
-                    <h3>Free Returns</h3>
-                    <p>Integer mattis lacinia felis vel molestie. Ut eu euismod erat, tincidunt pulvinar semper veliUt porta, leo...</p>
-                    <a href="#">+Read More</a>
-                </div>
-            </div>
-        </div><!--/end row-->
-        <!--=== End Product Service ===-->
-        
-        <!--=== Illustration v4 ===-->
-        <div class="row illustration-v4 margin-bottom-40">
-            <div class="col-md-4">
-                <div class="heading heading-v1 margin-bottom-20">
-                    <h2>Top Rated</h2>
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/08.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price line-through">$75.00</li>
-                        <li class="thumb-product-price">$65.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/09.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price">$75.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/03.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price">$75.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="heading heading-v1 margin-bottom-20">
-                    <h2>Best Sellers</h2>
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/02.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price">$75.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/10.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price">$75.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/06.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price line-through">$75.00</li>
-                        <li class="thumb-product-price">$65.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-            <div class="col-md-4 padding">
-                <div class="heading heading-v1 margin-bottom-20">
-                    <h2>Sale Items</h2>
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/07.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price line-through">$75.00</li>
-                        <li class="thumb-product-price">$65.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/04.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price">$75.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-                <div class="thumb-product">
-                    <img class="thumb-product-img" src="../assets/img/thumb/05.jpg" alt="">
-                    <div class="thumb-product-in">
-                        <h4><a href="shop-ui-inner.html">Yuketen</a> – <a href="shop-ui-inner.html">Derby Shoe</a></h4>
-                        <span class="thumb-product-type">Footwear - Oxfords</span>
-                    </div>
-                    <ul class="list-inline overflow-h">
-                        <li class="thumb-product-price">$75.00</li>
-                        <li class="thumb-product-purchase"><a href="#"><i class="fa fa-shopping-cart"></i></a> | <a href="#"><i class="fa fa-heart"></i></a></li>
-                    </ul>    
-                </div>
-            </div>
-        </div><!--/end row-->
-        <!--=== End Illustration v4 ===-->
-    </div><!--/end cotnainer-->
+                        <!-- LAYERS -->
+                        <div class="tp-caption rs-caption-1 sft start"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="110"
+                            data-speed="800"
+                            data-start="1500"
+                            data-easing="Back.easeInOut"
+                            data-endspeed="300">
+                            WE DO THINGS DIFFERENTLY
+                        </div>
 
-    <!--=== Collection Banner ===-->
-    <div class="collection-banner">
-        <div class="container">
-            <div class="col-md-7 md-margin-bottom-50">
-                <h2>Makeup collection</h2>
-                <p>Duis in posuere risus. Vivamus sed dignissim tellus. In vehicula justo tempor commodo. <br> Nunc lobortis dapibus neque quis lacinia</p><br>
-                <a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>
-            </div>
-            <div class="col-md-5">
-                <div class="overflow-h">
-                    <span class="percent-numb">50</span>
-                    <div class="percent-off">
-                        <span class="discount-percent">%</span>
-                        <span class="discount-off">off</span>
-                    </div>
-                    <div class="new-offers shop-bg-green rounded-x">
-                        <p>new</p>
-                        <span>Products</span>
-                    </div>    
-                </div>    
+                        <!-- LAYER -->
+                        <div class="tp-caption rs-caption-2 sfb"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="210"
+                            data-speed="800"
+                            data-start="2500"
+                            data-easing="Power4.easeOut"
+                            data-endspeed="300"
+                            data-endeasing="Power1.easeIn"
+                            data-captionhidden="off"
+                            style="z-index: 6">
+                            Creative freedom matters user experience.<br>
+                            We minimize the gap between technology and its audience.
+                        </div>
+
+                        <!-- LAYER -->
+                        <div class="tp-caption rs-caption-3 sfb"
+                            data-x="center"
+                            data-hoffset="0"
+                            data-y="370"
+                            data-speed="800"
+                            data-start="3500"
+                            data-easing="Power4.easeOut"
+                            data-endspeed="300"
+                            data-endeasing="Power1.easeIn"
+                            data-captionhidden="off"
+                            style="z-index: 6">
+                            <span class="page-scroll"><a href="#about" class="btn-u btn-brd btn-brd-hover btn-u-light">Learn More</a></span>
+                            <span class="page-scroll"><a href="#portfolio" class="btn-u btn-brd btn-brd-hover btn-u-light">Our Work</a></span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="tp-bannertimer tp-bottom"></div>
+                <div class="tp-dottedoverlay twoxtwo"></div>
             </div>
         </div>
-    </div>
-    <!--=== End Collection Banner ===-->
+    </section>
+    <!-- End Intro Section -->
 
-    <!--=== Sponsors ===-->
-    <div class="container content">
-        <div class="heading heading-v1 margin-bottom-40">
-            <h2>Sponsors</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio elit, ultrices vel cursus sed, placerat ut leo. Phasellus in magna erat. Etiam gravida convallis augue non tincidunt. Nunc lobortis dapibus neque quis lacinia. Nam dapibus tellus sit amet odio venenatis</p>
+    <!--  About Section -->
+    <section id="about" class="about-section section-first">
+        <div class="block-v1">
+            <div class="container">
+                <div class="row content-boxes-v3">
+                    <div class="col-md-4 md-margin-bottom-30">
+                        <i class="icon-custom rounded-x icon-bg-dark fa fa-lightbulb-o"></i>
+                        <div class="content-boxes-in-v3">
+                            <h2 class="heading-sm">Creative Desgin</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 md-margin-bottom-30">
+                        <i class="icon-custom rounded-x icon-bg-dark fa fa-flask"></i>
+                        <div class="content-boxes-in-v3">
+                            <h2 class="heading-sm">Web Development</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="icon-custom rounded-x icon-bg-dark fa fa-bolt"></i>
+                        <div class="content-boxes-in-v3">
+                            <h2 class="heading-sm">Online Marketing</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <ul class="list-inline owl-slider-v2">
-            <li class="item first-child">
-                <img src="../assets/img/clients/07.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/08.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/10.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/11.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/09.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/12.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/07.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/08.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/09.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/10.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/11.png" class="owl-img-auto" alt="">
-            </li>
-            <li class="item">
-                <img src="../assets/img/clients/12.png" class="owl-img-auto" alt="">
-            </li>
-        </ul><!--/end owl-carousel-->
-    </div>
-    <!--=== End Sponsors ===-->
+        <div class="about-image bg-grey">
+            <div class="container">
+                <div class="title-v1">
+                    <h1>We are Unify Agency</h1>
+                    <p>Unify <strong>creative</strong> technology company providing key digital services. <br>
+                    Focused on helping our clients to build a <strong>successful</strong> business on web and mobile.</p>
+                </div>
+                <div class="img-center">
+                    <img class="img-responsive" src="../assets/img/mockup/mockup.png" alt="">
+                </div>
+            </div>
+        </div>
 
-    <!--=== Shop Suvbscribe ===-->
-    <div class="shop-subscribe">
-        <div class="container">
+        <div class="container content-lg">
+            <div class="title-v1">
+                <h2>Our Vision And Mission</h2>
+                <p>We <strong>meet</strong> and get to know you. You tell us and we listen. <br>
+                We build your website to realise your vision and we <strong>deliver</strong> the ready product.</p>
+            </div>
+
             <div class="row">
-                <div class="col-md-8 md-margin-bottom-20">
-                    <h2>subscribe to our weekly <strong>newsletter</strong></h2>
-                </div>  
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Email your email...">
-                        <span class="input-group-btn">
-                            <button class="btn" type="button"><i class="fa fa-envelope-o"></i></button>
-                        </span>
-                    </div>    
+                <div class="col-md-6 content-boxes-v3 margin-bottom-40">
+                    <div class="clearfix margin-bottom-30">
+                        <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
+                        <div class="content-boxes-in-v3">
+                            <h2 class="heading-sm">Innovation Leader</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        </div>
+                    </div>
+                    <div class="clearfix margin-bottom-30">
+                        <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-directions"></i>
+                        <div class="content-boxes-in-v3">
+                            <h2 class="heading-sm">Best Solutions &amp; Approaches</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        </div>
+                    </div>
+                    <div class="clearfix margin-bottom-30">
+                        <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-diamond"></i>
+                        <div class="content-boxes-in-v3">
+                            <h2 class="heading-sm">Quality Service &amp; Support</h2>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <img class="img-responsive" src="../assets/img/mockup/mockup1.png" alt="">
                 </div>
             </div>
-        </div><!--/end container-->
-    </div>
-    <!--=== End Shop Suvbscribe ===-->
+        </div>
 
-    <!--=== Footer v4 ===-->
-    <div class="footer-v4">
-        <div class="footer">
+        <div class="parallax-quote parallaxBg">
             <div class="container">
-                <div class="row">
-                    <!-- About -->
-                    <div class="col-md-4 md-margin-bottom-40">
-                        <a href="index.html"><img class="footer-logo" src="../assets/img/logo-2.png" alt=""></a>
-                        <p>About Unify dolor sit amet, consectetur adipiscing elit. Maecenas eget nisl id libero tincidunt sodales.</p>
-                        <br>
-                        <ul class="list-unstyled address-list margin-bottom-20">
-                            <li><i class="fa fa-angle-right"></i>California, US, Lorem Lis Street, Orange, 25</li>
-                            <li><i class="fa fa-angle-right"></i>Phone: 800 123 3456</li>
-                            <li><i class="fa fa-angle-right"></i>Fax: 800 123 3456</li>
-                            <li><i class="fa fa-angle-right"></i>Email: info@anybiz.co</li>
-                        </ul>
+                <div class="parallax-quote-in">
+                    <p>If you can design one thing <span class="color-green">you can design</span> everything. <br> Just Believe It.</p>
+                    <small>- HtmlStream -</small>
+                </div>
+            </div>
+        </div>
 
-                        <ul class="list-inline shop-social">
-                            <li><a href="#"><i class="fb rounded-md fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="tw rounded-md fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="gp rounded-md fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="yt rounded-md fa fa-youtube"></i></a></li>
-                        </ul>
-                    </div>
-                    <!-- End About -->                    
+        <div class="team-v1 bg-grey content-lg">
+            <div class="container">
+                <div class="title-v1">
+                    <h2>Meet Our Team</h2>
+                    <p>We <strong>meet</strong> and get to know you. You tell us and we listen. <br>
+                    We build your website to realise your vision and we <strong>deliver</strong> the ready product.</p>
+                </div>
 
-                    <!-- Simple List -->
-                    <div class="col-md-2 col-sm-3">
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Secciones</h2>
-                                <ul class="list-unstyled simple-list margin-bottom-20">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li><a href="#">Documentos </a></li>
-                                    <li><a href="#">Francisco papa</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>    
-
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Temas</h2>
-                                <ul class="list-unstyled simple-list">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li><a href="#">Documentos </a></li>
-                                    <li><a href="#">Francisco papa</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>
+                <ul class="list-unstyled row">
+                    <li class="col-sm-3 col-xs-6 md-margin-bottom-30">
+                        <div class="team-img">
+                            <img class="img-responsive" src="../assets/img/team/img1-md.jpg" alt="">
+                            <ul>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-google-plus"></i></a></li>
+                            </ul>
                         </div>
-                    </div>    
+                        <h3>John Brown</h3>
+                        <h4>/ Technical Director</h4>
+                        <p>Technical Director mi porta gravida at eget metus id elit mi egetine...</p>
+                    </li>
+                    <li class="col-sm-3 col-xs-6 md-margin-bottom-30">
+                        <div class="team-img">
+                            <img class="img-responsive" src="../assets/img/team/img2-md.jpg" alt="">
+                            <ul>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                        <h3>Tina Krueger</h3>
+                        <h4>/ Lead Designer</h4>
+                        <p>Lead Designer mi porta gravida at eget metus id elit mi egetine...</p>
+                    </li>
+                    <li class="col-sm-3 col-xs-6">
+                        <div class="team-img">
+                            <img class="img-responsive" src="../assets/img/team/img3-md.jpg" alt="">
+                            <ul>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                        <h3>David Case</h3>
+                        <h4>/ Web Developer</h4>
+                        <p>Web Developer in Unify agency porta gravida at eget metus id elit...</p>
+                    </li>
+                    <li class="col-sm-3 col-xs-6">
+                        <div class="team-img">
+                            <img class="img-responsive" src="../assets/img/team/img5-md.jpg" alt="">
+                            <ul>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-custom icon-sm rounded-x fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                        <h3>Kathy Reyes</h3>
+                        <h4>/ Creative Designer</h4>
+                        <p>Former Designer in Twitter non mi porta gravida at elit mi egetine...</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-                    <div class="col-md-2 col-sm-3">
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Utilidades</h2>
-                                <ul class="list-unstyled simple-list margin-bottom-20">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li><a href="#">Documentos </a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>    
-
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Documentos</h2>
-                                <ul class="list-unstyled simple-list">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li><a href="#">Documentos </a></li>
-                                    <li><a href="#">Francisco papa</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>
-                        </div>        
-                    </div>
-
-                    <div class="col-md-2 col-sm-3">
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Publicidad</h2>
-                                <ul class="list-unstyled simple-list margin-bottom-20">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li><a href="#">Documentos </a></li>
-                                    <li><a href="#">Francisco papa</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>    
-
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Contacto</h2>
-                                <ul class="list-unstyled simple-list">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li><a href="#">Documentos </a></li>
-                                    <li><a href="#">Francisco papa</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>
-                        </div>        
-                    </div>
-
-                    <div class="col-md-2 col-sm-3">
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Utilidades</h2>
-                                <ul class="list-unstyled simple-list margin-bottom-20">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>
-                                
-                            <div class="col-sm-12 col-xs-6">
-                                <h2 class="thumb-headline">Documentos</h2>
-                                <ul class="list-unstyled simple-list">
-                                    <li><a href="#">Ultima Hora</a></li>
-                                    <li><a href="#">Exclusiva</a></li>
-                                    <li>...</li>
-                                </ul>
-                            </div>
-                        </div>        
-                    </div>
-                    <!-- End Simple List -->
-                </div><!--/end row-->
-            </div><!--/end continer-->
-        </div><!--/footer-->
-
-        <div class="copyright">
+        <div class="parallax-counter parallaxBg">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">                     
-                        <p>
-                            2015 &copy; Unify. ALL Rights Reserved. 
-                            <a target="_blank" href="https://twitter.com/htmlstream">Htmlstream</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-                        </p>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="counters">
+                            <span class="counter">10629</span>
+                            <h4>Users</h4>
+                        </div>
                     </div>
-                    <div class="col-md-6">  
-                        <ul class="list-inline sponsors-icons pull-right">
-                            <li><i class="fa fa-cc-paypal"></i></li>
-                            <li><i class="fa fa-cc-visa"></i></li>
-                            <li><i class="fa fa-cc-mastercard"></i></li>
-                            <li><i class="fa fa-cc-discover"></i></li>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="counters">
+                            <span class="counter">277</span>
+                            <h4>Projects</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="counters">
+                            <span class="counter">78</span>
+                            <h4>Team Members</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="counters">
+                            <span class="counter">109</span>
+                            <h4>Awards</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--  About Section -->
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container content-lg">
+            <div class="title-v1">
+                <h2>Our Services</h2>
+                <p>We do <strong>things</strong> differently company providing key digital services. <br>
+                Focused on helping our clients to build a <strong>successful</strong> business on web and mobile.</p>
+            </div>
+
+            <div class="row service-box-v1">
+                <div class="col-md-4 col-sm-6">
+                    <div class="service-block service-block-default">
+                        <i class="icon-custom icon-lg icon-bg-u rounded-x fa fa-lightbulb-o"></i>
+                        <h2 class="heading-md">Web Design &amp; Development</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+                        <ul class="list-unstyled">
+                            <li>Logo &amp; Brand Design</li>
+                            <li>Mobile Development</li>
+                            <li>E-commerce</li>
+                            <li>App &amp; Icon Design</li>
+                            <li>Responsive Web Desgin</li>
                         </ul>
                     </div>
                 </div>
-            </div> 
-        </div><!--/copyright--> 
-    </div>
-    <!--=== End Footer v4 ===-->
-</div><!--/wrapper-->
+                <div class="col-md-4 col-sm-6">
+                    <div class="service-block service-block-default">
+                        <i class="icon-custom icon-lg icon-bg-u rounded-x icon-line icon-present"></i>
+                        <h2 class="heading-sm">Marketing &amp; Cunsulting</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine usce dapibus elit nondapibus</p>
+                        <ul class="list-unstyled">
+                            <li>Analysis &amp; Consulting</li>
+                            <li>Mobile Development</li>
+                            <li>Email Marketing</li>
+                            <li>App &amp; Icon Design</li>
+                            <li>Responsive Web Desgin</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="service-block service-block-default">
+                        <i class="icon-custom icon-lg icon-bg-u rounded-x icon-line icon-rocket"></i>
+                        <h2 class="heading-sm">SEO &amp; Advertising</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus id elit mi egetine. Fusce dapibus</p>
+                        <ul class="list-unstyled">
+                            <li>Google AdSense</li>
+                            <li>Social Media</li>
+                            <li>Display Advertising</li>
+                            <li>App &amp; Icon Design</li>
+                            <li>Analysis &amp; Consulting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- JS Global Compulsory -->
-<script src="../assets/plugins/jquery/jquery.min.js"></script>
-<script src="../assets/plugins/jquery/jquery-migrate.min.js"></script>
-<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- JS Implementing Plugins -->
-<script src="../assets/plugins/back-to-top.js"></script>
-<script src="../assets/plugins/smoothScroll.js"></script>
-<script src="../assets/plugins/jquery.parallax.js"></script>
-<script src="../assets/plugins/owl-carousel2/owl.carousel.min.js"></script>
-<script src="../assets/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="../assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-<script src="../assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-<!-- JS Customization -->
-<script src="../assets/js/custom.js"></script>
-<!-- JS Page Level -->
-<script src="../assets/js/shop.app.js"></script>
-<script src="../assets/js/plugins/owl-carousel-rtl.js"></script>
-<script src="../assets/js/plugins/revolution-slider.js"></script><script>
-    jQuery(document).ready(function() {
-        App.init();
-        App.initScrollBar();
-        App.initParallaxBg();
-        OwlCarousel.initOwlCarousel();
-        RevolutionSlider.initRSfullWidth();     
-    });
-</script>
-<!--[if lt IE 9]>
-    <script src="../assets/plugins/respond.js"></script>
-    <script src="../assets/plugins/html5shiv.js"></script>
-    <script src="../assets/js/plugins/placeholder-IE-fixes.js"></script>
-<![endif]-->
 
+        <ul class="list-unstyled row portfolio-box-v1">
+            <li class="col-sm-4">
+                <img class="img-responsive" src="../assets/img/mockup/img1.jpg" alt="">
+                <div class="portfolio-box-v1-in">
+                    <h3>Collective Package</h3>
+                    <p>Web Design, Mock-up</p>
+                    <a class="btn-u btn-u-sm btn-brd btn-brd-hover btn-u-light" href="#">Read More</a>
+                </div>
+            </li>
+            <li class="col-sm-4">
+                <img class="img-responsive" src="../assets/img/mockup/img2.jpg" alt="">
+                <div class="portfolio-box-v1-in">
+                    <h3>Ahola Company</h3>
+                    <p>Brand Design, UI</p>
+                    <a class="btn-u btn-u-sm btn-brd btn-brd-hover btn-u-light" href="#">Read More</a>
+                </div>
+            </li>
+            <li class="col-sm-4">
+                <img class="img-responsive" src="../assets/img/mockup/img4.jpg" alt="">
+                <div class="portfolio-box-v1-in">
+                    <h3>Allan Project</h3>
+                    <p>Web Development, HTML5</p>
+                    <a class="btn-u btn-u-sm btn-brd btn-brd-hover btn-u-light" href="#">Read More</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="call-action-v1">
+            <div class="container">
+                <div class="call-action-v1-box">
+                    <div class="call-action-v1-in">
+                        <p>Unify creative technology company providing key digital services and focused on helping our clients to build a successful business on web and mobile.</p>
+                    </div>
+                    <div class="call-action-v1-in inner-btn page-scroll">
+                        <a href="#portfolio" class="btn-u btn-brd btn-brd-hover btn-u-dark btn-u-block">View Our Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- News Section -->
+    <section id="news" class="news-section">
+        <div class="container content-lg">
+            <div class="title-v1">
+                <h2>Latest News</h2>
+                <p>We do <strong>things</strong> differently company providing key digital services. <br>
+                Focused on helping our clients to build a <strong>successful</strong> business on web and mobile.</p>
+            </div>
+
+            <div class="row news-v1">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="news-v1-in">
+                        <img class="img-responsive" src="../assets/img/contents/img1.jpg" alt="">
+                        <h3><a href="#">Focused on helping our clients to build a successful business</a></h3>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>
+                        <ul class="list-inline news-v1-info">
+                            <li><span>By</span> <a href="#">Kathy Reyes</a></li>
+                            <li>|</li>
+                            <li><i class="fa fa-clock-o"></i> July 02, 2014</li>
+                            <li class="pull-right"><a href="#"><i class="fa fa-comments-o"></i> 14</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="news-v1-in">
+                        <img class="img-responsive" src="../assets/img/contents/img4.jpg" alt="">
+                        <h3><a href="#">We build your website to realise your vision and best product</a></h3>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>
+                        <ul class="list-inline news-v1-info">
+                            <li><span>By</span> <a href="#">John Clarck</a></li>
+                            <li>|</li>
+                            <li><i class="fa fa-clock-o"></i> July 02, 2014</li>
+                            <li class="pull-right"><a href="#"><i class="fa fa-comments-o"></i> 07</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-v1-in">
+                        <img class="img-responsive" src="../assets/img/contents/img3.jpg" alt="">
+                        <h3><a href="#">Focused on helping our clients to build a successful business</a></h3>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>
+                        <ul class="list-inline news-v1-info">
+                            <li><span>By</span> <a href="#">Tina Kruiger</a></li>
+                            <li>|</li>
+                            <li><i class="fa fa-clock-o"></i> July 02, 2014</li>
+                            <li class="pull-right"><a href="#"><i class="fa fa-comments-o"></i> 22</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="parallax-twitter parallaxBg">
+            <div class="container parallax-twitter-in">
+                <div class="margin-bottom-30">
+                    <i class="icon-custom rounded-x icon-bg-blue fa fa-twitter"></i>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <ul class="list-unstyled owl-twitter-v1">
+                            <li class="item">
+                                <p>Unify has reached 10000 plus sales and we just want to thank you to our all customers for being part of the Unify Template success <a href="http://bit.ly/1c0UN3Y">http://bit.ly/1c0UN3Y</a><p>
+                                <span>3 min ago via <a href="https://twitter.com/htmlstream">@htmlstream</a></span>
+                            </li>
+                            <li class="item">
+                                <p><a href="#">@htmlstream</a> jQuery lightGallery - Lightweight jQuery lightbox gallery for displaying image and video gallery <a href="#">http://sachinchoolur.github.io/lightGallery</a> <a href="#">#javascript</a></p>
+                                <span>10 min ago Retweeted by <a href="https://twitter.com/htmlstream">@twbootstrap</a></span>
+                            </li>
+                            <li class="item">
+                                <p>New 100% Free Stock Photos. Every. Single. Day. Everything you need for your creative projects. <a href="#">http://publicdomainarchive.com</a></p>
+                                <span>30 min ago via <a href="https://twitter.com/htmlstream">@wrapbootstrap</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End News Section -->
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="about-section">
+        <div class="container content-lg">
+            <div class="title-v1">
+                <h2>Our Portfolio</h2>
+                <p>We do <strong>things</strong> differently company providing key digital services. <br>
+                Focused on helping our clients to build a <strong>successful</strong> business on web and mobile.</p>
+            </div>
+
+
+            <div class="cube-portfolio">
+                <div id="filters-container" class="cbp-l-filters-button">
+                    <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> All </div>
+                    <div data-filter=".print" class="cbp-filter-item"> Print </div>
+                    <div data-filter=".web-design" class="cbp-filter-item"> Web Design </div>
+                    <div data-filter=".motion" class="cbp-filter-item"> Motion </div>
+                </div><!--/end Filters Container-->
+
+                <div id="grid-container" class="cbp-l-grid-gallery">
+                    <div class="cbp-item print motion">
+                        <a href="../assets/ajax/project1.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="World Clock Widget<br>by Paul Flavius Nechita">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/1.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">World Clock Widget</div>
+                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item web-design">
+                        <a href="../assets/ajax/project2.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="Bolt UI<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/2.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Bolt UI</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item print motion">
+                        <a href="../assets/ajax/project3.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="WhereTO App<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/3.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">WhereTO App</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item web-design print">
+                        <a href="../assets/ajax/project4.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="iDevices<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/11.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">iDevices</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item motion">
+                        <a href="../assets/ajax/project5.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="Seemple* Music for iPad<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/5.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Seemple* Music for iPad</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item print motion">
+                        <a href="../assets/ajax/project6.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="Remind~Me Widget<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/6.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Remind~Me Widget</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item web-design print">
+                        <a href="../assets/ajax/project7.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="Workout Buddy<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/7.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Workout Buddy</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item print">
+                        <a href="../assets/ajax/project8.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="Digital Menu<br>by Cosmin Capitanu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/8.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Digital Menu</div>
+                                        <div class="cbp-l-caption-desc">by Cosmin Capitanu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item motion">
+                        <a href="../assets/ajax/project9.html" class="cbp-caption cbp-singlePageInline"
+                           data-title="Holiday Selector<br>by Cosmin Capitanu">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="../assets/img/portfolio/4.jpg" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Holiday Selector</div>
+                                        <div class="cbp-l-caption-desc">by Cosmin Capitanu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cbp-l-loadMore-button">
+                    <a href="../assets/ajax/loadMore.html" class="cbp-l-loadMore-button-link">LOAD MORE</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="clients-section parallaxBg">
+            <div class="container">
+                <div class="title-v1">
+                    <h2>Our Clients</h2>
+                </div>
+                <ul class="owl-clients-v2">
+                    <li class="item"><a href="#"><img src="../assets/img/clients/national-geographic.png" class="owl-img-auto" alt=""></a></li>
+                    <li class="item"><a href="#"><img src="../assets/img/clients/inspiring.png" class="owl-img-auto" alt=""></a></li>
+                    <li class="item"><a href="#"><img src="../assets/img/clients/fred-perry.png" class="owl-img-auto" alt=""></a></li>
+                    <li class="item"><a href="#"><img src="../assets/img/clients/emirates.png" class="owl-img-auto" alt=""></a></li>
+                    <li class="item"><a href="#"><img src="../assets/img/clients/baderbrau.png" class="owl-img-auto" alt=""></a></li>
+                    <li class="item"><a href="#"><img src="../assets/img/clients/inspiring.png" class="owl-img-auto" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="testimonials-v3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <ul class="list-unstyled owl-ts-v1">
+                            <li class="item">
+                                <img class="rounded-x img-bordered avatar-of-reviewer" src="../assets/img/team/img3-sm.jpg" alt="">
+                                <div class="testimonials-v3-title">
+                                    <p>David Case</p>
+                                    <span>Web Developer, Google</span>
+                                </div>
+                                <p>I just wanted to tell you how much I like to use Unify - <strong>it's so sleek and elegant!</strong> <br>
+                                The customisation options you implemented are countless, and I feel sorry I can't use them all. Good job, and keep going!<p>
+                            </li>
+                            <li class="item">
+                                <img class="rounded-x img-bordered avatar-of-reviewer" src="../assets/img/team/img2-sm.jpg" alt="">
+                                <div class="testimonials-v3-title">
+                                    <p>Tina Krueger</p>
+                                    <span>UI Designer, Apple</span>
+                                </div>
+                                <p>Keep up the great work. Your template is by far the best on the market in terms of features, quality and value or money.</p>
+                            </li>
+                            <li class="item">
+                                <img class="rounded-x img-bordered avatar-of-reviewer" src="../assets/img/team/img1-sm.jpg" alt="">
+                                <div class="testimonials-v3-title">
+                                    <p>John Clarck</p>
+                                    <span>Marketing &amp; Cunsulting, IBM</span>
+                                </div>
+                                <p>So far I really like the theme. I am looking forward to exploring more of your themes. Thank you!</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Portfolio Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contacts-section">
+        <div class="container content-lg">
+            <div class="title-v1">
+                <h2>Contact Us</h2>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br>
+                It has been the industry's standard dummy text.</p>
+            </div>
+
+            <div class="row contacts-in">
+                <div class="col-md-6 md-margin-bottom-40">
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-home"></i> 5B Streat, City 50987 New Town US</li>
+                        <li><i class="fa fa-phone"></i> 1(800) 220 084</li>
+                        <li><i class="fa fa-envelope"></i> <a href="info@example.com">info@example.com</a></li>
+                        <li><i class="fa fa-globe"></i> <a href="http://htmlstream.com">www.htmlstream.com</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <form action="../assets/php/sky-forms-pro/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form contact-style">
+                        <fieldset>
+                            <label>Name</label>
+                            <div class="row">
+                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
+                                    <div>
+                                        <input type="text" name="name" id="name" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label>Email <span class="color-red">*</span></label>
+                            <div class="row">
+                                <div class="col-md-7 margin-bottom-20 col-md-offset-0">
+                                    <div>
+                                        <input type="text" name="email" id="email" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label>Message</label>
+                            <div class="row">
+                                <div class="col-md-11 margin-bottom-20 col-md-offset-0">
+                                    <div>
+                                        <textarea rows="8" name="message" id="message" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p><button type="submit" class="btn-u btn-brd btn-brd-hover btn-u-dark">Send Message</button></p>
+                        </fieldset>
+
+                        <div class="message">
+                            <i class="rounded-x fa fa-check"></i>
+                            <p>Your message was successfully sent!</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright-section">
+            <p>2015 &copy; All Rights Reserved. Unify Theme by <a target="_blank" href="https://twitter.com/htmlstream">Htmlstream</a></p>
+            <ul class="social-icons">
+                <li><a href="#" data-original-title="Facebook" class="social_facebook rounded-x"></a></li>
+                <li><a href="#" data-original-title="Twitter" class="social_twitter rounded-x"></a></li>
+                <li><a href="#" data-original-title="Goole Plus" class="social_googleplus rounded-x"></a></li>
+                <li><a href="#" data-original-title="Pinterest" class="social_pintrest rounded-x"></a></li>
+                <li><a href="#" data-original-title="Linkedin" class="social_linkedin rounded-x"></a></li>
+            </ul>
+            <span class="page-scroll"><a href="#intro"><i class="fa fa-angle-double-up back-to-top"></i></a></span>
+        </div>
+    </section>
+    <!-- End Contact Section -->
+
+    <!-- JS Global Compulsory -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="../assets/plugins/jquery/jquery-migrate.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- JS Implementing Plugins -->
+    <script src="../assets/plugins/smoothScroll.js"></script>
+    <script src="../assets/plugins/jquery.easing.min.js"></script>
+    <script src="../assets/plugins/pace/pace.min.js"></script>
+    <script src="../assets/plugins/jquery.parallax.js"></script>
+    <script src="../assets/plugins/counter/waypoints.min.js"></script>
+    <script src="../assets/plugins/counter/jquery.counterup.min.js"></script>
+    <script src="../assets/plugins/owl-carousel2/owl.carousel.min.js"></script>
+    <script src="../assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+    <script src="../assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+    <script src="../assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="../assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="../assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+    <!-- JS Page Level-->
+    <script src="../assets/js/one.app.js"></script>
+    <script src="../assets/js/forms/login.js"></script>
+    <script src="../assets/js/forms/contact.js"></script>
+    <script src="../assets/js/plugins/pace-loader.js"></script>
+    <script src="../assets/js/plugins/owl-carousel-rtl.js"></script>
+    <script src="../assets/js/plugins/revolution-slider.js"></script>
+    <script src="../assets/js/plugins/cube-portfolio/cube-portfolio-lightbox.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            App.init();
+            App.initCounter();
+            App.initParallaxBg();
+            LoginForm.initLoginForm();
+            ContactForm.initContactForm();
+            OwlCarousel.initOwlCarousel();
+            RevolutionSlider.initRSfullScreen();
+        });
+    </script>
+    <!--[if lt IE 9]>
+        <script src="../assets/plugins/respond.js"></script>
+        <script src="../assets/plugins/html5shiv.js"></script>
+        <script src="../assets/js/plugins/placeholder-IE-fixes.js"></script>
+        <script src="../assets/plugins/sky-forms-pro/skyforms/js/sky-forms-ie8.js"></script>
+    <![endif]-->
+
+    <!--[if lt IE 10]>
+        <script src="../assets/plugins/sky-forms-pro/skyforms/js/jquery.placeholder.min.js"></script>
+    <![endif]-->
 </body>
-</html> 
+</html>
