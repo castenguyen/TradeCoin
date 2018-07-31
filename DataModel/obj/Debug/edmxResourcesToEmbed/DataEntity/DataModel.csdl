@@ -273,19 +273,6 @@
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="RoleDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
-    <Property Name="CrtdPost" Type="Byte" />
-    <Property Name="DeletePost" Type="Byte" />
-    <Property Name="UpdatePost" Type="Byte" />
-    <Property Name="ApprovePost" Type="Byte" />
-    <Property Name="IsAdmin" Type="Byte" />
-    <Property Name="CrtdComment" Type="Byte" />
-    <Property Name="DeleteComment" Type="Byte" />
-    <Property Name="UpdateComment" Type="Byte" />
-    <Property Name="ApproveComment" Type="Byte" />
-    <Property Name="CrtdProduct" Type="Byte" />
-    <Property Name="DeleteProduct" Type="Byte" />
-    <Property Name="UpdateProduct" Type="Byte" />
-    <Property Name="ApproveProduct" Type="Byte" />
   </EntityType>
   <EntityType Name="Tag">
     <Key>
@@ -629,10 +616,83 @@
     <EntitySet Name="NotifiRequests" EntityType="alluneedbModel.NotifiRequest" />
     <EntitySet Name="CountLikes" EntityType="alluneedbModel.CountLike" />
     <EntitySet Name="ProductInforExts" EntityType="alluneedbModel.ProductInforExt" />
-    <EntitySet Name="Hotels" EntityType="alluneedbModel.Hotel" />
-    <EntitySet Name="Tours" EntityType="alluneedbModel.Tour" />
-    <EntitySet Name="ObjectRelates" EntityType="alluneedbModel.ObjectRelate" />
-    <EntitySet Name="Rooms" EntityType="alluneedbModel.Room" />
+    <EntitySet Name="ContentPackages" EntityType="alluneedbModel.ContentPackage" />
+    <EntitySet Name="ContentViews" EntityType="alluneedbModel.ContentView" />
+    <EntitySet Name="EmailSupports" EntityType="alluneedbModel.EmailSupport" />
+    <EntitySet Name="Tickers" EntityType="alluneedbModel.Ticker" />
+    <FunctionImport Name="Al_ProcGetDataUserInfor">
+      <Parameter Name="u" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Al_ProcGetDataUserInforTransferMoney">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ContentItemPagination" ReturnType="Collection(alluneedbModel.ContentItemPagination_Result)">
+      <Parameter Name="rowSkip" Mode="In" Type="Int32" />
+      <Parameter Name="rowTake" Mode="In" Type="Int32" />
+      <Parameter Name="type" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteClassificationById">
+      <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteContentItemById">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteMicrositeById">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetLstProductOederExt" ReturnType="Collection(alluneedbModel.GetLstProductOederExt_Result)">
+      <Parameter Name="OrderId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetlstPromotionProductByCateId">
+      <Parameter Name="CateId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetlstPromotionProductByPromotionId" ReturnType="Collection(alluneedbModel.GetlstPromotionProductByPromotionId_Result)">
+      <Parameter Name="PromotionId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetLstUserNotIsRole">
+      <Parameter Name="RoleID" Mode="In" Type="Int32" />
+      <Parameter Name="PageNum" Mode="In" Type="Int32" />
+      <Parameter Name="RecorNum" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByParentCate">
+      <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+      <Parameter Name="index" Mode="In" Type="Int32" />
+      <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+      <Parameter Name="StateId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByParentCateAllType">
+      <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+      <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+      <Parameter Name="take" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByParentCateBuyCount">
+      <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+      <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByParentCateDiscount">
+      <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+      <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductByParentCateViewCount">
+      <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+      <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetProductHome" ReturnType="Collection(alluneedbModel.GetProductHome_Result)">
+      <Parameter Name="IdCategory" Mode="In" Type="Int32" />
+      <Parameter Name="Limit" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SearchProductByCate">
+      <Parameter Name="keyword" Mode="In" Type="String" />
+      <Parameter Name="stateId" Mode="In" Type="Int32" />
+      <Parameter Name="idCate" Mode="In" Type="Int32" />
+      <Parameter Name="MicrositeID" Mode="In" Type="Int32" />
+      <Parameter Name="skip" Mode="In" Type="Int32" />
+      <Parameter Name="take" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="TABLEVIEWSEARCH">
+      <Parameter Name="TABLENAME" Mode="In" Type="String" />
+      <Parameter Name="SEARCHSTRING" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -923,25 +983,40 @@
     <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="Hotel">
+  <EntityType Name="ContentPackage">
     <Key>
-      <PropertyRef Name="HotelId" />
+      <PropertyRef Name="ContentId" />
+      <PropertyRef Name="PackageId" />
+      <PropertyRef Name="ContentType" />
     </Key>
-    <Property Name="HotelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ViewCount" Type="Int64" />
-    <Property Name="LikeCount" Type="Int64" />
-    <Property Name="CommentCount" Type="Int64" />
-    <Property Name="IsCommentEnabled" Type="Byte" />
-    <Property Name="HotelType" Type="Int32" />
-    <Property Name="HotelTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="HotelDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="HotelName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="HotelDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ContentId" Type="Int64" Nullable="false" />
+    <Property Name="PackageId" Type="Int64" Nullable="false" />
+    <Property Name="ContentType" Type="Int64" Nullable="false" />
+    <Property Name="StateId" Type="Int64" />
+  </EntityType>
+  <EntityType Name="ContentView">
+    <Key>
+      <PropertyRef Name="ContentId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="ContentType" />
+    </Key>
+    <Property Name="ContentId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="ContentType" Type="Int64" Nullable="false" />
+    <Property Name="StateId" Type="Int64" />
+  </EntityType>
+  <EntityType Name="EmailSupport">
+    <Key>
+      <PropertyRef Name="EmailId" />
+    </Key>
+    <Property Name="EmailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DestinationId" Type="Int64" />
+    <Property Name="DestinationName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="Int64" />
+    <Property Name="ParentName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserId" Type="Int64" />
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
@@ -950,46 +1025,22 @@
     <Property Name="AprvdDT" Type="DateTime" Precision="3" />
     <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StateId" Type="Int64" />
-    <Property Name="OldPrice" Type="Double" />
-    <Property Name="NewPrice" Type="Double" />
-    <Property Name="FullAdress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="District" Type="Int32" />
-    <Property Name="DistrictName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="City" Type="Int32" />
-    <Property Name="CitytName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Ward" Type="Int32" />
-    <Property Name="WardName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="LocationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Hotline1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Hotline2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="HomePhone" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CheckInTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="CheckOutTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="Include" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmailTypeId" Type="Int64" />
+    <Property Name="EmailTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="Tour">
+  <EntityType Name="Ticker">
     <Key>
-      <PropertyRef Name="TourId" />
+      <PropertyRef Name="TickerId" />
     </Key>
-    <Property Name="TourId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="TourCD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="ViewCount" Type="Int64" />
-    <Property Name="LikeCount" Type="Int64" />
-    <Property Name="CommentCount" Type="Int64" />
-    <Property Name="IsCommentEnabled" Type="Byte" />
-    <Property Name="TourType" Type="Int32" />
-    <Property Name="TourTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="TourDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TourName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="TourDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TickerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TickerName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="BuyZone1" Type="Double" />
+    <Property Name="SellZone1" Type="Double" />
+    <Property Name="SellZone2" Type="Double" />
+    <Property Name="SellZone3" Type="Double" />
+    <Property Name="BTCInput" Type="Double" />
+    <Property Name="DeficitControl" Type="Double" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserId" Type="Int64" />
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
@@ -998,69 +1049,196 @@
     <Property Name="AprvdDT" Type="DateTime" Precision="3" />
     <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StateId" Type="Int64" />
-    <Property Name="OldPrice" Type="Double" />
-    <Property Name="NewPrice" Type="Double" />
-    <Property Name="StartName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="StartId" Type="Int32" />
-    <Property Name="StartDate" Type="DateTime" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Precision="3" />
-    <Property Name="EndName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="EndId" Type="Int32" />
-    <Property Name="NumPeople" Type="Int32" />
-    <Property Name="GuideName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="GuideId" Type="Int64" />
-    <Property Name="Contact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Including" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="NotIncluding" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="PartnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="PartnerAdress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="CancelTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ChangeTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TourClassId" Type="Int32" />
-    <Property Name="TourClassName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="ObjectRelate">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ObjContentId" Type="Int64" />
-    <Property Name="ObjContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="ClassType" Type="Int32" />
-    <Property Name="ClassTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ObjType" Type="Int32" />
-    <Property Name="ObjTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <EntityType Name="Room">
-    <Key>
-      <PropertyRef Name="RoomId" />
-    </Key>
-    <Property Name="RoomId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ViewCount" Type="Int64" />
-    <Property Name="LikeCount" Type="Int64" />
-    <Property Name="CommentCount" Type="Int64" />
-    <Property Name="IsCommentEnabled" Type="Byte" />
-    <Property Name="RoomType" Type="Int32" />
-    <Property Name="RoomTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="RoomDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="RoomName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="RoomDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="CrtdUserId" Type="Int64" />
-    <Property Name="CrtdDT" Type="DateTime" Precision="3" />
-    <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="AprvdUID" Type="Int64" />
-    <Property Name="AprvdDT" Type="DateTime" Precision="3" />
-    <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="StateId" Type="Int64" />
-    <Property Name="OldPrice" Type="Double" />
-    <Property Name="NewPrice" Type="Double" />
-    <Property Name="HotelId" Type="Int64" />
-  </EntityType>
+  <ComplexType Name="ContentItemPagination_Result">
+    <Property Type="Int64" Name="ContentItemId" Nullable="false" />
+    <Property Type="String" Name="FriendlyURL" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="ParentId" Nullable="true" />
+    <Property Type="String" Name="ContentItemCD" Nullable="true" MaxLength="20" />
+    <Property Type="Int64" Name="ViewCount" Nullable="true" />
+    <Property Type="Int64" Name="LikeCount" Nullable="true" />
+    <Property Type="Int64" Name="CommentCount" Nullable="true" />
+    <Property Type="Int32" Name="ObjTypeId" Nullable="true" />
+    <Property Type="Byte" Name="IsCommentEnabled" Nullable="true" />
+    <Property Type="Int32" Name="CategoryId" Nullable="true" />
+    <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="AprvdUserName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="AprvdUID" Nullable="true" />
+    <Property Type="DateTime" Name="AprvdDT" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ContentText" Nullable="true" />
+    <Property Type="String" Name="ContentTitle" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ContentExcerpt" Nullable="true" />
+    <Property Type="String" Name="MetadataDesc" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="MetadataKeyword" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="CrtdUserName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="CrtdUserId" Nullable="true" />
+    <Property Type="DateTime" Name="CrtdDT" Nullable="true" Precision="23" />
+    <Property Type="Int64" Name="StateId" Nullable="true" />
+    <Property Type="String" Name="StateName" Nullable="true" MaxLength="250" />
+    <Property Type="Byte" Name="Indexed" Nullable="true" />
+    <Property Type="Int64" Name="MicrositeID" Nullable="true" />
+    <Property Type="String" Name="MicrositeName" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="CateMicrositeID" Nullable="true" />
+    <Property Type="String" Name="CateMicrositeName" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="ClassificationId" Nullable="false" />
+    <Property Type="Int32" Name="ParentClassificationId" Nullable="true" />
+    <Property Type="String" Name="ParentName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ClassificationNM" Nullable="false" MaxLength="250" />
+    <Property Type="String" Name="ClassificationDesc" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="ClassificationMetakeyword" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="ClassificationMetaDes" Nullable="true" MaxLength="2000" />
+    <Property Type="Int32" Name="ClassificationSchemeId" Nullable="false" />
+    <Property Type="String" Name="ClassificationCD" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="FriendlyURL1" Nullable="false" MaxLength="250" />
+    <Property Type="Byte" Name="IsEnabled" Nullable="false" />
+    <Property Type="Byte" Name="IsSystem" Nullable="true" />
+    <Property Type="DateTime" Name="CrtdDT1" Nullable="true" Precision="23" />
+    <Property Type="Int64" Name="CrtdUID" Nullable="true" />
+    <Property Type="String" Name="CrtdUserName1" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="LstModDT" Nullable="true" Precision="23" />
+    <Property Type="Int64" Name="LstModUID" Nullable="true" />
+    <Property Type="String" Name="LstModUserName" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ShortNM" Nullable="true" MaxLength="160" />
+    <Property Type="Int32" Name="DisplayOrder" Nullable="true" />
+    <Property Type="String" Name="I18N" Nullable="true" MaxLength="150" />
+  </ComplexType>
+  <ComplexType Name="GetLstProductOederExt_Result">
+    <Property Type="Int64" Name="ProductId" Nullable="false" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+    <Property Type="Double" Name="OldPrice" Nullable="true" />
+    <Property Type="Double" Name="NewPrice" Nullable="true" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Double" Name="Unitprice" Nullable="true" />
+    <Property Type="Double" Name="Discount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetlstPromotionProductByPromotionId_Result">
+    <Property Type="Int64" Name="ProductId" Nullable="false" />
+    <Property Type="String" Name="FriendlyURL" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="ParentId" Nullable="true" />
+    <Property Type="String" Name="ProductCD" Nullable="true" MaxLength="200" />
+    <Property Type="Int64" Name="ViewCount" Nullable="true" />
+    <Property Type="Int64" Name="LikeCount" Nullable="true" />
+    <Property Type="Int64" Name="CommentCount" Nullable="true" />
+    <Property Type="Byte" Name="IsCommentEnabled" Nullable="true" />
+    <Property Type="Int32" Name="CategoryId" Nullable="true" />
+    <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="ProductDetail" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ProductDes" Nullable="true" />
+    <Property Type="String" Name="MetadataDesc" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="MetadataKeyword" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="CrtdUserName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="CrtdUserId" Nullable="true" />
+    <Property Type="DateTime" Name="CrtdDT" Nullable="true" Precision="23" />
+    <Property Type="String" Name="AprvdUserName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="AprvdUID" Nullable="true" />
+    <Property Type="DateTime" Name="AprvdDT" Nullable="true" Precision="23" />
+    <Property Type="String" Name="StateName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="StateId" Nullable="true" />
+    <Property Type="Byte" Name="Indexed" Nullable="true" />
+    <Property Type="Double" Name="OldPrice" Nullable="true" />
+    <Property Type="Double" Name="NewPrice" Nullable="true" />
+    <Property Type="Int32" Name="BrandNameID" Nullable="true" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="250" />
+    <Property Type="DateTime" Name="PriorityDay" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Units" Nullable="true" />
+    <Property Type="String" Name="UnitsName" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="MadeIn" Nullable="true" />
+    <Property Type="String" Name="MadeInName" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="CorlorID" Nullable="true" />
+    <Property Type="String" Name="CorlorName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Depth" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="With" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Height" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="StatusProductType" Nullable="true" />
+    <Property Type="String" Name="StatusProductTypeName" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="PromotionFrom" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PromotionTo" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="PromotionAmount" Nullable="true" />
+    <Property Type="Int32" Name="SupportTimeID" Nullable="true" />
+    <Property Type="String" Name="SupportTimeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SKUCode" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="TranTypeID" Nullable="true" />
+    <Property Type="String" Name="TranTypeName" Nullable="true" MaxLength="50" />
+    <Property Type="Int64" Name="MicrositeID" Nullable="true" />
+    <Property Type="String" Name="MicrositeName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="CateMicrositeID" Nullable="true" />
+    <Property Type="String" Name="CateMicrositeName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="BuyCount" Nullable="true" />
+    <Property Type="Int32" Name="IsEvent" Nullable="true" />
+    <Property Type="String" Name="TranWith" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TranDepth" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TranHeight" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TranWeight" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="GetProductHome_Result">
+    <Property Type="Int64" Name="ProductId" Nullable="false" />
+    <Property Type="String" Name="FriendlyURL" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="ParentId" Nullable="true" />
+    <Property Type="String" Name="ProductCD" Nullable="true" MaxLength="200" />
+    <Property Type="Int64" Name="ViewCount" Nullable="true" />
+    <Property Type="Int64" Name="LikeCount" Nullable="true" />
+    <Property Type="Int64" Name="CommentCount" Nullable="true" />
+    <Property Type="Byte" Name="IsCommentEnabled" Nullable="true" />
+    <Property Type="Int32" Name="CategoryId" Nullable="true" />
+    <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="ProductDetail" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ProductDes" Nullable="true" />
+    <Property Type="String" Name="MetadataDesc" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="MetadataKeyword" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="CrtdUserName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="CrtdUserId" Nullable="true" />
+    <Property Type="DateTime" Name="CrtdDT" Nullable="true" Precision="23" />
+    <Property Type="String" Name="AprvdUserName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="AprvdUID" Nullable="true" />
+    <Property Type="DateTime" Name="AprvdDT" Nullable="true" Precision="23" />
+    <Property Type="String" Name="StateName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="StateId" Nullable="true" />
+    <Property Type="Byte" Name="Indexed" Nullable="true" />
+    <Property Type="Double" Name="OldPrice" Nullable="true" />
+    <Property Type="Double" Name="NewPrice" Nullable="true" />
+    <Property Type="Int32" Name="BrandNameID" Nullable="true" />
+    <Property Type="String" Name="BrandName" Nullable="true" MaxLength="250" />
+    <Property Type="DateTime" Name="PriorityDay" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Units" Nullable="true" />
+    <Property Type="String" Name="UnitsName" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="MadeIn" Nullable="true" />
+    <Property Type="String" Name="MadeInName" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="CorlorID" Nullable="true" />
+    <Property Type="String" Name="CorlorName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Depth" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="With" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Height" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="StatusProductType" Nullable="true" />
+    <Property Type="String" Name="StatusProductTypeName" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="PromotionFrom" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="PromotionTo" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="PromotionAmount" Nullable="true" />
+    <Property Type="Int32" Name="SupportTimeID" Nullable="true" />
+    <Property Type="String" Name="SupportTimeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SKUCode" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="TranTypeID" Nullable="true" />
+    <Property Type="String" Name="TranTypeName" Nullable="true" MaxLength="50" />
+    <Property Type="Int64" Name="MicrositeID" Nullable="true" />
+    <Property Type="String" Name="MicrositeName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="CateMicrositeID" Nullable="true" />
+    <Property Type="String" Name="CateMicrositeName" Nullable="true" MaxLength="250" />
+    <Property Type="Int64" Name="BuyCount" Nullable="true" />
+    <Property Type="Int32" Name="IsEvent" Nullable="true" />
+    <Property Type="String" Name="TranWith" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TranDepth" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TranHeight" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TranWeight" Nullable="true" MaxLength="50" />
+  </ComplexType>
 </Schema>

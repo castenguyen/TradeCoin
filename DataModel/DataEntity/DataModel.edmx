@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="alluneedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="alluneedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classification">
           <Key>
             <PropertyRef Name="ClassificationId" />
@@ -142,6 +142,17 @@
           <Property Name="CateMicrositeID" Type="int" />
           <Property Name="CateMicrositeName" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="ContentPackage">
+          <Key>
+            <PropertyRef Name="ContentId" />
+            <PropertyRef Name="PackageId" />
+            <PropertyRef Name="ContentType" />
+          </Key>
+          <Property Name="ContentId" Type="bigint" Nullable="false" />
+          <Property Name="PackageId" Type="bigint" Nullable="false" />
+          <Property Name="ContentType" Type="bigint" Nullable="false" />
+          <Property Name="StateId" Type="bigint" />
+        </EntityType>
         <EntityType Name="ContentTag">
           <Key>
             <PropertyRef Name="ObjcontentId" />
@@ -152,6 +163,17 @@
           <Property Name="TagId" Type="bigint" Nullable="false" />
           <Property Name="CrtdDT" Type="datetime" />
           <Property Name="ObjTypeId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContentView">
+          <Key>
+            <PropertyRef Name="ContentId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ContentType" />
+          </Key>
+          <Property Name="ContentId" Type="bigint" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="ContentType" Type="bigint" Nullable="false" />
+          <Property Name="StateId" Type="bigint" />
         </EntityType>
         <EntityType Name="CountLike">
           <Key>
@@ -178,6 +200,29 @@
           <Property Name="EndDT" Type="datetime" />
           <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
           <Property Name="DisplayOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="EmailSupport">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="500" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="DestinationId" Type="bigint" />
+          <Property Name="DestinationName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ParentId" Type="bigint" />
+          <Property Name="ParentName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="EmailTypeId" Type="bigint" />
+          <Property Name="EmailTypeName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="ExceptionLogs">
           <Key>
@@ -206,53 +251,6 @@
           <Property Name="lng" Type="nvarchar" MaxLength="50" />
           <Property Name="lat" Type="nvarchar" MaxLength="50" />
           <Property Name="AreaWardId" Type="int" />
-        </EntityType>
-        <EntityType Name="Hotel">
-          <Key>
-            <PropertyRef Name="HotelId" />
-          </Key>
-          <Property Name="HotelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
-          <Property Name="ViewCount" Type="bigint" />
-          <Property Name="LikeCount" Type="bigint" />
-          <Property Name="CommentCount" Type="bigint" />
-          <Property Name="IsCommentEnabled" Type="tinyint" />
-          <Property Name="HotelType" Type="int" />
-          <Property Name="HotelTypeName" Type="nvarchar" MaxLength="250" />
-          <Property Name="HotelDetail" Type="text" />
-          <Property Name="HotelName" Type="nvarchar" MaxLength="500" />
-          <Property Name="HotelDes" Type="nvarchar(max)" />
-          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
-          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
-          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
-          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
-          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CrtdUserId" Type="bigint" />
-          <Property Name="CrtdDT" Type="datetime" />
-          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
-          <Property Name="AprvdUID" Type="bigint" />
-          <Property Name="AprvdDT" Type="datetime" />
-          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
-          <Property Name="StateId" Type="bigint" />
-          <Property Name="OldPrice" Type="float" />
-          <Property Name="NewPrice" Type="float" />
-          <Property Name="FullAdress" Type="nvarchar" MaxLength="250" />
-          <Property Name="District" Type="int" />
-          <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
-          <Property Name="City" Type="int" />
-          <Property Name="CitytName" Type="nvarchar" MaxLength="250" />
-          <Property Name="Ward" Type="int" />
-          <Property Name="WardName" Type="nvarchar" MaxLength="250" />
-          <Property Name="LocationCode" Type="nvarchar" MaxLength="250" />
-          <Property Name="Note" Type="ntext" />
-          <Property Name="Hotline1" Type="nvarchar" MaxLength="250" />
-          <Property Name="Hotline2" Type="nvarchar" MaxLength="250" />
-          <Property Name="HomePhone" Type="nvarchar" MaxLength="250" />
-          <Property Name="lng" Type="nvarchar" MaxLength="50" />
-          <Property Name="lat" Type="nvarchar" MaxLength="50" />
-          <Property Name="CheckInTime" Type="nchar" MaxLength="10" />
-          <Property Name="CheckOutTime" Type="nchar" MaxLength="10" />
-          <Property Name="Include" Type="ntext" />
         </EntityType>
         <EntityType Name="MediaContent">
           <Key>
@@ -362,18 +360,6 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="CrtdDT" Type="datetime" />
           <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ObjectRelate">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ObjContentId" Type="bigint" />
-          <Property Name="ObjContentName" Type="nvarchar" MaxLength="500" />
-          <Property Name="ClassType" Type="int" />
-          <Property Name="ClassTypeName" Type="nvarchar" MaxLength="250" />
-          <Property Name="ObjType" Type="int" />
-          <Property Name="ObjTypeName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="OrderProducts">
           <Key>
@@ -552,50 +538,6 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="RoleDes" Type="nvarchar(max)" />
-          <Property Name="CrtdPost" Type="tinyint" />
-          <Property Name="DeletePost" Type="tinyint" />
-          <Property Name="UpdatePost" Type="tinyint" />
-          <Property Name="ApprovePost" Type="tinyint" />
-          <Property Name="IsAdmin" Type="tinyint" />
-          <Property Name="CrtdComment" Type="tinyint" />
-          <Property Name="DeleteComment" Type="tinyint" />
-          <Property Name="UpdateComment" Type="tinyint" />
-          <Property Name="ApproveComment" Type="tinyint" />
-          <Property Name="CrtdProduct" Type="tinyint" />
-          <Property Name="DeleteProduct" Type="tinyint" />
-          <Property Name="UpdateProduct" Type="tinyint" />
-          <Property Name="ApproveProduct" Type="tinyint" />
-        </EntityType>
-        <EntityType Name="Room">
-          <Key>
-            <PropertyRef Name="RoomId" />
-          </Key>
-          <Property Name="RoomId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
-          <Property Name="ViewCount" Type="bigint" />
-          <Property Name="LikeCount" Type="bigint" />
-          <Property Name="CommentCount" Type="bigint" />
-          <Property Name="IsCommentEnabled" Type="tinyint" />
-          <Property Name="RoomType" Type="int" />
-          <Property Name="RoomTypeName" Type="nvarchar" MaxLength="250" />
-          <Property Name="RoomDetail" Type="text" />
-          <Property Name="RoomName" Type="nvarchar" MaxLength="500" />
-          <Property Name="RoomDes" Type="nvarchar(max)" />
-          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
-          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
-          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
-          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
-          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CrtdUserId" Type="bigint" />
-          <Property Name="CrtdDT" Type="datetime" />
-          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
-          <Property Name="AprvdUID" Type="bigint" />
-          <Property Name="AprvdDT" Type="datetime" />
-          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
-          <Property Name="StateId" Type="bigint" />
-          <Property Name="OldPrice" Type="float" />
-          <Property Name="NewPrice" Type="float" />
-          <Property Name="HotelId" Type="bigint" />
         </EntityType>
         <EntityType Name="ShippingAddress">
           <Key>
@@ -622,26 +564,19 @@
           <Property Name="TagId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TagNM" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="Tour">
+        <EntityType Name="Ticker">
           <Key>
-            <PropertyRef Name="TourId" />
+            <PropertyRef Name="TickerId" />
           </Key>
-          <Property Name="TourId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
-          <Property Name="TourCD" Type="varchar" MaxLength="200" />
-          <Property Name="ViewCount" Type="bigint" />
-          <Property Name="LikeCount" Type="bigint" />
-          <Property Name="CommentCount" Type="bigint" />
-          <Property Name="IsCommentEnabled" Type="tinyint" />
-          <Property Name="TourType" Type="int" />
-          <Property Name="TourTypeName" Type="nvarchar" MaxLength="250" />
-          <Property Name="TourDetail" Type="nvarchar(max)" />
-          <Property Name="TourName" Type="nvarchar" MaxLength="500" />
-          <Property Name="TourDes" Type="nvarchar(max)" />
-          <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
-          <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
-          <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
-          <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+          <Property Name="TickerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TickerName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="BuyZone1" Type="float" />
+          <Property Name="SellZone1" Type="float" />
+          <Property Name="SellZone2" Type="float" />
+          <Property Name="SellZone3" Type="float" />
+          <Property Name="BTCInput" Type="float" />
+          <Property Name="DeficitControl" Type="float" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
           <Property Name="CrtdUserId" Type="bigint" />
           <Property Name="CrtdDT" Type="datetime" />
@@ -650,27 +585,6 @@
           <Property Name="AprvdDT" Type="datetime" />
           <Property Name="StateName" Type="nvarchar" MaxLength="250" />
           <Property Name="StateId" Type="bigint" />
-          <Property Name="OldPrice" Type="float" />
-          <Property Name="NewPrice" Type="float" />
-          <Property Name="StartName" Type="nvarchar" MaxLength="250" />
-          <Property Name="StartId" Type="int" />
-          <Property Name="StartDate" Type="datetime" />
-          <Property Name="EndDate" Type="datetime" />
-          <Property Name="EndName" Type="nvarchar" MaxLength="250" />
-          <Property Name="EndId" Type="int" />
-          <Property Name="NumPeople" Type="int" />
-          <Property Name="GuideName" Type="nvarchar" MaxLength="250" />
-          <Property Name="GuideId" Type="bigint" />
-          <Property Name="Contact" Type="nvarchar" MaxLength="250" />
-          <Property Name="Including" Type="nvarchar(max)" />
-          <Property Name="NotIncluding" Type="nvarchar(max)" />
-          <Property Name="PartnerName" Type="nvarchar" MaxLength="250" />
-          <Property Name="PartnerAdress" Type="nvarchar" MaxLength="250" />
-          <Property Name="CancelTour" Type="nvarchar(max)" />
-          <Property Name="ChangeTour" Type="nvarchar(max)" />
-          <Property Name="Note" Type="nvarchar(max)" />
-          <Property Name="TourClassId" Type="int" />
-          <Property Name="TourClassName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="TransactionHis">
           <Key>
@@ -961,23 +875,97 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Al_ProcGetDataUserInfor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="u" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Al_ProcGetDataUserInforTransferMoney" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ContentItemPagination" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rowSkip" Type="int" Mode="In" />
+          <Parameter Name="rowTake" Type="int" Mode="In" />
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteClassificationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteContentItemById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteMicrositeById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetLstProductOederExt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetlstPromotionProductByCateId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetlstPromotionProductByPromotionId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PromotionId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetLstUserNotIsRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleID" Type="int" Mode="In" />
+          <Parameter Name="PageNum" Type="int" Mode="In" />
+          <Parameter Name="RecorNum" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByParentCate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCate" Type="int" Mode="In" />
+          <Parameter Name="index" Type="int" Mode="In" />
+          <Parameter Name="NumOfCate" Type="int" Mode="In" />
+          <Parameter Name="StateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByParentCateAllType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCate" Type="int" Mode="In" />
+          <Parameter Name="NumOfCate" Type="int" Mode="In" />
+          <Parameter Name="take" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByParentCateBuyCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCate" Type="int" Mode="In" />
+          <Parameter Name="NumOfCate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByParentCateDiscount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCate" Type="int" Mode="In" />
+          <Parameter Name="NumOfCate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductByParentCateViewCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCate" Type="int" Mode="In" />
+          <Parameter Name="NumOfCate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetProductHome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCategory" Type="int" Mode="In" />
+          <Parameter Name="Limit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SearchProductByCate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="keyword" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="stateId" Type="int" Mode="In" />
+          <Parameter Name="idCate" Type="int" Mode="In" />
+          <Parameter Name="MicrositeID" Type="int" Mode="In" />
+          <Parameter Name="skip" Type="int" Mode="In" />
+          <Parameter Name="take" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TABLEVIEWSEARCH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TABLENAME" Type="varchar" Mode="In" />
+          <Parameter Name="SEARCHSTRING" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="alluneedbModelStoreContainer">
           <EntitySet Name="Classification" EntityType="Self.Classification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassificationScheme" EntityType="Self.ClassificationScheme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContentComment" EntityType="Self.ContentComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContentItem" EntityType="Self.ContentItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentPackage" EntityType="Self.ContentPackage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContentTag" EntityType="Self.ContentTag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContentView" EntityType="Self.ContentView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CountLike" EntityType="Self.CountLike" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DisplayContent" EntityType="Self.DisplayContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailSupport" EntityType="Self.EmailSupport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotifiRequest" EntityType="Self.NotifiRequest" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ObjectRelate" EntityType="Self.ObjectRelate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -985,10 +973,9 @@
           <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelatedContentItem" EntityType="Self.RelatedContentItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingAddress" EntityType="Self.ShippingAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ticker" EntityType="Self.Ticker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionHis" EntityType="Self.TransactionHis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
@@ -1330,19 +1317,6 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
-          <Property Name="CrtdPost" Type="Byte" />
-          <Property Name="DeletePost" Type="Byte" />
-          <Property Name="UpdatePost" Type="Byte" />
-          <Property Name="ApprovePost" Type="Byte" />
-          <Property Name="IsAdmin" Type="Byte" />
-          <Property Name="CrtdComment" Type="Byte" />
-          <Property Name="DeleteComment" Type="Byte" />
-          <Property Name="UpdateComment" Type="Byte" />
-          <Property Name="ApproveComment" Type="Byte" />
-          <Property Name="CrtdProduct" Type="Byte" />
-          <Property Name="DeleteProduct" Type="Byte" />
-          <Property Name="UpdateProduct" Type="Byte" />
-          <Property Name="ApproveProduct" Type="Byte" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -1686,10 +1660,83 @@
           <EntitySet Name="NotifiRequests" EntityType="alluneedbModel.NotifiRequest" />
           <EntitySet Name="CountLikes" EntityType="alluneedbModel.CountLike" />
           <EntitySet Name="ProductInforExts" EntityType="alluneedbModel.ProductInforExt" />
-          <EntitySet Name="Hotels" EntityType="alluneedbModel.Hotel" />
-          <EntitySet Name="Tours" EntityType="alluneedbModel.Tour" />
-          <EntitySet Name="ObjectRelates" EntityType="alluneedbModel.ObjectRelate" />
-          <EntitySet Name="Rooms" EntityType="alluneedbModel.Room" />
+          <EntitySet Name="ContentPackages" EntityType="alluneedbModel.ContentPackage" />
+          <EntitySet Name="ContentViews" EntityType="alluneedbModel.ContentView" />
+          <EntitySet Name="EmailSupports" EntityType="alluneedbModel.EmailSupport" />
+          <EntitySet Name="Tickers" EntityType="alluneedbModel.Ticker" />
+          <FunctionImport Name="Al_ProcGetDataUserInfor">
+            <Parameter Name="u" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Al_ProcGetDataUserInforTransferMoney">
+            <Parameter Name="username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ContentItemPagination" ReturnType="Collection(alluneedbModel.ContentItemPagination_Result)">
+            <Parameter Name="rowSkip" Mode="In" Type="Int32" />
+            <Parameter Name="rowTake" Mode="In" Type="Int32" />
+            <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteClassificationById">
+            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteContentItemById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteMicrositeById">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetLstProductOederExt" ReturnType="Collection(alluneedbModel.GetLstProductOederExt_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetlstPromotionProductByCateId">
+            <Parameter Name="CateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetlstPromotionProductByPromotionId" ReturnType="Collection(alluneedbModel.GetlstPromotionProductByPromotionId_Result)">
+            <Parameter Name="PromotionId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetLstUserNotIsRole">
+            <Parameter Name="RoleID" Mode="In" Type="Int32" />
+            <Parameter Name="PageNum" Mode="In" Type="Int32" />
+            <Parameter Name="RecorNum" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByParentCate">
+            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+            <Parameter Name="index" Mode="In" Type="Int32" />
+            <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+            <Parameter Name="StateId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByParentCateAllType">
+            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+            <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+            <Parameter Name="take" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByParentCateBuyCount">
+            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+            <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByParentCateDiscount">
+            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+            <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductByParentCateViewCount">
+            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+            <Parameter Name="NumOfCate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetProductHome" ReturnType="Collection(alluneedbModel.GetProductHome_Result)">
+            <Parameter Name="IdCategory" Mode="In" Type="Int32" />
+            <Parameter Name="Limit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SearchProductByCate">
+            <Parameter Name="keyword" Mode="In" Type="String" />
+            <Parameter Name="stateId" Mode="In" Type="Int32" />
+            <Parameter Name="idCate" Mode="In" Type="Int32" />
+            <Parameter Name="MicrositeID" Mode="In" Type="Int32" />
+            <Parameter Name="skip" Mode="In" Type="Int32" />
+            <Parameter Name="take" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TABLEVIEWSEARCH">
+            <Parameter Name="TABLENAME" Mode="In" Type="String" />
+            <Parameter Name="SEARCHSTRING" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -1980,25 +2027,40 @@
           <Property Name="ColorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SizeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Hotel">
+        <EntityType Name="ContentPackage">
           <Key>
-            <PropertyRef Name="HotelId" />
+            <PropertyRef Name="ContentId" />
+            <PropertyRef Name="PackageId" />
+            <PropertyRef Name="ContentType" />
           </Key>
-          <Property Name="HotelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ViewCount" Type="Int64" />
-          <Property Name="LikeCount" Type="Int64" />
-          <Property Name="CommentCount" Type="Int64" />
-          <Property Name="IsCommentEnabled" Type="Byte" />
-          <Property Name="HotelType" Type="Int32" />
-          <Property Name="HotelTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="HotelDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="HotelName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="HotelDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ContentId" Type="Int64" Nullable="false" />
+          <Property Name="PackageId" Type="Int64" Nullable="false" />
+          <Property Name="ContentType" Type="Int64" Nullable="false" />
+          <Property Name="StateId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="ContentView">
+          <Key>
+            <PropertyRef Name="ContentId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ContentType" />
+          </Key>
+          <Property Name="ContentId" Type="Int64" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="ContentType" Type="Int64" Nullable="false" />
+          <Property Name="StateId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="EmailSupport">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationId" Type="Int64" />
+          <Property Name="DestinationName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int64" />
+          <Property Name="ParentName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CrtdUserId" Type="Int64" />
           <Property Name="CrtdDT" Type="DateTime" Precision="3" />
@@ -2007,46 +2069,22 @@
           <Property Name="AprvdDT" Type="DateTime" Precision="3" />
           <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="StateId" Type="Int64" />
-          <Property Name="OldPrice" Type="Double" />
-          <Property Name="NewPrice" Type="Double" />
-          <Property Name="FullAdress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="District" Type="Int32" />
-          <Property Name="DistrictName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="Int32" />
-          <Property Name="CitytName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Ward" Type="Int32" />
-          <Property Name="WardName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LocationCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Hotline1" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Hotline2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="HomePhone" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CheckInTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CheckOutTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Include" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailTypeId" Type="Int64" />
+          <Property Name="EmailTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Tour">
+        <EntityType Name="Ticker">
           <Key>
-            <PropertyRef Name="TourId" />
+            <PropertyRef Name="TickerId" />
           </Key>
-          <Property Name="TourId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="TourCD" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ViewCount" Type="Int64" />
-          <Property Name="LikeCount" Type="Int64" />
-          <Property Name="CommentCount" Type="Int64" />
-          <Property Name="IsCommentEnabled" Type="Byte" />
-          <Property Name="TourType" Type="Int32" />
-          <Property Name="TourTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="TourDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TourName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="TourDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TickerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TickerName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BuyZone1" Type="Double" />
+          <Property Name="SellZone1" Type="Double" />
+          <Property Name="SellZone2" Type="Double" />
+          <Property Name="SellZone3" Type="Double" />
+          <Property Name="BTCInput" Type="Double" />
+          <Property Name="DeficitControl" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CrtdUserId" Type="Int64" />
           <Property Name="CrtdDT" Type="DateTime" Precision="3" />
@@ -2055,71 +2093,198 @@
           <Property Name="AprvdDT" Type="DateTime" Precision="3" />
           <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="StateId" Type="Int64" />
-          <Property Name="OldPrice" Type="Double" />
-          <Property Name="NewPrice" Type="Double" />
-          <Property Name="StartName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="StartId" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="EndName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="EndId" Type="Int32" />
-          <Property Name="NumPeople" Type="Int32" />
-          <Property Name="GuideName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="GuideId" Type="Int64" />
-          <Property Name="Contact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Including" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NotIncluding" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PartnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="PartnerAdress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CancelTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ChangeTour" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TourClassId" Type="Int32" />
-          <Property Name="TourClassName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ObjectRelate">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ObjContentId" Type="Int64" />
-          <Property Name="ObjContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ClassType" Type="Int32" />
-          <Property Name="ClassTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ObjType" Type="Int32" />
-          <Property Name="ObjTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Room">
-          <Key>
-            <PropertyRef Name="RoomId" />
-          </Key>
-          <Property Name="RoomId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FriendlyURL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ViewCount" Type="Int64" />
-          <Property Name="LikeCount" Type="Int64" />
-          <Property Name="CommentCount" Type="Int64" />
-          <Property Name="IsCommentEnabled" Type="Byte" />
-          <Property Name="RoomType" Type="Int32" />
-          <Property Name="RoomTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="RoomDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RoomName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="RoomDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MetadataDesc" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MetadataKeyword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CrtdUserId" Type="Int64" />
-          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
-          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="AprvdUID" Type="Int64" />
-          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
-          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="StateId" Type="Int64" />
-          <Property Name="OldPrice" Type="Double" />
-          <Property Name="NewPrice" Type="Double" />
-          <Property Name="HotelId" Type="Int64" />
-        </EntityType>
+        <ComplexType Name="ContentItemPagination_Result">
+          <Property Type="Int64" Name="ContentItemId" Nullable="false" />
+          <Property Type="String" Name="FriendlyURL" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="ParentId" Nullable="true" />
+          <Property Type="String" Name="ContentItemCD" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="ViewCount" Nullable="true" />
+          <Property Type="Int64" Name="LikeCount" Nullable="true" />
+          <Property Type="Int64" Name="CommentCount" Nullable="true" />
+          <Property Type="Int32" Name="ObjTypeId" Nullable="true" />
+          <Property Type="Byte" Name="IsCommentEnabled" Nullable="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="AprvdUserName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="AprvdUID" Nullable="true" />
+          <Property Type="DateTime" Name="AprvdDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ContentText" Nullable="true" />
+          <Property Type="String" Name="ContentTitle" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ContentExcerpt" Nullable="true" />
+          <Property Type="String" Name="MetadataDesc" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MetadataKeyword" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CrtdUserName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="CrtdUserId" Nullable="true" />
+          <Property Type="DateTime" Name="CrtdDT" Nullable="true" Precision="23" />
+          <Property Type="Int64" Name="StateId" Nullable="true" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="250" />
+          <Property Type="Byte" Name="Indexed" Nullable="true" />
+          <Property Type="Int64" Name="MicrositeID" Nullable="true" />
+          <Property Type="String" Name="MicrositeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="CateMicrositeID" Nullable="true" />
+          <Property Type="String" Name="CateMicrositeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="ClassificationId" Nullable="false" />
+          <Property Type="Int32" Name="ParentClassificationId" Nullable="true" />
+          <Property Type="String" Name="ParentName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ClassificationNM" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="ClassificationDesc" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="ClassificationMetakeyword" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="ClassificationMetaDes" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="ClassificationSchemeId" Nullable="false" />
+          <Property Type="String" Name="ClassificationCD" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="FriendlyURL1" Nullable="false" MaxLength="250" />
+          <Property Type="Byte" Name="IsEnabled" Nullable="false" />
+          <Property Type="Byte" Name="IsSystem" Nullable="true" />
+          <Property Type="DateTime" Name="CrtdDT1" Nullable="true" Precision="23" />
+          <Property Type="Int64" Name="CrtdUID" Nullable="true" />
+          <Property Type="String" Name="CrtdUserName1" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="LstModDT" Nullable="true" Precision="23" />
+          <Property Type="Int64" Name="LstModUID" Nullable="true" />
+          <Property Type="String" Name="LstModUserName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ShortNM" Nullable="true" MaxLength="160" />
+          <Property Type="Int32" Name="DisplayOrder" Nullable="true" />
+          <Property Type="String" Name="I18N" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="GetLstProductOederExt_Result">
+          <Property Type="Int64" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+          <Property Type="Double" Name="OldPrice" Nullable="true" />
+          <Property Type="Double" Name="NewPrice" Nullable="true" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="Unitprice" Nullable="true" />
+          <Property Type="Double" Name="Discount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetlstPromotionProductByPromotionId_Result">
+          <Property Type="Int64" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="FriendlyURL" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="ParentId" Nullable="true" />
+          <Property Type="String" Name="ProductCD" Nullable="true" MaxLength="200" />
+          <Property Type="Int64" Name="ViewCount" Nullable="true" />
+          <Property Type="Int64" Name="LikeCount" Nullable="true" />
+          <Property Type="Int64" Name="CommentCount" Nullable="true" />
+          <Property Type="Byte" Name="IsCommentEnabled" Nullable="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ProductDetail" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ProductDes" Nullable="true" />
+          <Property Type="String" Name="MetadataDesc" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MetadataKeyword" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CrtdUserName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="CrtdUserId" Nullable="true" />
+          <Property Type="DateTime" Name="CrtdDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AprvdUserName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="AprvdUID" Nullable="true" />
+          <Property Type="DateTime" Name="AprvdDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="StateId" Nullable="true" />
+          <Property Type="Byte" Name="Indexed" Nullable="true" />
+          <Property Type="Double" Name="OldPrice" Nullable="true" />
+          <Property Type="Double" Name="NewPrice" Nullable="true" />
+          <Property Type="Int32" Name="BrandNameID" Nullable="true" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="PriorityDay" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Units" Nullable="true" />
+          <Property Type="String" Name="UnitsName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="MadeIn" Nullable="true" />
+          <Property Type="String" Name="MadeInName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="CorlorID" Nullable="true" />
+          <Property Type="String" Name="CorlorName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Depth" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="With" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Height" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="StatusProductType" Nullable="true" />
+          <Property Type="String" Name="StatusProductTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="PromotionFrom" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PromotionTo" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="PromotionAmount" Nullable="true" />
+          <Property Type="Int32" Name="SupportTimeID" Nullable="true" />
+          <Property Type="String" Name="SupportTimeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SKUCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TranTypeID" Nullable="true" />
+          <Property Type="String" Name="TranTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="MicrositeID" Nullable="true" />
+          <Property Type="String" Name="MicrositeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="CateMicrositeID" Nullable="true" />
+          <Property Type="String" Name="CateMicrositeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="BuyCount" Nullable="true" />
+          <Property Type="Int32" Name="IsEvent" Nullable="true" />
+          <Property Type="String" Name="TranWith" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TranDepth" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TranHeight" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TranWeight" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="GetProductHome_Result">
+          <Property Type="Int64" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="FriendlyURL" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="ParentId" Nullable="true" />
+          <Property Type="String" Name="ProductCD" Nullable="true" MaxLength="200" />
+          <Property Type="Int64" Name="ViewCount" Nullable="true" />
+          <Property Type="Int64" Name="LikeCount" Nullable="true" />
+          <Property Type="Int64" Name="CommentCount" Nullable="true" />
+          <Property Type="Byte" Name="IsCommentEnabled" Nullable="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ProductDetail" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ProductDes" Nullable="true" />
+          <Property Type="String" Name="MetadataDesc" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MetadataKeyword" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="MediaUrl" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MediaThumb" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CrtdUserName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="CrtdUserId" Nullable="true" />
+          <Property Type="DateTime" Name="CrtdDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AprvdUserName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="AprvdUID" Nullable="true" />
+          <Property Type="DateTime" Name="AprvdDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="StateId" Nullable="true" />
+          <Property Type="Byte" Name="Indexed" Nullable="true" />
+          <Property Type="Double" Name="OldPrice" Nullable="true" />
+          <Property Type="Double" Name="NewPrice" Nullable="true" />
+          <Property Type="Int32" Name="BrandNameID" Nullable="true" />
+          <Property Type="String" Name="BrandName" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="PriorityDay" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Units" Nullable="true" />
+          <Property Type="String" Name="UnitsName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="MadeIn" Nullable="true" />
+          <Property Type="String" Name="MadeInName" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="CorlorID" Nullable="true" />
+          <Property Type="String" Name="CorlorName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Depth" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="With" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Height" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Weight" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="StatusProductType" Nullable="true" />
+          <Property Type="String" Name="StatusProductTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="PromotionFrom" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PromotionTo" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="PromotionAmount" Nullable="true" />
+          <Property Type="Int32" Name="SupportTimeID" Nullable="true" />
+          <Property Type="String" Name="SupportTimeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SKUCode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TranTypeID" Nullable="true" />
+          <Property Type="String" Name="TranTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="MicrositeID" Nullable="true" />
+          <Property Type="String" Name="MicrositeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="CateMicrositeID" Nullable="true" />
+          <Property Type="String" Name="CateMicrositeName" Nullable="true" MaxLength="250" />
+          <Property Type="Int64" Name="BuyCount" Nullable="true" />
+          <Property Type="Int32" Name="IsEvent" Nullable="true" />
+          <Property Type="String" Name="TranWith" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TranDepth" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TranHeight" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TranWeight" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2386,19 +2551,6 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="alluneedbModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="ApproveProduct" ColumnName="ApproveProduct" />
-                <ScalarProperty Name="UpdateProduct" ColumnName="UpdateProduct" />
-                <ScalarProperty Name="DeleteProduct" ColumnName="DeleteProduct" />
-                <ScalarProperty Name="CrtdProduct" ColumnName="CrtdProduct" />
-                <ScalarProperty Name="ApproveComment" ColumnName="ApproveComment" />
-                <ScalarProperty Name="UpdateComment" ColumnName="UpdateComment" />
-                <ScalarProperty Name="DeleteComment" ColumnName="DeleteComment" />
-                <ScalarProperty Name="CrtdComment" ColumnName="CrtdComment" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="ApprovePost" ColumnName="ApprovePost" />
-                <ScalarProperty Name="UpdatePost" ColumnName="UpdatePost" />
-                <ScalarProperty Name="DeletePost" ColumnName="DeletePost" />
-                <ScalarProperty Name="CrtdPost" ColumnName="CrtdPost" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="RoleDes" ColumnName="RoleDes" />
@@ -2787,28 +2939,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Hotels">
-            <EntityTypeMapping TypeName="alluneedbModel.Hotel">
-              <MappingFragment StoreEntitySet="Hotel">
-                <ScalarProperty Name="Include" ColumnName="Include" />
-                <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
-                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
-                <ScalarProperty Name="lat" ColumnName="lat" />
-                <ScalarProperty Name="lng" ColumnName="lng" />
-                <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
-                <ScalarProperty Name="Hotline2" ColumnName="Hotline2" />
-                <ScalarProperty Name="Hotline1" ColumnName="Hotline1" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
-                <ScalarProperty Name="WardName" ColumnName="WardName" />
-                <ScalarProperty Name="Ward" ColumnName="Ward" />
-                <ScalarProperty Name="CitytName" ColumnName="CitytName" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
-                <ScalarProperty Name="District" ColumnName="District" />
-                <ScalarProperty Name="FullAdress" ColumnName="FullAdress" />
-                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
-                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <EntitySetMapping Name="ContentPackages">
+            <EntityTypeMapping TypeName="alluneedbModel.ContentPackage">
+              <MappingFragment StoreEntitySet="ContentPackage">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentViews">
+            <EntityTypeMapping TypeName="alluneedbModel.ContentView">
+              <MappingFragment StoreEntitySet="ContentView">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailSupports">
+            <EntityTypeMapping TypeName="alluneedbModel.EmailSupport">
+              <MappingFragment StoreEntitySet="EmailSupport">
+                <ScalarProperty Name="EmailTypeName" ColumnName="EmailTypeName" />
+                <ScalarProperty Name="EmailTypeId" ColumnName="EmailTypeId" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
@@ -2817,48 +2972,20 @@
                 <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
                 <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
                 <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
-                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
-                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
-                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
-                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
-                <ScalarProperty Name="HotelDes" ColumnName="HotelDes" />
-                <ScalarProperty Name="HotelName" ColumnName="HotelName" />
-                <ScalarProperty Name="HotelDetail" ColumnName="HotelDetail" />
-                <ScalarProperty Name="HotelTypeName" ColumnName="HotelTypeName" />
-                <ScalarProperty Name="HotelType" ColumnName="HotelType" />
-                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
-                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
-                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
-                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
-                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
+                <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="EmailName" ColumnName="EmailName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tours">
-            <EntityTypeMapping TypeName="alluneedbModel.Tour">
-              <MappingFragment StoreEntitySet="Tour">
-                <ScalarProperty Name="TourClassName" ColumnName="TourClassName" />
-                <ScalarProperty Name="TourClassId" ColumnName="TourClassId" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="ChangeTour" ColumnName="ChangeTour" />
-                <ScalarProperty Name="CancelTour" ColumnName="CancelTour" />
-                <ScalarProperty Name="PartnerAdress" ColumnName="PartnerAdress" />
-                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
-                <ScalarProperty Name="NotIncluding" ColumnName="NotIncluding" />
-                <ScalarProperty Name="Including" ColumnName="Including" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="GuideId" ColumnName="GuideId" />
-                <ScalarProperty Name="GuideName" ColumnName="GuideName" />
-                <ScalarProperty Name="NumPeople" ColumnName="NumPeople" />
-                <ScalarProperty Name="EndId" ColumnName="EndId" />
-                <ScalarProperty Name="EndName" ColumnName="EndName" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="StartId" ColumnName="StartId" />
-                <ScalarProperty Name="StartName" ColumnName="StartName" />
-                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
-                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <EntitySetMapping Name="Tickers">
+            <EntityTypeMapping TypeName="alluneedbModel.Ticker">
+              <MappingFragment StoreEntitySet="Ticker">
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
@@ -2867,70 +2994,239 @@
                 <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
                 <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
                 <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
-                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
-                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
-                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
-                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
-                <ScalarProperty Name="TourDes" ColumnName="TourDes" />
-                <ScalarProperty Name="TourName" ColumnName="TourName" />
-                <ScalarProperty Name="TourDetail" ColumnName="TourDetail" />
-                <ScalarProperty Name="TourTypeName" ColumnName="TourTypeName" />
-                <ScalarProperty Name="TourType" ColumnName="TourType" />
-                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
-                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
-                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
-                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
-                <ScalarProperty Name="TourCD" ColumnName="TourCD" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DeficitControl" ColumnName="DeficitControl" />
+                <ScalarProperty Name="BTCInput" ColumnName="BTCInput" />
+                <ScalarProperty Name="SellZone3" ColumnName="SellZone3" />
+                <ScalarProperty Name="SellZone2" ColumnName="SellZone2" />
+                <ScalarProperty Name="SellZone1" ColumnName="SellZone1" />
+                <ScalarProperty Name="BuyZone1" ColumnName="BuyZone1" />
+                <ScalarProperty Name="TickerName" ColumnName="TickerName" />
+                <ScalarProperty Name="TickerId" ColumnName="TickerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Al_ProcGetDataUserInfor" FunctionName="alluneedbModel.Store.Al_ProcGetDataUserInfor" />
+          <FunctionImportMapping FunctionImportName="Al_ProcGetDataUserInforTransferMoney" FunctionName="alluneedbModel.Store.Al_ProcGetDataUserInforTransferMoney" />
+          <FunctionImportMapping FunctionImportName="ContentItemPagination" FunctionName="alluneedbModel.Store.ContentItemPagination">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="alluneedbModel.ContentItemPagination_Result">
+                <ScalarProperty Name="ContentItemId" ColumnName="ContentItemId" />
                 <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
-                <ScalarProperty Name="TourId" ColumnName="TourId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ObjectRelates">
-            <EntityTypeMapping TypeName="alluneedbModel.ObjectRelate">
-              <MappingFragment StoreEntitySet="ObjectRelate">
-                <ScalarProperty Name="ObjTypeName" ColumnName="ObjTypeName" />
-                <ScalarProperty Name="ObjType" ColumnName="ObjType" />
-                <ScalarProperty Name="ClassTypeName" ColumnName="ClassTypeName" />
-                <ScalarProperty Name="ClassType" ColumnName="ClassType" />
-                <ScalarProperty Name="ObjContentName" ColumnName="ObjContentName" />
-                <ScalarProperty Name="ObjContentId" ColumnName="ObjContentId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rooms">
-            <EntityTypeMapping TypeName="alluneedbModel.Room">
-              <MappingFragment StoreEntitySet="Room">
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
-                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ContentItemCD" ColumnName="ContentItemCD" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="ObjTypeId" ColumnName="ObjTypeId" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="ContentTitle" ColumnName="ContentTitle" />
+                <ScalarProperty Name="ContentExcerpt" ColumnName="ContentExcerpt" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
-                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
-                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
-                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
-                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
-                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
-                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
-                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+                <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+                <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+                <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+                <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+                <ScalarProperty Name="ClassificationId" ColumnName="ClassificationId" />
+                <ScalarProperty Name="ParentClassificationId" ColumnName="ParentClassificationId" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+                <ScalarProperty Name="ClassificationNM" ColumnName="ClassificationNM" />
+                <ScalarProperty Name="ClassificationDesc" ColumnName="ClassificationDesc" />
+                <ScalarProperty Name="ClassificationMetakeyword" ColumnName="ClassificationMetakeyword" />
+                <ScalarProperty Name="ClassificationMetaDes" ColumnName="ClassificationMetaDes" />
+                <ScalarProperty Name="ClassificationSchemeId" ColumnName="ClassificationSchemeId" />
+                <ScalarProperty Name="ClassificationCD" ColumnName="ClassificationCD" />
+                <ScalarProperty Name="FriendlyURL1" ColumnName="FriendlyURL1" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
+                <ScalarProperty Name="CrtdDT1" ColumnName="CrtdDT1" />
+                <ScalarProperty Name="CrtdUID" ColumnName="CrtdUID" />
+                <ScalarProperty Name="CrtdUserName1" ColumnName="CrtdUserName1" />
+                <ScalarProperty Name="LstModDT" ColumnName="LstModDT" />
+                <ScalarProperty Name="LstModUID" ColumnName="LstModUID" />
+                <ScalarProperty Name="LstModUserName" ColumnName="LstModUserName" />
+                <ScalarProperty Name="ShortNM" ColumnName="ShortNM" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="I18N" ColumnName="I18N" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteClassificationById" FunctionName="alluneedbModel.Store.DeleteClassificationById" />
+          <FunctionImportMapping FunctionImportName="DeleteContentItemById" FunctionName="alluneedbModel.Store.DeleteContentItemById" />
+          <FunctionImportMapping FunctionImportName="DeleteMicrositeById" FunctionName="alluneedbModel.Store.DeleteMicrositeById" />
+          <FunctionImportMapping FunctionImportName="GetLstProductOederExt" FunctionName="alluneedbModel.Store.GetLstProductOederExt">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="alluneedbModel.GetLstProductOederExt_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
-                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
-                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
-                <ScalarProperty Name="RoomDes" ColumnName="RoomDes" />
-                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
-                <ScalarProperty Name="RoomDetail" ColumnName="RoomDetail" />
-                <ScalarProperty Name="RoomTypeName" ColumnName="RoomTypeName" />
-                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
-                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
-                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
-                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
-                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Unitprice" ColumnName="Unitprice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetlstPromotionProductByCateId" FunctionName="alluneedbModel.Store.GetlstPromotionProductByCateId" />
+          <FunctionImportMapping FunctionImportName="GetlstPromotionProductByPromotionId" FunctionName="alluneedbModel.Store.GetlstPromotionProductByPromotionId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="alluneedbModel.GetlstPromotionProductByPromotionId_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
-                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ProductCD" ColumnName="ProductCD" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ProductDetail" ColumnName="ProductDetail" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDes" ColumnName="ProductDes" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="BrandNameID" ColumnName="BrandNameID" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="PriorityDay" ColumnName="PriorityDay" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="UnitsName" ColumnName="UnitsName" />
+                <ScalarProperty Name="MadeIn" ColumnName="MadeIn" />
+                <ScalarProperty Name="MadeInName" ColumnName="MadeInName" />
+                <ScalarProperty Name="CorlorID" ColumnName="CorlorID" />
+                <ScalarProperty Name="CorlorName" ColumnName="CorlorName" />
+                <ScalarProperty Name="Depth" ColumnName="Depth" />
+                <ScalarProperty Name="With" ColumnName="With" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="StatusProductType" ColumnName="StatusProductType" />
+                <ScalarProperty Name="StatusProductTypeName" ColumnName="StatusProductTypeName" />
+                <ScalarProperty Name="PromotionFrom" ColumnName="PromotionFrom" />
+                <ScalarProperty Name="PromotionTo" ColumnName="PromotionTo" />
+                <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+                <ScalarProperty Name="SupportTimeID" ColumnName="SupportTimeID" />
+                <ScalarProperty Name="SupportTimeName" ColumnName="SupportTimeName" />
+                <ScalarProperty Name="SKUCode" ColumnName="SKUCode" />
+                <ScalarProperty Name="TranTypeID" ColumnName="TranTypeID" />
+                <ScalarProperty Name="TranTypeName" ColumnName="TranTypeName" />
+                <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+                <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+                <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+                <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+                <ScalarProperty Name="IsEvent" ColumnName="IsEvent" />
+                <ScalarProperty Name="TranWith" ColumnName="TranWith" />
+                <ScalarProperty Name="TranDepth" ColumnName="TranDepth" />
+                <ScalarProperty Name="TranHeight" ColumnName="TranHeight" />
+                <ScalarProperty Name="TranWeight" ColumnName="TranWeight" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetLstUserNotIsRole" FunctionName="alluneedbModel.Store.GetLstUserNotIsRole" />
+          <FunctionImportMapping FunctionImportName="GetProductByParentCate" FunctionName="alluneedbModel.Store.GetProductByParentCate" />
+          <FunctionImportMapping FunctionImportName="GetProductByParentCateAllType" FunctionName="alluneedbModel.Store.GetProductByParentCateAllType" />
+          <FunctionImportMapping FunctionImportName="GetProductByParentCateBuyCount" FunctionName="alluneedbModel.Store.GetProductByParentCateBuyCount" />
+          <FunctionImportMapping FunctionImportName="GetProductByParentCateDiscount" FunctionName="alluneedbModel.Store.GetProductByParentCateDiscount" />
+          <FunctionImportMapping FunctionImportName="GetProductByParentCateViewCount" FunctionName="alluneedbModel.Store.GetProductByParentCateViewCount" />
+          <FunctionImportMapping FunctionImportName="GetProductHome" FunctionName="alluneedbModel.Store.GetProductHome">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="alluneedbModel.GetProductHome_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="FriendlyURL" ColumnName="FriendlyURL" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ProductCD" ColumnName="ProductCD" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="LikeCount" ColumnName="LikeCount" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="IsCommentEnabled" ColumnName="IsCommentEnabled" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ProductDetail" ColumnName="ProductDetail" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDes" ColumnName="ProductDes" />
+                <ScalarProperty Name="MetadataDesc" ColumnName="MetadataDesc" />
+                <ScalarProperty Name="MetadataKeyword" ColumnName="MetadataKeyword" />
+                <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
+                <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Indexed" ColumnName="Indexed" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="BrandNameID" ColumnName="BrandNameID" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="PriorityDay" ColumnName="PriorityDay" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="UnitsName" ColumnName="UnitsName" />
+                <ScalarProperty Name="MadeIn" ColumnName="MadeIn" />
+                <ScalarProperty Name="MadeInName" ColumnName="MadeInName" />
+                <ScalarProperty Name="CorlorID" ColumnName="CorlorID" />
+                <ScalarProperty Name="CorlorName" ColumnName="CorlorName" />
+                <ScalarProperty Name="Depth" ColumnName="Depth" />
+                <ScalarProperty Name="With" ColumnName="With" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="StatusProductType" ColumnName="StatusProductType" />
+                <ScalarProperty Name="StatusProductTypeName" ColumnName="StatusProductTypeName" />
+                <ScalarProperty Name="PromotionFrom" ColumnName="PromotionFrom" />
+                <ScalarProperty Name="PromotionTo" ColumnName="PromotionTo" />
+                <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+                <ScalarProperty Name="SupportTimeID" ColumnName="SupportTimeID" />
+                <ScalarProperty Name="SupportTimeName" ColumnName="SupportTimeName" />
+                <ScalarProperty Name="SKUCode" ColumnName="SKUCode" />
+                <ScalarProperty Name="TranTypeID" ColumnName="TranTypeID" />
+                <ScalarProperty Name="TranTypeName" ColumnName="TranTypeName" />
+                <ScalarProperty Name="MicrositeID" ColumnName="MicrositeID" />
+                <ScalarProperty Name="MicrositeName" ColumnName="MicrositeName" />
+                <ScalarProperty Name="CateMicrositeID" ColumnName="CateMicrositeID" />
+                <ScalarProperty Name="CateMicrositeName" ColumnName="CateMicrositeName" />
+                <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
+                <ScalarProperty Name="IsEvent" ColumnName="IsEvent" />
+                <ScalarProperty Name="TranWith" ColumnName="TranWith" />
+                <ScalarProperty Name="TranDepth" ColumnName="TranDepth" />
+                <ScalarProperty Name="TranHeight" ColumnName="TranHeight" />
+                <ScalarProperty Name="TranWeight" ColumnName="TranWeight" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchProductByCate" FunctionName="alluneedbModel.Store.SearchProductByCate" />
+          <FunctionImportMapping FunctionImportName="TABLEVIEWSEARCH" FunctionName="alluneedbModel.Store.TABLEVIEWSEARCH" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

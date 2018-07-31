@@ -12,14 +12,11 @@ namespace DataModel.DataEntity
     using System;
     using System.Collections.Generic;
     
-    public partial class ObjectRelate
+    public partial class ContentView
     {
-        public long id { get; set; }
-        public Nullable<long> ObjContentId { get; set; }
-        public string ObjContentName { get; set; }
-        public Nullable<int> ClassType { get; set; }
-        public string ClassTypeName { get; set; }
-        public Nullable<int> ObjType { get; set; }
-        public string ObjTypeName { get; set; }
+        public long ContentId { get; set; }
+        public long UserId { get; set; }
+        public long ContentType { get; set; }
+        public Nullable<long> StateId { get; set; }
     }
 }

@@ -12,17 +12,11 @@ namespace DataModel.DataEntity
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class ContentPackage
     {
-        public Role()
-        {
-            this.Users = new HashSet<User>();
-        }
-    
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string RoleDes { get; set; }
-    
-        public virtual ICollection<User> Users { get; set; }
+        public long ContentId { get; set; }
+        public long PackageId { get; set; }
+        public long ContentType { get; set; }
+        public Nullable<long> StateId { get; set; }
     }
 }

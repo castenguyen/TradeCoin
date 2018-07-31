@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="alluneedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="alluneedbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Classification">
     <Key>
       <PropertyRef Name="ClassificationId" />
@@ -137,6 +137,17 @@
     <Property Name="CateMicrositeID" Type="int" />
     <Property Name="CateMicrositeName" Type="nvarchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="ContentPackage">
+    <Key>
+      <PropertyRef Name="ContentId" />
+      <PropertyRef Name="PackageId" />
+      <PropertyRef Name="ContentType" />
+    </Key>
+    <Property Name="ContentId" Type="bigint" Nullable="false" />
+    <Property Name="PackageId" Type="bigint" Nullable="false" />
+    <Property Name="ContentType" Type="bigint" Nullable="false" />
+    <Property Name="StateId" Type="bigint" />
+  </EntityType>
   <EntityType Name="ContentTag">
     <Key>
       <PropertyRef Name="ObjcontentId" />
@@ -147,6 +158,17 @@
     <Property Name="TagId" Type="bigint" Nullable="false" />
     <Property Name="CrtdDT" Type="datetime" />
     <Property Name="ObjTypeId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentView">
+    <Key>
+      <PropertyRef Name="ContentId" />
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="ContentType" />
+    </Key>
+    <Property Name="ContentId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ContentType" Type="bigint" Nullable="false" />
+    <Property Name="StateId" Type="bigint" />
   </EntityType>
   <EntityType Name="CountLike">
     <Key>
@@ -173,6 +195,29 @@
     <Property Name="EndDT" Type="datetime" />
     <Property Name="ShortNM" Type="nvarchar" MaxLength="160" />
     <Property Name="DisplayOrder" Type="int" />
+  </EntityType>
+  <EntityType Name="EmailSupport">
+    <Key>
+      <PropertyRef Name="EmailId" />
+    </Key>
+    <Property Name="EmailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="500" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="DestinationId" Type="bigint" />
+    <Property Name="DestinationName" Type="nvarchar" MaxLength="500" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="ParentName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="EmailTypeId" Type="bigint" />
+    <Property Name="EmailTypeName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="ExceptionLogs">
     <Key>
@@ -201,53 +246,6 @@
     <Property Name="lng" Type="nvarchar" MaxLength="50" />
     <Property Name="lat" Type="nvarchar" MaxLength="50" />
     <Property Name="AreaWardId" Type="int" />
-  </EntityType>
-  <EntityType Name="Hotel">
-    <Key>
-      <PropertyRef Name="HotelId" />
-    </Key>
-    <Property Name="HotelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
-    <Property Name="ViewCount" Type="bigint" />
-    <Property Name="LikeCount" Type="bigint" />
-    <Property Name="CommentCount" Type="bigint" />
-    <Property Name="IsCommentEnabled" Type="tinyint" />
-    <Property Name="HotelType" Type="int" />
-    <Property Name="HotelTypeName" Type="nvarchar" MaxLength="250" />
-    <Property Name="HotelDetail" Type="text" />
-    <Property Name="HotelName" Type="nvarchar" MaxLength="500" />
-    <Property Name="HotelDes" Type="nvarchar(max)" />
-    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
-    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
-    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
-    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
-    <Property Name="CrtdUserId" Type="bigint" />
-    <Property Name="CrtdDT" Type="datetime" />
-    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
-    <Property Name="AprvdUID" Type="bigint" />
-    <Property Name="AprvdDT" Type="datetime" />
-    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
-    <Property Name="StateId" Type="bigint" />
-    <Property Name="OldPrice" Type="float" />
-    <Property Name="NewPrice" Type="float" />
-    <Property Name="FullAdress" Type="nvarchar" MaxLength="250" />
-    <Property Name="District" Type="int" />
-    <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
-    <Property Name="City" Type="int" />
-    <Property Name="CitytName" Type="nvarchar" MaxLength="250" />
-    <Property Name="Ward" Type="int" />
-    <Property Name="WardName" Type="nvarchar" MaxLength="250" />
-    <Property Name="LocationCode" Type="nvarchar" MaxLength="250" />
-    <Property Name="Note" Type="ntext" />
-    <Property Name="Hotline1" Type="nvarchar" MaxLength="250" />
-    <Property Name="Hotline2" Type="nvarchar" MaxLength="250" />
-    <Property Name="HomePhone" Type="nvarchar" MaxLength="250" />
-    <Property Name="lng" Type="nvarchar" MaxLength="50" />
-    <Property Name="lat" Type="nvarchar" MaxLength="50" />
-    <Property Name="CheckInTime" Type="nchar" MaxLength="10" />
-    <Property Name="CheckOutTime" Type="nchar" MaxLength="10" />
-    <Property Name="Include" Type="ntext" />
   </EntityType>
   <EntityType Name="MediaContent">
     <Key>
@@ -357,18 +355,6 @@
     <Property Name="UserName" Type="nvarchar" MaxLength="50" />
     <Property Name="CrtdDT" Type="datetime" />
     <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ObjectRelate">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ObjContentId" Type="bigint" />
-    <Property Name="ObjContentName" Type="nvarchar" MaxLength="500" />
-    <Property Name="ClassType" Type="int" />
-    <Property Name="ClassTypeName" Type="nvarchar" MaxLength="250" />
-    <Property Name="ObjType" Type="int" />
-    <Property Name="ObjTypeName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="OrderProducts">
     <Key>
@@ -547,50 +533,6 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RoleDes" Type="nvarchar(max)" />
-    <Property Name="CrtdPost" Type="tinyint" />
-    <Property Name="DeletePost" Type="tinyint" />
-    <Property Name="UpdatePost" Type="tinyint" />
-    <Property Name="ApprovePost" Type="tinyint" />
-    <Property Name="IsAdmin" Type="tinyint" />
-    <Property Name="CrtdComment" Type="tinyint" />
-    <Property Name="DeleteComment" Type="tinyint" />
-    <Property Name="UpdateComment" Type="tinyint" />
-    <Property Name="ApproveComment" Type="tinyint" />
-    <Property Name="CrtdProduct" Type="tinyint" />
-    <Property Name="DeleteProduct" Type="tinyint" />
-    <Property Name="UpdateProduct" Type="tinyint" />
-    <Property Name="ApproveProduct" Type="tinyint" />
-  </EntityType>
-  <EntityType Name="Room">
-    <Key>
-      <PropertyRef Name="RoomId" />
-    </Key>
-    <Property Name="RoomId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
-    <Property Name="ViewCount" Type="bigint" />
-    <Property Name="LikeCount" Type="bigint" />
-    <Property Name="CommentCount" Type="bigint" />
-    <Property Name="IsCommentEnabled" Type="tinyint" />
-    <Property Name="RoomType" Type="int" />
-    <Property Name="RoomTypeName" Type="nvarchar" MaxLength="250" />
-    <Property Name="RoomDetail" Type="text" />
-    <Property Name="RoomName" Type="nvarchar" MaxLength="500" />
-    <Property Name="RoomDes" Type="nvarchar(max)" />
-    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
-    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
-    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
-    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
-    <Property Name="CrtdUserId" Type="bigint" />
-    <Property Name="CrtdDT" Type="datetime" />
-    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
-    <Property Name="AprvdUID" Type="bigint" />
-    <Property Name="AprvdDT" Type="datetime" />
-    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
-    <Property Name="StateId" Type="bigint" />
-    <Property Name="OldPrice" Type="float" />
-    <Property Name="NewPrice" Type="float" />
-    <Property Name="HotelId" Type="bigint" />
   </EntityType>
   <EntityType Name="ShippingAddress">
     <Key>
@@ -617,26 +559,19 @@
     <Property Name="TagId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TagNM" Type="nvarchar" MaxLength="250" />
   </EntityType>
-  <EntityType Name="Tour">
+  <EntityType Name="Ticker">
     <Key>
-      <PropertyRef Name="TourId" />
+      <PropertyRef Name="TickerId" />
     </Key>
-    <Property Name="TourId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FriendlyURL" Type="nvarchar" MaxLength="250" />
-    <Property Name="TourCD" Type="varchar" MaxLength="200" />
-    <Property Name="ViewCount" Type="bigint" />
-    <Property Name="LikeCount" Type="bigint" />
-    <Property Name="CommentCount" Type="bigint" />
-    <Property Name="IsCommentEnabled" Type="tinyint" />
-    <Property Name="TourType" Type="int" />
-    <Property Name="TourTypeName" Type="nvarchar" MaxLength="250" />
-    <Property Name="TourDetail" Type="nvarchar(max)" />
-    <Property Name="TourName" Type="nvarchar" MaxLength="500" />
-    <Property Name="TourDes" Type="nvarchar(max)" />
-    <Property Name="MetadataDesc" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetadataKeyword" Type="nvarchar" MaxLength="250" />
-    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
-    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="TickerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TickerName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="BuyZone1" Type="float" />
+    <Property Name="SellZone1" Type="float" />
+    <Property Name="SellZone2" Type="float" />
+    <Property Name="SellZone3" Type="float" />
+    <Property Name="BTCInput" Type="float" />
+    <Property Name="DeficitControl" Type="float" />
+    <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
     <Property Name="CrtdUserId" Type="bigint" />
     <Property Name="CrtdDT" Type="datetime" />
@@ -645,27 +580,6 @@
     <Property Name="AprvdDT" Type="datetime" />
     <Property Name="StateName" Type="nvarchar" MaxLength="250" />
     <Property Name="StateId" Type="bigint" />
-    <Property Name="OldPrice" Type="float" />
-    <Property Name="NewPrice" Type="float" />
-    <Property Name="StartName" Type="nvarchar" MaxLength="250" />
-    <Property Name="StartId" Type="int" />
-    <Property Name="StartDate" Type="datetime" />
-    <Property Name="EndDate" Type="datetime" />
-    <Property Name="EndName" Type="nvarchar" MaxLength="250" />
-    <Property Name="EndId" Type="int" />
-    <Property Name="NumPeople" Type="int" />
-    <Property Name="GuideName" Type="nvarchar" MaxLength="250" />
-    <Property Name="GuideId" Type="bigint" />
-    <Property Name="Contact" Type="nvarchar" MaxLength="250" />
-    <Property Name="Including" Type="nvarchar(max)" />
-    <Property Name="NotIncluding" Type="nvarchar(max)" />
-    <Property Name="PartnerName" Type="nvarchar" MaxLength="250" />
-    <Property Name="PartnerAdress" Type="nvarchar" MaxLength="250" />
-    <Property Name="CancelTour" Type="nvarchar(max)" />
-    <Property Name="ChangeTour" Type="nvarchar(max)" />
-    <Property Name="Note" Type="nvarchar(max)" />
-    <Property Name="TourClassId" Type="int" />
-    <Property Name="TourClassName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="TransactionHis">
     <Key>
@@ -956,23 +870,97 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Al_ProcGetDataUserInfor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="u" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Al_ProcGetDataUserInforTransferMoney" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="ContentItemPagination" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="rowSkip" Type="int" Mode="In" />
+    <Parameter Name="rowTake" Type="int" Mode="In" />
+    <Parameter Name="type" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteClassificationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentCate" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteContentItemById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="DeleteMicrositeById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetLstProductOederExt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OrderId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetlstPromotionProductByCateId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CateId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetlstPromotionProductByPromotionId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PromotionId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetLstUserNotIsRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoleID" Type="int" Mode="In" />
+    <Parameter Name="PageNum" Type="int" Mode="In" />
+    <Parameter Name="RecorNum" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductByParentCate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentCate" Type="int" Mode="In" />
+    <Parameter Name="index" Type="int" Mode="In" />
+    <Parameter Name="NumOfCate" Type="int" Mode="In" />
+    <Parameter Name="StateId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductByParentCateAllType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentCate" Type="int" Mode="In" />
+    <Parameter Name="NumOfCate" Type="int" Mode="In" />
+    <Parameter Name="take" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductByParentCateBuyCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentCate" Type="int" Mode="In" />
+    <Parameter Name="NumOfCate" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductByParentCateDiscount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentCate" Type="int" Mode="In" />
+    <Parameter Name="NumOfCate" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductByParentCateViewCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ParentCate" Type="int" Mode="In" />
+    <Parameter Name="NumOfCate" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetProductHome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdCategory" Type="int" Mode="In" />
+    <Parameter Name="Limit" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SearchProductByCate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="keyword" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="stateId" Type="int" Mode="In" />
+    <Parameter Name="idCate" Type="int" Mode="In" />
+    <Parameter Name="MicrositeID" Type="int" Mode="In" />
+    <Parameter Name="skip" Type="int" Mode="In" />
+    <Parameter Name="take" Type="int" Mode="In" />
+  </Function>
+  <Function Name="TABLEVIEWSEARCH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TABLENAME" Type="varchar" Mode="In" />
+    <Parameter Name="SEARCHSTRING" Type="varchar" Mode="In" />
+  </Function>
   <EntityContainer Name="alluneedbModelStoreContainer">
     <EntitySet Name="Classification" EntityType="Self.Classification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ClassificationScheme" EntityType="Self.ClassificationScheme" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContentComment" EntityType="Self.ContentComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContentItem" EntityType="Self.ContentItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentPackage" EntityType="Self.ContentPackage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContentTag" EntityType="Self.ContentTag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContentView" EntityType="Self.ContentView" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CountLike" EntityType="Self.CountLike" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DisplayContent" EntityType="Self.DisplayContent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailSupport" EntityType="Self.EmailSupport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NotifiRequest" EntityType="Self.NotifiRequest" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ObjectRelate" EntityType="Self.ObjectRelate" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -980,10 +968,9 @@
     <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RelatedContentItem" EntityType="Self.RelatedContentItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ShippingAddress" EntityType="Self.ShippingAddress" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticker" EntityType="Self.Ticker" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TransactionHis" EntityType="Self.TransactionHis" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />

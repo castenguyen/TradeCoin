@@ -165,7 +165,16 @@
     <Compile Include="DataEntity\ContentItem.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataEntity\ContentItemPagination_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\ContentPackage.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataEntity\ContentTag.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\ContentView.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\CountLike.cs">
@@ -190,13 +199,22 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\EmailService.cs" />
+    <Compile Include="DataEntity\EmailSupport.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataEntity\ExceptionLog.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\GeoArea.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataEntity\Hotel.cs">
+    <Compile Include="DataEntity\GetLstProductOederExt_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\GetlstPromotionProductByPromotionId_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\GetProductHome_Result.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\MediaContent.cs">
@@ -215,9 +233,6 @@
     <Compile Include="DataEntity\MyUserManager.cs" />
     <Compile Include="DataEntity\MyUserRole.cs" />
     <Compile Include="DataEntity\NotifiRequest.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataEntity\ObjectRelate.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\Order.cs">
@@ -241,9 +256,6 @@
     <Compile Include="DataEntity\Role.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataEntity\Room.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataEntity\ShippingAddress.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -251,7 +263,7 @@
     <Compile Include="DataEntity\Tag.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataEntity\Tour.cs">
+    <Compile Include="DataEntity\Ticker.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\TransactionHi.cs">
@@ -275,7 +287,6 @@
     <Compile Include="DataStore\Core.cs" />
     <Compile Include="DataStore\Ctrl.Account.cs" />
     <Compile Include="DataStore\Ctrl.CountLike.cs" />
-    <Compile Include="DataStore\Ctrl.ObjectRelate.cs" />
     <Compile Include="DataStore\Ctrl.ImageHelper.cs" />
     <Compile Include="DataStore\Ctrl.NotifiRequest.cs" />
     <Compile Include="DataStore\Ctrl.Promotion.cs" />

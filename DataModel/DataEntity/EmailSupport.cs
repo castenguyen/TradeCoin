@@ -12,23 +12,16 @@ namespace DataModel.DataEntity
     using System;
     using System.Collections.Generic;
     
-    public partial class Room
+    public partial class EmailSupport
     {
-        public long RoomId { get; set; }
-        public string FriendlyURL { get; set; }
-        public Nullable<long> ViewCount { get; set; }
-        public Nullable<long> LikeCount { get; set; }
-        public Nullable<long> CommentCount { get; set; }
-        public Nullable<byte> IsCommentEnabled { get; set; }
-        public Nullable<int> RoomType { get; set; }
-        public string RoomTypeName { get; set; }
-        public string RoomDetail { get; set; }
-        public string RoomName { get; set; }
-        public string RoomDes { get; set; }
-        public string MetadataDesc { get; set; }
-        public string MetadataKeyword { get; set; }
-        public string MediaUrl { get; set; }
-        public string MediaThumb { get; set; }
+        public long EmailId { get; set; }
+        public string EmailName { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+        public Nullable<long> DestinationId { get; set; }
+        public string DestinationName { get; set; }
+        public Nullable<long> ParentId { get; set; }
+        public string ParentName { get; set; }
         public string CrtdUserName { get; set; }
         public Nullable<long> CrtdUserId { get; set; }
         public Nullable<System.DateTime> CrtdDT { get; set; }
@@ -37,8 +30,7 @@ namespace DataModel.DataEntity
         public Nullable<System.DateTime> AprvdDT { get; set; }
         public string StateName { get; set; }
         public Nullable<long> StateId { get; set; }
-        public Nullable<double> OldPrice { get; set; }
-        public Nullable<double> NewPrice { get; set; }
-        public Nullable<long> HotelId { get; set; }
+        public Nullable<long> EmailTypeId { get; set; }
+        public string EmailTypeName { get; set; }
     }
 }

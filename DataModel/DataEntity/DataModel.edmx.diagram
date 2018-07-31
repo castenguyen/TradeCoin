@@ -48,10 +48,10 @@
         <EntityTypeShape EntityType="alluneedbModel.NotifiRequest" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="alluneedbModel.CountLike" Width="1.5" PointX="12.375" PointY="3.75" />
         <EntityTypeShape EntityType="alluneedbModel.ProductInforExt" Width="1.5" PointX="12.375" PointY="6.75" />
-        <EntityTypeShape EntityType="alluneedbModel.Hotel" Width="1.5" PointX="16.375" PointY="8.75" />
-        <EntityTypeShape EntityType="alluneedbModel.Tour" Width="1.5" PointX="18.375" PointY="0.75" />
-        <EntityTypeShape EntityType="alluneedbModel.ObjectRelate" Width="1.5" PointX="12.375" PointY="10.75" />
-        <EntityTypeShape EntityType="alluneedbModel.Room" Width="1.5" PointX="18.375" PointY="11.75" />
+        <EntityTypeShape EntityType="alluneedbModel.ContentPackage" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="alluneedbModel.ContentView" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="alluneedbModel.EmailSupport" Width="1.5" PointX="14.375" PointY="8.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Ticker" Width="1.5" PointX="16.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
