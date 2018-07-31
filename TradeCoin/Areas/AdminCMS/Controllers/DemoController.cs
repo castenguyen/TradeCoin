@@ -251,6 +251,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ChatGroup()
+        {
+            return View();
+        }
+
 
 
 

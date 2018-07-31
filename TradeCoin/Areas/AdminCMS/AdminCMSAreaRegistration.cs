@@ -870,10 +870,16 @@ namespace CMSPROJECT.Areas.AdminCMS
   );
 
             context.MapRoute(
-"AdminCMS_Demo_DetailTicker",
-"Demo/DetailTicker",
-new { controller = "Demo", action = "DetailTicker" }
-);
+            "AdminCMS_Demo_DetailTicker",
+            "Demo/DetailTicker",
+            new { controller = "Demo", action = "DetailTicker" }
+            );
+
+            context.MapRoute(
+                "AdminCMS_Demo_ChatGroup",
+                "Demo/ChatGroup",
+                new { controller = "Demo", action = "ChatGroup" }
+                );
 
             
 
