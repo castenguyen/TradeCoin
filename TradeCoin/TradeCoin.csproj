@@ -2066,6 +2066,8 @@
     <Content Include="Areas\AdminCMS\Views\Demo\CreatePackage.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\CreateCatalogry.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\IndexCatalogry.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\UpdateInfoAcc.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\Upgrade.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />
