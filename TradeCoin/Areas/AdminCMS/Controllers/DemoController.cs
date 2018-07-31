@@ -118,6 +118,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ListNews()
+        {
+            return View();
+        }
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DetailNews()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// ok
@@ -140,6 +157,24 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult UpdateTicker()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ListTicker()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DetailTicker()
         {
             return View();
         }

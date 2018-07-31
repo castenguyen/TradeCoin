@@ -838,8 +838,44 @@ namespace CMSPROJECT.Areas.AdminCMS
            );
 
 
-            
+            context.MapRoute(
+           "AdminCMS_Demo_ModIndex",
+           "Demo/ModIndex",
+           new { controller = "Demo", action = "ModIndex" }
+           );
 
+            context.MapRoute(
+       "AdminCMS_Demo_IndexAdmin",
+       "Demo/IndexAdmin",
+       new { controller = "Demo", action = "IndexAdmin" }
+       );
+
+            context.MapRoute(
+     "AdminCMS_Demo_ListTicker",
+     "Demo/ListTicker",
+     new { controller = "Demo", action = "ListTicker" }
+     );
+
+            context.MapRoute(
+  "AdminCMS_Demo_ListNews",
+  "Demo/ListNews",
+  new { controller = "Demo", action = "ListNews" }
+  );
+
+
+            context.MapRoute(
+  "AdminCMS_Demo_DetailNews",
+  "Demo/DetailNews",
+  new { controller = "Demo", action = "DetailNews" }
+  );
+
+            context.MapRoute(
+"AdminCMS_Demo_DetailTicker",
+"Demo/DetailTicker",
+new { controller = "Demo", action = "DetailTicker" }
+);
+
+            
 
             #endregion Demo
 
