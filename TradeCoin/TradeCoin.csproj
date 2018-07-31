@@ -2061,6 +2061,11 @@
     <Content Include="Areas\AdminCMS\Views\Demo\UpdateNews.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\IndexTicker.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\CreateTicker.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\DetailUser.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\UserManager.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\CreatePackage.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\CreateCatalogry.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\IndexCatalogry.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />
