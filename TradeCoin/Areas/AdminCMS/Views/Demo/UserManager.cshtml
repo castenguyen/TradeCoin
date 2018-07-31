@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "UserManager";
+    Layout = "~/Areas/AdminCMS/Views/Demo/_DemoLayout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh Sách tài khoản</h3>
+                    <p>Bạn đang đăng nhập bằng tài khoản <strong>dasdad</strong>.</p>
+
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+
+                    <div class="form-group col-md-4">
+                        <div class="box-tools">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger main_state_name">Lọc theo loại user</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">Mod</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Member</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <div class="box-tools">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger main_state_name">Lọc theo hạng</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">2</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <a href="#" class="label label-primary">A</a> |
+                        <a href="#" class="label label-primary">B</a> |
+                        <a href="#" class="label label-primary">C</a> |
+                        <a href="#" class="label label-primary">D</a> |
+                        <a href="#" class="label label-primary">E</a> |
+                        <a href="#" class="label label-primary">F</a> |
+                        <a href="#" class="label label-primary">G</a> |
+                        <a href="#" class="label label-primary">H</a> |
+                        <a href="#" class="label label-primary">I</a> |
+                        <a href="#" class="label label-primary">J</a> |
+                        <a href="#" class="label label-primary">K</a> |
+                        <a href="#" class="label label-primary">L</a> |
+                        <a href="#" class="label label-primary">M</a> |
+                        <a href="#" class="label label-primary">N</a> |
+                        <a href="#" class="label label-primary">O</a> |
+                        <a href="#" class="label label-primary">P</a> |
+                        <a href="#" class="label label-primary">Q</a> |
+                        <a href="#" class="label label-primary">R</a> |
+                        <a href="#" class="label label-primary">S</a> |
+                        <a href="#" class="label label-primary">T</a> |
+                        <a href="#" class="label label-primary">U</a> |
+                        <a href="#" class="label label-primary">V</a> |
+                        <a href="#" class="label label-primary">X</a> |
+                        <a href="#" class="label label-primary">Y</a> |
+                        <a href="#" class="label label-primary">Z</a>
+                    </div>
+
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Tên tài khoản</th>
+                                <th>Email</th>
+                                <th>Loai tài khoản</th>
+                                <th>Action</th>
+                                <th>Quản lý Chi Tiết</th>
+
+                            </tr>
+
+                            <tr>
+                                <td>Tên</td>
+                                <td>Email</td>
+                                <td><span class="label label-success">Member</span> </td>
+                                <td><a href="#" class="btn btn-block btn-success btn-xs">Tạm khoá</a></td>
+                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+
+                            </tr>
+
+                            <tr>
+                                <td>Tên</td>
+                                <td>Email</td>
+                                <td><span class="label label-success">Mod</span> </td>
+                                <td><a href="#" class="btn btn-block btn-success btn-xs">Tạm khoá</a></td>
+                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+
+                            </tr>
+
+                            <tr>
+                                <td>Tên</td>
+                                <td>Email</td>
+                                <td><span class="label label-success">mod</span> </td>
+                                <td><a href="#" class="btn btn-block btn-success btn-xs">Tạm khoá</a></td>
+                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+
+                            </tr>
+
+                            <tr>
+                                <td>Tên</td>
+                                <td>Email</td>
+                                <td><span class="label label-success">Member</span> </td>
+                                <td><a href="#" class="btn btn-block btn-success btn-xs">Tạm khoá</a></td>
+                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+
+                </div><!-- /.box-body -->
+                @*<div class="box-footer col-md-9">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>*@
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>

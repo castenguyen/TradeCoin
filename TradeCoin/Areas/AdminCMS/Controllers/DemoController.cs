@@ -32,12 +32,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Register()
         {
             return View();
         }
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             return View();
@@ -53,42 +59,68 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult IndexNews()
         {
             return View();
-        }
+        } 
+        /// <summary>
+           /// ok
+           /// </summary>
+           /// <returns></returns>
         public ActionResult CreateNews()
         {
             return View();
         }
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UpdateNews()
         {
             return View();
         }
 
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult IndexTicker()
         {
             return View();
         }
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CreateTicker()
         {
             return View();
         }
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UpdateTicker()
         {
             return View();
         }
 
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult MailIndex()
         {
             return View();
         }
-
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ReplyMail()
         {
             return View();
@@ -100,6 +132,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UserManager()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DetailUser()
         {
             return View();

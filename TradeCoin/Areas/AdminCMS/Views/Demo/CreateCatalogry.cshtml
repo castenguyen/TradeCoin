@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "CreateCatalogry";
+    Layout = "~/Areas/AdminCMS/Views/Demo/_DemoLayout.cshtml";
+}
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">Thêm mới danh mục</h2>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Danh mục cha</label>
+                            <select class="form-control" data-val="true" data-val-number="The field IsSystem must be a number." id="ParentClassificationSchemeId" name="ParentClassificationSchemeId">
+                                <option value="">Select...</option>
+                                <option value="1">Tin Tức- bài Viết</option>
+                                <option value="2">Tin Tức- bài Viết</option>
+                                <option value="2">Tin Tức- bài Viết</option>
+                                <option value="2">Tin Tức- bài Viết</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Tên danh mục</label>
+                            <input class="form-control" data-val="true" data-val-required="The Tên bài viết field is required." id="ContentTitle" name="ContentTitle" onchange="return InputTitle(this.value,event)" type="text" value="">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Đường dẫn thân thiện</label>
+                            <input class="form-control" data-val="true" data-val-required="The Tên bài viết field is required." id="ContentTitle" name="ContentTitle" onchange="return InputTitle(this.value,event)" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Mô tả</label>
+                            <input class="form-control" data-val="true" data-val-required="The Tên bài viết field is required." id="ContentTitle" name="ContentTitle" onchange="return InputTitle(this.value,event)" type="text" value="">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Từ khoá SEO</label>
+                            <input class="form-control" data-val="true" data-val-required="The Tên bài viết field is required." id="ContentTitle" name="ContentTitle" onchange="return InputTitle(this.value,event)" type="text" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Mô tả SEO</label>
+                            <input class="form-control" data-val="true" data-val-required="The Tên bài viết field is required." id="ContentTitle" name="ContentTitle" onchange="return InputTitle(this.value,event)" type="text" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="ContentTitle">Áp dụng ngay sau khi tạo</label>
+                            <input data-val="true" data-val-required="The IsSystem field is required." id="IsSystemVM" name="IsSystemVM" type="checkbox" value="true">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Hoàn tất</button>
+                        </div>
+
+                    </div>
+
+                </div><!-- /.box-body -->
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+        <!-- right column -->
+
+    </div>   <!-- /.row -->
+</section>
+
+
+

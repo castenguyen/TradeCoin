@@ -168,6 +168,8 @@ namespace CMSPROJECT.Areas.AdminCMS
            );
 
 
+
+
             #endregion  END AccountAdmin
 
             #region CONTENITEM
@@ -790,6 +792,39 @@ namespace CMSPROJECT.Areas.AdminCMS
           new { controller = "Demo", action = "UpdateTicker" }
           );
 
+            context.MapRoute(
+     "AdminCMS_Demo_DetailUser",
+     "Demo/DetailUser",
+     new { controller = "Demo", action = "DetailUser" }
+     );
+
+            context.MapRoute(
+   "AdminCMS_Demo_UserManager",
+   "Demo/UserManager",
+   new { controller = "Demo", action = "UserManager" }
+   );
+
+
+            context.MapRoute(
+   "AdminCMS_Demo_CreatePackage",
+   "Demo/CreatePackage",
+   new { controller = "Demo", action = "CreatePackage" }
+   );
+
+            context.MapRoute(
+                "AdminCMS_Demo_CreateCatalogry",
+                "Demo/CreateCatalogry",
+                new { controller = "Demo", action = "CreateCatalogry" }
+                );
+
+
+            context.MapRoute(
+                "AdminCMS_Demo_IndexCatalogry",
+                "Demo/IndexCatalogry",
+                new { controller = "Demo", action = "IndexCatalogry" }
+                );
+
+            
 
 
 
