@@ -312,6 +312,7 @@
     <Compile Include="DataViewModel\ClassificationSchemeViewModels.cs" />
     <Compile Include="DataViewModel\ClassificationViewModels.cs" />
     <Compile Include="DataViewModel\ContentCommentViewModels.cs" />
+    <Compile Include="DataViewModel\EmailSupportViewModel.cs" />
     <Compile Include="DataViewModel\FrontEndViewModel.cs" />
     <Compile Include="DataViewModel\ContentItemViewModels.cs" />
     <Compile Include="DataViewModel\ContentTagViewModels.cs" />
@@ -327,6 +328,7 @@
     <Compile Include="DataViewModel\StoreViewModel.cs" />
     <Compile Include="DataViewModel\ProductInforExtViewModel.cs" />
     <Compile Include="DataViewModel\CBKViewModel.cs" />
+    <Compile Include="DataViewModel\TickerViewModel.cs" />
     <Compile Include="DataViewModel\UserHistViewModel.cs" />
     <Compile Include="Extension\EnumCore.cs" />
     <Compile Include="Extension\ExtFunction.cs" />
