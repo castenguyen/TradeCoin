@@ -824,8 +824,21 @@ namespace CMSPROJECT.Areas.AdminCMS
                 new { controller = "Demo", action = "IndexCatalogry" }
                 );
 
-            
+            context.MapRoute(
+            "AdminCMS_Demo_UpdateInfoAcc",
+            "Demo/UpdateInfoAcc",
+            new { controller = "Demo", action = "UpdateInfoAcc" }
+            );
 
+
+            context.MapRoute(
+           "AdminCMS_Demo_Upgrade",
+           "Demo/Upgrade",
+           new { controller = "Demo", action = "Upgrade" }
+           );
+
+
+            
 
 
             #endregion Demo

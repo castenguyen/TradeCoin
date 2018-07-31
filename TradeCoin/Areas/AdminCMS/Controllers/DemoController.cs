@@ -48,7 +48,42 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UserManager()
+        {
+            return View();
+        }
 
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DetailUser()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UpdateInfoAcc()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Upgrade()
+        {
+            return View();
+        }
 
         /// FOR MOD/SUPPORT
         /// <summary>
@@ -132,43 +167,49 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
+     
         /// <summary>
         /// ok
         /// </summary>
         /// <returns></returns>
-        public ActionResult UserManager()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// ok
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult DetailUser()
-        {
-            return View();
-        }
-
         public ActionResult CreatePackage()
         {
             return View();
         }
 
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UpdatePackage()
         {
             return View();
         }
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult IndexPackage()
         {
             return View();
         }
 
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult IndexCatalogry()
         {
             return View();
         }
 
+
+        /// <summary>
+        /// ok
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CreateCatalogry()
         {
             return View();
