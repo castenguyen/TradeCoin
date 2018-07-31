@@ -2068,6 +2068,13 @@
     <Content Include="Areas\AdminCMS\Views\Demo\IndexCatalogry.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\UpdateInfoAcc.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\Upgrade.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\ModIndex.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\IndexAdmin.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\ListTicker.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\ListNews.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\DetailTicker.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\DetailNews.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Demo\ChatGroup.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />
