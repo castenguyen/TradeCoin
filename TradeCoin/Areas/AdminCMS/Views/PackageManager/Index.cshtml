@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Package>
+@{
+    ViewBag.Title = "Quản Lý gói cước";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý gói cước</h3>
+                    <div class="box-tools">
+
+                        <a href="@Url.Action("Create", "PackageManager", new { area = "AdminCMS" })" class="btn btn-primary">Thêm mới</a>
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th style="width:20%">Tên</th>
+                                <th>Giá</th>
+                                <th>Thời gian</th>
+                                <th>Người tạo</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng Thái</th>
+                                <th>Edit</th>
+                            </tr>
+
+                            @{
+                                foreach (Package _val in Model)
+                                {
+                                    <tr>
+                                        <td>@_val.PackageId</td>
+                                        <td>@_val.PackageName</td>
+                                        <td>@_val.NewPrice</td>
+                                        <td>@_val.NumDay</td>
+                                        <td>@_val.CrtdUserName</td>
+                                        <td>@_val.CrtdDT</td>
+                                        <td><span>@_val.StateName</span></td>
+                                        <td>@Html.ActionLink("Update", "Update", "PackageManager", new { id = _val.PackageId }, null)</td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    }
+                </div>
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div> <!-- /.row -->
+</section>
+
+
+
+
