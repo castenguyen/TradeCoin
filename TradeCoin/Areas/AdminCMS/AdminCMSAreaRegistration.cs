@@ -380,7 +380,7 @@ namespace CMSPROJECT.Areas.AdminCMS
 
             #endregion product
 
-             #region classifischeme
+            #region classifischeme
 
 
              context.MapRoute(
@@ -708,7 +708,7 @@ namespace CMSPROJECT.Areas.AdminCMS
             #endregion dashboad
 
 
-            #region 
+            #region  DEMO
 
 
             context.MapRoute(
@@ -881,9 +881,31 @@ namespace CMSPROJECT.Areas.AdminCMS
                 new { controller = "Demo", action = "ChatGroup" }
                 );
 
-            
+
 
             #endregion Demo
+
+            #region Package
+
+            context.MapRoute(
+               "AdminCMS_PackageManager_Create",
+               "administrator/packagemanager/create",
+               new { controller = "PackageManager", action = "Create" }
+               );
+            context.MapRoute(
+              "AdminCMS_PackageManager_index",
+              "administrator/packagemanager/index",
+              new { controller = "PackageManager", action = "index" }
+              );
+
+            context.MapRoute(
+            "AdminCMS_PackageManager_Update",
+            "administrator/PackageManager/Update/{id}",
+            new { controller = "PackageManager", action = "Update", id = UrlParameter.Optional }
+              );
+
+
+            #endregion
 
 
 
