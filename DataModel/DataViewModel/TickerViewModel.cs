@@ -29,41 +29,65 @@ namespace DataModel.DataViewModel
             get { return _MainObj.TickerId; }
             set { _MainObj.TickerId = value; }
         }
+        [Required]
+        [Display(Name = "Tên Coin")]
         public string TickerName
         {
             get { return _MainObj.TickerName; }
             set { _MainObj.TickerName = value; }
         }
+
+        [Required]
+        [Display(Name = "Vùng mua")]
         public Nullable<double> BuyZone1
         {
             get { return _MainObj.BuyZone1; }
             set { _MainObj.BuyZone1 = value; }
         }
+
+        [Required]
+        [Display(Name = "Vùng bán 1")]
         public Nullable<double> SellZone1
         {
             get { return _MainObj.SellZone1; }
             set { _MainObj.SellZone1 = value; }
         }
+
+        [Required]
+        [Display(Name = "Vùng bán 2")]
         public Nullable<double> SellZone2
         {
             get { return _MainObj.SellZone2; }
             set { _MainObj.SellZone2 = value; }
         }
+
+
+        [Required]
+        [Display(Name = "Vùng bán 3")]
         public Nullable<double> SellZone3
         {
             get { return _MainObj.SellZone3; }
             set { _MainObj.SellZone3 = value; }
         }
+
+        [Required]
+        [Display(Name = "Số BTC tối đa vào lệnh")]
         public Nullable<double> BTCInput
         {
             get { return _MainObj.BTCInput; }
             set { _MainObj.BTCInput = value; }
         }
+
+        [Required]
+        [Display(Name = "Cắt lỗ")]
         public Nullable<double> DeficitControl
         {
             get { return _MainObj.DeficitControl; }
             set { _MainObj.DeficitControl = value; }
         }
+
+        [Required]
+        [Display(Name = "Đánh giá")]
         public string Description
         {
             get { return _MainObj.Description; }
@@ -109,5 +133,39 @@ namespace DataModel.DataViewModel
             get { return _MainObj.StateId; }
             set { _MainObj.StateId = value; }
         }
+
+        public string MediaUrl
+        {
+            get { return _MainObj.MediaUrl; }
+            set { _MainObj.MediaUrl = value; }
+        }
+        public string MediaThumb
+        {
+            get { return _MainObj.MediaThumb; }
+            set { _MainObj.MediaThumb = value; }
+        }
+
+        public List<SelectListObj> lstPackage { get; set; }
+        [Display(Name = "Hình đại diện")]
+        public long ImgdefaultId { get; set; }
+        public int[] lstTickerPackage { get; set; }
     }
+
+
+
+    public class TickerAdminViewModel
+    {
+        public IPagedList<Ticker> lstMainTicker { get; set; }
+        public SelectList lstTickerStatus { get; set; }
+        public SelectList lstPackage { get; set; }
+
+        public int pageNum { get; set; }
+        public int TickerStatus { get; set; }
+        public int TickerPackage { get; set; }
+        public string FillterTickerName { get; set; }
+
+
+    }
+
+
 }

@@ -289,6 +289,7 @@
     </Compile>
     <Compile Include="DataStore\Core.cs" />
     <Compile Include="DataStore\Ctrl.Account.cs" />
+    <Compile Include="DataStore\Ctrl.ContentPackage.cs" />
     <Compile Include="DataStore\Ctrl.CountLike.cs" />
     <Compile Include="DataStore\Ctrl.ImageHelper.cs" />
     <Compile Include="DataStore\Ctrl.NotifiRequest.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="DataStore\Ctrl.Order.cs" />
     <Compile Include="DataStore\Ctrl.OrderProducts.cs" />
     <Compile Include="DataStore\Ctrl.Product.cs" />
+    <Compile Include="DataStore\Ctrl.Ticker.cs" />
     <Compile Include="DataStore\Ctrl.User.cs" />
     <Compile Include="DataStore\Ctrl.ProductInforExt.cs" />
     <Compile Include="DataStore\Ctrl.UserHist.cs" />

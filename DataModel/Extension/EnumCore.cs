@@ -32,6 +32,7 @@ namespace DataModel.Extension
             page_infor=8187,
             page_infor_microsite = 8198,
             package= 11914,
+            ticker= 11915,
 
         }
         public enum IsEvent : int

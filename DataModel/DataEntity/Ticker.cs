@@ -31,5 +31,7 @@ namespace DataModel.DataEntity
         public Nullable<System.DateTime> AprvdDT { get; set; }
         public string StateName { get; set; }
         public Nullable<long> StateId { get; set; }
+        public string MediaUrl { get; set; }
+        public string MediaThumb { get; set; }
     }
 }

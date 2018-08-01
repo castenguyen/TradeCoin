@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataModel.DataEntity;
-using DataModel.Extension;
 using System.Data.Entity;
 using System.Collections;
+using DataModel.Extension;
+using DataModel.DataViewModel;
 
 namespace DataModel.DataStore
 {
@@ -53,6 +54,14 @@ namespace DataModel.DataStore
             {
                 return 0;
             }
+        }
+
+
+        public List<SelectListObj> GetObjSelectListPackage()
+        {
+            List<SelectListObj> lstobj = this.GetlstPackage().Where(s => s.StateId == (int)EnumCore.StateType.enable).
+                Select(p => new SelectListObj { value = p.PackageId, text = p.PackageName }).ToList();
+            return lstobj;
         }
 
 
