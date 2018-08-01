@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model TickerAdminViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        var status_val = $("input[name=StatusId]").val();
+        var package_val = $("input[name=PackageId]").val();
+        var statename = $(".main_state_lst_" + status_val).html();
+        var packagename = $(".main_cata_lst_" + package_val).html();
+        $(".main_state_name").html(statename);
+        $(".main_cata_name").html(packagename);
+
+    });
+
+</script>
+<input type="hidden" value="@Model.TickerStatus" name="StatusId" />
+<input type="hidden" value="@Model.TickerPackage" name="PackageId" />
+
+
+
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Kèo</h3>
+                    <div class="box-tools">
+
+                        <a href="@Url.Action("Create", "TickerManager", null)" class="btn btn-primary">Thêm mới Kèo</a>
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <div id="example1_filter" class="dataTables_filter">
+                        @using (Html.BeginForm("Index", "TickerManager", FormMethod.Post, new { id = "filterForm", role = "form" }))
+                        {
+                            <label>Tên kèo:@Html.TextBoxFor(s => s.FillterTickerName, new { @class = "form-control input-sm", placeholder = "" })</label>
+
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.TickerStatus, Model.lstTickerStatus as SelectList, "Trạng thái...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.TickerPackage, Model.lstPackage as SelectList, "Gói cước...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary margin">Tìm</button>
+                            </div>
+                        }
+                    </div>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Ngày tạo</th>
+                                <th>Người tạo</th>
+                                <th>Thuộc</th>
+                                <th>Trạng thái</th>
+                                <th width="20%">Action</th>
+                            </tr>
+                            @{
+                                foreach (var _val in Model.lstMainTicker)
+                                {
+                                    <tr>
+                                        <td>@_val.TickerId</td>
+                                        <td><a href="#">@_val.TickerName</a></td>
+                                        <td>@_val.CrtdDT</td>
+                                        <td>@_val.CrtdUserName</td>
+                                        <td>Free - Đêm - Vàng - Kim cương</td>
+                                        <td>@_val.StateName</td>
+                                        <td>
+                                            <a href="#">Duyệt</a>
+                                            | <a href="#">Chỉnh sửa</a>
+                                            | <a href="#">Delete</a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainTicker.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainTicker, page => Url.Action("Index", new
+                        {
+                            page,
+                            TickerStatus = Model.TickerStatus,
+                            TickerPackage = Model.TickerPackage,
+                            FillterTickerName = Model.FillterTickerName,
+                        }))
+                    }
+                </div>
+
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div> <!-- /.row -->
+</section>
+
+
+
+
+

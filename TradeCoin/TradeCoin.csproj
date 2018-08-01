@@ -234,9 +234,11 @@
     <Compile Include="Areas\AdminCMS\Controllers\HistoryManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\MediaManagerController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\PackageManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ProductManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\PromotionController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ShopCartManagerController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\TickerManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Core\CoreBackEnd.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BlockPartialController.cs" />
@@ -2075,6 +2077,12 @@
     <Content Include="Areas\AdminCMS\Views\Demo\DetailTicker.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\DetailNews.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Demo\ChatGroup.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\PackageManager\Create.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\PackageManager\Index.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\PackageManager\Update.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\TickerManager\Index.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\TickerManager\Create.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\TickerManager\Update.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />

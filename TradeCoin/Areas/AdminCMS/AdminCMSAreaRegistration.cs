@@ -907,6 +907,37 @@ namespace CMSPROJECT.Areas.AdminCMS
 
             #endregion
 
+            #region Ticker
+
+            context.MapRoute(
+              "AdminCMS_tickermanager_Index",
+              "administrator/tickermanager",
+              new { controller = "TickerManager", action = "Index" }
+              );
+            context.MapRoute(
+             "AdminCMS_tickermanager_Create",
+             "administrator/createticker",
+             new { controller = "TickerManager", action = "Create" }
+             );
+            context.MapRoute(
+             "AdminCMS_tickermanager_Update",
+             "administrator/UpdateTicker/{id}",
+             new { controller = "TickerManager", action = "Update", id = UrlParameter.Optional }
+               );
+
+            context.MapRoute(
+                "AdminCMS_Ticker_ChangeState",
+                "administrator/ChangeStateTicker/{id}",
+                new { controller = "TickerManager", action = "ChangeState", id = UrlParameter.Optional }
+                  );
+
+            context.MapRoute(
+               "AdminCMS_Ticker_Delete",
+               "administrator/DeleteTicker/{id}",
+               new { controller = "TickerManager", action = "Delete", id = UrlParameter.Optional }
+                 );
+
+            #endregion
 
 
             #region ShopCartManager
