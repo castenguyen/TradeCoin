@@ -32,7 +32,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview">
                 <a href="@Url.Action("Index", "Dashboard", new { area= "AdminCMS" })">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="treeview">
@@ -41,7 +41,7 @@
                     <span>Quản Lý Danh Mục</span>
                 </a>
             </li>
-         
+
             <li>
                 <a href="@Url.Action("Index", "CommentManager", new { area = "AdminCMS" })">
                     <i class="fa fa-comments"></i> <span>Quản lý Comment</span>
@@ -107,7 +107,7 @@
                     <i class="fa fa-tags"></i> <span>Quản lý Tag</span>
                 </a>
             </li>
-            
+
             <li class="treeview">
                 <a href="@Url.Action("Manage", "AccountAdmin", new { area = "AdminCMS" })">
                     <i class="fa fa-user"></i>
@@ -152,6 +152,18 @@
                 <a href="@Url.Action("Index", "Promotion", new { area = "AdminCMS" })">
                     <i class="fa fa-lock"></i> <span>Khuyến mãi</span>
                 </a>
+            </li>
+
+            <li class="treeview">
+                <a href="@Url.Action("index", "PackageManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-user"></i>
+                    <span>Quản lý gói cước</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("index", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách gói cước</a></li>
+                    <li><a href="@Url.Action("Create", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới gói cước</a></li>
+
+                </ul>
             </li>
 
 
