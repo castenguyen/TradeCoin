@@ -241,6 +241,9 @@
     <Compile Include="DataEntity\OrderProduct.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataEntity\Package.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataEntity\Product.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -289,6 +292,7 @@
     <Compile Include="DataStore\Ctrl.CountLike.cs" />
     <Compile Include="DataStore\Ctrl.ImageHelper.cs" />
     <Compile Include="DataStore\Ctrl.NotifiRequest.cs" />
+    <Compile Include="DataStore\Ctrl.Package.cs" />
     <Compile Include="DataStore\Ctrl.Promotion.cs" />
     <Compile Include="DataStore\Ctrl.Classification.cs" />
     <Compile Include="DataStore\Ctrl.ClassificationScheme.cs" />
@@ -323,6 +327,7 @@
     <Compile Include="DataViewModel\MediaContentViewModels.cs" />
     <Compile Include="DataViewModel\MicroClassifiViewModels.cs" />
     <Compile Include="DataViewModel\MicroSiteViewModels.cs" />
+    <Compile Include="DataViewModel\PackageViewModel.cs" />
     <Compile Include="DataViewModel\ProductViewModels.cs" />
     <Compile Include="DataViewModel\PromotionContentViewModel.cs" />
     <Compile Include="DataViewModel\StoreViewModel.cs" />

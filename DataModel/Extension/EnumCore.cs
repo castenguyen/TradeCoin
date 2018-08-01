@@ -31,9 +31,7 @@ namespace DataModel.Extension
             img_in_document = 1,
             page_infor=8187,
             page_infor_microsite = 8198,
-            hotel  =11878,
-            tour = 11879,
-            room  =11880,
+            package= 11914,
 
         }
         public enum IsEvent : int
@@ -152,6 +150,29 @@ namespace DataModel.Extension
             Login = 6032,
             Logout = 6033
 
+        }
+
+
+        public enum ControlLeftBackEndMenu : int
+        {
+            dashboard=1,
+            user = 1,
+            news=1,
+            product = 1,
+          
+            config = 1,
+            display = 1,
+            comment=1,
+            pageinfo=1,
+            media=1,
+            history=1,
+            order=1,
+            promotion=1,
+
+            package = 1,
+            ticker=1,
+            chatgroup=1,
+            mail=1,
         }
 
         #endregion END BACKEND

@@ -937,5 +937,21 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SearchProductByCate" FunctionName="alluneedbModel.Store.SearchProductByCate" />
     <FunctionImportMapping FunctionImportName="TABLEVIEWSEARCH" FunctionName="alluneedbModel.Store.TABLEVIEWSEARCH" />
+    <EntitySetMapping Name="Packages">
+      <EntityTypeMapping TypeName="alluneedbModel.Package">
+        <MappingFragment StoreEntitySet="Package">
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="NumDay" ColumnName="NumDay" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

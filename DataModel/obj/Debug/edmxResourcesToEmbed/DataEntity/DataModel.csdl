@@ -693,6 +693,7 @@
       <Parameter Name="TABLENAME" Mode="In" Type="String" />
       <Parameter Name="SEARCHSTRING" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -1241,4 +1242,19 @@
     <Property Type="String" Name="TranHeight" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="TranWeight" Nullable="true" MaxLength="50" />
   </ComplexType>
+  <EntityType Name="Package">
+    <Key>
+      <PropertyRef Name="PackageId" />
+    </Key>
+    <Property Name="PackageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="OldPrice" Type="Double" />
+    <Property Name="NewPrice" Type="Double" />
+    <Property Name="NumDay" Type="Int32" />
+    <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CrtdUserId" Type="Int64" />
+    <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+    <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="StateId" Type="Int32" />
+  </EntityType>
 </Schema>

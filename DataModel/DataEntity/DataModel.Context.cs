@@ -60,6 +60,7 @@ namespace DataModel.DataEntity
         public virtual DbSet<ContentView> ContentViews { get; set; }
         public virtual DbSet<EmailSupport> EmailSupports { get; set; }
         public virtual DbSet<Ticker> Tickers { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
     
         public virtual int GetDataUserInfor(string username)
         {

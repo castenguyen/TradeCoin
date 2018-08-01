@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4a3a89c9d7c84a41b8d15094cb8b9152" Name="Diagram1" ZoomLevel="73">
+      <Diagram DiagramId="4a3a89c9d7c84a41b8d15094cb8b9152" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="alluneedbModel.Classification" Width="2" PointX="7.5" PointY="18.375" IsExpanded="true" />
         <EntityTypeShape EntityType="alluneedbModel.ClassificationScheme" Width="1.875" PointX="4.875" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="alluneedbModel.Config" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
@@ -52,6 +52,7 @@
         <EntityTypeShape EntityType="alluneedbModel.ContentView" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="alluneedbModel.EmailSupport" Width="1.5" PointX="14.375" PointY="8.75" />
         <EntityTypeShape EntityType="alluneedbModel.Ticker" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Package" Width="1.5" PointX="16.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

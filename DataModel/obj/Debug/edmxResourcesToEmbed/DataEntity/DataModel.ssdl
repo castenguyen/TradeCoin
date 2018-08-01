@@ -411,6 +411,21 @@
     <Property Name="TranStatusName" Type="nchar" MaxLength="10" />
     <Property Name="TranNote" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Package">
+    <Key>
+      <PropertyRef Name="PackageId" />
+    </Key>
+    <Property Name="PackageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PackageName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="OldPrice" Type="float" />
+    <Property Name="NewPrice" Type="float" />
+    <Property Name="NumDay" Type="int" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="int" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductId" />
@@ -963,6 +978,7 @@
     <EntitySet Name="NotifiRequest" EntityType="Self.NotifiRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductInforExt" EntityType="Self.ProductInforExt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />

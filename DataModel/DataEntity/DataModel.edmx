@@ -416,6 +416,21 @@
           <Property Name="TranStatusName" Type="nchar" MaxLength="10" />
           <Property Name="TranNote" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="OldPrice" Type="float" />
+          <Property Name="NewPrice" Type="float" />
+          <Property Name="NumDay" Type="int" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="int" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -968,6 +983,7 @@
           <EntitySet Name="NotifiRequest" EntityType="Self.NotifiRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductInforExt" EntityType="Self.ProductInforExt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />
@@ -1665,10 +1681,10 @@
           <EntitySet Name="EmailSupports" EntityType="alluneedbModel.EmailSupport" />
           <EntitySet Name="Tickers" EntityType="alluneedbModel.Ticker" />
           <FunctionImport Name="Al_ProcGetDataUserInfor">
-            <Parameter Name="u" Mode="In" Type="String" />
+          <Parameter Name="u" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Al_ProcGetDataUserInforTransferMoney">
-            <Parameter Name="username" Mode="In" Type="String" />
+          <Parameter Name="username" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ContentItemPagination" ReturnType="Collection(alluneedbModel.ContentItemPagination_Result)">
             <Parameter Name="rowSkip" Mode="In" Type="Int32" />
@@ -1676,22 +1692,22 @@
             <Parameter Name="type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteClassificationById">
-            <Parameter Name="ParentCate" Mode="In" Type="Int32" />
+          <Parameter Name="ParentCate" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteContentItemById">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteMicrositeById">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetLstProductOederExt" ReturnType="Collection(alluneedbModel.GetLstProductOederExt_Result)">
-            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          <Parameter Name="OrderId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetlstPromotionProductByCateId">
-            <Parameter Name="CateId" Mode="In" Type="Int32" />
+          <Parameter Name="CateId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetlstPromotionProductByPromotionId" ReturnType="Collection(alluneedbModel.GetlstPromotionProductByPromotionId_Result)">
-            <Parameter Name="PromotionId" Mode="In" Type="Int32" />
+          <Parameter Name="PromotionId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetLstUserNotIsRole">
             <Parameter Name="RoleID" Mode="In" Type="Int32" />
@@ -1737,6 +1753,7 @@
             <Parameter Name="TABLENAME" Mode="In" Type="String" />
             <Parameter Name="SEARCHSTRING" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -2285,6 +2302,21 @@
           <Property Type="String" Name="TranHeight" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="TranWeight" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackageName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OldPrice" Type="Double" />
+          <Property Name="NewPrice" Type="Double" />
+          <Property Name="NumDay" Type="Int32" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3227,6 +3259,22 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SearchProductByCate" FunctionName="alluneedbModel.Store.SearchProductByCate" />
           <FunctionImportMapping FunctionImportName="TABLEVIEWSEARCH" FunctionName="alluneedbModel.Store.TABLEVIEWSEARCH" />
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="alluneedbModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="NumDay" ColumnName="NumDay" />
+                <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+                <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
