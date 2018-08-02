@@ -595,6 +595,8 @@
     <Property Name="AprvdDT" Type="datetime" />
     <Property Name="StateName" Type="nvarchar" MaxLength="250" />
     <Property Name="StateId" Type="bigint" />
+    <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="TransactionHis">
     <Key>

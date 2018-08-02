@@ -238,7 +238,9 @@ namespace DataModel.DataViewModel
 
         public string FriendlyUrlShop { get; set; }
 
-        
+        public List<SelectListObj> lstPackage { get; set; }
+
+        public long[] lstTickerPackage { get; set; }
 
     }
 

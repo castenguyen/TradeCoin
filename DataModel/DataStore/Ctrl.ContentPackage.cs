@@ -55,5 +55,11 @@ namespace DataModel.DataStore
             return (int)EnumCore.Result.action_true;
         }
 
+
+        public long[] GetlstTickerPackage(long ContentId, int Type)
+        {
+            long[] lstContentPackage = db.ContentPackages.Where(s => s.ContentId == ContentId && s.ContentType == Type).Select(s=>s.PackageId).ToArray();
+            return lstContentPackage;
+        }
     }
 }

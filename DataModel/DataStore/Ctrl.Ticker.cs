@@ -29,7 +29,7 @@ namespace DataModel.DataStore
             }
 
         }
-        public Ticker GetObjTicker(int TickerId)
+        public Ticker GetObjTicker(long TickerId)
         {
             var ObjTicker = db.Tickers.FirstOrDefault(c => c.TickerId == TickerId);
             return ObjTicker;
@@ -47,6 +47,19 @@ namespace DataModel.DataStore
             try
             {
                 db.Entry(ObjTicker).State = EntityState.Modified;
+                return await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<int> DeleteTicker(Ticker TickerObj)
+        {
+            try
+            {
+                db.Tickers.Remove(TickerObj);
                 return await db.SaveChangesAsync();
             }
             catch (Exception ex)

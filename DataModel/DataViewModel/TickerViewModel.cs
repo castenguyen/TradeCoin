@@ -87,6 +87,7 @@ namespace DataModel.DataViewModel
         }
 
         [Required]
+        [AllowHtml]
         [Display(Name = "Đánh giá")]
         public string Description
         {
@@ -148,7 +149,7 @@ namespace DataModel.DataViewModel
         public List<SelectListObj> lstPackage { get; set; }
         [Display(Name = "Hình đại diện")]
         public long ImgdefaultId { get; set; }
-        public int[] lstTickerPackage { get; set; }
+        public long[] lstTickerPackage { get; set; }
     }
 
 
