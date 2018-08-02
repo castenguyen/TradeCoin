@@ -154,7 +154,7 @@ namespace DataModel.Extension
         }
 
 
-        public enum ControlLeftBackEndMenu : int
+        public enum ProjectConfig_ControlLeftBackEndMenu : int
         {
             dashboard=1,
             user = 1,
@@ -175,6 +175,17 @@ namespace DataModel.Extension
             chatgroup=1,
             mail=1,
         }
+        public enum ProjectConfig_System : int
+        {
+        
+             /// <summary>
+             /// có 2 kieu đăng nhập
+             /// 1 : Đăng nhập bằng usernam và password
+             /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
+             /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
+             /// </summary>
+             LoginWithCode = 1,
+          }
 
         #endregion END BACKEND
 

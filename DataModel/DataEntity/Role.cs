@@ -22,6 +22,7 @@ namespace DataModel.DataEntity
         public long Id { get; set; }
         public string Name { get; set; }
         public string RoleDes { get; set; }
+        public Nullable<int> isPermission { get; set; }
     
         public virtual ICollection<User> Users { get; set; }
     }

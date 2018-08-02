@@ -43,6 +43,9 @@ namespace DataModel.DataEntity
             // Override some column mappings that do not match our default
             modelBuilder.Entity<MyUser>().Property(r => r.UserName).HasColumnName("Login");
             modelBuilder.Entity<MyUser>().Property(r => r.PasswordHash).HasColumnName("Password");
+      
+
+
         }
 
         #endregion

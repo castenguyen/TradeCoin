@@ -45,25 +45,16 @@ namespace DataModel.DataEntity
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string FullName { get; set; }
-        public Nullable<long> CMND { get; set; }
         public string FolerName { get; set; }
         public Nullable<int> GenderId { get; set; }
         public string GenderName { get; set; }
         public string OldPassword { get; set; }
         public Nullable<System.DateTime> BirthDay { get; set; }
-        public string ActiveCode { get; set; }
-        public Nullable<long> ParentID { get; set; }
-        public Nullable<long> CompanyID { get; set; }
-        public string BankName { get; set; }
-        public string BankAdress { get; set; }
-        public string BankAccountHolder { get; set; }
-        public string BankAccountNbr { get; set; }
         public Nullable<double> Money { get; set; }
-        public string Code { get; set; }
-        public Nullable<System.DateTime> CrtdDTCode { get; set; }
         public string Avatar { get; set; }
         public string UserAdress { get; set; }
-        public string AccountName { get; set; }
+        public Nullable<long> PackageId { get; set; }
+        public string PackageName { get; set; }
     
         public virtual ICollection<Classification> LstClassifications { get; set; }
         public virtual ICollection<ClassificationScheme> LstClassificationSchemes { get; set; }

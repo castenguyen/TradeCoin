@@ -518,7 +518,6 @@ D:\WEB\ASP\phonglangiasi\DataModel\obj\Debug\DataModel.csprojResolveAssemblyRefe
 D:\WEB\ASP\phonglangiasi\DataModel\obj\Debug\DataModel.csproj.CoreCompileInputs.cache
 D:\WEB\ASP\phonglangiasi\DataModel\obj\Debug\DataModel.dll
 D:\WEB\ASP\phonglangiasi\DataModel\obj\Debug\DataModel.pdb
-D:\WEB\ASP\TradeCoinv1\trunk\DataModel\obj\Debug\DataModel.csproj.CoreCompileInputs.cache
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\DataModel.dll.config
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\DataModel.dll
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\DataModel.pdb
@@ -576,6 +575,7 @@ D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\System.Web.Razor.xml
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\System.Web.WebPages.xml
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\bin\Debug\System.Web.WebPages.Razor.xml
+D:\WEB\ASP\TradeCoinv1\trunk\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
+D:\WEB\ASP\TradeCoinv1\trunk\DataModel\obj\Debug\DataModel.csproj.CoreCompileInputs.cache
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\obj\Debug\DataModel.dll
 D:\WEB\ASP\TradeCoinv1\trunk\DataModel\obj\Debug\DataModel.pdb
-D:\WEB\ASP\TradeCoinv1\trunk\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache

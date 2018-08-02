@@ -553,6 +553,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="RoleDes" Type="nvarchar(max)" />
+          <Property Name="isPermission" Type="int" />
         </EntityType>
         <EntityType Name="ShippingAddress">
           <Key>
@@ -642,25 +643,16 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CMND" Type="bigint" />
           <Property Name="FolerName" Type="nvarchar" MaxLength="250" />
           <Property Name="GenderId" Type="int" />
           <Property Name="GenderName" Type="nvarchar" MaxLength="50" />
           <Property Name="OldPassword" Type="nvarchar" MaxLength="250" />
           <Property Name="BirthDay" Type="datetime" />
-          <Property Name="ActiveCode" Type="nvarchar" MaxLength="250" />
-          <Property Name="ParentID" Type="bigint" />
-          <Property Name="CompanyID" Type="bigint" />
-          <Property Name="BankName" Type="nvarchar" MaxLength="250" />
-          <Property Name="BankAdress" Type="nvarchar" MaxLength="500" />
-          <Property Name="BankAccountHolder" Type="nvarchar" MaxLength="250" />
-          <Property Name="BankAccountNbr" Type="nvarchar" MaxLength="250" />
           <Property Name="Money" Type="float" />
-          <Property Name="Code" Type="nvarchar" MaxLength="20" />
-          <Property Name="CrtdDTCode" Type="datetime" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="100" />
           <Property Name="UserAdress" Type="nvarchar" MaxLength="500" />
-          <Property Name="AccountName" Type="nvarchar" MaxLength="250" />
+          <Property Name="PackageId" Type="bigint" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -1335,6 +1327,7 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RoleDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
+          <Property Name="isPermission" Type="Int32" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -1368,7 +1361,6 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CMND" Type="Int64" />
           <Property Name="FolerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="GenderId" Type="Int32" />
           <Property Name="GenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1380,20 +1372,12 @@
           <NavigationProperty Name="LstRole" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
           <Property Name="OldPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="BirthDay" Type="DateTime" Precision="3" />
-          <Property Name="ActiveCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ParentID" Type="Int64" />
-          <Property Name="CompanyID" Type="Int64" />
-          <Property Name="BankName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="BankAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BankAccountHolder" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="BankAccountNbr" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Money" Type="Double" />
-          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CrtdDTCode" Type="DateTime" Precision="3" />
           <NavigationProperty Name="LstTransactionHis" Relationship="alluneedbModel.FK_TransactionHis_User" FromRole="User" ToRole="TransactionHi" />
           <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="AccountName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PackageId" Type="Int64" />
+          <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -2587,6 +2571,7 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="alluneedbModel.Role">
               <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="isPermission" ColumnName="isPermission" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="RoleDes" ColumnName="RoleDes" />
@@ -2604,19 +2589,11 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="alluneedbModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
                 <ScalarProperty Name="UserAdress" ColumnName="UserAdress" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="CrtdDTCode" ColumnName="CrtdDTCode" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Money" ColumnName="Money" />
-                <ScalarProperty Name="BankAccountNbr" ColumnName="BankAccountNbr" />
-                <ScalarProperty Name="BankAccountHolder" ColumnName="BankAccountHolder" />
-                <ScalarProperty Name="BankAdress" ColumnName="BankAdress" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="ActiveCode" ColumnName="ActiveCode" />
                 <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
                 <ScalarProperty Name="OldPassword" ColumnName="OldPassword" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -2639,7 +2616,6 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
                 <ScalarProperty Name="FolerName" ColumnName="FolerName" />
                 <ScalarProperty Name="GenderId" ColumnName="GenderId" />
                 <ScalarProperty Name="GenderName" ColumnName="GenderName" />

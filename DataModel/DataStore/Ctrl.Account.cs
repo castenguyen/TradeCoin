@@ -180,7 +180,7 @@ namespace DataModel.DataStore
         {
             Role data = db.Roles.Where(s => s.Name == roleName).FirstOrDefault();
             List<long> lstUinRole = data.Users.Select(s=>s.Id).ToList();
-            IQueryable<User> model = db.Users.Where(x => !lstUinRole.Contains(x.Id) && x.AccountName!="TRV");
+            IQueryable<User> model = db.Users.Where(x => !lstUinRole.Contains(x.Id));
             return model;
         }
 
@@ -188,7 +188,7 @@ namespace DataModel.DataStore
         {
             Role data = db.Roles.Where(s => s.Name == roleName).FirstOrDefault();
             List<long> lstUinRole = data.Users.Select(s => s.Id).ToList();
-            IQueryable<User> model = db.Users.Where(x => lstUinRole.Contains(x.Id) && x.AccountName != "TRV");
+            IQueryable<User> model = db.Users.Where(x => lstUinRole.Contains(x.Id));
             return model;
         }
       

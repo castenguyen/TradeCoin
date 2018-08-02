@@ -273,6 +273,7 @@
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="RoleDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
+    <Property Name="isPermission" Type="Int32" />
   </EntityType>
   <EntityType Name="Tag">
     <Key>
@@ -306,7 +307,6 @@
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
     <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="CMND" Type="Int64" />
     <Property Name="FolerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="GenderId" Type="Int32" />
     <Property Name="GenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -318,20 +318,12 @@
     <NavigationProperty Name="LstRole" Relationship="Self.UserRole" FromRole="User" ToRole="Role" />
     <Property Name="OldPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="BirthDay" Type="DateTime" Precision="3" />
-    <Property Name="ActiveCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ParentID" Type="Int64" />
-    <Property Name="CompanyID" Type="Int64" />
-    <Property Name="BankName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="BankAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="BankAccountHolder" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="BankAccountNbr" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Money" Type="Double" />
-    <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="CrtdDTCode" Type="DateTime" Precision="3" />
     <NavigationProperty Name="LstTransactionHis" Relationship="alluneedbModel.FK_TransactionHis_User" FromRole="User" ToRole="TransactionHi" />
     <Property Name="Avatar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="UserAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="AccountName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PackageId" Type="Int64" />
+    <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="UserClaim">
     <Key>

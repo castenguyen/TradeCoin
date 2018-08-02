@@ -286,12 +286,7 @@ namespace DataModel.DataViewModel
             set { _ModelObj.FullName = value; }
         }
 
-        [Display(Name = "CMND")]
-        public Nullable<long> CMND
-        {
-            get { return _ModelObj.CMND; }
-            set { _ModelObj.CMND = value; }
-        }
+
 
         [Display(Name = "FolerName")]
         public string FolerName
@@ -321,47 +316,8 @@ namespace DataModel.DataViewModel
             set { _ModelObj.BirthDay = value; }
         }
 
-        [Display(Name = "ParentID")]
-        public Nullable<long> ParentID
-        {
-            get { return _ModelObj.ParentID; }
-            set { _ModelObj.ParentID = value; }
-        }
+     
 
-        [Display(Name = "CompanyID")]
-        public Nullable<long> CompanyID
-        {
-            get { return _ModelObj.CompanyID; }
-            set { _ModelObj.CompanyID = value; }
-        }
-
-        [Display(Name = "Tên Ngân Hàng")]
-        public string BankName
-        {
-            get { return _ModelObj.BankName; }
-            set { _ModelObj.BankName = value; }
-        }
-
-        [Display(Name = "Nơi Mở TK")]
-        public string BankAdress
-        {
-            get { return _ModelObj.BankAdress; }
-            set { _ModelObj.BankAdress = value; }
-        }
-
-        [Display(Name = "Tên Chủ Tài Khoản")]
-        public string BankAccountHolder
-        {
-            get { return _ModelObj.BankAccountHolder; }
-            set { _ModelObj.BankAccountHolder = value; }
-        }
-
-        [Display(Name = "Số Tài Khoản")]
-        public string BankAccountNbr
-        {
-            get { return _ModelObj.BankAccountNbr; }
-            set { _ModelObj.BankAccountNbr = value; }
-        }
 
         [Display(Name = "Giới Tính")]
         public SelectList GenderList { get; set; }
