@@ -68,11 +68,28 @@ namespace CMSPROJECT.Areas.AdminCMS
                "administrator/Login",
                new { controller = "AccountAdmin", action = "Login" }
            );
-           // context.MapRoute(
-           //    "AdminCMS_logout",
-           //    "administrator/Login",
-           //    new { controller = "AccountAdmin", action = "LogOff" }
-           //);
+
+            context.MapRoute(
+              "AdminCMS_LoginWithToken",
+              "administrator/LoginWithToken",
+              new { controller = "AccountAdmin", action = "LoginWithToken" }
+          );
+
+            context.MapRoute(
+            "AdminCMS_LoginWithTokenAlert",
+            "administrator/LoginWithTokenAlert",
+            new { controller = "AccountAdmin", action = "LoginWithTokenAlert" }
+        );
+
+
+
+
+
+            context.MapRoute(
+               "AdminCMS_LogOff",
+               "administrator/LogOff",
+               new { controller = "AccountAdmin", action = "LogOff" }
+           );
 
             context.MapRoute(
               "AdminCMS_Register",
@@ -101,17 +118,24 @@ namespace CMSPROJECT.Areas.AdminCMS
 
          
             context.MapRoute(
-                "AdminCMS_ManagerUser",
-                "administrator/Account/ManagerUser",
-                new { controller = "AccountAdmin", action = "ManagerUser" }
+                "AdminCMS_ListUser",
+                "administrator/Account/ListUser",
+                new { controller = "AccountAdmin", action = "ListUser" }
                  );
 
             context.MapRoute(
-             "AdminCMS_ManagerUserRole",
-             "administrator/Account/ManagerUserRole",
-             new { controller = "AccountAdmin", action = "ManagerUserRole" }
+              "AdminCMS_DetailUser",
+              "administrator/Account/DetailUser",
+              new { controller = "AccountAdmin", action = "DetailUser" }
+               );
+
+            context.MapRoute(
+             "AdminCMS_ManagerUser",
+             "administrator/Account/ManagerUser",
+             new { controller = "AccountAdmin", action = "ManagerUser" }
               );
 
+            
 
             context.MapRoute(
              "AdminCMS_AddUserRole",
@@ -129,9 +153,9 @@ namespace CMSPROJECT.Areas.AdminCMS
             
 
                     context.MapRoute(
-              "AdminCMS_Manage",
-              "administrator/Account/Manage",
-              new { controller = "AccountAdmin", action = "Manage" }
+              "AdminCMS_ChangePassword",
+              "administrator/Account/ChangePassword",
+              new { controller = "AccountAdmin", action = "ChangePassword" }
                );
 
                     context.MapRoute(

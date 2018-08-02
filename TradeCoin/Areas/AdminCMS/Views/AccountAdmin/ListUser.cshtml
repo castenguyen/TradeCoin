@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using PagedList;
+@using PagedList.Mvc;
+@model DataModel.DataViewModel.UserRoleViewModel
+
+@{
+    ViewBag.Title = "Danh Sách tài khoản";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+
+}
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách tài khoản</h3>
+
+                </div><!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+
+                    <div class="form-group col-md-4">
+                        <div class="box-tools">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger main_state_name">DANH SÁCH ROLE</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="divider"></li>
+                                    @foreach (Role _val in Model.LstRole)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = Model.letter, RoleName = _val.Name, page = Model.Page })">@_val.Name</a>
+                                        </li>
+                                    }
+
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "a", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">A</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "b", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">B</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "c", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">C</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "d", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">D</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "e", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">E</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "f", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">F</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "g", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">G</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "h", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">H</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "i", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">I</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "j", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">J</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "k", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">K</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "l", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">L</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "m", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">M</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "n", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">N</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "o", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">O</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "p", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">P</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "q", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">Q</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "r", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">R</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "s", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">S</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "t", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">T</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "u", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">U</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "v", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">V</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "x", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">X</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "y", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">Y</a> |
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "z", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">Z</a>
+                    </div>
+
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Loại tài khoản</th>
+                                <th>Gói cước</th>
+                                <th>Action</th>
+                                <th>Quản lý Chi Tiết</th>
+
+                            </tr>
+                            @foreach (User item in Model.LstAllUser)
+                            {
+                                <tr>
+                                    <td>@item.Login</td>
+                                    <td>@item.EMail</td>
+                                    <td>Mod</td>
+                                    <td>@item.PackageName</td>
+                                    <td>
+                                        @foreach (Role _val in item.LstRole)
+                                        {
+                                            <span class="label label-success">@_val.Name.ToString()</span>
+                                        }
+                                    </td>
+                                    @if (@item.LockoutEnabled == true)
+                                    {
+                                        <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = false })" class="btn btn-block btn-success btn-xs">Kích hoat</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = true })" class="btn btn-block btn-danger btn-xs">Tạm khoá</a></td>
+                                    }
+                                    <td><a href="@Url.Action("DetailUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="box-footer clearfix">
+                        @if (Model.LstAllUser.PageCount > 1)
+                        {
+                            @Html.PagedListPager(Model.LstAllUser, page => Url.Action("ListUser", new { page, RoleName = Model.RoleName, letter = Model.letter }))
+                        }
+                    </div>
+
+                </div><!-- /.box-body -->
+                @*<div class="box-footer col-md-9">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>*@
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>

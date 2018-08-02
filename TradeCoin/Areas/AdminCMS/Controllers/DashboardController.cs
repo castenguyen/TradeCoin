@@ -28,9 +28,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 _userManager = value;
             }
         }
-       [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
         public ActionResult Index()
         {
+
+
+
             DashboardViewModel model = new DashboardViewModel();
             model.NbrComment = cms_db.GetlstComment().Count();
             model.NbrCommentE = cms_db.GetlstComment().Where(s=>s.StateId==(int)EnumCore.StateType.cho_phep).Count();

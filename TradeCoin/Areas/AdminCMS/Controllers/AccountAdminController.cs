@@ -26,14 +26,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         private const string XsrfKey = "XsrfId";
 
-        /// <summary>
-        /// có 2 kieu đăng nhập
-        /// 1 : Đăng nhập bằng usernam và password
-        /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
-        /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
-        /// </summary>
-        private const int LoginWithCode = 1;
-
         #endregion
 
         #region member vars
@@ -92,6 +84,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         #endregion
 
         #region External Method
+
         //
         // POST: /Account/LinkLogin
         [AdminAuthorize]
@@ -269,14 +262,29 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         #endregion
 
         #region Register-Login-Reset
-
+        /// <summary>
+        /// có 2 kieu đăng nhập
+        /// 1 : Đăng nhập bằng usernam và password
+        /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
+        /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
+        /// ==>khi hệ thống đăng nhập bằng mã token thì trang Register ko có trường nhập passwordd 
+        /// view của trang register là RegisterWithCode
+        /// </summary>
         [AllowAnonymous]
         public ActionResult Register()
         {
-            Config tmp2 = ExtFunction.Config();
-            ViewBag.SiteName = tmp2.site_name;
-
-            return View();
+            if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
+            {
+                Config tmp2 = ExtFunction.Config();
+                ViewBag.SiteName = tmp2.site_name;
+                return View("RegisterWithCode");
+            }
+            else {
+                Config tmp2 = ExtFunction.Config();
+                ViewBag.SiteName = tmp2.site_name;
+                return View();
+            }
+        
         }
 
         [HttpPost]
@@ -296,11 +304,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     };
                     var result = UserManager.Create(user, model.Password);
-                    string pass = UserManager.PasswordHasher.HashPassword("asdadasdasdsa");
-                    UserManager.SetLockoutEnabled(user.Id, true);
-                    UserManager.Update(user);
                     if (result.Succeeded)
                     {
+                        string pass = UserManager.PasswordHasher.HashPassword("asdadasdasdsa");
+                        UserManager.SetLockoutEnabled(user.Id, false);
+                        UserManager.Update(user);
+
                         string code = UserManager.GenerateEmailConfirmationToken(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         EmailService email = new EmailService();
@@ -313,7 +322,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                         return RedirectToAction("Login", "AccountAdmin");
                     }
-                    AddErrors(result);
+                    else {
+                        if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
+                        {
+                          
+                            AddErrors(result);
+                            return View("RegisterWithCode");
+                            
+                        }
+                        else {
+                            AddErrors(result);
+                            return View();
+                        }
+                       
+                    }
                 }
                 return View(model);
             }
@@ -326,10 +348,36 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult ConfirmEmail(long userId, string code)
+        {
+            if (code == null)
+            {
+                return View("Error");
+            }
+            var result = UserManager.ConfirmEmail(userId, code);
+            if (result.Succeeded)
+            {
+                return View("ConfirmEmail");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+
+        /// <summary>
+        /// có 2 kieu đăng nhập
+        /// 1 : Đăng nhập bằng usernam và password
+        /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
+        /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
+        /// ==>khi hệ thống đăng nhập bằng mã token thì trang Login ko có trường nhập passwordd 
+        /// view của trang register là LoginWithCode
+        /// </summary>
+
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
 
-            if (LoginWithCode == 1)
+            if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
             {
                 ViewBag.ReturnUrl = returnUrl;
                 Config tmp2 = ExtFunction.Config();
@@ -345,20 +393,28 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
-        //
-        // POST: /Account/Login
+
+        /// <summary>
+        /// có 2 kieu đăng nhập
+        /// 1 : Đăng nhập bằng usernam và password
+        /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
+        /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
+        /// ==>khi hệ thống đăng nhập bằng mã token thì khi nhập email sẽ gữi link đang nhập có chứa token về email
+        /// view của trang register là LoginWithCode
+        /// </summary>
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-
-            if (LoginWithCode == 1)
+            /// ==>khi hệ thống đăng nhập bằng mã token thì khi nhập email sẽ gữi link đang nhập có chứa token về email
+            if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
             {
                 var user = UserManager.Find(model.Email, "123456");
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", "Invalid username");
                     return View(model);
                 }
                 else
@@ -373,21 +429,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         string AlertString = "Tài khoản chưa kích hoạt vui lòng kiểm tra mail và kích hoạt";
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
                     }
-                    await SignInAsync(user, model.RememberMe);
+
+                    string code  = UserManager.GenerateUserToken( "LoginWithToken", user.Id);
+                    var callbackUrl = Url.Action("LoginWithToken", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    EmailService email = new EmailService();
+                    IdentityMessage message = new IdentityMessage();
+                    message.Body = string.Format("Để đăng nhập vui lòng nhấp vào liên kết: <a href='{0}'>Tại đây</a>", callbackUrl);
+                    message.Subject = "Đăng nhập";
+                    message.Destination = user.Email;
+                    await email.SendAsync(message, EmailService.EmailAdmin, EmailService.EmailAdmin,
+                        EmailService.EmailAdminPassword, EmailService.EmailAdminSMTP, EmailService.Portmail, true);
+
                     int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
-                                              (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
-                    if (String.IsNullOrEmpty(returnUrl))
-                    {
-                        return RedirectToAction("Index", "Dashboard");
-                    }
-                    else
-                    {
-                        return Redirect(returnUrl);
-                    }
+                                            (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+
+                    return RedirectToAction("LoginWithTokenAlert", "AccountAdmin");
+
                 }
 
             }
-            else
+            else  /// ==>khi hệ thống đăng nhập bằng password 
             {
                 if (ModelState.IsValid)
                 {
@@ -432,6 +493,54 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
+        [AllowAnonymous]
+        public ActionResult LoginWithTokenAlert()
+        {
+
+                return View();
+
+        }
+
+        
+
+
+
+        /// <summary>
+        /// có 2 kieu đăng nhập
+        /// 1 : Đăng nhập bằng usernam và password
+        /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
+        /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
+        /// ==>khi hệ thống đăng nhập bằng mã token thì khi nhập email sẽ gữi link đang nhập có chứa token về email
+        /// sau khi check mail sẽ có link đăng nhập =>link đang nhập có thông tin id user và mã token
+        /// view của trang register là LoginWithCode
+        /// </summary>
+
+        [AllowAnonymous]
+        public async Task<ActionResult> LoginWithToken(long userId, string code)
+        {
+            if (code == null)
+            {
+                return View("Error");
+            }
+            var tokenCorrect = await UserManager.VerifyUserTokenAsync(userId, "LoginWithToken", code);
+            if (tokenCorrect)
+            {
+                var user = UserManager.FindById(userId);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Invalid username");
+                    return View("Error");
+                }
+                await SignInAsync(user, true);
+                int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
+                                          (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else {
+
+                return RedirectToAction("Login", "AccountAdmin");
+            }
+        }
 
 
         [AllowAnonymous]
@@ -483,23 +592,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             }
 
-        }
-
-        [AllowAnonymous]
-        public ActionResult ConfirmEmail(long userId, string code)
-        {
-            if (code == null)
-            {
-                return View("Error");
-            }
-
-            var result = UserManager.ConfirmEmail(userId, code);
-            if (result.Succeeded)
-            {
-                return View("ConfirmEmail");
-            }
-            AddErrors(result);
-            return View();
         }
 
         [AdminAuthorize]
@@ -568,7 +660,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize]
-        public async Task<ActionResult> Manage(ManageMessageId? message)
+        public async Task<ActionResult> ChangePassword(ManageMessageId? message)
         {
             ViewBag.StatusMessage = message == ManageMessageId.ChangePasswordSuccess
                 ? "Your password has been changed."
@@ -576,7 +668,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     ? "Your password has been set."
                     : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed." : message == ManageMessageId.Error ? "An error has occurred." : "";
             ViewBag.HasLocalPassword = HasPassword();
-            ViewBag.ReturnUrl = Url.Action("Manage");
+            ViewBag.ReturnUrl = Url.Action("ChangePassword");
             User _ObjUser = await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
             ManageUserViewModel model = new ManageUserViewModel(_ObjUser);
             model.Myhistory = cms_db.GetLstUserHistByUserId(long.Parse(User.Identity.GetUserId()), 10);
@@ -588,17 +680,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Manage(ManageUserViewModel model)
+        public async Task<ActionResult> ChangePassword(ManageUserViewModel model)
         {
             var hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
-            ViewBag.ReturnUrl = Url.Action("Manage");
+            ViewBag.ReturnUrl = Url.Action("ChangePassword");
             if (hasPassword)
             {
                 if (ModelState.IsValid)
                 {
                     User _ObjUser = await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
-                    // _ObjUser.FullName = model.FullName;
                     int _rs = await cms_db.UpdateUser(_ObjUser);
                     var result = await UserManager.ChangePasswordAsync(long.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
@@ -608,7 +699,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         var user = await UserManager.FindByIdAsync(long.Parse(User.Identity.GetUserId()));
                         await SignInAsync(user, false);
                         return RedirectToAction(
-                            "Manage",
+                            "ChangePassword",
                             new
                             {
                                 Message = ManageMessageId.ChangePasswordSuccess
@@ -625,7 +716,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     state.Errors.Clear();
                 }
-
                 if (ModelState.IsValid)
                 {
                     var result = await UserManager.AddPasswordAsync(long.Parse(User.Identity.GetUserId()), model.NewPassword);
@@ -641,8 +731,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     AddErrors(result);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -666,9 +754,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 await UserManager.SetLockoutEnabledAsync(id, state);
                 await UserManager.UpdateAsync(user);
             }
-            return RedirectToAction("ManagerUserRole", "AccountAdmin", new { id = id });
+            return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id });
 
         }
+
+
+        #endregion
+
+
+        #region Private Function
 
         private void AddErrors(IdentityResult result)
         {
@@ -747,12 +841,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             User mainobj = cms_db.GetObjUserByIdNoAsync(model.Id);
             mainobj.Id = model.Id;
-            mainobj.BankAccountHolder = model.BankAccountHolder;
-            mainobj.BankAccountNbr = model.BankAccountNbr;
-            mainobj.BankAdress = model.BankAdress;
-            mainobj.BankName = model.BankName;
+           
             mainobj.BirthDay = model.BirthDay;
-            mainobj.CMND = model.CMND;
+          
             mainobj.GenderId = model.GenderId;
             mainobj.GenderName = model.GenderName;
             mainobj.PhoneNumber = model.PhoneNumber;
@@ -838,8 +929,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return RedirectToAction("Dashboard", "HomeAdmin");
         }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUserRole")]
-        public ActionResult ManagerUser(string letter, string RoleName, int? page = 1)
+
+
+
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public ActionResult ListUser(string letter, string RoleName, int? page = 1)
         {
             int pageNum = (page ?? 1);
             UserRoleViewModel model = new UserRoleViewModel();
@@ -863,14 +958,22 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
             }
-            model.LstAllUser = tmp.OrderBy(c => c.AccountName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.LstAllUser = tmp.OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.Page = pageNum;
             model.letter = letter;
-            return View("AddUserRole", model);
+            return View(model);
         }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUserRole")]
-        public async Task<ActionResult> ManagerUserRole(long id)
+        /// <summary>
+        /// HIỂN THỊ THÔNG TIN CHI TIẾT USER
+        /// THÔNG TIN VỀ TÀI KHOẢN
+        /// LỊCH SỬ HOẠT ĐỘNG ---NẾU LÀ MEMBER THI CÓ LỊCH SỬ NÂNG CẤP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> DetailUser(long id)
         {
             User _ObjUser = await cms_db.GetObjUserById(id);
             UserAndRoles model = new UserAndRoles();
@@ -881,25 +984,44 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUserRole")]
+        /// <summary>
+        /// PHÂN QUYỀN CHO USER 
+        /// THAY ĐỔI GÓI PACKAGE CHO USER (NÂNG CẤP USER)
+        /// /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+     
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> ManagerUser(long id)
+        {
+            User _ObjUser = await cms_db.GetObjUserById(id);
+            UserAndRoles model = new UserAndRoles();
+            model.LstCurRole = await UserManager.GetRolesAsync(id);
+            model.ObjUser = _ObjUser;
+            model.LstAllRole = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
+            return View(model);
+        }
+
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
         public async Task<ActionResult> AddUserRole(long Id, string RoleName)
         {
             if (!String.IsNullOrEmpty(RoleName))
             {
                 var result = await UserManager.AddToRoleAsync(Id, RoleName);
             }
-            return RedirectToAction("ManagerUserRole", "AccountAdmin", new { id = Id });
+            return RedirectToAction("ManagerUser", "AccountAdmin", new { id = Id });
         }
 
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUserRole")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
         public async Task<ActionResult> RemoveUserRole(long id, string RoleName)
         {
             if (!String.IsNullOrEmpty(RoleName))
             {
                 var result = await UserManager.RemoveFromRoleAsync(id, RoleName);
             }
-            return RedirectToAction("ManagerUserRole", "AccountAdmin", new { id = id });
+            return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id });
         }
 
 
