@@ -16,127 +16,133 @@
 
 
 <section class="content">
+
+    <!-- left column -->
     <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-            <!-- general form elements -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h2 class="box-title">Thêm mới kèo</h2>
-                </div><!-- /.box-header -->
-                <!-- form start -->
-                @using (Html.BeginForm("Create", "TickerManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
+        <!-- general form elements -->
+        <!-- form start -->
+        @using (Html.BeginForm("Create", "TickerManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
 
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Thêm mới kèo</h2>
+                    </div><!-- /.box-header -->
                     <div class="box-body">
-                        <div class="col-md-9">
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                            <row>
-                                <div class="col-lg-6">
-                                    <div class="input-group">
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <row>
+                            <div class="col-lg-6">
+                                <div class="input-group">
 
-                                        @Html.LabelFor(m => m.TickerName, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.TickerName, new { @class = "form-control" })
+                                    @Html.LabelFor(m => m.TickerName, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.TickerName, new { @class = "form-control" })
 
-                                    </div><!-- /input-group -->
+                                </div><!-- /input-group -->
 
-                                    <div class="input-group">
+                                <div class="input-group">
 
-                                        @Html.LabelFor(m => m.SellZone1, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control" })
+                                    @Html.LabelFor(m => m.SellZone1, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control" })
 
-                                    </div>
-
-                                    <div class="input-group">
-                                        @Html.LabelFor(m => m.SellZone2, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control" })
-                                    </div>
-
-                                    <div class="input-group">
-                                        @Html.LabelFor(m => m.SellZone3, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
-                                    </div>
                                 </div>
 
-                                <div class="col-lg-6">
-
-
-                                    <div class="input-group">
-                                        <label class="control-label col-md-9" for="ContentTitle">Vùng Mua</label>
-                                        <input type="text" class="form-control">
-                                        @Html.LabelFor(m => m.BuyZone1, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control" })
-                                    </div><!-- /input-group -->
-
-                                    <div class="input-group">
-                                        @Html.LabelFor(m => m.DeficitControl, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control" })
-                                    </div><!-- /input-group -->
-
-                                    <div class="input-group">
-                                        @Html.LabelFor(m => m.BTCInput, new { @class = "col-md-9 control-label" })
-                                        @Html.TextBoxFor(m => m.BTCInput, new { @class = "form-control" })
-                                    </div><!-- /input-group -->
-                                </div>
-                            </row>
-
-                            <row>
-                                <div class="form-group">
-                                    <label class="col-md-9 control-label" for="ContentText">Đánh giá</label>
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.SellZone2, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control" })
                                 </div>
 
-                                <div class="form-group">
-                                    @Html.TextAreaFor(m => m.Description, new { @class = "" })
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.SellZone3, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
                                 </div>
-
-                            </row>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary margin">Submit</button>
                             </div>
 
+                            <div class="col-lg-6">
+
+
+                                <div class="input-group">
+
+                                    @Html.LabelFor(m => m.BuyZone1, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control" })
+                                </div><!-- /input-group -->
+
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.DeficitControl, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control" })
+                                </div><!-- /input-group -->
+
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.BTCInput, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.BTCInput, new { @class = "form-control" })
+                                </div><!-- /input-group -->
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-9" for="ContentText">Đánh giá</label>
+                            </div>
+
+                            <div class="form-group col-md-12">
+
+                                @Html.TextAreaFor(m => m.Description, new { @class = "" })
+                            </div>
+                        </row>
+
+
+                    </div>
+
+                    <div class="box-footer">
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary margin">Submit</button>
                         </div>
-                        <div class="col-md-3">
+                    </div>
 
+                </div><!-- /.box -->
 
-                            <div class="box box-primary">
+            </div>
+            <div class="col-md-3">
+                <div class="box box-primary">
 
-                                <div class="box-header with-border">
-                                    <h2 class="box-title">Phân quyền người xem</h2>
-                                </div><!-- /.box-header -->
-                                <div class="form-group">
-                                    @foreach (SelectListObj _val in Model.lstPackage)
-                                    {
-                                        <label>
-                                            <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
-                                        </label><br />
-                                    }
-                                </div>
+                    <div class="box-header">
+                        <h2 class="box-title">Phân quyền người xem</h2>
+                    </div><!-- /.box-header -->
 
-
-
-
-                                <div class="box-header with-border">
-                                    <h2 class="box-title">Hình ảnh sản phẩm</h2>
-                                </div><!-- /.box-header -->
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">Hình minh hoạ</label>
-                                        <input type="file" id="Default_files" name="Default_files" value="Chọn và upload">
-
-                                    </div>
-                                    <div class="form-group imgboxdata">
-                                        <img class="img-responsive" src="/" id="blah" alt="Photo">
-                                    </div>
-
-                                </div>
-                            </div><!-- /.box -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            @foreach (SelectListObj _val in Model.lstPackage)
+                            {
+                                <label>
+                                    <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
+                                </label><br />
+                            }
                         </div>
-                    </div><!-- /.box-body -->
-                }
-            </div><!-- /.box -->
-        </div>
-    </div>   <!-- /.row -->
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h2 class="box-title">Hình minh hoạ</h2>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Hình minh hoạ</label>
+                            <input type="file" id="Default_files" name="Default_files" value="Chọn và upload">
+
+                        </div>
+                        <div class="form-group imgboxdata">
+                            <img class="img-responsive" src="/" id="blah" alt="Photo">
+                        </div>
+
+                    </div>
+                </div><!-- /.box -->
+            </div>
+
+        }
+
+    </div>
+
 </section>
 <script>
 

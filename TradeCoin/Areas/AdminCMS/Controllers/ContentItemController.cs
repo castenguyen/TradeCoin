@@ -62,6 +62,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             ContentItemViewModels model = new ContentItemViewModels();
             model.CatalogryList = new SelectList(cms_db.Getnewcatagory(), "ClassificationId", "ClassificationNM");
+            model.lstPackage = cms_db.GetObjSelectListPackage();
             return View(model);
         }
         /// <summary>
@@ -77,13 +78,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,CreateNews")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(ContentItemViewModels model)
+        public async Task<ActionResult> Create(ContentItemViewModels model, HttpPostedFileBase Default_files)
         {
             try {
                 if (ModelState.IsValid)
                 {
                     Classification _objcata = cms_db.GetObjClasscifiById(model.CategoryId.Value);
-                    MediaContent _objmedia = cms_db.GetObjMediaContent(model.ImgdefaultId);
                     ContentItem MainModel = model._MainObj;
                     MainModel.CommentCount = 0;
                     MainModel.CrtdDT = DateTime.Now;
@@ -92,15 +92,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.ObjTypeId = (int)EnumCore.ObjTypeId.tin_tuc;
                     MainModel.CategoryName = _objcata.ClassificationNM;
                     MainModel.ViewCount = 0;
-                 
-                    if (_objmedia != null)
+                    if (Default_files != null)
                     {
-                        MainModel.MediaUrl = _objmedia.FullURL;
-                        MainModel.MediaThumb = _objmedia.ThumbURL;
+                        MediaContentViewModels rsdf = await this.SaveDefaultImageForContentItem(Default_files, MainModel.ContentItemId);
+                        int rsup = await this.UpdateImageUrlForContentItem(rsdf, MainModel);
                     }
+
                     MainModel.StateId = (int)EnumCore.StateType.cho_phep;
                     MainModel.StateName = this.StateName_Enable;
                     int rs = await cms_db.CreateContentItem(MainModel);
+                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel.ContentItemId);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
                     //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
@@ -123,21 +124,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             ContentItemViewModels model = new ContentItemViewModels(cms_db.GetObjContentItemById(id));
             model.CatalogryList = new SelectList(cms_db.Getnewcatagory(), "ClassificationId", "ClassificationNM");
+            model.lstPackage = cms_db.GetObjSelectListPackage();
+            model.lstTickerPackage = cms_db.GetlstTickerPackage(model.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
             return View(model);
         }
         [AdminAuthorize(Roles = "supperadmin,devuser,UpdateNews")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ContentItemViewModels model)
+        public async Task<ActionResult> Edit(ContentItemViewModels model, HttpPostedFileBase Default_files)
         {
             try {
                 if (ModelState.IsValid)
                 {
                     Classification _objcata = cms_db.GetObjClasscifiById(model.CategoryId.Value);
-
-                    MediaContent _objnewmedia = cms_db.GetObjMediaContent(model.ImgdefaultId);
-                    MediaContent _objoldmedia = cms_db.GetObjDefaultMediaByContentIdvsType(model.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-
                     ContentItem MainModel = cms_db.GetObjContentItemById(model.ContentItemId);
                     MainModel.ContentTitle = model.ContentTitle;
                     MainModel.ContentText = model.ContentText;
@@ -146,12 +145,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.MetadataKeyword = model.MetadataKeyword;
                     MainModel.CategoryId = model.CategoryId;
                     MainModel.CategoryName = _objcata.ClassificationNM;
-                    if (_objoldmedia != null)
-                    {
-                        MainModel.MediaUrl = _objnewmedia.FullURL;
-                        MainModel.MediaThumb = _objnewmedia.ThumbURL;
-                    }
                     int UpdateContent = await cms_db.UpdateContentItem(MainModel);
+                    if (Default_files != null)
+                    {
+                        MediaContentViewModels rsdf = await this.SaveDefaultImageForContentItem(Default_files, MainModel.ContentItemId);
+                        int rsup = await this.UpdateImageUrlForContentItem(rsdf, MainModel);
+                    }
+                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel.ContentItemId);
+
+
                     int rs = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                                     (int)EnumCore.ActionType.Update, "Update", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
 
@@ -159,7 +161,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     //int _DeleteRelatedContent = await this.DeleteRelatedContent(MainModel.ContentItemId);
                     //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
                     //int SaveRelatedTag = await this.SaveRelateTag(MainModel.ContentItemId, model.related_tag);//lưu tag liên quan cho tin tức này
-                    int UpdateMediaForContent = await this.UpdateMediaForContent(_objnewmedia, _objoldmedia, model.ContentItemId);
+                  
 
                     return RedirectToAction("Index");
                 }
@@ -173,6 +175,87 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
           
         }
+
+
+
+
+
+
+        private async Task<MediaContentViewModels> SaveDefaultImageForContentItem(HttpPostedFileBase file, long ContentItemId)
+        {
+            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc
+                    && s.MediaTypeId == (int)EnumCore.mediatype.hinh_anh_dai_dien && s.ContentObjId == ContentItemId).FirstOrDefault();
+            if (CurrentMediaId != null)
+            {
+                int rs = await cms_db.DeleteMediaContent(CurrentMediaId.MediaContentId);
+            }
+            ImageUploadViewModel item = new ImageUploadViewModel();
+            item = cms_db.UploadHttpPostedFileBase(file);
+            MediaContentViewModels _Media = new MediaContentViewModels();
+            _Media.Filename = item.ImageName;
+            _Media.FullURL = item.ImageUrl;
+            _Media.ContentObjId = ContentItemId;
+            _Media.ObjTypeId = (int)EnumCore.ObjTypeId.tin_tuc;
+            _Media.ViewCount = 0;
+            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh_dai_dien;
+            _Media.CrtdDT = DateTime.UtcNow;
+            _Media.MediaContentSize = file.ContentLength;
+            _Media.ThumbURL = item.ImageThumbUrl;
+            _Media.CrtdUID = long.Parse(User.Identity.GetUserId());
+            await cms_db.AddNewMediaContent(_Media);
+            return _Media;
+
+        }
+        private async Task<int> UpdateImageUrlForContentItem(MediaContentViewModels ImageObj, ContentItem ContentObj)
+        {
+            ContentObj.MediaUrl = ImageObj.FullURL;
+            ContentObj.MediaThumb = ImageObj.ThumbURL;
+            return await cms_db.UpdateContentItem(ContentObj);
+        }
+
+        private int SaveContentItemPackage(long[] model, long ContentObjId)
+        {
+            try
+            {
+                int dl = cms_db.DeleteContentPackage(ContentObjId, (int)EnumCore.ObjTypeId.tin_tuc);
+                foreach (int _val in model)
+                {
+                    ContentPackage tmp = new ContentPackage();
+                    tmp.ContentId = ContentObjId;
+                    tmp.ContentType = (int)EnumCore.ObjTypeId.tin_tuc;
+                    tmp.PackageId = _val;
+
+                    cms_db.CreateContentPackage(tmp);
+                }
+                return (int)EnumCore.Result.action_true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("SaveContentItemPackage", "ContentItem", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return (int)EnumCore.Result.action_false;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -484,20 +567,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return rs;
 
         }
-        /// <summary>
-        /// cập nhật id Obicontent cho hình ảnh
-        /// do hình ảnh upload lên server trước khi tạp bài viết nên 
-        /// sau khi tạo bài viết phải lấy id của bài viết cập nhật lại cho hình ảnh
-        /// </summary>
-        /// <param name="Media"></param>
-        /// <param name="ContentId"></param>
-        /// <returns></returns>
+ 
   
-        public ActionResult _UploadImagePartial()
-        {
-            PartialUploadViewModels model = new PartialUploadViewModels();
-            return PartialView("_UploadImagePartial", model);
-        }
         /// <summary>
         /// partial view từ khoá liên quan cho action tạo bài viết
         /// trả về là file partial view  _RelatedTag file này xài đi xài lại nhiều nơi
@@ -556,18 +627,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             return PartialView("_RelatedContent", model);
         }
-        public ActionResult _UploadImagePartialE(long id)
-        {
-            PartialUploadViewModels model = new PartialUploadViewModels();
-            MediaContent _obj = cms_db.GetObjDefaultMediaByContentIdvsType(id, (int)EnumCore.ObjTypeId.tin_tuc);
-            if (_obj != null)
-            {
-                model.FullUrl = _obj.FullURL;
-                model.ThumbUrl = _obj.ThumbURL;
-                model.MediaId = _obj.MediaContentId;
-            }
-            return PartialView("_UploadImagePartial", model);
-        }
+    
         /// <summary>
         /// LẤY DANH SÁCH CÁC TỪ KHOÁ
         /// KẾT QUẢ TRẢ VỀ LÀ JSON

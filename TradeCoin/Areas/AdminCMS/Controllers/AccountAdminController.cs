@@ -26,6 +26,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         private const string XsrfKey = "XsrfId";
 
+        /// <summary>
+        /// có 2 kieu đăng nhập
+        /// 1 : Đăng nhập bằng usernam và password
+        /// 2: Đăng nhập bằng mã token được gửi về email đăng ký
+        /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
+        /// </summary>
+        private const int LoginWithCode = 1;
+
         #endregion
 
         #region member vars
@@ -261,139 +269,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         #endregion
 
         #region Register-Login-Reset
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            Config tmp2 = ExtFunction.Config();
-            ViewBag.SiteName = tmp2.site_name;
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            try { 
-                        if (ModelState.IsValid)
-                        {
-                            var user = await UserManager.FindByNameAsync(model.Email);
-                            if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                            {
-                                ModelState.AddModelError("", "The user either does not exist or is not confirmed.");
-                                return View();
-                            }
-                            string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                            var callbackUrl = Url.Action("ResetPassword", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                            EmailService email = new EmailService();
-                            IdentityMessage message = new IdentityMessage();
-                            message.Body = string.Format("Vui lòng nhấp vào đường link: <a href='{0}'>Tại đây</a> để lấy lại mật khẩu", callbackUrl);
-                            message.Subject = "Lấy lại mật khẩu";
-                            message.Destination = user.Email;
-                            await email.SendAsync(message, EmailService.EmailAdmin, EmailService.EmailAdmin,
-                                EmailService.EmailAdminPassword, EmailService.EmailAdminSMTP, EmailService.Portmail, true);
-
-                            return RedirectToAction("ForgotPassword", "AccountAdmin");
-                        }
-                        return View(model);
-            }
-            catch(Exception e)
-            {
-                cms_db.AddToExceptionLog("function ForgotPassword", "AccountAdmin", e.ToString());
-                return View();
-            
-            }
-
-        }
-
-        [AllowAnonymous]
-        public ActionResult ConfirmEmail(long userId, string code)
-        {
-            if (code == null)
-            {
-                return View("Error");
-            }
-
-            var result = UserManager.ConfirmEmail(userId, code);
-            if (result.Succeeded)
-            {
-                return View("ConfirmEmail");
-            }
-            AddErrors(result);
-            return View();
-        }
-
-        [AdminAuthorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            AuthenticationManager.SignOut();
-
-            return RedirectToAction("Login");
-        }
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            Config tmp2 = ExtFunction.Config();
-            ViewBag.SiteName = tmp2.site_name;
-            return View();
-        }
-
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = UserManager.Find(model.Email, model.Password);
-                if (user != null && UserManager.GetLockoutEnabled(user.Id) == true)
-                {
-                    string AlertString = "Tài khoản tạm khoá vui lòng liên hệ quản trị viên";
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
-                }
-
-                if (user != null && UserManager.IsEmailConfirmed(user.Id) == false)
-                {
-                    string AlertString = "Tài khoản chưa kích hoạt vui lòng kiểm tra mail và kích hoạt";
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
-                }
-
-                if (user != null)
-                {
-                    await SignInAsync(user, model.RememberMe);
-                    int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
-                                              (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
-
-                    if (String.IsNullOrEmpty(returnUrl))
-                    {
-                        return RedirectToAction("Index", "Dashboard");
-                    }
-                    return Redirect(returnUrl);
-                }
-                ModelState.AddModelError("", "Invalid username or password.");
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
 
         [AllowAnonymous]
         public ActionResult Register()
         {
             Config tmp2 = ExtFunction.Config();
             ViewBag.SiteName = tmp2.site_name;
+
             return View();
         }
 
@@ -442,6 +324,195 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
 
         }
+
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+
+            if (LoginWithCode == 1)
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                Config tmp2 = ExtFunction.Config();
+                ViewBag.SiteName = tmp2.site_name;
+                return View("LoginWithCode");
+            }
+            else
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                Config tmp2 = ExtFunction.Config();
+                ViewBag.SiteName = tmp2.site_name;
+                return View();
+            }
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        {
+
+            if (LoginWithCode == 1)
+            {
+                var user = UserManager.Find(model.Email, "123456");
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                    return View(model);
+                }
+                else
+                {
+                    if (UserManager.GetLockoutEnabled(user.Id) == true)
+                    {
+                        string AlertString = "Tài khoản tạm khoá vui lòng liên hệ quản trị viên";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                    }
+                    if (UserManager.IsEmailConfirmed(user.Id) == false)
+                    {
+                        string AlertString = "Tài khoản chưa kích hoạt vui lòng kiểm tra mail và kích hoạt";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                    }
+                    await SignInAsync(user, model.RememberMe);
+                    int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
+                                              (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
+                }
+
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = UserManager.Find(model.Email, model.Password);
+                    if (user == null)
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                        return View(model);
+                    }
+                    else
+                    {
+                        if (UserManager.GetLockoutEnabled(user.Id) == true)
+                        {
+                            string AlertString = "Tài khoản tạm khoá vui lòng liên hệ quản trị viên";
+                            return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                        }
+
+                        if (UserManager.IsEmailConfirmed(user.Id) == false)
+                        {
+                            string AlertString = "Tài khoản chưa kích hoạt vui lòng kiểm tra mail và kích hoạt";
+                            return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                        }
+                        await SignInAsync(user, model.RememberMe);
+                        int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
+                                                  (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+
+                        if (String.IsNullOrEmpty(returnUrl))
+                        {
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+                        else
+                        {
+                            return Redirect(returnUrl);
+                        }
+                    }
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
+        }
+
+
+
+
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            Config tmp2 = ExtFunction.Config();
+            ViewBag.SiteName = tmp2.site_name;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = await UserManager.FindByNameAsync(model.Email);
+                    if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                    {
+                        ModelState.AddModelError("", "The user either does not exist or is not confirmed.");
+                        return View();
+                    }
+                    string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ResetPassword", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    EmailService email = new EmailService();
+                    IdentityMessage message = new IdentityMessage();
+                    message.Body = string.Format("Vui lòng nhấp vào đường link: <a href='{0}'>Tại đây</a> để lấy lại mật khẩu", callbackUrl);
+                    message.Subject = "Lấy lại mật khẩu";
+                    message.Destination = user.Email;
+                    await email.SendAsync(message, EmailService.EmailAdmin, EmailService.EmailAdmin,
+                        EmailService.EmailAdminPassword, EmailService.EmailAdminSMTP, EmailService.Portmail, true);
+
+                    return RedirectToAction("ForgotPassword", "AccountAdmin");
+                }
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("function ForgotPassword", "AccountAdmin", e.ToString());
+                return View();
+
+            }
+
+        }
+
+        [AllowAnonymous]
+        public ActionResult ConfirmEmail(long userId, string code)
+        {
+            if (code == null)
+            {
+                return View("Error");
+            }
+
+            var result = UserManager.ConfirmEmail(userId, code);
+            if (result.Succeeded)
+            {
+                return View("ConfirmEmail");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        [AdminAuthorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut();
+
+            return RedirectToAction("Login");
+        }
+
+  
 
 
         [AllowAnonymous]

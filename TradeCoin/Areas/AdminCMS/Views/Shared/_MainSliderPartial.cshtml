@@ -166,6 +166,18 @@
                 </ul>
             </li>
 
+            <li class="treeview">
+                <a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-user"></i>
+                    <span>Quản lý Kèo</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Kèo</a></li>
+                    <li><a href="@Url.Action("Create", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Kèo</a></li>
+
+                </ul>
+            </li>
+
 
         </ul>
     </section>

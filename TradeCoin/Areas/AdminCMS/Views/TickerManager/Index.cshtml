@@ -83,7 +83,7 @@
                                         <td>@_val.StateName</td>
                                         <td>
                                             <a href="#">Duyệt</a>
-                                            | <a href="#">Chỉnh sửa</a>
+                                            | <a href="@Url.Action("Update", "TickerManager", new { id = _val.TickerId })">Chỉnh sửa</a>
                                             | <a href="#">Delete</a>
                                         </td>
                                     </tr>

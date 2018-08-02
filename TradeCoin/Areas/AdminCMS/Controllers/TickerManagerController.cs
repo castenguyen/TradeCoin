@@ -24,8 +24,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             TickerAdminViewModel model = new TickerAdminViewModel();
             IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.StateType.da_xoa);
 
-
-
             if (TickerStatus.HasValue)
             {
                 tmp = tmp.Where(s => s.StateId == TickerStatus);
@@ -58,8 +56,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstPackage = cms_db.GetObjSelectListPackage();
             return View(model);
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TickerViewModel model, HttpPostedFileBase Default_files)
@@ -72,8 +68,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.CrtdDT = DateTime.Now;
                     MainModel.CrtdUserId = long.Parse(User.Identity.GetUserId());
                     MainModel.CrtdUserName = User.Identity.Name;
-                    MainModel.StateId = (int)EnumCore.StateType.cho_duyet;
-                    MainModel.StateName = "Chờ Duyệt";
+                    MainModel.StateId = (int)EnumCore.StateType.cho_phep;
+                    MainModel.StateName = "Enable";
                     int rs = await cms_db.CreateTickerAsync(MainModel);
                     if (Default_files != null)
                     {
@@ -101,6 +97,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 id = 1;
             Ticker _obj = cms_db.GetObjTicker(id.Value);
             TickerViewModel model = new TickerViewModel(_obj);
+            model.lstPackage = cms_db.GetObjSelectListPackage();
+            model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
             return View(model);
         }
 
@@ -114,12 +112,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (ModelState.IsValid)
                 {
                     Ticker MainModel = model._MainObj;
-                    MainModel.CrtdDT = DateTime.Now;
-                    MainModel.CrtdUserId = long.Parse(User.Identity.GetUserId());
-                    MainModel.CrtdUserName = User.Identity.Name;
-                    MainModel.StateId = (int)EnumCore.StateType.cho_duyet;
-                    MainModel.StateName = "Chờ Duyệt";
-                    int rs = await cms_db.CreateTickerAsync(MainModel);
+                    MainModel.StateId = (int)EnumCore.StateType.cho_phep;
+                    MainModel.StateName = "Enable";
+                    int rs = await cms_db.UpdateTicker(MainModel);
                     if (Default_files != null)
                     {
                         MediaContentViewModels rsdf = await this.SaveDefaultImageForTicker(Default_files, MainModel.TickerId);
@@ -141,23 +136,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                Product MainModel = cms_db.GetObjProductById(id);
+                Ticker MainModel = cms_db.GetObjTicker(id);
                 MainModel.AprvdUID = long.Parse(User.Identity.GetUserId());
                 MainModel.AprvdDT = DateTime.Now;
-
                 MainModel.StateId = state;
+
                 if (MainModel.StateId == (int)EnumCore.StateType.cho_phep)
                     MainModel.StateName = this.StateName_Enable;
                 if (MainModel.StateId == (int)EnumCore.StateType.khong_cho_phep)
                     MainModel.StateName = this.StateName_Disable;
-                await cms_db.UpdateProduct(MainModel);
+                await cms_db.UpdateTicker(MainModel);
                 int ach = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                 (int)EnumCore.ActionType.Create, "ChangeState", MainModel.ProductId, MainModel.ProductName, "Product", (int)EnumCore.ObjTypeId.san_pham);
+                 (int)EnumCore.ActionType.Create, "ChangeState", MainModel.TickerId, MainModel.TickerName, "Ticker", (int)EnumCore.ObjTypeId.ticker);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("ChangeState", "ProductManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                cms_db.AddToExceptionLog("ChangeState", "TickerManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return RedirectToAction("Index");
             }
         }
@@ -166,22 +161,22 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                Product MainModel = cms_db.GetObjProductById(id);
+                Ticker MainModel = cms_db.GetObjTicker(id);
                 if (MainModel != null)
                 {
-                    //MediaContent _objoldmedia = cms_db.GetObjDefaultMediaByContentIdvsType(id, (int)EnumCore.ObjTypeId.san_pham);
-                    //if (_objoldmedia != null)
-                    //    await cms_db.DeleteMediaContent(_objoldmedia.MediaContentId);
-                    //int _DeleteRelatedTag = await cms_db.DeleteRelatedTag(id, (int)EnumCore.ObjTypeId.san_pham);
-                    int result = await cms_db.DeleteProductByObj(MainModel);
+                    MediaContent _objoldmedia = cms_db.GetObjDefaultMediaByContentIdvsType(MainModel.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                    if (_objoldmedia != null)
+                        await cms_db.DeleteMediaContent(_objoldmedia.MediaContentId);
+                    int dl = cms_db.DeleteContentPackage(id, (int)EnumCore.ObjTypeId.ticker);
+                    int result = await cms_db.DeleteTicker(MainModel);
                     int ach = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-               (int)EnumCore.ActionType.Create, "Delete", MainModel.ProductId, MainModel.ProductName, "Product", (int)EnumCore.ObjTypeId.san_pham);
+                                         (int)EnumCore.ActionType.Delete, "Delete", MainModel.TickerId, MainModel.TickerName, "Ticker", (int)EnumCore.ObjTypeId.ticker);
                 }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("Delete", "Product", e.ToString());
+                cms_db.AddToExceptionLog("Delete", "TickerManager", e.ToString());
                 return RedirectToAction("Index");
             }
         }
@@ -220,7 +215,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return await cms_db.UpdateTicker(TickerObj);
         }
 
-        private int SaveTickerPackage(int[] model, long TickerId)
+        private int SaveTickerPackage(long[] model, long TickerId)
         {
             try
             {

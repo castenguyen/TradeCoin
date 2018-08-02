@@ -241,11 +241,7 @@ namespace CMSPROJECT.Areas.AdminCMS
 
 
 
-            context.MapRoute(
-           "AdminCMS_ContentItem_UploadImagePartial",
-           "administrator/UploadImagePartialContentItem",
-           new { controller = "ContentItem", action = "_UploadImagePartial" }
-            );
+        
             context.MapRoute(
           "AdminCMS_ContentItem_RelatedTag",
           "administrator/RelatedTagContentItem",
@@ -272,11 +268,7 @@ namespace CMSPROJECT.Areas.AdminCMS
              );
 
 
-            context.MapRoute(
-           "AdminCMS_ContentItem_UploadImagePartialE",
-           "administrator/UploadImagePartialEContentItem/{id}",
-           new { controller = "ContentItem", action = "_UploadImagePartialE", id = UrlParameter.Optional }
-             );
+            
 
             #endregion END CONTENITEM
             #region COMMENT

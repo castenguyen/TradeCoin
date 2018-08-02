@@ -1,8 +1,9 @@
 ﻿@model DataModel.DataViewModel.LoginViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "LoginWithCode";
     Layout = "~/Areas/AdminCMS/Views/Shared/_MainLayout.cshtml";
 }
+
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
@@ -19,12 +20,6 @@
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Tên truy cập" })
                     <span class="glyphicon glyphicon-envelope form-control-feedback">@Html.ValidationMessageFor(m => m.Email, "")</span>
                 </div>
-
-                <div class="form-group has-feedback">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
-                    <span class="glyphicon glyphicon-lock form-control-feedback">@Html.ValidationMessageFor(m => m.Password, "")</span>
-                </div>
-
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
@@ -35,18 +30,13 @@
                     </div><!-- /.col -->
                     <div class="col-xs-4">
                         <input type="submit" value="Sign In" class="btn btn-primary btn-block btn-flat" />
-                    
+
                     </div><!-- /.col -->
                 </div>
             }
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Đăng nhập bằng Facebook </a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Đăng nhập bằng Google+</a>
-            </div><!-- /.social-auth-links -->
-            <a href="@Url.Action("ForgotPassword", "AccountAdmin")">Quên mật khẩu</a><br>
+
             <a href="@Url.Action("Register", "AccountAdmin")" class="text-center">Đăng ký tài khoản mới</a>
-            @*<a href="@Url.Action("Register", "AccountAdmin")" class="text-center">Đăng ký tài khoản mới</a>*@
+         
         </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
     <!-- jQuery 2.1.4 -->

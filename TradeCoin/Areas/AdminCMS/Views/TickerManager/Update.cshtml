@@ -1,8 +1,225 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@model DataModel.DataViewModel.TickerViewModel
 @{
     ViewBag.Title = "Update";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+    string bare_url = AppDomain.CurrentDomain.BaseDirectory;
+    string folderimg = bare_url + "images";
 }
+<script src="~/Areas/AdminCMS/plugins/ckeditor/ckeditor.js"></script>
 
-<h2>Update</h2>
+
+<section class="content">
+
+    <!-- left column -->
+    <div class="row">
+        <!-- general form elements -->
+        <!-- form start -->
+        @using (Html.BeginForm("Update", "TickerManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="col-md-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h2 class="box-title">Thêm mới kèo</h2>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <row>
+                            <div class="col-lg-6">
+                                <div class="input-group">
+
+                                    @Html.LabelFor(m => m.TickerName, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.TickerName, new { @class = "form-control" })
+
+                                </div><!-- /input-group -->
+
+                                <div class="input-group">
+
+                                    @Html.LabelFor(m => m.SellZone1, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.SellZone2, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control" })
+                                </div>
+
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.SellZone3, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+
+
+                                <div class="input-group">
+
+                                    @Html.LabelFor(m => m.BuyZone1, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control" })
+                                </div><!-- /input-group -->
+
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.DeficitControl, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control" })
+                                </div><!-- /input-group -->
+
+                                <div class="input-group">
+                                    @Html.LabelFor(m => m.BTCInput, new { @class = "col-md-9 control-label" })
+                                    @Html.TextBoxFor(m => m.BTCInput, new { @class = "form-control" })
+                                </div><!-- /input-group -->
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-9" for="ContentText">Đánh giá</label>
+                            </div>
+
+                            <div class="form-group col-md-12">
+
+                                @Html.TextAreaFor(m => m.Description, new { @class = "" })
+                            </div>
+                        </row>
+                    </div>
+
+                    <div class="box-footer">
+
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.TickerId)
+
+                            @Html.HiddenFor(m => m.MediaThumb)
+                            @Html.HiddenFor(m => m.MediaUrl)
+
+                            @Html.HiddenFor(m => m.CrtdDT)
+                            @Html.HiddenFor(m => m.CrtdUserId)
+                            @Html.HiddenFor(m => m.CrtdUserName)
+                            <button type="submit" class="btn btn-primary margin">Submit</button>
+                        </div>
+                    </div>
+
+                </div><!-- /.box -->
+
+            </div>
+            <div class="col-md-3">
+                <div class="box box-primary">
+
+                    <div class="box-header">
+                        <h2 class="box-title">Phân quyền người xem</h2>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            @foreach (SelectListObj _val in Model.lstPackage)
+                            {
+                                if (Model.lstTickerPackage.Contains(int.Parse(_val.value.ToString())))
+                                {
+                                    <label>
+                                        <input type="checkbox" name="lstTickerPackage" value="@_val.value" checked> @_val.text
+                                    </label><br />
+                                }
+                                else
+                                {
+                                    <label>
+                                        <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
+                                    </label><br />
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h2 class="box-title">Hình minh hoạ</h2>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="exampleInputFile">Hình minh hoạ</label>
+                            <input type="file" id="Default_files" name="Default_files" value="Chọn và upload">
+                        </div>
+
+                        <div class="form-group imgboxdata">
+                            <img class="img-responsive" src="/@Model.MediaThumb" id="blah" alt="Photo">
+                        </div>
+
+                    </div>
+                </div><!-- /.box -->
+            </div>
+
+        }
+
+    </div>
+
+</section>
+<script>
+
+    $(document).ready(function () {
+
+        CKEDITOR.replace("Description", {
+            filebrowserBrowseUrl: '@folderimg.ToString()',
+            filebrowserUploadUrl: '@Url.Action("CK_ImgUpload", "Extension")',
+            toolbar: 'full',
+            uiColor: '#8AB8F3',
+            height: "400",
+            width: "100%"
+            //  baseHref: "@bare_url.ToString()"
+        });
+
+
+        var rules = {
+            FriendlyURL: "required"
+          , CategoryId: "required"
+          , ProductName: "required"
+          , ProductDes: "required"
+          , ProductDetail: "required"
+          , MetadataKeyword: "required"
+          , MetadataDesc: "required"
+          , ImgdefaultId: {
+              required: true,
+              min: 1,
+              number: true
+          },
+
+        };
+        var messages = {
+            FriendlyURL: "Vui lòng kiểm tra đường dẩn thân thiện "
+            , CategoryId: "Vui lòng kiểm tra danh mục"
+            , ProductName: "Vui lòng kiểm tra tên sản phẩm"
+            , ProductDes: "Vui lòng kiểm tra mô tả sản phẩm"
+            , ProductDetail: "Vui lòng kiểm tra mô tả chi tiết sản phẩm"
+            , MetadataKeyword: "Vui lòng kiểm tra từ khoá SEO"
+            , MetadataDesc: "Vui lòng kiểm tra mô tả SEO"
+
+
+        };
+
+        ValidationForm({
+            ctrID: "CreateForm"
+            , rules: rules
+            , messages: messages
+        })
+
+    });
+
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#Default_files").change(function () {
+        readURL(this);
+    });
+
+</script>
 
