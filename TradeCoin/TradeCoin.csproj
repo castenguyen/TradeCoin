@@ -1979,14 +1979,14 @@
     <Content Include="Areas\AdminCMS\plugins\_tmpckeditor\README.md" />
     <Content Include="Areas\AdminCMS\plugins\_tmpckeditor\skins\moono\readme.md" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\AddNewRole.cshtml" />
-    <Content Include="Areas\AdminCMS\Views\AccountAdmin\AddUserRole.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\ListUser.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ConfirmEmail.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\EditRole.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ForgotPassword.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\Login.cshtml" />
-    <Content Include="Areas\AdminCMS\Views\AccountAdmin\Manage.cshtml" />
-    <Content Include="Areas\AdminCMS\Views\AccountAdmin\ManagerUserRole.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\ChangePassword.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\ManagerUser.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\Register.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ResetPassword.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ResetPasswordConfirmation.cshtml" />
@@ -2084,6 +2084,9 @@
     <Content Include="Areas\AdminCMS\Views\TickerManager\Create.cshtml" />
     <Content Include="Areas\AdminCMS\Views\TickerManager\Update.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\LoginWithCode.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\RegisterWithCode.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\LoginWithTokenAlert.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\DetailUser.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />

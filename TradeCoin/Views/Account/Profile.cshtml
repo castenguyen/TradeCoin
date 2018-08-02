@@ -344,15 +344,7 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <th>Chứng minh nhân dân</th>
-                                        <td>
-                                            <span>@(Model.CMND == null ? "Chưa cập nhật thông tin" : Model.CMND.ToString())</span>
-                                            <div class="form-group" style="display:none;">
-                                                @Html.TextBoxFor(x => x.CMND, new { @class = "form-control" })
-                                            </div>
-                                        </td>
-                                    </tr>
+                                 
                                     <tr>
                                         <th>Giới tính</th>
                                         <td>
@@ -373,42 +365,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>Tên ngân hàng</th>
-                                        <td>
-                                            <span>@(Model.BankName ?? "Chưa cập nhật thông tin")</span>
-                                            <div class="form-group" style="display:none;">
-                                                @Html.TextBoxFor(x => x.BankName, new { @class = "form-control" })
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Nơi mở tài khoản</th>
-                                        <td>
-                                            <span>@(Model.BankAdress ?? "Chưa cập nhật thông tin")</span>
-                                            <div class="form-group" style="display:none;">
-                                                @Html.TextBoxFor(x => x.BankAdress, new { @class = "form-control" })
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Chủ tài khoản ngân hàng</th>
-                                        <td>
-                                            <span>@(Model.BankAccountHolder ?? "Chưa cập nhật thông tin")</span>
-                                            <div class="form-group" style="display:none;">
-                                                @Html.TextBoxFor(x => x.BankAccountHolder, new { @class = "form-control" })
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Số tài khoản</th>
-                                        <td>
-                                            <span>@(Model.BankAccountNbr ?? "Chưa cập nhật thông tin")</span>
-                                            <div class="form-group" style="display:none;">
-                                                @Html.TextBoxFor(x => x.BankAccountNbr, new { @class = "form-control" })
-                                            </div>
-                                        </td>
-                                    </tr>
+                             
+                             
+                                  
+                               
                                     <tr>
                                         <td colspan="2">
                                             <a href="javascript:;" style="display: block;border: 1px #03456D solid;border-radius: 4px;margin-right: 50px;float: right; padding-bottom: 0px;" class="btn btn-info col-md-3" id="edit-info"> Cập nhật thông tin </a>

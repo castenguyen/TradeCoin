@@ -57,12 +57,9 @@ namespace Alluneecms.Controllers
         {
             User mainobj = cms_db.GetObjUserByIdNoAsync(model.Id);
             mainobj.Id = model.Id;
-            mainobj.BankAccountHolder = model.BankAccountHolder;
-            mainobj.BankAccountNbr = model.BankAccountNbr;
-            mainobj.BankAdress = model.BankAdress;
-            mainobj.BankName = model.BankName;
+      
             mainobj.BirthDay = model.BirthDay;
-            mainobj.CMND = model.CMND;
+           
             mainobj.EMail = model.EMail;
             mainobj.GenderId = model.GenderId;
             mainobj.GenderName = model.GenderId == (int)EnumCore.Classification.gioi_tinh_nam ? "Nam" : (model.GenderId == (int)EnumCore.Classification.gioi_tinh_nu ? "Nữ" : "Khác");
@@ -321,7 +318,7 @@ namespace Alluneecms.Controllers
                 FullName = fullName,
                 GenderId = (int)EnumCore.Classification.gioi_tinh_nam,
                 GenderName = "Nam",
-                AccountName = "TRV"
+              
             };
             UserManager.Create(user, password);
 
