@@ -229,6 +229,7 @@
     <Compile Include="Areas\AdminCMS\Controllers\DashboardController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\DemoController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\DisplayManagerController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\EmailManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ErrorManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ExtensionController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\HistoryManagerController.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="Areas\AdminCMS\Controllers\PackageManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ProductManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\PromotionController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\RoleManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ShopCartManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\TickerManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Core\CoreBackEnd.cs" />
@@ -1978,10 +1980,10 @@
     <Content Include="Areas\AdminCMS\plugins\_tmpckeditor\plugins\wsc\README.md" />
     <Content Include="Areas\AdminCMS\plugins\_tmpckeditor\README.md" />
     <Content Include="Areas\AdminCMS\plugins\_tmpckeditor\skins\moono\readme.md" />
-    <Content Include="Areas\AdminCMS\Views\AccountAdmin\AddNewRole.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\RoleManager\AddNewRole.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ListUser.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ConfirmEmail.cshtml" />
-    <Content Include="Areas\AdminCMS\Views\AccountAdmin\EditRole.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\RoleManager\EditRole.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ForgotPassword.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\Login.cshtml" />
@@ -2087,6 +2089,11 @@
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\RegisterWithCode.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\LoginWithTokenAlert.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\DetailUser.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\RoleManager\CreateRoleGroup.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\RoleManager\Index.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\EmailManager\Index.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\EmailManager\CreateNewEmail.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\EmailManager\DetailEmail.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />

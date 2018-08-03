@@ -8,6 +8,20 @@
 }
 
 <section class="content">
+
+    <row>
+        @if (!String.IsNullOrEmpty(Model.AlertMessage))
+        {
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Model.AlertMessage
+            </div>
+        }
+
+    </row>
+
+
+
     <div class="row">
         <!-- left column -->
         <div class="col-md-6">
@@ -55,7 +69,9 @@
                 <div class="box-body">
                     <div class="box-header with-border">
                         <h3>Quyền hiện tại</h3>
-                    </div><!-- /.box-header -->
+                        <p class="text-red"> Thêm quyền cho tài khoản</p>
+
+                    </div>
                     <table class="table table-hover col-md-6">
                         <tbody>
                             <tr>
@@ -63,7 +79,7 @@
                                 <th>Xoá</th>
                             </tr>
 
-                            @foreach (string _val in Model.LstCurRole)
+                            @foreach (string _val in Model.LstCurPermission)
                             {
                                 <tr>
                                     <td> <span class="label label-success">@_val</span></td>
@@ -74,30 +90,27 @@
 
                         </tbody>
                     </table>
-                    <h2 class="page-header">Thêm quyền</h2>
+                    <h2 class="page-header">Danh sách quyền</h2>
                     <table class="table table-hover col-md-6">
                         <tbody>
                             <tr>
                                 <th>Tên quyền</th>
                                 <th>Thêm quyền</th>
                             </tr>
-                            @foreach (SelectListItem _val in Model.LstAllRole)
+                            @foreach (SelectListItem _val in Model.LstAllPermission)
                             {
                                 <tr>
                                     <td> <span class="label label-success">@_val.Text</span></td>
-                                    <td><a href="@Url.Action("AddUserRole", "AccountAdmin", new { Id = Model.ObjUser.Id, RoleName = _val.Text  })" class="btn btn-block btn-danger btn-xs">Thêm</a></td>
+                                    <td><a href="@Url.Action("AddUserRole", "AccountAdmin", new { Id = Model.ObjUser.Id, RoleName = _val.Text })" class="btn btn-block btn-danger btn-xs">Thêm</a></td>
                                 </tr>
+
                             }
-
-
-
-
 
                         </tbody>
                     </table>
                 </div>
             </div><!-- /.box -->
-         
+
 
         </div><!--/.col (left) -->
 
@@ -106,8 +119,11 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Nâng cấp gói cước</h3>
+                <p class="text-red">  Nâng cấp gói cước cho tài khoản.</p>
+
+
                 </div><!-- /.box-header -->
-                <!-- form start -->
+              
 
                 <div class="box-body">
                     <h2 class="page-header">Gói cước hiện tại <span class="label label-success">Free</span></h2>
@@ -119,23 +135,60 @@
                             </tr>
 
 
+                            @foreach (SelectListItem _val in Model.LstPackages)
+                            {
+                                <tr>
+                                    <td> <span class="label label-success">@_val.Text</span></td>
+                                    <td><a href="@Url.Action("UpgradePackage", "AccountAdmin", new { id = Model.ObjUser.Id, packageid = _val.Value  })" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
+                                </tr>
+                            }
 
+
+                        </tbody>
+                    </table>
+
+                </div><!-- /.box-body -->
+
+
+            </div><!-- /.box -->
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nâng cấp tài khoản</h3>
+                    <p class="text-red"> Nâng cấp tài khoản member thành các loại tài khoản quản trị khác.</p>
+                </div><!-- /.box-header -->
+
+
+                <div class="box-body">
+                    <h3 class="page-header">Loại hiện tại</h3>
+                    <table class="table table-hover col-md-6">
+                        <tbody>
                             <tr>
-                                <td> <span class="label label-success">Đêm</span></td>
-                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
+                                <th>Tên loại tài khoản</th>
+                                <th>Xoá</th>
                             </tr>
+                            @foreach (string _val in Model.LstCurUserType)
+                            {
+                                <tr>
+                                    <td> <span class="label label-success">@_val</span></td>
+                                    <td><a href="@Url.Action("RemoveUserRole", "AccountAdmin", new { Id = Model.ObjUser.Id, RoleName = _val })" class="btn btn-block btn-danger btn-xs">Xoá</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <table class="table table-hover col-md-6">
+                        <tbody>
                             <tr>
-                                <td> <span class="label label-success">Đồng</span></td>
-                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
+                                <th>Tên laoị tài khoản</th>
+                                <th>Nâng cấp</th>
                             </tr>
-                            <tr>
-                                <td> <span class="label label-success">Vàng</span></td>
-                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
-                            </tr>
-                            <tr>
-                                <td> <span class="label label-success">Kim cương</span></td>
-                                <td><a href="#" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
-                            </tr>
+                            @foreach (SelectListItem _val in Model.LstAllUserType)
+                            {
+                                <tr>
+                                    <td> <span class="label label-success">@_val.Text</span></td>
+                                    <td><a href="@Url.Action("AddUserRole", "AccountAdmin",new { Id = Model.ObjUser.Id, RoleName = _val.Text } )" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
+                                </tr>
+                            }
 
                         </tbody>
                     </table>

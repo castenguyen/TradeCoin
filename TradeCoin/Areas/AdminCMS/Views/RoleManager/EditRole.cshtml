@@ -16,29 +16,37 @@
                 <div class="box-header with-border">
                     <h2 class="box-title">CHỈNH SỬA ROLE</h2>
                     <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+                    <div class="box-tools">
+                        <a href="@Url.Action("AddNewRole", "AccountAdmin", null)" class="btn btn-primary">Thêm mới Role</a>
+                    </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 @using (Html.BeginForm("EditRole", "AccountAdmin", FormMethod.Post, new { @class = "", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="box-body">
+                <div class="box-body">
 
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                        <div class="form-group col-md-9">
-                            @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label"})
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "readonly" })
-                        </div>
-                        <div class="form-group col-md-9">
-                            @Html.LabelFor(m => m.RoleDes, new { @class = "col-md-4 control-label" })
-                            @Html.TextAreaFor(m => m.RoleDes, new { @class = "form-control" })
-                        </div>
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.RoleDes, new { @class = "col-md-4 control-label" })
+                        @Html.TextAreaFor(m => m.RoleDes, new { @class = "form-control" })
+                    </div>
 
-                        <div class="form-group col-md-9">
-                            @Html.HiddenFor(m=>m.Id)
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div><!-- /.box-body -->
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.IsGroup, new { @class = "col-md-4 control-label" })
+                        @Html.CheckBoxFor(m => m.IsGroup)
+                    </div>
+
+                    <div class="form-group col-md-9">
+                        @Html.HiddenFor(m => m.Id)
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div><!-- /.box-body -->
                     @*<div class="box-footer col-md-9">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>*@
@@ -58,14 +66,16 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Mô tả</th>
+                            <th>Là nhóm quyền</th>
                         </tr>
                         @foreach (Role _item in Model.ListRole)
                         {
-                            <tr>
-                                <td>@_item.Id</td>
-                                <td><a href="@Url.Action("EditRole", "AccountAdmin", new {id=_item.Id})">@_item.Name</a>   </td>
-                                <td>@_item.RoleDes</td>
-                            </tr>
+                        <tr>
+                            <td>@_item.Id</td>
+                            <td><a href="@Url.Action("EditRole", "AccountAdmin", new {id=_item.Id})">@_item.Name</a>   </td>
+                            <td>@_item.RoleDes</td>
+                            <td>@_item.IsGroup</td>
+                        </tr>
                         }
 
                     </tbody>

@@ -61,6 +61,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 id = 1;
             ClassificationScheme _obj = cms_db.GetObjScheme(id.Value);
             ClassificationSchemeViewModels model = new ClassificationSchemeViewModels(_obj);
+            if (_obj.IsSystem == 1)
+            {
+                model.IsSystemVM = true;
+            }
+            else {
+                model.IsSystemVM = false;
+            }
+          
+
             model.ParentList = new SelectList(cms_db.GetLstClassificationScheme(), "ClassificationSchemeId", "ClassificationSchemeNM");
             return View(model);
         }
@@ -70,6 +79,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public async Task<ActionResult> Edit(ClassificationSchemeViewModels model)
         {
             ClassificationScheme _ObjClassScheme = model._ModelObj;
+            if (model.IsSystemVM == true)
+            {
+                _ObjClassScheme.IsSystem = 1;
+            }
+            else
+            {
+                _ObjClassScheme.IsSystem = 0;
+            }
             _ObjClassScheme.LstModDT = DateTime.Now;
             
             _ObjClassScheme.LstModUID = long.Parse(User.Identity.GetUserId());

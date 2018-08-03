@@ -52,7 +52,39 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "Promotion", action = "GetSelectListProductByCate" }
              );
 
+
+            #endregion
+
+
+            #region Role
+            context.MapRoute(
+             "AdminCMS_IndexRole",
+             "administrator/RoleManager/Index",
+             new { controller = "RoleManager", action = "Index" }
+          );
+
+
+            context.MapRoute(
+               "AdminCMS_AddNewRole",
+               "administrator/RoleManager/AddRole",
+               new { controller = "RoleManager", action = "AddNewRole" }
+            );
+
+
+            context.MapRoute(
+             "AdminCMS_EditRole",
+             "administrator/RoleManager/EditRole",
+             new { controller = "RoleManager", action = "EditRole" }
+          );
+
+             context.MapRoute(
+             "AdminCMS_CreateRoleGroup",
+             "administrator/RoleManager/CreateRoleGroup",
+             new { controller = "RoleManager", action = "CreateRoleGroup" }
+          );
+
             
+
             #endregion
 
 
@@ -103,19 +135,7 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "AccountAdmin", action = "ResetPassword" }
          );
 
-            context.MapRoute(
-            "AdminCMS_AddNewRole",
-            "administrator/Account/AddRole",
-            new { controller = "AccountAdmin", action = "AddNewRole" }
-        );
-
-
-            context.MapRoute(
-             "AdminCMS_EditRole",
-             "administrator/Account/EditRole",
-             new { controller = "AccountAdmin", action = "EditRole" }
-         );
-
+   
          
             context.MapRoute(
                 "AdminCMS_ListUser",
@@ -134,6 +154,13 @@ namespace CMSPROJECT.Areas.AdminCMS
              "administrator/Account/ManagerUser",
              new { controller = "AccountAdmin", action = "ManagerUser" }
               );
+
+            context.MapRoute(
+            "AdminCMS_UpgradePackage",
+            "administrator/Account/UpgradePackage",
+            new { controller = "AccountAdmin", action = "UpgradePackage" }
+        );
+
 
             
 
@@ -953,6 +980,30 @@ namespace CMSPROJECT.Areas.AdminCMS
                new { controller = "TickerManager", action = "Delete", id = UrlParameter.Optional }
                  );
 
+            #endregion
+
+            #region EmailManager
+            context.MapRoute(
+              "AdminCMS_EmailIndex",
+              "administrator/Email/Index",
+              new { controller = "EmailManager", action = "Index" }
+           );
+
+
+         
+            context.MapRoute(
+              "AdminCMS_CreateNewEmail",
+              "administrator/Email/CreateNewEmail",
+              new { controller = "EmailManager", action = "CreateNewEmail" }
+           );
+
+            context.MapRoute(
+            "AdminCMS_DetailEmail",
+            "administrator/Email/DetailEmail",
+            new { controller = "EmailManager", action = "DetailEmail" }
+         );
+
+            
             #endregion
 
 

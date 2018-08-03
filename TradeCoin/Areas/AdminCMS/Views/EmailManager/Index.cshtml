@@ -1,0 +1,129 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model EmailSupportIndexViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hộp thư</h3>
+                    <div class="box-tools">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#"><i class="fa fa-inbox"></i> Hộp thư tổng</a></li>
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
+                    </ul>
+                </div><!-- /.box-body -->
+
+                <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
+            </div><!-- /.box-body -->
+
+
+            <div class="box box-solid">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách support viên</h3>
+                    <div class="box-tools">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <p class="text-red">Click chọn một support viên để đặt câu hỏi</p>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        @{
+                            foreach (User _val in Model.lstMod)
+                            {
+                                <li><a href="@Url.Action("CreateNewEmail", "EmailManager", new {ModId=_val.Id })"> @_val.FullName  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
+                            }
+                        }
+
+
+
+
+                    </ul>
+                </div>
+
+
+            </div><!-- /. box -->
+
+        </div><!-- /.col -->
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Inbox</h3>
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            <input type="text" class="form-control input-sm" placeholder="Tìm kiếm thư">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <div class="mailbox-controls">
+                        <!-- Check all button -->
+                        <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+
+                        </div><!-- /.btn-group -->
+                        <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+
+                    </div>
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+
+                                @{
+                                    foreach (EmailSupport _val in Model.lstEmailSupport)
+                                    {
+
+
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                                            <td class="mailbox-name"><a href="@Url.Action("DetailEmail", "EmailManager", new {emailId=_val.EmailId })">@_val.DestinationName</a></td>
+                                            <td class="mailbox-subject"><b>@_val.EmailName</b> @_val.EmailName</td>
+                                            <td class="mailbox-attachment"></td>
+                                            <td class="mailbox-date">@_val.CrtdDT</td>
+                                        </tr>
+
+
+                                    }
+                                }
+
+
+                            </tbody>
+                        </table><!-- /.table -->
+                    </div><!-- /.mail-box-messages -->
+                </div><!-- /.box-body -->
+                <div class="box-footer no-padding">
+
+                    @if (Model.lstEmailSupport.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstEmailSupport, page => Url.Action("Index", new
+                        {
+                            page,
+                            EmailStatus = Model.EmailStatus,
+
+                        }))
+                    }
+                </div>
+            </div><!-- /. box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->

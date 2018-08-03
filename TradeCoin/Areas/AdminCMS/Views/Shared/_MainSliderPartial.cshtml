@@ -120,6 +120,19 @@
                 </ul>
             </li>
 
+            <li class="treeview">
+                <a href="@Url.Action("Index", "RoleManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-user"></i>
+                    <span>Quản lý Role</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Index", "RoleManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Role</a></li>
+                    <li><a href="@Url.Action("AddNewRole", "RoleManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Role</a></li>
+
+                </ul>
+            </li>
+
+
 
             <li>
                 <a href="@Url.Action("Index", "Config", new { area = "AdminCMS" })">
@@ -177,6 +190,13 @@
 
                 </ul>
             </li>
+
+            <li>
+                <a href="@Url.Action("Index", "EmailManager", new { area = "AdminCMS" })">
+                    <i class="fa fa-lock"></i> <span>Hộp Thư</span>
+                </a>
+            </li>
+
 
 
         </ul>

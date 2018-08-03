@@ -51,6 +51,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Core
 
         }
 
+
         public string GetFriendlyUrlFromstring(string title, int objtype)
         {
 

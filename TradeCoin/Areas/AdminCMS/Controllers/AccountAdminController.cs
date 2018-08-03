@@ -73,6 +73,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
+
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -279,12 +281,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 ViewBag.SiteName = tmp2.site_name;
                 return View("RegisterWithCode");
             }
-            else {
+            else
+            {
                 Config tmp2 = ExtFunction.Config();
                 ViewBag.SiteName = tmp2.site_name;
                 return View();
             }
-        
+
         }
 
         [HttpPost]
@@ -317,24 +320,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         message.Body = string.Format("Để xác thực email vui lòng nhấp vào liên kết: <a href='{0}'>Tại đây</a>", callbackUrl);
                         message.Subject = "Xác thực tài khoản";
                         message.Destination = user.Email;
-                        await email.SendAsync(message, EmailService.EmailAdmin, EmailService.EmailAdmin,
-                            EmailService.EmailAdminPassword, EmailService.EmailAdminSMTP, EmailService.Portmail, true);
+                        await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
+                            ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
 
                         return RedirectToAction("Login", "AccountAdmin");
                     }
-                    else {
+                    else
+                    {
                         if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
                         {
-                          
+
                             AddErrors(result);
                             return View("RegisterWithCode");
-                            
+
                         }
-                        else {
+                        else
+                        {
                             AddErrors(result);
                             return View();
                         }
-                       
+
                     }
                 }
                 return View(model);
@@ -430,15 +435,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
                     }
 
-                    string code  = UserManager.GenerateUserToken( "LoginWithToken", user.Id);
+                    string code = UserManager.GenerateUserToken("LoginWithToken", user.Id);
                     var callbackUrl = Url.Action("LoginWithToken", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     EmailService email = new EmailService();
                     IdentityMessage message = new IdentityMessage();
                     message.Body = string.Format("Để đăng nhập vui lòng nhấp vào liên kết: <a href='{0}'>Tại đây</a>", callbackUrl);
                     message.Subject = "Đăng nhập";
                     message.Destination = user.Email;
-                    await email.SendAsync(message, EmailService.EmailAdmin, EmailService.EmailAdmin,
-                        EmailService.EmailAdminPassword, EmailService.EmailAdminSMTP, EmailService.Portmail, true);
+                    await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
+                        ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
 
                     int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                             (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
@@ -497,12 +502,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult LoginWithTokenAlert()
         {
 
-                return View();
+            return View();
 
         }
-
-        
-
 
 
         /// <summary>
@@ -536,7 +538,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
                 return RedirectToAction("Index", "Dashboard");
             }
-            else {
+            else
+            {
 
                 return RedirectToAction("Login", "AccountAdmin");
             }
@@ -578,8 +581,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     message.Body = string.Format("Vui lòng nhấp vào đường link: <a href='{0}'>Tại đây</a> để lấy lại mật khẩu", callbackUrl);
                     message.Subject = "Lấy lại mật khẩu";
                     message.Destination = user.Email;
-                    await email.SendAsync(message, EmailService.EmailAdmin, EmailService.EmailAdmin,
-                        EmailService.EmailAdminPassword, EmailService.EmailAdminSMTP, EmailService.Portmail, true);
+                    await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
+                        ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
 
                     return RedirectToAction("ForgotPassword", "AccountAdmin");
                 }
@@ -603,8 +606,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             return RedirectToAction("Login");
         }
-
-  
 
 
         [AllowAnonymous]
@@ -760,7 +761,249 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         #endregion
+        #region Profile
+        [AdminAuthorize]
+        public ActionResult Profile()
+        {
+            long CurrentUid = long.Parse(User.Identity.GetUserId());
+            ProfileViewModel model = new ProfileViewModel();
+            model._ModelObj = cms_db.GetObjUserByIdNoAsync(CurrentUid);
+            model.GenderList = new SelectList(cms_db.GetCatagoryForSelectList((int)EnumCore.ClassificationScheme.GenderType), "ClassificationId", "ClassificationNM");
+            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.nguoi_dung
+                                                        && s.ContentObjId == CurrentUid).FirstOrDefault();
+            if (CurrentMediaId != null)
+                model.ImgUrl = CurrentMediaId.FullURL;
+            return View(model);
+        }
 
+        [AdminAuthorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Profile(ProfileViewModel model, HttpPostedFileBase Imgfiles)
+        {
+            User mainobj = cms_db.GetObjUserByIdNoAsync(model.Id);
+            mainobj.Id = model.Id;
+
+            mainobj.BirthDay = model.BirthDay;
+
+            mainobj.GenderId = model.GenderId;
+            mainobj.GenderName = model.GenderName;
+            mainobj.PhoneNumber = model.PhoneNumber;
+
+            await this.SaveImageForUser(Imgfiles, mainobj.Id);
+            await cms_db.UpdateUser(mainobj);
+            return RedirectToAction("Profile", "AccountAdmin");
+        }
+
+        private async Task<long> SaveImageForUser(HttpPostedFileBase file, long UserId)
+        {
+            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.nguoi_dung && s.ContentObjId == UserId).FirstOrDefault();
+            if (CurrentMediaId != null)
+            {
+                int rs = await cms_db.DeleteMediaContent(CurrentMediaId.MediaContentId);
+            }
+            ImageUploadViewModel item = new ImageUploadViewModel();
+            item = cms_db.UploadHttpPostedFileBase(file);
+            MediaContentViewModels _Media = new MediaContentViewModels();
+            _Media.Filename = item.ImageName;
+            _Media.FullURL = item.ImageUrl;
+            _Media.ContentObjId = UserId;
+            _Media.ObjTypeId = (int)EnumCore.ObjTypeId.nguoi_dung;
+            _Media.ViewCount = 0;
+            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh;
+            _Media.CrtdDT = DateTime.UtcNow;
+            _Media.MediaContentSize = file.ContentLength;
+            _Media.ThumbURL = item.ImageThumbUrl;
+            _Media.CrtdUID = long.Parse(User.Identity.GetUserId());
+            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh;
+            return await cms_db.AddNewMediaContent(_Media);
+
+        }
+
+        #endregion End Profile
+
+        #region USER MANAGER
+       
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public ActionResult ListUser(string letter, string RoleName, int? page = 1)
+        {
+            int pageNum = (page ?? 1);
+            UserRoleViewModel model = new UserRoleViewModel();
+            model.LstRole = cms_db.GetRoleList2();
+            var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
+            IQueryable<User> tmp = null;
+            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "devuser"))
+            {
+                tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
+            }
+            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "supperadmin"))
+            {
+                tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
+            }
+            if (!String.IsNullOrEmpty(letter))
+            {
+                letter = letter.ToLower();
+                tmp = tmp.Where(c => c.Login.StartsWith(letter) || c.EMail.StartsWith(letter));
+            }
+            if (!String.IsNullOrEmpty(RoleName))
+            {
+                tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
+            }
+            model.LstAllUser = tmp.OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.Page = pageNum;
+            model.letter = letter;
+            return View(model);
+        }
+
+        /// <summary>
+        /// HIỂN THỊ THÔNG TIN CHI TIẾT USER
+        /// THÔNG TIN VỀ TÀI KHOẢN
+        /// LỊCH SỬ HOẠT ĐỘNG ---NẾU LÀ MEMBER THI CÓ LỊCH SỬ NÂNG CẤP
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> DetailUser(long id)
+        {
+            User _ObjUser = await cms_db.GetObjUserById(id);
+            UserAndRoles model = new UserAndRoles();
+            model.LstCurPermission = await UserManager.GetRolesAsync(id);
+            model.ObjUser = _ObjUser;
+            model.LstAllPermission = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
+            return View(model);
+        }
+
+
+        /// <summary>
+        /// PHÂN QUYỀN CHO USER 
+        /// THAY ĐỔI GÓI PACKAGE CHO USER (NÂNG CẤP USER)
+        /// /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> ManagerUser(long id, string alertMessage)
+        {
+            User _ObjUser = await cms_db.GetObjUserById(id);
+            UserAndRoles model = new UserAndRoles();
+            model.LstCurPermission = await UserManager.GetRolesAsync(id);
+            model.LstAllPermission = new SelectList(cms_db.GetlstRole().Where(s=>s.IsGroup==false), "Id", "Name");
+            model.ObjUser = _ObjUser;
+            model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
+
+            model.LstCurUserType = await UserManager.GetRolesAsync(id);
+            model.LstAllUserType = new SelectList(cms_db.GetlstRole().Where(s => s.IsGroup == true), "Id", "Name");
+            if (!String.IsNullOrEmpty(alertMessage))
+            {
+                model.AlertMessage = alertMessage;
+            }
+
+          
+
+            return View(model);
+        }
+        /// <summary>
+        /// NÂNG CẤP 1 TÀI KHOẢN
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="packageid"></param>
+        /// <returns></returns>
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> UpgradePackage(long id, long packageid)
+        {
+            try
+            {
+                User _ObjUser = await cms_db.GetObjUserById(id);
+                Package ObjCurrentPackage = cms_db.GetObjPackage(_ObjUser.PackageId.Value);
+                Package ObjPackage = cms_db.GetObjPackage(packageid);
+                if (ObjCurrentPackage.NumDay > ObjPackage.NumDay)
+                {
+                    return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Không thể nâng cấp gói cước mới" });
+                }
+                _ObjUser.PackageId = ObjPackage.PackageId;
+                _ObjUser.PackageName = ObjPackage.PackageName;
+                int rs = await cms_db.UpdateUser(_ObjUser);
+                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Nâng cấp gói cước mới thành công" });
+
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpgradePackage", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id });
+            }
+        }
+
+
+        /// <summary>
+        /// THÊM ROLE MỚI CHO USER
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="RoleName"></param>
+        /// <returns></returns>
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+
+        public async Task<ActionResult> AddUserRole(long Id, string RoleName)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(RoleName))
+                {
+                    var result = await UserManager.AddToRoleAsync(Id, RoleName);
+                    Role objParentRole = cms_db.GetObjRoleByName(RoleName);
+                    long[] lstChildRole = cms_db.GetlstPermission(objParentRole.Id);
+                    foreach (int _val in lstChildRole)
+                    {
+                        Role obj = cms_db.GetObjRoleById(_val);
+                        await UserManager.AddToRoleAsync(Id, obj.Name);
+                    }
+                }
+                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = Id, alertMessage = "Thêm quyền mới thành công" });
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("AddUserRole", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = Id, alertMessage = "Thêm quyền mới không thành công" });
+            }
+        }
+        /// <summary>
+        /// LOẠI BỎ MỘT ROLE CỦA USER
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="RoleName"></param>
+        /// <returns></returns>
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> RemoveUserRole(long id, string RoleName)
+        {
+
+            try
+            {
+                if (!String.IsNullOrEmpty(RoleName))
+                {
+                    var result = await UserManager.RemoveFromRoleAsync(id, RoleName);
+                    Role objParentRole = cms_db.GetObjRoleByName(RoleName);
+                    long[] lstChildRole = cms_db.GetlstPermission(objParentRole.Id);
+                    foreach (int _val in lstChildRole)
+                    {
+                        Role obj = cms_db.GetObjRoleById(_val);
+                        await UserManager.RemoveFromRoleAsync(id, obj.Name);
+                    }
+                }
+                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Xoá quyền thành công" });
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("RemoveUserRole", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Xoá quyền không thành công" });
+            }
+        }
+
+
+
+
+        #endregion
 
         #region Private Function
 
@@ -819,215 +1062,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         #endregion
 
-        #region Profile
-        [AdminAuthorize]
-        public ActionResult Profile()
-        {
-            long CurrentUid = long.Parse(User.Identity.GetUserId());
-            ProfileViewModel model = new ProfileViewModel();
-            model._ModelObj = cms_db.GetObjUserByIdNoAsync(CurrentUid);
-            model.GenderList = new SelectList(cms_db.GetCatagoryForSelectList((int)EnumCore.ClassificationScheme.GenderType), "ClassificationId", "ClassificationNM");
-            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.nguoi_dung
-                                                        && s.ContentObjId == CurrentUid).FirstOrDefault();
-            if (CurrentMediaId != null)
-                model.ImgUrl = CurrentMediaId.FullURL;
-            return View(model);
-        }
-
-        [AdminAuthorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Profile(ProfileViewModel model, HttpPostedFileBase Imgfiles)
-        {
-            User mainobj = cms_db.GetObjUserByIdNoAsync(model.Id);
-            mainobj.Id = model.Id;
-           
-            mainobj.BirthDay = model.BirthDay;
-          
-            mainobj.GenderId = model.GenderId;
-            mainobj.GenderName = model.GenderName;
-            mainobj.PhoneNumber = model.PhoneNumber;
-
-            await this.SaveImageForUser(Imgfiles, mainobj.Id);
-            await cms_db.UpdateUser(mainobj);
-            return RedirectToAction("Profile", "AccountAdmin");
-        }
-
-        private async Task<long> SaveImageForUser(HttpPostedFileBase file, long UserId)
-        {
-            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.nguoi_dung && s.ContentObjId == UserId).FirstOrDefault();
-            if (CurrentMediaId != null)
-            {
-                int rs = await cms_db.DeleteMediaContent(CurrentMediaId.MediaContentId);
-            }
-            ImageUploadViewModel item = new ImageUploadViewModel();
-            item = cms_db.UploadHttpPostedFileBase(file);
-            MediaContentViewModels _Media = new MediaContentViewModels();
-            _Media.Filename = item.ImageName;
-            _Media.FullURL = item.ImageUrl;
-            _Media.ContentObjId = UserId;
-            _Media.ObjTypeId = (int)EnumCore.ObjTypeId.nguoi_dung;
-            _Media.ViewCount = 0;
-            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh;
-            _Media.CrtdDT = DateTime.UtcNow;
-            _Media.MediaContentSize = file.ContentLength;
-            _Media.ThumbURL = item.ImageThumbUrl;
-            _Media.CrtdUID = long.Parse(User.Identity.GetUserId());
-            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh;
-            return await cms_db.AddNewMediaContent(_Media);
-
-        }
-
-        #endregion End Profile
-
-        #region role
-        [AdminAuthorize(Roles = "devuser")]
-        public ActionResult AddNewRole()
-        {
-            RoleViewModel model = new RoleViewModel();
-            model.ListRole = cms_db.GetRoleListReturnList();
-            return View(model);
-        }
-
-        [AdminAuthorize(Roles = "devuser")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddNewRole(RoleViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Role _Role = new Role();
-                _Role.Name = model.Name;
-                _Role.RoleDes = model.RoleDes;
-                int rs = await cms_db.AddRole(_Role);
-                return RedirectToAction("AddNewRole");
-            }
-            return RedirectToAction("Dashboard", "HomeAdmin");
-        }
-
-        [AdminAuthorize(Roles = "devuser")]
-        public ActionResult EditRole(long id)
-        {
-            RoleViewModel model = new RoleViewModel();
-            model._Role = cms_db.GetObjRoleById(id);
-            model.ListRole = cms_db.GetRoleListReturnList();
-            return View(model);
-        }
-
-        [AdminAuthorize(Roles = "devuser")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditRole(RoleViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Role _Role = cms_db.GetObjRoleById(model.Id);
-                _Role.RoleDes = model.RoleDes;
-                int rs = await cms_db.UpdateRole(_Role);
-                return RedirectToAction("AddNewRole");
-            }
-            return RedirectToAction("Dashboard", "HomeAdmin");
-        }
-
-
-
-
-
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public ActionResult ListUser(string letter, string RoleName, int? page = 1)
-        {
-            int pageNum = (page ?? 1);
-            UserRoleViewModel model = new UserRoleViewModel();
-            model.LstRole = cms_db.GetRoleList2();
-            var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
-            IQueryable<User> tmp = null;
-            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "devuser"))
-            {
-                tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
-            }
-            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "supperadmin"))
-            {
-                tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
-            }
-            if (!String.IsNullOrEmpty(letter))
-            {
-                letter = letter.ToLower();
-                tmp = tmp.Where(c => c.Login.StartsWith(letter) || c.EMail.StartsWith(letter));
-            }
-            if (!String.IsNullOrEmpty(RoleName))
-            {
-                tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
-            }
-            model.LstAllUser = tmp.OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-            model.Page = pageNum;
-            model.letter = letter;
-            return View(model);
-        }
-
-        /// <summary>
-        /// HIỂN THỊ THÔNG TIN CHI TIẾT USER
-        /// THÔNG TIN VỀ TÀI KHOẢN
-        /// LỊCH SỬ HOẠT ĐỘNG ---NẾU LÀ MEMBER THI CÓ LỊCH SỬ NÂNG CẤP
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public async Task<ActionResult> DetailUser(long id)
-        {
-            User _ObjUser = await cms_db.GetObjUserById(id);
-            UserAndRoles model = new UserAndRoles();
-            model.LstCurRole = await UserManager.GetRolesAsync(id);
-            model.ObjUser = _ObjUser;
-            model.LstAllRole = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
-            return View(model);
-        }
-
-
-        /// <summary>
-        /// PHÂN QUYỀN CHO USER 
-        /// THAY ĐỔI GÓI PACKAGE CHO USER (NÂNG CẤP USER)
-        /// /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
      
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public async Task<ActionResult> ManagerUser(long id)
-        {
-            User _ObjUser = await cms_db.GetObjUserById(id);
-            UserAndRoles model = new UserAndRoles();
-            model.LstCurRole = await UserManager.GetRolesAsync(id);
-            model.ObjUser = _ObjUser;
-            model.LstAllRole = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
-            return View(model);
-        }
-
-
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public async Task<ActionResult> AddUserRole(long Id, string RoleName)
-        {
-            if (!String.IsNullOrEmpty(RoleName))
-            {
-                var result = await UserManager.AddToRoleAsync(Id, RoleName);
-            }
-            return RedirectToAction("ManagerUser", "AccountAdmin", new { id = Id });
-        }
-
-
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public async Task<ActionResult> RemoveUserRole(long id, string RoleName)
-        {
-            if (!String.IsNullOrEmpty(RoleName))
-            {
-                var result = await UserManager.RemoveFromRoleAsync(id, RoleName);
-            }
-            return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id });
-        }
-
-
-
-
-        #endregion
         private class ChallengeResult : HttpUnauthorizedResult
         {
             #region constructors and destructors

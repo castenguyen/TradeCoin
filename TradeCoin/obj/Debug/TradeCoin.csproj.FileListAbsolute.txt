@@ -75,7 +75,7 @@ D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Antlr3.Runtime.pdb
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.Owin.Security.Facebook.xml
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.Owin.Security.Google.xml
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\TradeCoin.csprojResolveAssemblyReference.cache
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\TradeCoin.csproj.CoreCompileInputs.cache
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\Alluneecms.dll
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\Alluneecms.pdb
-D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\TradeCoin.csprojResolveAssemblyReference.cache

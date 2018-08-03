@@ -1,0 +1,124 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@model DataModel.DataViewModel.EmailSupportViewModel
+@{
+    ViewBag.Title = "CreateNewEmail";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+
+    string bare_url = AppDomain.CurrentDomain.BaseDirectory;
+    string folderimg = bare_url + "images";
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hộp thư</h3>
+                    <div class="box-tools">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#"><i class="fa fa-inbox"></i> Hộp thư tổng</a></li>
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
+                        <li><a href="#"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
+                    </ul>
+                </div><!-- /.box-body -->
+
+                <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
+            </div><!-- /.box-body -->
+            <div class="box box-solid">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách support viên</h3>
+                    <div class="box-tools">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                    <p class="text-red">Click chọn một support viên để đặt câu hỏi</p>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#"> Mod 1  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
+                        <li><a href="#"> Mod 2  <span class="text-blue pull-right" ">230 điểm hạng 2 </span></a>  </li>
+                        <li><a href="#"> Mod 3  <span class="text-blue pull-right" ">230 điểm hạng 3 </span></a>  </li>
+
+                    </ul>
+                </div><!-- /.box-body -->
+
+
+            </div><!-- /. box -->
+
+        </div><!-- /.col -->
+
+        <div class="col-md-9">
+            <div class="box box-primary">
+
+                @using (Html.BeginForm("CreateNewEmail", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tạo mới thư support</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @*<input class="form-control" placeholder="To:">*@
+                            @Html.TextBoxFor(m => m.DestinationName, new { @class = "form-control", placeholder = "To:" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", placeholder = "Subject:" })
+                            @*<input class="form-control" placeholder="Subject:">*@
+                        </div>
+                        <div class="form-group">
+                            @*<textarea id="compose-textarea" class="form-control" style="height: 300px">*@
+                            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", style = "height: 300px" })
+
+                        </div>
+
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Gửi</button>
+                        </div>
+                    </div><!-- /.box-footer -->
+                }
+            </div><!-- /. box -->
+        </div><!-- /.col -->
+
+    </div><!-- /.row -->
+</section><!-- /.content -->
+<script>
+    $(function () {
+        //Add text editor
+        $("#Content").wysihtml5();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        var rules = {
+            Subject: "required"
+            ,Content: "required"
+
+        };
+        var messages = {
+            Subject: "Vui lòng kiểm tiêu đề thư"
+            , Content: "Vui lòng kiểm tra nội dung gửi"
+        };
+
+        ValidationForm({
+            ctrID: "CreateForm"
+            , rules: rules
+            , messages: messages
+        })
+
+    });
+
+</script>
