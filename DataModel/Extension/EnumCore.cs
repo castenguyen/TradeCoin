@@ -185,7 +185,22 @@ namespace DataModel.Extension
              /// ==>khi hệ thống đăng nhập bằng mã token thì LoginWithCode bật lên = 1 ngược lai là 0
              /// </summary>
              LoginWithCode = 1,
-          }
+            
+        }
+
+
+        public enum EmailStatus : int
+        {
+            cho_hoi_am = 6017,
+            da_xem = 6015,
+            da_xoa = 6148,
+
+
+            //cho_phep = 6015,
+            //khong_cho_phep = 6016,
+            //cho_duyet = 6017,
+            //da_xoa = 6148,
+        }
 
         #endregion END BACKEND
 

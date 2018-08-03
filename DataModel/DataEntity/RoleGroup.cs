@@ -12,18 +12,12 @@ namespace DataModel.DataEntity
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class RoleGroup
     {
-        public Role()
-        {
-            this.Users = new HashSet<User>();
-        }
-    
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string RoleDes { get; set; }
-        public bool IsGroup { get; set; }
-    
-        public virtual ICollection<User> Users { get; set; }
+        public long RoleGroupId { get; set; }
+        public long RoleId { get; set; }
+        public string CrtdUserName { get; set; }
+        public Nullable<long> CrtdUserId { get; set; }
+        public Nullable<System.DateTime> CrtdDT { get; set; }
     }
 }

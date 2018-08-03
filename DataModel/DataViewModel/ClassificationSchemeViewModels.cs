@@ -96,30 +96,8 @@ namespace DataModel.DataViewModel
         [Display(Name = "ShortNM")]
         public Nullable<byte> IsSystem
         {
-            get
-            {
-                if (this.IsSystemVM == true)
-                {
-                    return 1;
-                }
-
-                else
-                {
-                    return 0;
-                };
-            }
-            set
-            {
-                if (this.IsSystemVM == true)
-                {
-                    _ModelObj.IsSystem = 1;
-                }
-
-                else
-                {
-                    _ModelObj.IsSystem = 0;
-                };
-            }
+            get { return _ModelObj.IsSystem; }
+            set { _ModelObj.IsSystem = value; }
         }
 
         [Display(Name = "IsSystem")]

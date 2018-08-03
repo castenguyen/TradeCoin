@@ -261,7 +261,7 @@
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="alluneedbModel.Role">
         <MappingFragment StoreEntitySet="Role">
-          <ScalarProperty Name="isPermission" ColumnName="isPermission" />
+          <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="RoleDes" ColumnName="RoleDes" />
@@ -944,6 +944,17 @@
           <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
           <ScalarProperty Name="PackageName" ColumnName="PackageName" />
           <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleGroups">
+      <EntityTypeMapping TypeName="alluneedbModel.RoleGroup">
+        <MappingFragment StoreEntitySet="RoleGroup">
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleGroupId" ColumnName="RoleGroupId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

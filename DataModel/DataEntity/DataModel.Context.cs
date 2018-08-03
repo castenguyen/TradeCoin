@@ -61,6 +61,7 @@ namespace DataModel.DataEntity
         public virtual DbSet<EmailSupport> EmailSupports { get; set; }
         public virtual DbSet<Ticker> Tickers { get; set; }
         public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<RoleGroup> RoleGroups { get; set; }
     
         public virtual int GetDataUserInfor(string username)
         {

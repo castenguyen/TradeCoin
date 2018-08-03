@@ -30,7 +30,7 @@ namespace DataModel.DataStore
             }
 
         }
-        public Package GetObjPackage(int PackageId)
+        public Package GetObjPackage(long PackageId)
         {
             var ObjPackage = db.Packages.FirstOrDefault(c => c.PackageId == PackageId);
             return ObjPackage;

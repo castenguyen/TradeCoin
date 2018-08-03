@@ -25,7 +25,7 @@ namespace DataModel.DataViewModel
         }
 
 
-      
+
 
         public long EmailId
         {
@@ -37,11 +37,16 @@ namespace DataModel.DataViewModel
             get { return _MainObj.EmailName; }
             set { _MainObj.EmailName = value; }
         }
+        [Display(Name = "Tiêu đề thư")]
         public string Subject
         {
             get { return _MainObj.Subject; }
             set { _MainObj.Subject = value; }
         }
+
+        [Required]
+        [AllowHtml]
+        [Display(Name = "Nội dung")]
         public string Content
         {
             get { return _MainObj.Content; }
@@ -119,8 +124,14 @@ namespace DataModel.DataViewModel
         }
 
 
-
-
-
     }
+
+    public class EmailSupportIndexViewModel
+    {
+        public List<User> lstMod { get; set; }
+        public IPagedList<EmailSupport> lstEmailSupport { get; set; }
+        public int EmailStatus { get; set; }
+        public int pageNum { get; set; }
+    }
+
 }

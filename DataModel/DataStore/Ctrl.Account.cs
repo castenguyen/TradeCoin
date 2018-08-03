@@ -220,6 +220,20 @@ namespace DataModel.DataStore
                 return null;
             }
         }
+
+        public Role GetObjRoleByName(string name)
+        {
+            try
+            {
+                Role ObjRole = db.Roles.Where(s=>s.Name==name).FirstOrDefault();
+                return ObjRole;
+            }
+            catch (Exception ex)
+            {
+                this.AddToExceptionLog("function GetObjRoleById", "BackEndCode", ex.ToString());
+                return null;
+            }
+        }
         public async Task<int> UpdateRole(Role _Role)
         {
             try

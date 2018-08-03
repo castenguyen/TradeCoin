@@ -207,7 +207,7 @@
     <Property Name="DestinationId" Type="bigint" />
     <Property Name="DestinationName" Type="nvarchar" MaxLength="500" />
     <Property Name="ParentId" Type="bigint" />
-    <Property Name="ParentName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ParentName" Type="nvarchar" MaxLength="500" />
     <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
     <Property Name="CrtdUserId" Type="bigint" />
     <Property Name="CrtdDT" Type="datetime" />
@@ -548,7 +548,18 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RoleDes" Type="nvarchar(max)" />
-    <Property Name="isPermission" Type="int" />
+    <Property Name="IsGroup" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoleGroup">
+    <Key>
+      <PropertyRef Name="RoleGroupId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleGroupId" Type="bigint" Nullable="false" />
+    <Property Name="RoleId" Type="bigint" Nullable="false" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
   </EntityType>
   <EntityType Name="ShippingAddress">
     <Key>
@@ -978,6 +989,7 @@
     <EntitySet Name="PromotionContent" EntityType="Self.PromotionContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RelatedContentItem" EntityType="Self.RelatedContentItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleGroup" EntityType="Self.RoleGroup" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ShippingAddress" EntityType="Self.ShippingAddress" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ticker" EntityType="Self.Ticker" Schema="dbo" store:Type="Tables" />

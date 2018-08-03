@@ -193,8 +193,22 @@ namespace DataModel.DataViewModel
             get { return _Role.RoleDes; }
             set { _Role.RoleDes = value; }
         }
+
+        [Display(Name = "IsGroup")]
+        public bool IsGroup
+        {
+            get { return _Role.IsGroup; }
+            set { _Role.IsGroup = value; }
+        }
+     
+
+
         public SelectList RoleList { get; set; }
         public List<Role> ListRole { get; set; }
+
+
+        public long[] lstPermission { get; set; }
+   
     }
 
     public class UserRoleViewModel
@@ -222,14 +236,25 @@ namespace DataModel.DataViewModel
         public User ObjUser { get; set; }
 
         [Required]
-        [Display(Name = "Danh sách Role")]
-        public IEnumerable<string> LstCurRole { get; set; }
+        [Display(Name = "Danh sách quyền hiện tại")]
+        public IEnumerable<string> LstCurPermission { get; set; }
 
-      
-        [Display(Name = "Tất cả role Role")]
-        public SelectList LstAllRole { get; set; }
+        [Display(Name = "Tất cả các quyền")]
+        public SelectList LstAllPermission { get; set; }
 
         public string RoleName { get; set; }
+
+        public SelectList LstPackages { get; set; }
+
+        public string AlertMessage { get; set; }
+
+
+        [Required]
+        [Display(Name = "Danh sách loại tài khoản hiện tại")]
+        public IEnumerable<string> LstCurUserType { get; set; }
+
+        [Display(Name = "Tất cả các loại tài khoản")]
+        public SelectList LstAllUserType { get; set; }
 
     }
 

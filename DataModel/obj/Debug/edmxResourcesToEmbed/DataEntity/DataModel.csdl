@@ -273,7 +273,7 @@
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="RoleDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Self.UserRole" FromRole="Role" ToRole="User" />
-    <Property Name="isPermission" Type="Int32" />
+    <Property Name="IsGroup" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Tag">
     <Key>
@@ -686,6 +686,7 @@
       <Parameter Name="SEARCHSTRING" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
+    <EntitySet Name="RoleGroups" EntityType="alluneedbModel.RoleGroup" />
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -1009,7 +1010,7 @@
     <Property Name="DestinationId" Type="Int64" />
     <Property Name="DestinationName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ParentId" Type="Int64" />
-    <Property Name="ParentName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ParentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserId" Type="Int64" />
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
@@ -1250,5 +1251,16 @@
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
     <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StateId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RoleGroup">
+    <Key>
+      <PropertyRef Name="RoleGroupId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleGroupId" Type="Int64" Nullable="false" />
+    <Property Name="RoleId" Type="Int64" Nullable="false" />
+    <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CrtdUserId" Type="Int64" />
+    <Property Name="CrtdDT" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

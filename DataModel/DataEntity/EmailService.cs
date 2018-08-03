@@ -7,16 +7,17 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DataModel.DataEntity
 {
     public class EmailService : IIdentityMessageService
     {
         #region methods
-        public static string PageName = "HQDN";
-        public static string EmailAdminSMTP = "smtp.gmail.com";
-        public static string EmailAdmin = "botogiasi@gmail.com";
-        public static string EmailAdminPassword = "Botogiasi2016";
-        public static int Portmail = 587;
+      //  public static string PageName = "HQDN";
+       // public static string EmailAdminSMTP = "smtp.gmail.com";
+       //  public static string EmailAdmin = "botogiasi@gmail.com";
+       // public static string EmailAdminPassword = "Botogiasi2016";
+       // public static int Portmail = 587;
 
         public Task SendAsync(IdentityMessage message)
         {

@@ -13,7 +13,7 @@ using System.Web;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
-
+using DataModel.Extension;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -23,6 +23,8 @@ namespace DataModel.DataStore
 {
     public partial class Ctrl : Core
     {
+
+        /*
         public static string PrefixImageName = "phong-lan-gia-si";
         public static string PrefixImageContentURL = "phong-lan-gia-si";
         public static string DefaulMediaContentURL = "";
@@ -34,6 +36,8 @@ namespace DataModel.DataStore
         public static string FTPFolder = "CMSADMIN";
         public static string FTPURL = "ftp://103.3.250.22";
         public static string WaterMask = "";
+
+    */
 
 
         public async Task<long> AddNewMediaContent(MediaContentViewModels mediaContent)
@@ -247,9 +251,9 @@ namespace DataModel.DataStore
             ImageUploadViewModel imgUpload = new ImageUploadViewModel();
             long _ImgId = 0;
             string coderandom = DateTime.UtcNow.Ticks.ToString();
-            coderandom = PrefixImageName + coderandom;
+            coderandom = ConstantSystem.PrefixImageName + coderandom;
             var _Filename = Path.GetFileName(desimg.FileName);
-            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FolderImage);
+            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstantSystem.FolderImage);
             string _NameRandom = coderandom + _Filename;
             var path = Path.Combine(_ServerPath, _NameRandom);
             if (!System.IO.Directory.Exists(_ServerPath))
@@ -257,8 +261,8 @@ namespace DataModel.DataStore
             desimg.SaveAs(path);
             FileHelper.SaveResizedImage(_ServerPath, _NameRandom, "thumb" + _NameRandom, 200, 200);
             imgUpload.ImageName = _NameRandom;
-            imgUpload.ImageThumbUrl = FolderImage + "/thumb" + _NameRandom;
-            imgUpload.ImageUrl = FolderImage + "/" + _NameRandom;
+            imgUpload.ImageThumbUrl = ConstantSystem.FolderImage + "/thumb" + _NameRandom;
+            imgUpload.ImageUrl = ConstantSystem.FolderImage + "/" + _NameRandom;
             imgUpload.MediaContentId = _ImgId;
             return imgUpload;
         }
@@ -284,14 +288,14 @@ namespace DataModel.DataStore
         {
             HttpPostedFileBase desimg = Request;
             ImageUploadViewModel imgUpload = new ImageUploadViewModel();
-            string coderandom = PrefixImageName;
+            string coderandom = ConstantSystem.PrefixImageName;
             var _Filename = Path.GetFileName(desimg.FileName);
-            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FolderImage);
+            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstantSystem.FolderImage);
             string _NameRandom = coderandom + _Filename;
             var path = Path.Combine(_ServerPath, _NameRandom);
             desimg.SaveAs(path);
             imgUpload.ImageName = _NameRandom;
-            imgUpload.ImageUrl = FolderImage + "/" + _NameRandom;
+            imgUpload.ImageUrl = ConstantSystem.FolderImage + "/" + _NameRandom;
             return imgUpload;
         }
         public async Task<List<ImageUploadViewModel>> UploadImageServerForCK(HttpRequestBase Request)
@@ -334,11 +338,11 @@ namespace DataModel.DataStore
         {
 
             FileInfo fileInf = new FileInfo(filename);
-            string uri = FolderFTPImage + fileInf.Name;
+            string uri = ConstantSystem.FolderFTPImage + fileInf.Name;
             FtpWebRequest reqFTP;
 
-            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(FolderFTPImage + fileInf.Name));
-            reqFTP.Credentials = new NetworkCredential(FTPUser, FTPPass);
+            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ConstantSystem.FolderFTPImage + fileInf.Name));
+            reqFTP.Credentials = new NetworkCredential(ConstantSystem.FTPUser, ConstantSystem.FTPPass);
             reqFTP.KeepAlive = false;
             reqFTP.Method = WebRequestMethods.Ftp.UploadFile;
             reqFTP.UseBinary = true;
@@ -386,7 +390,7 @@ namespace DataModel.DataStore
             string _ServerPathReplace = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images/media/HPB");
             string _NameRandom = coderandom + _Filename;
             var path = Path.Combine(_ServerPath, _NameRandom);
-            string _OnputFullname = Path.Combine(PrefixImageContentURL, "images/media/" + _NameRandom);
+            string _OnputFullname = Path.Combine(ConstantSystem.PrefixImageContentURL, "images/media/" + _NameRandom);
             desimg.SaveAs(path);
             UploadFTP(path);
             imgUpload.ImageName = _NameRandom;
@@ -444,10 +448,10 @@ namespace DataModel.DataStore
         }
         public static bool DeleteFile(string photoFileName)
         {
-            bool Exist = CheckFileExistOrNot(FTPURL, FTPUser, FTPPass, FTPFolder, photoFileName);
+            bool Exist = CheckFileExistOrNot(ConstantSystem.FTPURL, ConstantSystem.FTPUser, ConstantSystem.FTPPass, ConstantSystem.FTPFolder, photoFileName);
             if (Exist == true)
             {
-                DeleteFileByFTP(FTPURL, FTPUser, FTPPass, FTPFolder, photoFileName);
+                DeleteFileByFTP(ConstantSystem.FTPURL, ConstantSystem.FTPUser, ConstantSystem.FTPPass, ConstantSystem.FTPFolder, photoFileName);
                 return true;
             }
             else
@@ -461,7 +465,7 @@ namespace DataModel.DataStore
         public static string GetImageUrl(MediaContent InputMediaContent)
         {
             return InputMediaContent == null
-                                    ? DefaulMediaContentURL
+                                    ? ConstantSystem.DefaulMediaContentURL
                                     : InputMediaContent.FullURL;
 
         }
@@ -488,7 +492,7 @@ namespace DataModel.DataStore
             string coderandom = DateTime.UtcNow.Ticks.ToString();
             coderandom = "botogiasi" + coderandom;
             var _Filename = Path.GetFileName(desimg.FileName);
-            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FolderFrontEnd);
+            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstantSystem.FolderFrontEnd);
             string _NameRandom = coderandom + _Filename;
             var path = Path.Combine(_ServerPath, _NameRandom);
             if (!System.IO.Directory.Exists(_ServerPath))
@@ -496,8 +500,8 @@ namespace DataModel.DataStore
             desimg.SaveAs(path);
             FileHelper.SaveResizedImage(_ServerPath, _NameRandom, "thumb" + _NameRandom, 200, 200);
             imgUpload.ImageName = _NameRandom;
-            imgUpload.ImageThumbUrl = FolderFrontEnd + "/thumb" + _NameRandom;
-            imgUpload.ImageUrl = FolderFrontEnd + "/" + _NameRandom;
+            imgUpload.ImageThumbUrl = ConstantSystem.FolderFrontEnd + "/thumb" + _NameRandom;
+            imgUpload.ImageUrl = ConstantSystem.FolderFrontEnd + "/" + _NameRandom;
             imgUpload.MediaContentId = _ImgId;
             return imgUpload;
         }
@@ -531,12 +535,12 @@ namespace DataModel.DataStore
             ImageUploadViewModel imgUpload = new ImageUploadViewModel();
             string coderandom = "botogiasi";
             var _Filename = Path.GetFileName(desimg.FileName);
-            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FolderFrontEnd);
+            string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstantSystem.FolderFrontEnd);
             string _NameRandom = coderandom + _Filename;
             var path = Path.Combine(_ServerPath, _NameRandom);
             desimg.SaveAs(path);
             imgUpload.ImageName = _NameRandom;
-            imgUpload.ImageUrl = FolderFrontEnd + "/" + _NameRandom;
+            imgUpload.ImageUrl = ConstantSystem.FolderFrontEnd + "/" + _NameRandom;
             return imgUpload;
         }
 

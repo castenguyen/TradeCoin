@@ -53,6 +53,7 @@
         <EntityTypeShape EntityType="alluneedbModel.EmailSupport" Width="1.5" PointX="14.375" PointY="8.75" />
         <EntityTypeShape EntityType="alluneedbModel.Ticker" Width="1.5" PointX="16.375" PointY="0.75" />
         <EntityTypeShape EntityType="alluneedbModel.Package" Width="1.5" PointX="16.375" PointY="8.75" />
+        <EntityTypeShape EntityType="alluneedbModel.RoleGroup" Width="1.5" PointX="0.75" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
