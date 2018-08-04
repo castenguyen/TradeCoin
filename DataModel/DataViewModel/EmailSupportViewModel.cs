@@ -122,7 +122,8 @@ namespace DataModel.DataViewModel
             get { return _MainObj.EmailTypeName; }
             set { _MainObj.EmailTypeName = value; }
         }
-
+        public List<EmailSupport> lstChild { get; set; }
+        public List<User> lstMod { get; set; }
 
     }
 
