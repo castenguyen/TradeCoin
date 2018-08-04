@@ -1,4 +1,9 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@model DataModel.DataViewModel.EmailSupportViewModel
 @{
     ViewBag.Title = "DetailEmail";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -27,7 +32,6 @@
                 <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
             </div><!-- /.box-body -->
             <div class="box box-solid">
-
                 <div class="box-header with-border">
                     <h3 class="box-title">Danh sách support viên</h3>
                     <div class="box-tools">
@@ -37,14 +41,14 @@
                 </div>
                 <div class="box-body no-padding">
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"> Mod 1  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
-                        <li><a href="#"> Mod 2  <span class="text-blue pull-right" ">230 điểm hạng 2 </span></a>  </li>
-                        <li><a href="#"> Mod 3  <span class="text-blue pull-right" ">230 điểm hạng 3 </span></a>  </li>
-
+                        @{
+                            foreach (User _val in Model.lstMod)
+                            {
+                                <li><a href="@Url.Action("CreateNewEmail", "EmailManager", new {ModId=_val.Id })"> @_val.FullName  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
+                            }
+                        }
                     </ul>
-                </div><!-- /.box-body -->
-
-
+                </div>
             </div><!-- /. box -->
 
         </div><!-- /.col -->
@@ -53,7 +57,7 @@
         <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tiêu đề mail</h3>
+                    <h3 class="box-title">@Model.EmailName</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
 
@@ -61,103 +65,107 @@
                         <div class='box-header'>
                             <div class='user-block'>
                                 <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'><a href="#">Tên Member gửi</a></span>
-                                <span class='description'>Shared publicly - 7:30 PM Today</span>
+                                <span class='username'><a href="#">@Model.CrtdUserName</a></span>
+                                <span class='description'>Shared publicly - @Model.CrtdDT</span>
                             </div><!-- /.user-block -->
 
                         </div><!-- /.box-header -->
                         <div class='box-body'>
-                            <!-- post text -->
-                            <p>
-                                Far far away, behind the word mountains, far from the
-                                countries Vokalia and Consonantia, there live the blind
-                                texts. Separated they live in Bookmarksgrove right at
-                            </p>
-                            <p>
-                                the coast of the Semantics, a large language ocean.
-                                A small river named Duden flows by their place and supplies
-                                it with the necessary regelialia. It is a paradisematic
-                                country, in which roasted parts of sentences fly into
-                                your mouth.
-                            </p>
+                            @Html.Raw(Model.Content)
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
+
+                    @foreach (EmailSupport _var in Model.lstChild)
+                    {
+                        if (_var.CrtdUserId == Model.CrtdUserId)
+                        {
+                            <div class="box box-widget">
+                                <div class='box-header'>
+                                    <div class='user-block'>
+                                        <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                                        <span class='username'><a href="#">@_var.CrtdUserName</a></span>
+                                        <span class='description'>Shared publicly - @_var.CrtdDT</span>
+                                    </div><!-- /.user-block -->
+
+                                </div><!-- /.box-header -->
+                                <div class='box-body'>
+                                    @Html.Raw(_var.Content)
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+
+                        }
+                        else
+                        {
+                            <div class="box box-widget">
+                                <div class='box-header'>
+                                    <div class='user-block pull-right'>
+                                        <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image' style="float:right">
+                                        <span class='username'><a href="#">@_var.CrtdUserName</a></span>
+                                        <span class='description'>Shared publicly - @_var.CrtdDT</span>
+                                    </div><!-- /.user-block -->
+
+                                </div><!-- /.box-header -->
+                                <div class='box-body'>
+                                    @Html.Raw(_var.Content)
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        }
+                    }
+
                     <div class="box box-widget">
-                        <div class='box-header'>
-                            <div class='user-block pull-right'>
-                                <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image' style="float:right">
-                                <span class='username'><a href="#">Tên Member gửi</a></span>
-                                <span class='description'>Shared publicly - 7:30 PM Today</span>
-                            </div><!-- /.user-block -->
 
-                        </div><!-- /.box-header -->
-                        <div class='box-body'>
-                            <!-- post text -->
-                            <p>
-                                Far far away, behind the word mountains, far from the
-                                countries Vokalia and Consonantia, there live the blind
-                                texts. Separated they live in Bookmarksgrove right at
-                            </p>
-                            <p>
-                                the coast of the Semantics, a large language ocean.
-                                A small river named Duden flows by their place and supplies
-                                it with the necessary regelialia. It is a paradisematic
-                                country, in which roasted parts of sentences fly into
-                                your mouth.
-                            </p>
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
-                    <div class="box box-widget">
-                        <div class='box-header'>
-                            <div class='user-block'>
-                                <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'><a href="#">Tên Member gửi</a></span>
-                                <span class='description'>Shared publicly - 7:30 PM Today</span>
-                            </div><!-- /.user-block -->
+                        @using (Html.BeginForm("ReplyEmail", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class='box-header'>
+                                <div class='user-block '>
+                                    <span class='username'>Tạo mới email phản hồi</span>
+                                </div><!-- /.user-block -->
 
-                        </div><!-- /.box-header -->
-                        <div class='box-body'>
-                            <!-- post text -->
-                            <p>
-                                Far far away, behind the word mountains, far from the
-                                countries Vokalia and Consonantia, there live the blind
-                                texts. Separated they live in Bookmarksgrove right at
-                            </p>
-                            <p>
-                                the coast of the Semantics, a large language ocean.
-                                A small river named Duden flows by their place and supplies
-                                it with the necessary regelialia. It is a paradisematic
-                                country, in which roasted parts of sentences fly into
-                                your mouth.
-                            </p>
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
-                    <div class="form-group">
-                        <textarea id="compose-textarea" class="form-control" style="height: 300px">
-                        <h1><u>Thư trả lời</u></h1>
-                        <h4>Subheading</h4>
-                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee</p>
-                        <ul>
-                        <li>List item one</li>
-                        <li>List item two</li>
-                        <li>List item three</li>
-                        <li>List item four</li>
-                      </ul>
-                        <p>Thank you,</p>
-                        <p>John Doe</p>
-                    </textarea>
+                            </div><!-- /.box-header -->
+                            <div class='box-body'>
+                                <input type="hidden" id="EmailName" name="EmailName" value="@Model.EmailName">
+                                <input type="hidden" id="Subject" name="Subject" value="@Model.Subject">
+                                <input type="hidden" id="ParentId" name="ParentId" value="@Model.EmailId">
+                                <textarea name="Content" id="Content" class="form-control" style="height: 300px"></textarea>
+                            </div><!-- /.box-body -->
+                            <div class='box-footer'>
+                                <button type="submit" class="btn btn-primary  pull-right"><i class="fa fa-envelope-o"></i> Trả lời</button>
+                            </div>
+                        }
                     </div>
+                </div>
+            </div><!-- /.box-body -->
 
-                </div><!-- /.box-body -->
-                <div class="box-footer">
-                    <div class="pull-right">
-
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Trả lời</button>
-                    </div>
-                    <button class="btn btn-default"><i class="fa fa-times"></i> Huỷ</button>
-                </div><!-- /.box-footer -->
-            </div><!-- /. box -->
-        </div><!-- /.col -->
-
+        </div><!-- /. box -->
+    </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+<script>
+    $(function () {
+        //Add text editor
+        $("#Content").wysihtml5();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        var rules = {
+            Subject: "required"
+            , Content: "required"
+
+        };
+        var messages = {
+            Subject: "Vui lòng kiểm tiêu đề thư"
+            , Content: "Vui lòng kiểm tra nội dung gửi"
+        };
+
+        ValidationForm({
+            ctrID: "CreateForm"
+            , rules: rules
+            , messages: messages
+        })
+
+    });
+
+</script>

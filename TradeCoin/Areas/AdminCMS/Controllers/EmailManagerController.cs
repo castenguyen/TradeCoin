@@ -38,6 +38,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public async Task<ActionResult> CreateNewEmail(long? ModId)
         {
             EmailSupportViewModel model = new EmailSupportViewModel();
+            model.lstMod = cms_db.GetlstUser().Where(s => s.LstRole.Any(r => r.Name == "Mod")).ToList();
             if (ModId.HasValue)
             {
                 User modName =await cms_db.GetObjUserById(ModId.Value);
@@ -76,8 +77,38 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         public async Task<ActionResult> DetailEmail(long? emailId)
         {
-          
-            return View();
+            EmailSupportViewModel model = new EmailSupportViewModel();
+            model.lstMod = cms_db.GetlstUser().Where(s => s.LstRole.Any(r => r.Name == "Mod")).ToList();
+            model._MainObj = cms_db.GetObjEmailSupport(emailId.Value);
+            model.lstChild = cms_db.GetlstEmailSupport().Where(s => s.ParentId == emailId 
+                    && s.StateId!=(int)EnumCore.EmailStatus.da_xoa).OrderByDescending(s=>s.CrtdDT).ToList();
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReplyEmail(EmailSupportViewModel model)
+        {
+
+            try
+            {
+                EmailSupport newObject = model._MainObj;
+                newObject.EmailName = model.Subject;
+                newObject.CrtdDT = DateTime.Now;
+                newObject.CrtdUserId = long.Parse(User.Identity.GetUserId());
+                newObject.CrtdUserName = User.Identity.Name;
+                newObject.StateId = (int)EnumCore.EmailStatus.cho_hoi_am;
+                newObject.StateName = "Chờ phản hồi";
+                int rs = cms_db.CreateEmailSupport(newObject);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("CreateNewEmail", "EmailManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("Index");
+            }
+
         }
 
 

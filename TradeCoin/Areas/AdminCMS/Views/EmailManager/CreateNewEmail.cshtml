@@ -34,7 +34,6 @@
                 <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
             </div><!-- /.box-body -->
             <div class="box box-solid">
-
                 <div class="box-header with-border">
                     <h3 class="box-title">Danh sách support viên</h3>
                     <div class="box-tools">
@@ -44,14 +43,14 @@
                 </div>
                 <div class="box-body no-padding">
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"> Mod 1  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
-                        <li><a href="#"> Mod 2  <span class="text-blue pull-right" ">230 điểm hạng 2 </span></a>  </li>
-                        <li><a href="#"> Mod 3  <span class="text-blue pull-right" ">230 điểm hạng 3 </span></a>  </li>
-
+                        @{
+                    foreach (User _val in Model.lstMod)
+                    {
+                        <li><a href="@Url.Action("CreateNewEmail", "EmailManager", new {ModId=_val.Id })"> @_val.FullName  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
+            }
+                        }
                     </ul>
-                </div><!-- /.box-body -->
-
-
+                </div>
             </div><!-- /. box -->
 
         </div><!-- /.col -->
