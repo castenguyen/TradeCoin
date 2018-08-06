@@ -14,6 +14,26 @@ namespace Alluneecms
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             //routes.RouteExistingFiles = true;
 
+
+
+            routes.MapRoute(
+            name: "Chat",
+            url: "chat",
+            defaults: new
+            {
+                controller = "Conversation",
+                action = "Chat"
+            });
+
+            routes.MapRoute(
+         name: "BChat",
+         url: "BChat",
+         defaults: new
+         {
+             controller = "Conversation",
+             action = "ColectInforChat"
+         });
+
             #region trang chu
             routes.MapRoute(
                name: "trang-chu",

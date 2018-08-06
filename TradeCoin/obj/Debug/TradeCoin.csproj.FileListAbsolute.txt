@@ -79,3 +79,7 @@ D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\TradeCoin.csprojResolveAssembly
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\TradeCoin.csproj.CoreCompileInputs.cache
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\Alluneecms.dll
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\obj\Debug\Alluneecms.pdb
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
