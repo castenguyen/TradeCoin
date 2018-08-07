@@ -311,8 +311,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         string pass = UserManager.PasswordHasher.HashPassword("asdadasdasdsa");
                         UserManager.SetLockoutEnabled(user.Id, false);
+                        await this.AddRoleForUser(user.Id, "Member");
                         UserManager.Update(user);
-
                         string code = UserManager.GenerateEmailConfirmationToken(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         EmailService email = new EmailService();
@@ -950,14 +950,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 if (!String.IsNullOrEmpty(RoleName))
                 {
-                    var result = await UserManager.AddToRoleAsync(Id, RoleName);
-                    Role objParentRole = cms_db.GetObjRoleByName(RoleName);
-                    long[] lstChildRole = cms_db.GetlstPermission(objParentRole.Id);
-                    foreach (int _val in lstChildRole)
-                    {
-                        Role obj = cms_db.GetObjRoleById(_val);
-                        await UserManager.AddToRoleAsync(Id, obj.Name);
-                    }
+                    await this.AddRoleForUser(Id, RoleName);
                 }
                 return RedirectToAction("ManagerUser", "AccountAdmin", new { id = Id, alertMessage = "Thêm quyền mới thành công" });
             }
@@ -966,6 +959,29 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 cms_db.AddToExceptionLog("AddUserRole", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return RedirectToAction("ManagerUser", "AccountAdmin", new { id = Id, alertMessage = "Thêm quyền mới không thành công" });
             }
+        }
+
+
+        private async Task<int> AddRoleForUser(long Id, string RoleName)
+        {
+            try {
+                var result = await UserManager.AddToRoleAsync(Id, RoleName);
+                Role objParentRole = cms_db.GetObjRoleByName(RoleName);
+                long[] lstChildRole = cms_db.GetlstPermission(objParentRole.Id);
+                foreach (int _val in lstChildRole)
+                {
+                    Role obj = cms_db.GetObjRoleById(_val);
+                    await UserManager.AddToRoleAsync(Id, obj.Name);
+                }
+                return (int)EnumCore.Result.action_true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("AddRoleForUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return (int)EnumCore.Result.action_false;
+            }
+         
+           
         }
         /// <summary>
         /// LOẠI BỎ MỘT ROLE CỦA USER
