@@ -55,6 +55,7 @@ namespace DataModel.DataEntity
         public string UserAdress { get; set; }
         public Nullable<long> PackageId { get; set; }
         public string PackageName { get; set; }
+        public Nullable<System.DateTime> ExpiredDay { get; set; }
     
         public virtual ICollection<Classification> LstClassifications { get; set; }
         public virtual ICollection<ClassificationScheme> LstClassificationSchemes { get; set; }
