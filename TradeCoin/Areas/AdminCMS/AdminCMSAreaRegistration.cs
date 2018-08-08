@@ -1027,6 +1027,12 @@ namespace CMSPROJECT.Areas.AdminCMS
               "administrator/ShopCartManager/DeleteOrder",
               new { controller = "ShopCartManager", action = "DeleteOrder"}
               );
+
+            context.MapRoute(
+              "ChatGroup_Index",
+              "administrator/ChatGroup",
+              new { controller = "ChatGroup", action = "Index" }
+              );
             #endregion
         }
     }
