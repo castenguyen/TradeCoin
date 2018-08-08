@@ -22,10 +22,14 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -226,6 +230,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\AdminCMS\AdminCMSAreaRegistration.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\AccountAdminController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\ChatGroupController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ClassificationController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ClassificationSchemeController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\CommentManagerController.cs" />
@@ -2102,6 +2107,7 @@
     <Content Include="Areas\AdminCMS\Views\EmailManager\Index.cshtml" />
     <Content Include="Areas\AdminCMS\Views\EmailManager\CreateNewEmail.cshtml" />
     <Content Include="Areas\AdminCMS\Views\EmailManager\DetailEmail.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\ChatGroup\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datepicker-vi.js" />
