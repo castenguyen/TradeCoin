@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+@using Microsoft.AspNet.Identity
+
+<section class="content-header">
+    <h1>
+        ChatGroup
+    </h1>
+    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
+    <input type="hidden" id="displayname" value="@User.Identity.GetUserName()" />
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">ChatGroup</li>
+
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="~/Areas/AdminCMS/dist/img/user1-128x128.png" alt="User profile picture">
+                    <h3 class="profile-username text-center">Tên Member</h3>
+                    <p class="text-muted text-center">Kim cương</p>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Bài viết</b> <a class="pull-right">1,322</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Kèo đã xem</b> <a class="pull-right">543</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Friends</b> <a class="pull-right">13,287</a>
+                        </li>
+                    </ul>
+                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+            <!-- About Me Box -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">About Me</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+
+                    <strong><i class="fa fa-pencil margin-r-5"></i> Gói cước sử dụng</strong>
+                    <p>
+                        <span class="label label-danger">KIM CƯƠNG</span>
+
+                    </p>
+                    <hr>
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ngày hết hạn</strong>
+                    <p class="text-muted">26-09-1990</p>
+                    <hr>
+
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+        <div class="col-md-6">
+            <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Chat Nhóm</h3>
+
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <!-- Conversations are loaded here -->
+                    <div class="direct-chat-messages" id="discussion">
+
+                    </div><!--/.direct-chat-messages-->
+                    <!-- Contacts are loaded here -->
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <form action="#" method="post">
+                        <div class="input-group">
+                            <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary btn-flat" id="sendmessage">Send</button>
+                            </span>
+                        </div>
+                    </form>
+                </div><!-- /.box-footer-->
+            </div><!--/.direct-chat -->
+
+
+        </div><!-- /.tab-pane -->
+        <div class="col-md-3">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách Kèo</h3>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+                    <div class="post">
+                        <div class="user-block">
+                            <img class="img-circle img-bordered-sm" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="user image">
+                            <span class='username'>
+                                <a href="#">
+                                    USDJPY - 24/07/201
+                                </a>
+
+                            </span>
+                            <span class='description'>Shared publicly - 7:30 PM today</span>
+                        </div><!-- /.user-block -->
+                    </div><!-- /.post -->
+                    <!-- Post -->
+                    <div class="post clearfix">
+                        <div class='user-block'>
+                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'>
+                                <a href="#">
+                                    EURUSD - 24/07/201
+                                </a>
+
+                            </span>
+                            <span class='description'>Sent you a message - 3 days ago</span>
+                        </div><!-- /.user-block -->
+
+                    </div><!-- /.post -->
+                    <!-- Post -->
+                    <!-- Post -->
+                    <div class="post clearfix">
+                        <div class='user-block'>
+                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'>
+                                <a href="#">
+                                    USDJPY - 25/07/2018
+                                </a>
+
+                            </span>
+                            <span class='description'>Sent you a message - 3 days ago</span>
+                        </div><!-- /.user-block -->
+
+                    </div><!-- /.post -->
+                    <!-- Post -->
+                    <div class="post clearfix">
+                        <div class='user-block'>
+                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'>
+                                <a href="#">
+                                    GBPUSD - 25/07/2018
+                                </a>
+
+                            </span>
+                            <span class='description'>Sent you a message - 3 days ago</span>
+                        </div><!-- /.user-block -->
+
+                    </div><!-- /.post -->
+                </div><!-- /.user-block -->
+
+            </div><!-- /.user-block -->
+        </div><!-- /.tab-content -->
+    </div><!-- /.tab-content -->
+
+</section><!-- /.content -->
+
+<!--Script references. -->
+<!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
+<!--Reference the SignalR library. -->
+<script src="~/scripts/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+<!--Reference the autogenerated SignalR hub script. -->
+<script src="~/signalr/hubs"></script>
+<!--SignalR script to update the chat page and send messages.-->
+<script>
+    $(function () {
+        var image = window.location.origin + "Areas/AdminCMS/dist/img/user1-128x128.jpg";
+            // Reference the auto-generated proxy for the hub.
+            var chat = $.connection.chatHub;
+            // Create a function that the hub can call back to display messages.
+            chat.client.addNewMessageToPage = function (name, message, date) {
+                // Add the message to the page.
+                // Message. Default to the left.
+                if (name == $('#displayname').val()) {
+                    $('#discussion').append(`<div class="direct-chat-msg right">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-right">`+ name+`</span>
+                                <span class="direct-chat-timestamp pull-left">`+ date+`</span>
+                            </div>
+                            <img class="direct-chat-img" src="`+ image +`">
+                            <div class="direct-chat-text">
+                                `+ message +`
+                            </div>
+                        </div>`);
+                }
+                // Message to the right.
+                else {
+                    $('#discussion').append(`<div class="direct-chat-msg">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-left">`+ name +`</span>
+                                <span class="direct-chat-timestamp pull-right">`+ date +`</span>
+                            </div>
+                            <img class="direct-chat-img" src="`+ image+`" >
+                            <div class="direct-chat-text">
+                                `+ message +`
+                            </div>
+                        </div>`);
+                }
+                $('#discussion').animate({ scrollTop: $('#discussion').prop('scrollHeight') }, 1000);
+
+            };
+
+
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    // Call the Send method on the hub.
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });
+            });
+        });
+</script>
