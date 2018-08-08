@@ -21,8 +21,12 @@ namespace CMSPROJECT.Hubs
         static List<MessageInfo> MessageList = new List<MessageInfo>();
 
 
-
-
+        public void Send(string name, string message)
+        {
+            DateTime date = DateTime.Now;
+            Clients.All.addNewMessageToPage(name, message, date.ToString("MM/dd/yyyy HH:mm"));
+        }
+        
         /// <summary>
         /// hàm này dc gọi khi trang view chat dc render ra
         /// hàm này xác định user đang chat(thong tin user dc lấy từ user nhập vào từ trang ColectInforChat===>xem thêm từ đó nha)
