@@ -85,4 +85,13 @@ namespace DataModel.DataViewModel
         }
 
     }
+
+    public class UserPackageViewModel {
+
+        public Package ObjPackage { get; set; }
+        public User ObjUser { get; set; }
+
+    }
+
+
 }
