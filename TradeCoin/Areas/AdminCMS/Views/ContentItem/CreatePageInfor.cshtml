@@ -46,8 +46,6 @@
                             <div class="form-group col-md-12">
                                 @Html.TextAreaFor(m => m.ContentText, new { @class = "" })
                             </div>
-                            @*@Html.Action("_RelatedContent")*@
-                            @*@Html.Partial("_RelatedContent")*@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.MetadataKeyword, new { @class = "col-md-4 control-label" })
                                 @Html.TextBoxFor(m => m.MetadataKeyword, new { @class = "form-control" })
@@ -73,14 +71,11 @@
                                 @Html.DropDownListFor(c => c.CategoryId, Model.CatalogryList as SelectList, "Select...", new { @class = "form-control" })
 
                             </div>
-                            @Html.Action("_UploadImagePartial")
-                            @*@Html.Action("_RelatedTag")*@
-                            @*@Html.Partial("_RelatedTag")*@
+                            @*@Html.Action("_UploadImagePartial")*@
+                         
                         </div>
-                    </div><!-- /.box-body -->
-                    @*<div class="box-footer col-md-9">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>*@
+                    </div>
+                  
                 }
             </div><!-- /.box -->
             <!-- Form Element sizes -->
@@ -164,14 +159,5 @@
     }
 
 
-    //$("#submit").click(function () {
-
-    //    var huy = $("#ImgdefaultId").val();
-    //    var huy2 = $("#blah").attr("src");
-    //    if (huy2 = "/")
-    //        alert(huy2);
-    //    return;
-    //    $("#CreateForm").submit();
-    //});
 
 </script>

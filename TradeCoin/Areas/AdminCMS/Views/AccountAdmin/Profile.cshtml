@@ -9,15 +9,58 @@
 
 <section class="content">
     <div class="row">
+
+        <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="User profile picture">
+                    <h3 class="profile-username text-center">@Model._ModelObj.FullName</h3>
+                    <p class="text-muted text-center">Member</p>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Email</b> <a class="pull-right">@Model._ModelObj.EMail</a>
+                        </li>
+                    </ul>
+
+                    <strong><i class="fa fa-pencil margin-r-5"></i> Gói cước đang sử dụng</strong>
+                    <p>
+                        @if (String.IsNullOrEmpty(Model._ModelObj.PackageName))
+                        {
+                            <span class="label label-danger">Free</span>
+                        }
+                        else
+                        {
+                            <span class="label label-danger">@Model._ModelObj.PackageName</span>
+                        }
+
+
+                    </p>
+                    <hr>
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ngày hết hạn</strong>
+                    @if (Model._ModelObj.ExpiredDay == null)
+                    {
+                        <span class="label label-danger">Vĩnh Viễn</span>
+                    }
+                    else
+                    {
+                        <p class="text-muted">@Model._ModelObj.ExpiredDay</p>
+                    }
+
+
+                    <hr>
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Ghi chú</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                    <hr>
+                    <a href="@Url.Action("FrontEndIndex", "PackageManager")" class="btn btn-primary btn-block"><b> Nâng cấp</b></a>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
         <!-- left column -->
-        <div class="col-md-12">
+        <div class="col-md-9">
             <!-- general form elements -->
             <div class="box box-primary">
-                <div class="box-header with-border">
-                    <p>Bạn đang đăng nhập bằng tài khoản <strong>@User.Identity.GetUserName()</strong>.</p>
 
-                </div><!-- /.box-header -->
-                <!-- form start -->
                 <div class="box-body">
                     <!-- /.box -->
                     @using (Html.BeginForm("Profile", "AccountAdmin", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
@@ -26,20 +69,20 @@
                         @Html.ValidationSummary("", new { @class = "text-danger" })
                         @Html.HiddenFor(s => s.Id)
 
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Tên Đăng Nhập</label>
-                                @*<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Tên Đăng Nhập">*@
-                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Tên Đăng Nhập" })
+
+                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control", @readonly = "readonly" })
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Email address</label>
-                                @Html.TextBoxFor(m => m.EMail, new { @class = "form-control", placeholder = "Enter email" })
+                                <label for="exampleInputEmail1">Email</label>
+                                @Html.TextBoxFor(m => m.EMail, new { @class = "form-control", @readonly = "readonly" })
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label for="exampleInputEmail1">Họ Và Tên </label>
+                                <label for="exampleInputEmail1">Tên Hiển thị </label>
                                 @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Họ Và Tên" })
                             </div>
 
@@ -57,9 +100,6 @@
                                 <label for="exampleInputEmail1">Số Điện Thoại</label>
                                 @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Số Điện Thoại" })
                             </div>
-
-                          
-
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(m => m.GenderList, new { @class = "control-label" })
                                 @Html.DropDownListFor(c => c.GenderId, Model.GenderList as SelectList, "Select...", new { @class = "form-control" })
@@ -67,44 +107,14 @@
                             <div class="form-group col-md-12">
                                 <button type="submit" class="btn btn-primary">Cập Nhật</button>
                             </div>
-
-
                         </div><!-- /.box-body -->
-                        <div class="col-md-4">
-
-                            @*<div class="form-group col-md-12">
-                                    @Html.LabelFor(m => m.CompanyList, new { @class = "control-label" })
-                                    @Html.DropDownListFor(c => c.CompanyID, Model.CompanyList as SelectList, "Select...", new { @class = "form-control" })
-                                </div>*@
 
 
-                         
-
-                            <div class="form-group col-md-12">
-                                <label>Ngày Tham Gia:</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-                                </div><!-- /.input group -->
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                <label>Ngày Được Duyệt:</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-                                </div><!-- /.input group -->
-                            </div>
-                        </div><!-- /.box-body -->
 
                         <div class="col-md-4">
 
                             <div class="form-group">
-                                <label for="exampleInputFile">Hình</label>
+                                <label for="exampleInputFile">Hình đại diện</label>
                                 <input type="file" id="Imgfiles" name="Imgfiles" value="Chọn hình">
 
                             </div>
@@ -112,7 +122,16 @@
                                 <p class="help-block">Hình đại diện</p>
                             </div>
                             <div class="form-group imgboxdata">
-                                <img class="img-responsive" src="~/@Model.ImgUrl" alt="User Image" id="blah">
+                                @if (String.IsNullOrEmpty(Model.ImgUrl))
+                                {
+
+                                    <img class="img-responsive" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="User Image" id="blah">
+                                }
+                                else
+                                {
+
+                                    <img class="img-responsive" src="~/@Model.ImgUrl" alt="User Image" id="blah">
+                                }
                             </div>
 
                         </div><!-- /.box-body -->
@@ -155,9 +174,9 @@
                 startDate: moment().subtract(29, 'days'),
                 endDate: moment()
             },
-        function (start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
+            function (start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
         );
 
         //iCheck for checkbox and radio inputs

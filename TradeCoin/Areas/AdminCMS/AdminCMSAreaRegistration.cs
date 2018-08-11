@@ -930,11 +930,30 @@ namespace CMSPROJECT.Areas.AdminCMS
 
             #region Package
 
+
+
             context.MapRoute(
                "AdminCMS_PackageManager_Create",
                "administrator/packagemanager/create",
                new { controller = "PackageManager", action = "Create" }
                );
+
+            context.MapRoute(
+             "AdminCMS_PackageManager_FrontEndIndex",
+             "administrator/packagemanager/FrontEndIndex",
+             new { controller = "PackageManager", action = "FrontEndIndex" }
+             );
+
+            context.MapRoute(
+           "AdminCMS_PackageManager_ConfirmUpdate",
+           "administrator/packagemanager/ConfirmUpdate",
+           new { controller = "PackageManager", action = "ConfirmUpdate" }
+           );
+
+            
+
+
+
             context.MapRoute(
               "AdminCMS_PackageManager_index",
               "administrator/packagemanager/index",

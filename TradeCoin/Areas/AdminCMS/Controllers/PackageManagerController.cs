@@ -26,6 +26,49 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     .OrderBy(c => c.PackageId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             return View(_lstPackage);
         }
+
+        public ActionResult FrontEndIndex()
+        {
+            IPagedList<Package> _lstPackage = cms_db.GetlstPackage()
+                    .OrderBy(c => c.PackageId).ToPagedList(1, (int)EnumCore.BackendConst.page_size);
+            return View(_lstPackage);
+        }
+
+        public ActionResult ConfirmUpdate(long UserId,long PackageId)
+        {
+            try {
+
+                long CurrentUserId= long.Parse(User.Identity.GetUserId());
+                if (CurrentUserId != UserId)
+                {
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                }
+                UserPackageViewModel model = new UserPackageViewModel();
+                User ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
+                Package ObjNewPackage = cms_db.GetObjPackage(PackageId);
+                Package ObjOldPackage = cms_db.GetObjPackage(ObjUser.PackageId.Value);
+
+                if (ObjNewPackage.NumDay > ObjOldPackage.NumDay && (ObjUser.AwaitPackageId != null || ObjUser.AwaitPackageId != 0))
+                {
+                    model.ObjPackage = cms_db.GetObjPackage(PackageId);
+                    model.ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
+                    return View(model);
+                }
+                return RedirectToAction("AlertPage", "Extension", new { AlertString="Không thể thực hiện nâng cấp với gói cước này", link="" });
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("ConfirmUpdate", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("FrontEndIndex");
+            }
+        }
+
+        public ActionResult UpdatePackageForUser(long UserId, long PackageId)
+        {
+            UserPackageViewModel model = new UserPackageViewModel();
+            return View(model);
+        }
+
         public ActionResult Create()
         {
             return View();
