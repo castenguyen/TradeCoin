@@ -1033,6 +1033,21 @@ namespace CMSPROJECT.Areas.AdminCMS
            new { controller = "ChatGroup", action = "Index" }
            );
 
+            context.MapRoute(
+         "ChatGroup_Notification",
+         "NewNotifi",
+         new { controller = "Notification", action = "NewNotifi" }
+         );
+
+
+            context.MapRoute(
+         "ChatGroup_SendNewNoifi",
+         "SendNewNoifi",
+         new { controller = "Notification", action = "SendNewNoifi" }
+         );
+
+
+
             #endregion
 
 
