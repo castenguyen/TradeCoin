@@ -14,6 +14,8 @@ using DataModel.Extension;
 using System.Threading.Tasks;
 using System.Collections;
 using PagedList;
+using Microsoft.AspNet.SignalR;
+using CMSPROJECT.Hubs;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -65,6 +67,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 newObject.StateId = (int)EnumCore.EmailStatus.cho_hoi_am;
                 newObject.StateName = "Chờ phản hồi";
                 int rs = cms_db.CreateEmailSupport(newObject);
+                var context = GlobalHost.ConnectionManager.GetHubContext<NotifiHub>();
+                context.Clients.All.methodInJavascript("hello world");
                 return RedirectToAction("Index");
             }
             catch (Exception e)
