@@ -665,6 +665,8 @@
           <Property Name="PackageId" Type="bigint" />
           <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
           <Property Name="ExpiredDay" Type="datetime" />
+          <Property Name="AwaitPackageId" Type="bigint" />
+          <Property Name="AwaitPackageName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -1392,6 +1394,8 @@
           <Property Name="PackageId" Type="Int64" />
           <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ExpiredDay" Type="DateTime" Precision="3" />
+          <Property Name="AwaitPackageId" Type="Int64" />
+          <Property Name="AwaitPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserClaim">
           <Key>
@@ -2615,6 +2619,8 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="alluneedbModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AwaitPackageName" ColumnName="AwaitPackageName" />
+                <ScalarProperty Name="AwaitPackageId" ColumnName="AwaitPackageId" />
                 <ScalarProperty Name="ExpiredDay" ColumnName="ExpiredDay" />
                 <ScalarProperty Name="PackageName" ColumnName="PackageName" />
                 <ScalarProperty Name="PackageId" ColumnName="PackageId" />
