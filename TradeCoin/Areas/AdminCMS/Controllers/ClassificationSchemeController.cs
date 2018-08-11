@@ -22,10 +22,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
        [AdminAuthorize(Roles = "supperadmin,devuser,CreateClass")]
         public ActionResult Index(int? page)
         {
-            
+            IQueryable<ClassificationScheme> tmp = cms_db.GetlstScheme();
             int pageNum = (page ?? 1);
-            IPagedList<ClassificationScheme> _lstClassScheme = cms_db.GetlstScheme()
-                    .OrderBy(c => c.ClassificationSchemeNM).ToPagedList(pageNum,(int)EnumCore.BackendConst.page_size);
+            if (!User.IsInRole("devuser"))
+            {
+                tmp = tmp.Where(s => s.IsSystem.Value != 1);
+            }
+            IPagedList<ClassificationScheme> _lstClassScheme = tmp.OrderBy(c => c.ClassificationSchemeNM).ToPagedList(pageNum,(int)EnumCore.BackendConst.page_size);
             return View(_lstClassScheme);
         }
          [AdminAuthorize(Roles = "supperadmin,devuser,CreateClass")]

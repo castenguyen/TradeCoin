@@ -14,9 +14,9 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">DANH SÁCH ClassificationScheme</h3>
+                    <h3 class="box-title">DANH MỤC</h3>
                     <div class="box-tools">
-                        <a href="@Url.Action("Create", "ClassificationScheme", null)" class="btn btn-primary">ADD NEW</a>
+                        <a href="@Url.Action("Create", "ClassificationScheme", null)" class="btn btn-primary">Thêm mới</a>
                     </div>
                 </div><!-- /.box-header -->
                 <!-- form start -->
@@ -27,6 +27,7 @@
                                 <th>Id</th>
                                 <th style="width:20%">Name</th>
                                 <th>Người tạo</th>
+                                <th>Danh mục hệ thống</th>
                                 <th>Mô tả</th>
                                 <th>Edit</th>
                             </tr>
@@ -34,19 +35,28 @@
                                 foreach (var _val in Model)
                                 {
                                     <tr>
-                                        @if(_val.IsSystem != 1)
-                                        {
-                                            <td>@_val.ClassificationSchemeId</td>
-                                        }
-                                        else
+                                        @if (_val.IsSystem != 1)
                                         {
                                             <td></td>
                                         }
-                                    <td><a href="@Url.Action("Index", "Classification", new { area = "AdminCMS", SchemeId = _val.ClassificationSchemeId })">@_val.ClassificationSchemeNM</a></td>
-                                  
-                                    <td>@_val.ObjCrtdUser.FullName</td>
-                                    <td>@_val.ClassificationSchemeDesc</td>
-                                    <td>@Html.ActionLink("Edit", "Edit", "ClassificationScheme", new { id = _val.ClassificationSchemeId }, null)</td>
+                                        else
+                                        {
+                                            <td>@_val.ClassificationSchemeId</td>
+                                        }
+                                        <td><a href="@Url.Action("Index", "Classification", new { area = "AdminCMS", SchemeId = _val.ClassificationSchemeId })">@_val.ClassificationSchemeNM</a></td>
+
+                                        <td>@_val.ObjCrtdUser.FullName</td>
+                                        @if (_val.IsSystem == 1)
+                                        {
+                                            <td>YES</td>
+                                        }
+                                        else
+                                        {
+                                            <td>NO</td>
+
+                                        }
+                                        <td>@_val.ClassificationSchemeDesc</td>
+                                        <td>@Html.ActionLink("Edit", "Edit", "ClassificationScheme", new { id = _val.ClassificationSchemeId }, null)</td>
                                     </tr>
                                 }
                             }
@@ -56,7 +66,7 @@
                 <div class="box-footer clearfix">
                     @if (Model.PageCount > 1)
                     {
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page}))
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                     }
                 </div>
             </div><!-- /.box -->

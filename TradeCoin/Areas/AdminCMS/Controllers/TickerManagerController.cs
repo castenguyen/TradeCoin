@@ -89,8 +89,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
           }
 
-
-
         public ActionResult Update(int? id)
         {
             if (id == null)
@@ -101,7 +99,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
             return View(model);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -181,8 +178,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
-
-
         private async Task<MediaContentViewModels> SaveDefaultImageForTicker(HttpPostedFileBase file, long TickerId)
         {
             MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.ticker
@@ -237,24 +232,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return (int)EnumCore.Result.action_false;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

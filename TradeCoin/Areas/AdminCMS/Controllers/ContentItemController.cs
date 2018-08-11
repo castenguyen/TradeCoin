@@ -177,10 +177,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-
-
-
-
         private async Task<MediaContentViewModels> SaveDefaultImageForContentItem(HttpPostedFileBase file, long ContentItemId)
         {
             MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc
@@ -235,22 +231,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return (int)EnumCore.Result.action_false;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -648,6 +628,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             var result = cms_db.GetlstContentItem().Select(s => new { s.ContentItemId, s.ContentTitle }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
 
     }
 }

@@ -25,7 +25,7 @@ namespace CMSPROJECT.Areas.AdminCMS
                  new { controller = "Branch|AdminHome|User" },
                  new[] { "CMSPROJECT.Areas.AdminCMS.Controllers" }
             );
-             
+
             #region promotion
 
             context.MapRoute(
@@ -46,15 +46,14 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "Promotion", action = "Delete" }
              );
 
-             context.MapRoute(
-             "AdminCMS_Promotion_GetSelectListProductByCate",
-             "administrator/Promotion/GetSelectListProductByCate",
-             new { controller = "Promotion", action = "GetSelectListProductByCate" }
-             );
+            context.MapRoute(
+            "AdminCMS_Promotion_GetSelectListProductByCate",
+            "administrator/Promotion/GetSelectListProductByCate",
+            new { controller = "Promotion", action = "GetSelectListProductByCate" }
+            );
 
 
             #endregion
-
 
             #region Role
             context.MapRoute(
@@ -77,16 +76,15 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "RoleManager", action = "EditRole" }
           );
 
-             context.MapRoute(
-             "AdminCMS_CreateRoleGroup",
-             "administrator/RoleManager/CreateRoleGroup",
-             new { controller = "RoleManager", action = "CreateRoleGroup" }
-          );
+            context.MapRoute(
+            "AdminCMS_CreateRoleGroup",
+            "administrator/RoleManager/CreateRoleGroup",
+            new { controller = "RoleManager", action = "CreateRoleGroup" }
+         );
 
-            
+
 
             #endregion
-
 
             #region AccountAdmin
 
@@ -135,8 +133,8 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "AccountAdmin", action = "ResetPassword" }
          );
 
-   
-         
+
+
             context.MapRoute(
                 "AdminCMS_ListUser",
                 "administrator/Account/ListUser",
@@ -162,7 +160,7 @@ namespace CMSPROJECT.Areas.AdminCMS
         );
 
 
-            
+
 
             context.MapRoute(
              "AdminCMS_AddUserRole",
@@ -170,53 +168,53 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "AccountAdmin", action = "AddUserRole" }
          );
 
-            
-                context.MapRoute(
-            "AdminCMS_RemoveUserRole",
-            "administrator/Account/RemoveUserRole",
-            new { controller = "AccountAdmin", action = "RemoveUserRole" }
-             );
 
-            
+            context.MapRoute(
+        "AdminCMS_RemoveUserRole",
+        "administrator/Account/RemoveUserRole",
+        new { controller = "AccountAdmin", action = "RemoveUserRole" }
+         );
 
-                    context.MapRoute(
-              "AdminCMS_ChangePassword",
-              "administrator/Account/ChangePassword",
-              new { controller = "AccountAdmin", action = "ChangePassword" }
-               );
 
-                    context.MapRoute(
-             "AdminCMS_ConfirmEmail",
-             "administrator/Account/ConfirmEmail",
-             new { controller = "AccountAdmin", action = "ConfirmEmail" }
-              );
 
-                    context.MapRoute(
-              "AdminCMS_ChangeState",
-              "administrator/Account/ChangeState",
-              new { controller = "AccountAdmin", action = "ChangeState" }
-               );
-                    context.MapRoute(
-           "AdminCMS_ForgotPasswordConfirmation",
-           "administrator/Account/ForgotPasswordConfirmation",
-           new { controller = "AccountAdmin", action = "ForgotPasswordConfirmation" }
-            );
+            context.MapRoute(
+      "AdminCMS_ChangePassword",
+      "administrator/Account/ChangePassword",
+      new { controller = "AccountAdmin", action = "ChangePassword" }
+       );
 
-                    context.MapRoute(
-              "AdminCMS_ForgotPassword",
-              "administrator/Account/ForgotPassword",
-              new { controller = "AccountAdmin", action = "ForgotPassword" }
-               );
-                    context.MapRoute(
-           "AdminCMS_ResetPasswordConfirmation",
-           "administrator/Account/ResetPasswordConfirmation",
-           new { controller = "AccountAdmin", action = "ResetPasswordConfirmation" }
-            );
-                    context.MapRoute(
-          "AdminCMS_Profile",
-          "administrator/Account/Profile",
-          new { controller = "AccountAdmin", action = "Profile" }
-           );
+            context.MapRoute(
+     "AdminCMS_ConfirmEmail",
+     "administrator/Account/ConfirmEmail",
+     new { controller = "AccountAdmin", action = "ConfirmEmail" }
+      );
+
+            context.MapRoute(
+      "AdminCMS_ChangeState",
+      "administrator/Account/ChangeState",
+      new { controller = "AccountAdmin", action = "ChangeState" }
+       );
+            context.MapRoute(
+   "AdminCMS_ForgotPasswordConfirmation",
+   "administrator/Account/ForgotPasswordConfirmation",
+   new { controller = "AccountAdmin", action = "ForgotPasswordConfirmation" }
+    );
+
+            context.MapRoute(
+      "AdminCMS_ForgotPassword",
+      "administrator/Account/ForgotPassword",
+      new { controller = "AccountAdmin", action = "ForgotPassword" }
+       );
+            context.MapRoute(
+   "AdminCMS_ResetPasswordConfirmation",
+   "administrator/Account/ResetPasswordConfirmation",
+   new { controller = "AccountAdmin", action = "ResetPasswordConfirmation" }
+    );
+            context.MapRoute(
+  "AdminCMS_Profile",
+  "administrator/Account/Profile",
+  new { controller = "AccountAdmin", action = "Profile" }
+   );
 
 
 
@@ -292,7 +290,7 @@ namespace CMSPROJECT.Areas.AdminCMS
 
 
 
-        
+
             context.MapRoute(
           "AdminCMS_ContentItem_RelatedTag",
           "administrator/RelatedTagContentItem",
@@ -319,7 +317,7 @@ namespace CMSPROJECT.Areas.AdminCMS
              );
 
 
-            
+
 
             #endregion END CONTENITEM
             #region COMMENT
@@ -408,29 +406,29 @@ namespace CMSPROJECT.Areas.AdminCMS
                new { controller = "ProductManager", action = "_RelatedTagE", id = UrlParameter.Optional }
                  );
 
-             context.MapRoute(
-               "AdminCMS_ProductManager_GetLstClassifiBySchemeId",
-               "administrator/GetLstcatelogryProductByparent",
-               new { controller = "ProductManager", action = "GetLstcatelogryProductByparent" }
-           );
+            context.MapRoute(
+              "AdminCMS_ProductManager_GetLstClassifiBySchemeId",
+              "administrator/GetLstcatelogryProductByparent",
+              new { controller = "ProductManager", action = "GetLstcatelogryProductByparent" }
+          );
 
-             context.MapRoute(
-             "AdminCMS_ProductManager_GetSelectListBySchemeId",
-             "administrator/GetSelectListBySchemeId",
-             new { controller = "ProductManager", action = "GetSelectListBySchemeId" }
-         );
-            
+            context.MapRoute(
+            "AdminCMS_ProductManager_GetSelectListBySchemeId",
+            "administrator/GetSelectListBySchemeId",
+            new { controller = "ProductManager", action = "GetSelectListBySchemeId" }
+        );
+
 
             #endregion product
 
             #region classifischeme
 
 
-             context.MapRoute(
-              "AdminCMS_Classifischeme_index",
-              "administrator/ManagerScheme",
-              new { controller = "ClassificationScheme", action = "Index" }
-          );
+            context.MapRoute(
+             "AdminCMS_Classifischeme_index",
+             "administrator/ManagerScheme",
+             new { controller = "ClassificationScheme", action = "Index" }
+         );
 
 
             context.MapRoute(
@@ -449,11 +447,11 @@ namespace CMSPROJECT.Areas.AdminCMS
             #region Classicification
 
 
-                  context.MapRoute(
-              "AdminCMS_Classicification_InputClass",
-              "administrator/ManagerClassifi/InputClass",
-              new { controller = "Classification", action = "InputClass" }
-          );
+            context.MapRoute(
+        "AdminCMS_Classicification_InputClass",
+        "administrator/ManagerClassifi/InputClass",
+        new { controller = "Classification", action = "InputClass" }
+    );
 
             context.MapRoute(
               "AdminCMS_Classicification_index",
@@ -484,14 +482,14 @@ namespace CMSPROJECT.Areas.AdminCMS
                 new { controller = "Classification", action = "OrderbyDe", id = UrlParameter.Optional }
             );
 
-             context.MapRoute(
-                "AdminCMS_Classicification_Delete",
-                "administrator/DeleteSClassifi/{id}",
-                new { controller = "Classification", action = "Delete", id = UrlParameter.Optional }
-            );
+            context.MapRoute(
+               "AdminCMS_Classicification_Delete",
+               "administrator/DeleteSClassifi/{id}",
+               new { controller = "Classification", action = "Delete", id = UrlParameter.Optional }
+           );
 
 
-            
+
 
             context.MapRoute(
                 "AdminCMS_Classicification_UploadImagePartial",
@@ -722,7 +720,7 @@ namespace CMSPROJECT.Areas.AdminCMS
              "administrator/HistoryManager/Delete",
              new { controller = "HistoryManager", action = "Delete" }
              );
-            
+
             #endregion
 
             #region ErrorManager
@@ -740,13 +738,20 @@ namespace CMSPROJECT.Areas.AdminCMS
            new { controller = "Dashboard", action = "MainSliderPartial" }
            );
 
+
+            context.MapRoute(
+         "AdminCMS_Dashboard_ModIndex",
+         "administrator/Dashboard/ModIndex",
+         new { controller = "Dashboard", action = "ModIndex" }
+         );
+
             context.MapRoute(
         "AdminCMS_Dashboard_MainHeaderPartial",
         "administrator/Dashboard/MainHeaderPartial",
         new { controller = "Dashboard", action = "MainHeaderPartial" }
         );
 
-
+            
 
             #endregion dashboad
 
@@ -950,7 +955,7 @@ namespace CMSPROJECT.Areas.AdminCMS
            new { controller = "PackageManager", action = "ConfirmUpdate" }
            );
 
-            
+
 
 
 
@@ -1004,25 +1009,68 @@ namespace CMSPROJECT.Areas.AdminCMS
             #region EmailManager
             context.MapRoute(
               "AdminCMS_EmailIndex",
-              "administrator/Email/Index",
+              "hop-thu",
               new { controller = "EmailManager", action = "Index" }
            );
 
 
-         
+
             context.MapRoute(
               "AdminCMS_CreateNewEmail",
-              "administrator/Email/CreateNewEmail",
+              "tao-moi-thu",
               new { controller = "EmailManager", action = "CreateNewEmail" }
            );
 
             context.MapRoute(
             "AdminCMS_DetailEmail",
-            "administrator/Email/DetailEmail",
+            "chi-tiet-thu",
             new { controller = "EmailManager", action = "DetailEmail" }
          );
 
+            context.MapRoute(
+           "ChatGroup_Index",
+           "chat-nhom",
+           new { controller = "ChatGroup", action = "Index" }
+           );
+
+            #endregion
+
+
+            #region member
+
+            context.MapRoute(
+            "AdminCMS_member_ListTicker",
+            "tat-ca-keo",
+            new { controller = "Member", action = "ListTicker" }
+            );
+
+            context.MapRoute(
+           "AdminCMS_member_DetailTicker",
+           "chi-tiet-keo",
+           new { controller = "Member", action = "DetailTicker" }
+           );
+
+
+            context.MapRoute(
+           "AdminCMS_member_ListNews",
+           "tat-ca-bai-viet",
+           new { controller = "Member", action = "ListNews" }
+           );
+
+            context.MapRoute(
+        "AdminCMS_member_DetailNews",
+        "chi-tiet-bai-viet",
+        new { controller = "Member", action = "DetailNews" }
+        );
+
+            context.MapRoute(
+      "AdminCMS_member_MemberDashBoard",
+      "trang-chinh",
+      new { controller = "Member", action = "MemberDashBoard" }
+      );
+
             
+
             #endregion
 
 
@@ -1039,19 +1087,15 @@ namespace CMSPROJECT.Areas.AdminCMS
                 new { controller = "ShopCartManager", action = "OrderDetail" }
                 );
 
-       
+
 
             context.MapRoute(
               "ShopCartManager_delete2",
               "administrator/ShopCartManager/DeleteOrder",
-              new { controller = "ShopCartManager", action = "DeleteOrder"}
+              new { controller = "ShopCartManager", action = "DeleteOrder" }
               );
 
-            context.MapRoute(
-              "ChatGroup_Index",
-              "administrator/ChatGroup",
-              new { controller = "ChatGroup", action = "Index" }
-              );
+         
             #endregion
         }
     }
