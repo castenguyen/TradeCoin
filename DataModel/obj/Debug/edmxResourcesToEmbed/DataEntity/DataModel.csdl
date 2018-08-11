@@ -324,6 +324,9 @@
     <Property Name="UserAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="PackageId" Type="Int64" />
     <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ExpiredDay" Type="DateTime" Precision="3" />
+    <Property Name="AwaitPackageId" Type="Int64" />
+    <Property Name="AwaitPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="UserClaim">
     <Key>

@@ -659,6 +659,9 @@
     <Property Name="UserAdress" Type="nvarchar" MaxLength="500" />
     <Property Name="PackageId" Type="bigint" />
     <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ExpiredDay" Type="datetime" />
+    <Property Name="AwaitPackageId" Type="bigint" />
+    <Property Name="AwaitPackageName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="UserClaim">
     <Key>

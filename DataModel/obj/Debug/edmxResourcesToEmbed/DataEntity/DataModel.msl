@@ -279,6 +279,9 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="alluneedbModel.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="AwaitPackageName" ColumnName="AwaitPackageName" />
+          <ScalarProperty Name="AwaitPackageId" ColumnName="AwaitPackageId" />
+          <ScalarProperty Name="ExpiredDay" ColumnName="ExpiredDay" />
           <ScalarProperty Name="PackageName" ColumnName="PackageName" />
           <ScalarProperty Name="PackageId" ColumnName="PackageId" />
           <ScalarProperty Name="UserAdress" ColumnName="UserAdress" />

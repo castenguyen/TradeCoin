@@ -154,26 +154,28 @@ namespace DataModel.Extension
         }
 
 
-        public enum ProjectConfig_ControlLeftBackEndMenu : int
+        public enum SystemConfig_MenuLeft : int
         {
             dashboard=1,
+            classification=1,
+            comment = 0,
+            news = 1,
+            pageinfo = 1,
+            product =0,
+            media = 1,
+            display = 0,
+            tag=0,
             user = 1,
-            news=1,
-            product = 1,
-          
+            role=1,
             config = 1,
-            display = 1,
-            comment=1,
-            pageinfo=1,
-            media=1,
             history=1,
-            order=1,
-            promotion=1,
-
+            order=0,
+            promotion=0,
             package = 1,
             ticker=1,
-            chatgroup=1,
             mail=1,
+            chatgroup = 1,
+            changepass =0,
         }
         public enum ProjectConfig_System : int
         {
