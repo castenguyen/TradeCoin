@@ -250,7 +250,16 @@ namespace CMSPROJECT.Hubs
         }
 
     }
-}
+
+
+    public class NotifiHub : Hub
+    {
+
+
+
+    }
+
+    }
 
 
 
