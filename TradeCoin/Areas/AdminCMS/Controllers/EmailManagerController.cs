@@ -36,6 +36,27 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             return View(model);
         }
+        public ActionResult GridListBalancesStatement()
+        {
+            try
+            {
+                int? page = null;
+                int pageNum = (page ?? 1);
+                EmailSupportIndexViewModel model = new EmailSupportIndexViewModel();
+                model.lstMod = cms_db.GetlstUser().Where(s => s.LstRole.Any(r => r.Name == "Mod")).ToList();
+                long IdUser = long.Parse(User.Identity.GetUserId());
+                IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.CrtdUserId != IdUser);
+
+                pageNum = 1;
+                model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                return Json(model.lstEmailSupport, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         public async Task<ActionResult> CreateNewEmail(long? ModId)
         {
@@ -68,7 +89,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 newObject.StateName = "Chờ phản hồi";
                 int rs = cms_db.CreateEmailSupport(newObject);
                 var context = GlobalHost.ConnectionManager.GetHubContext<NotifiHub>();
-                context.Clients.All.methodInJavascript("hello world");
+                context.Clients.All.notificationNewEmail();
                 return RedirectToAction("Index");
             }
             catch (Exception e)

@@ -34,74 +34,14 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success" id="NewEmail1">4</span>
+                            <span class="label label-success" id="NewEmail1"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have <span id="NewEmail2">4</span> messages</li>
+                            <li class="header">You have <span id="NewEmail2"></span> email</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li><!-- end message -->
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                AdminLTE Design Team
-                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Developers
-                                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Sales Department
-                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Reviewers
-                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
+                                <ul class="menu" id="NewEmail">
+
                                 </ul>
                             </li>
                             <li class="footer"><a href="#">See All Messages</a></li>
@@ -221,17 +161,43 @@
 <script src="~/signalr/hubs"></script>
 <!--SignalR script to update the chat page and send messages.-->
 <script>
-            $(function () {
-                // Reference the auto-generated proxy for the hub.
-                var notificationHub = $.connection.notifiHub;
-                // Create a function that the hub can call back to display messages.
-                notificationHub.client.methodInJavascript = function (name) {
-                    var a = parseInt($("#NewEmail1").text());
-                    $("#NewEmail1").text(a + 1);
-                };
+    $(function () {
+        // Reference the auto-generated proxy for the hub.
+        var notificationHub = $.connection.notifiHub;
+        // Create a function that the hub can call back to display messages.
+        notificationHub.client.notificationNewEmail = function () {
+            $("#NewEmail").empty();
+            ListNewEmail();
+        };
 
-                // Start the connection.
-                $.connection.hub.start().done(function () {
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+        });
+
+        ListNewEmail();
+    });
+
+    function ListNewEmail() {
+        coreApp.callAjaxGateway({
+            url: 'AdminCMS/EmailManager/GridListBalancesStatement',
+            callback: function (data) {
+                $("#NewEmail1").text(data.length);
+                $("#NewEmail2").text(data.length);
+                $.each(data, function (val, text) {
+                    $('#NewEmail').append(`<li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                `+ text.CrtdUserName +`
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>`+ text.Content +`</p>
+                                        </a>
+                                    </li>`);
                 });
-            });
+            }
+        });
+    }
 </script>

@@ -1028,6 +1028,12 @@ namespace CMSPROJECT.Areas.AdminCMS
          );
 
             context.MapRoute(
+                "AdminCMS_GridListBalancesStatement",
+                "AdminCMS/EmailManager/GridListBalancesStatement",
+                new { controller = "EmailManager", action = "GridListBalancesStatement" }
+            );
+
+            context.MapRoute(
            "ChatGroup_Index",
            "chat-nhom",
            new { controller = "ChatGroup", action = "Index" }

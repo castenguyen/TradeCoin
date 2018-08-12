@@ -100,13 +100,6 @@
                 $('#discussion').animate({ scrollTop: $('#discussion').prop('scrollHeight') }, 1000);
 
             };
-            chat.client.methodInJavascript = function (name) {
-
-                alert(name);
-
-            };
-           
-
      
             // Start the connection.
             $.connection.hub.start().done(function () {
