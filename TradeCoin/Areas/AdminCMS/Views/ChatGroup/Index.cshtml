@@ -36,14 +36,12 @@
 
                 </div><!-- /.box-body -->
                 <div class="box-footer">
-                    <form action="#" method="post">
                         <div class="input-group">
                             <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-primary btn-flat" id="sendmessage">Send</button>
+                                <button class="btn btn-primary btn-flat" id="sendmessage">Send</button>
                             </span>
                         </div>
-                    </form>
                 </div><!-- /.box-footer-->
             </div><!--/.direct-chat -->
 
@@ -97,18 +95,32 @@
                                     </div>
                                 </div>`);
                 }
-                $('#discussion').animate({ scrollTop: $('#discussion').prop('scrollHeight') }, 1000);
+
+                $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
 
             };
      
             // Start the connection.
             $.connection.hub.start().done(function () {
                 $('#sendmessage').click(function () {
+                    sendmessage();
+                });
+            });
+
+            // focus enter keyboar
+            $('#message').keypress(function (event) {
+                if (event.keyCode == 13) {
+                    sendmessage();
+                }
+            });
+
+            function sendmessage() {
+                if ($('#message').val() != "") {
                     // Call the Send method on the hub.
                     chat.server.send($('#displayname').val(), $('#message').val());
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
-                });
-            });
+                }
+            }
         });
 </script>
