@@ -1021,6 +1021,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         #endregion
 
+ 
+
         #region Private Function
 
         private void AddErrors(IdentityResult result)

@@ -34,40 +34,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View(_lstPackage);
         }
 
-        public ActionResult ConfirmUpdate(long UserId,long PackageId)
-        {
-            try {
-
-                long CurrentUserId= long.Parse(User.Identity.GetUserId());
-                if (CurrentUserId != UserId)
-                {
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
-                }
-                UserPackageViewModel model = new UserPackageViewModel();
-                User ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
-                Package ObjNewPackage = cms_db.GetObjPackage(PackageId);
-                Package ObjOldPackage = cms_db.GetObjPackage(ObjUser.PackageId.Value);
-
-                if (ObjNewPackage.NumDay > ObjOldPackage.NumDay && (ObjUser.AwaitPackageId != null || ObjUser.AwaitPackageId != 0))
-                {
-                    model.ObjPackage = cms_db.GetObjPackage(PackageId);
-                    model.ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
-                    return View(model);
-                }
-                return RedirectToAction("AlertPage", "Extension", new { AlertString="Không thể thực hiện nâng cấp với gói cước này", link="" });
-            }
-            catch (Exception e)
-            {
-                cms_db.AddToExceptionLog("ConfirmUpdate", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
-                return RedirectToAction("FrontEndIndex");
-            }
-        }
-
-        public ActionResult UpdatePackageForUser(long UserId, long PackageId)
-        {
-            UserPackageViewModel model = new UserPackageViewModel();
-            return View(model);
-        }
+      
 
         public ActionResult Create()
         {
@@ -91,7 +58,118 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return RedirectToAction("Index");
         }
 
-      public ActionResult Update(int? id)
+
+        [AllowAnonymous]
+        public ActionResult ConfirmUpgrade(long UserId, long PackageId)
+        {
+            try
+            {
+                long CurrentUserId = long.Parse(User.Identity.GetUserId());
+                //Nếu user đang online ko phải là user nâng cấp=>failse
+                //hoặc user không phải là member thì không nâng cấp
+                if (CurrentUserId != UserId || !User.IsInRole("Member"))
+                {
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                }
+                User ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
+
+                Package ObjOldPackage = new Package();
+                //nếu gói cước của user là null hoặc = 1 là free
+                if (ObjUser.PackageId.HasValue)
+                {
+                    ObjOldPackage = cms_db.GetObjPackage(ObjUser.PackageId.Value);
+                }
+                else
+                {
+                    //1 là package free
+                    ObjOldPackage = cms_db.GetObjPackage(1);
+                }
+
+                UserPackageViewModel model = new UserPackageViewModel();
+                Package ObjNewPackage = cms_db.GetObjPackage(PackageId);
+                if (ObjNewPackage.NumDay > ObjOldPackage.NumDay)
+                {
+                    model.ObjPackage = ObjNewPackage;
+                    model.ObjUser = ObjUser;
+                    model.PackageName = ObjNewPackage.PackageName;
+                    model.UpgradeUID = ObjUser.Id;
+                    model.UpgradeUserName = ObjUser.EMail;
+                    model.CrtdDT = DateTime.Now;
+                    string coderandom = DateTime.UtcNow.Ticks.ToString();
+                    model.UpgradeToken = coderandom;
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                }
+
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("ConfirmUpdate", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpgradePackageUser(UserPackageViewModel model)
+        {
+            try {
+                //Nếu user đang online ko phải là user nâng cấp=>failse
+                //hoặc user không phải là member thì không nâng cấp
+                long CurrentUserId = long.Parse(User.Identity.GetUserId());
+                if (CurrentUserId != model.UpgradeUID.Value || !User.IsInRole("Member"))
+                {
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                }
+                User ObjUser = cms_db.GetObjUserByIdNoAsync(model.UpgradeUID.Value);
+                Package ObjNewPackage = cms_db.GetObjPackage(model.PackageId.Value);
+                Package ObjOldPackage = new Package();
+                if (ObjUser.PackageId.HasValue)
+                {
+                    ObjOldPackage = cms_db.GetObjPackage(ObjUser.PackageId.Value);
+                }
+                else
+                {
+                    //1 là package free
+                    ObjOldPackage = cms_db.GetObjPackage(1);
+                }
+
+
+                if (ObjNewPackage.NumDay > ObjOldPackage.NumDay)
+                {
+                    UserPackage objUserPackage = new UserPackage();
+                    objUserPackage.CrtdDT = DateTime.Now;
+                    objUserPackage.PackageId = ObjNewPackage.PackageId;
+                    objUserPackage.PackageName = ObjNewPackage.PackageName;
+                    objUserPackage.UpgradeUID = ObjUser.Id;
+                    objUserPackage.UpgradeUserName = ObjUser.EMail;
+                    objUserPackage.StateId = (int)EnumCore.StateType.cho_duyet;
+                    objUserPackage.StateName = "Chờ duyệt";
+                    cms_db.CreateUserPackage(objUserPackage);
+
+                    ObjUser.AwaitPackageId = ObjNewPackage.PackageId;
+                    ObjUser.AwaitPackageName = ObjNewPackage.PackageName;
+                    int rs=  await cms_db.UpdateUser(ObjUser);
+
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Đã thực hiện nâng cấp vui lòng chờ xét duyệt", link = "" });
+                }
+                else
+                {
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                }
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpgradePackageUser", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+            }
+        }
+
+        public ActionResult Update(int? id)
         {
             if (id == null)
                 id = 1;
@@ -100,7 +178,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View(model);
         }
 
-      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(PackageViewModel model)
