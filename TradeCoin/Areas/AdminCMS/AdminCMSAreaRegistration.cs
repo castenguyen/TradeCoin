@@ -949,15 +949,6 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "PackageManager", action = "FrontEndIndex" }
              );
 
-            context.MapRoute(
-           "AdminCMS_PackageManager_ConfirmUpdate",
-           "administrator/packagemanager/ConfirmUpdate",
-           new { controller = "PackageManager", action = "ConfirmUpdate" }
-           );
-
-
-
-
 
             context.MapRoute(
               "AdminCMS_PackageManager_index",
@@ -970,6 +961,13 @@ namespace CMSPROJECT.Areas.AdminCMS
             "administrator/PackageManager/Update/{id}",
             new { controller = "PackageManager", action = "Update", id = UrlParameter.Optional }
               );
+
+
+            context.MapRoute(
+"AdminCMS_PackageManager_ConfirmUpgrade",
+"administrator/PackageManager/ConfirmUpgrade",
+new { controller = "PackageManager", action = "ConfirmUpgrade" }
+);
 
 
             #endregion

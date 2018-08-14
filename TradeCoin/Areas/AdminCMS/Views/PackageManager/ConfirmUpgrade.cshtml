@@ -1,0 +1,113 @@
+﻿@using DataModel.DataViewModel;
+@model UserPackageViewModel
+@{
+    ViewBag.Title = "ConfirmUpgrade";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="invoice">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header">
+                <i class="fa fa-globe"></i>  Xác nhận nâng cấp tài khoản
+                <small class="pull-right">Date: @Model.CrtdDT</small>
+            </h2>
+        </div><!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+
+            <address>
+                <strong>Thông tin tài khoản</strong><br>
+                @Model.UpgradeUserName<br>
+                Phone: (804) 123-5432<br>
+                Email: @Model.UpgradeUserName<br>
+                Mã nâng cấp: @Model.UpgradeToken
+            </address>
+        </div><!-- /.col -->
+
+        <div class="col-sm-4 invoice-col">
+            <b>Gói cước hiện tại</b><br>
+            <br>
+            <b>Tên:</b>
+            @if (String.IsNullOrEmpty(Model.ObjUser.PackageName))
+            {
+               <span>FREE</span>
+            }
+            else
+            {
+                @Model.ObjUser.PackageName
+            }
+
+
+            <br>
+            <b>Ngày hết hạn:</b>  @Model.ObjUser.ExpiredDay<br>
+
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th>Tên gói</th>
+                        <th>Thời gian</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td>@Model.PackageName</td>
+                        <td>@Model.ObjPackage.NumDay Ngày</td>
+                        <td>@Model.ObjPackage.NewPrice</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+            <p class="lead">Phương thức thanh toán:</p>
+            <img src="~/Areas/AdminCMS/dist/img/credit/visa.png" alt="Visa">
+            <img src="~/Areas/AdminCMS/dist/img/credit/mastercard.png" alt="Mastercard">
+            <img src="~/Areas/AdminCMS/dist/img/credit/american-express.png" alt="American Express">
+            <img src="~/Areas/AdminCMS/dist/img/credit/paypal2.png" alt="Paypal">
+            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                Hiện tại chỉ hỗ trợ thanh toàn qua tài khoản ngân hàng
+            </p>
+        </div><!-- /.col -->
+
+    </div><!-- /.row -->
+    <!-- this row will not appear when printing -->
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> In</a>
+
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.PackageId)
+        @Html.HiddenFor(m => m.UpgradeUID)
+        @Html.HiddenFor(m => m.UpgradeToken)
+      
+        <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Xác nhận nâng cấp</button>
+}
+
+       
+
+
+
+            <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Lưu</button>
+        </div>
+    </div>
+</section><!-- /.content -->

@@ -27,7 +27,7 @@
                             <div class="box-body text-center">
                                 <strong><i class="fa fa-clock margin-r-5"></i> @_val.NumDay Ngày</strong>
                             <hr>
-                                <a href="@Url.Action("ConfirmUpdate", "PackageManager", new { UserId=User.Identity.GetUserId(),PackageId=_val.PackageId})" class="btn btn-primary btn-block"><b>Nâng cấp </b></a>
+                                <a href="@Url.Action("ConfirmUpgrade", "PackageManager", new { UserId=User.Identity.GetUserId(),PackageId=_val.PackageId})" class="btn btn-primary btn-block"><b>Nâng cấp </b></a>
                             </div><!-- /.box-body -->
                         </div><!-- /.box -->
                     </div><!-- /.col -->
