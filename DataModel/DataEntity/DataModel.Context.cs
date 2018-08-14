@@ -62,6 +62,7 @@ namespace DataModel.DataEntity
         public virtual DbSet<Ticker> Tickers { get; set; }
         public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<RoleGroup> RoleGroups { get; set; }
+        public virtual DbSet<UserPackage> UserPackages { get; set; }
     
         public virtual int GetDataUserInfor(string username)
         {

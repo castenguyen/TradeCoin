@@ -705,6 +705,23 @@
           <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserPackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UpgradeUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="UpgradeUID" Type="bigint" />
+          <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="AprvdUID" Type="bigint" />
+          <Property Name="AprvdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="PackageId" Type="bigint" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
+          <Property Name="UpgradeToken" Type="nvarchar" MaxLength="200" />
+          <Property Name="CrtdDT" Type="datetime" />
+        </EntityType>
         <EntityType Name="UserRegistrationToken">
           <Key>
             <PropertyRef Name="Id" />
@@ -1006,6 +1023,7 @@
           <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Userhists" EntityType="Self.Userhists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPackage" EntityType="Self.UserPackage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Classification_Classification" Association="Self.FK_Classification_Classification">
@@ -1759,6 +1777,7 @@
           </FunctionImport>
           <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
           <EntitySet Name="RoleGroups" EntityType="alluneedbModel.RoleGroup" />
+          <EntitySet Name="UserPackages" EntityType="alluneedbModel.UserPackage" />
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -2333,6 +2352,23 @@
           <Property Name="RoleId" Type="Int64" Nullable="false" />
           <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserPackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UpgradeUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UpgradeUID" Type="Int64" />
+          <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AprvdUID" Type="Int64" />
+          <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="PackageId" Type="Int64" />
+          <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UpgradeToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CrtdDT" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
@@ -3298,6 +3334,24 @@
                 <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleGroupId" ColumnName="RoleGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPackages">
+            <EntityTypeMapping TypeName="alluneedbModel.UserPackage">
+              <MappingFragment StoreEntitySet="UserPackage">
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="UpgradeToken" ColumnName="UpgradeToken" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+                <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+                <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+                <ScalarProperty Name="UpgradeUID" ColumnName="UpgradeUID" />
+                <ScalarProperty Name="UpgradeUserName" ColumnName="UpgradeUserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
