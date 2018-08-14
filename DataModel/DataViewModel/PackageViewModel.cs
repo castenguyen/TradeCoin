@@ -90,6 +90,18 @@ namespace DataModel.DataViewModel
 
         public Package ObjPackage { get; set; }
         public User ObjUser { get; set; }
+        public string UpgradeToken { get; set; }
+        public Nullable<long> UpgradeUID { get; set; }
+        public string AprvdUserName { get; set; }
+        public Nullable<long> AprvdUID { get; set; }
+        public Nullable<System.DateTime> AprvdDT { get; set; }
+        public string StateName { get; set; }
+        public Nullable<long> StateId { get; set; }
+        public Nullable<long> PackageId { get; set; }
+        public string PackageName { get; set; }
+        public string UpgradeUserName { get; set; }
+
+        public Nullable<System.DateTime> CrtdDT { get; set; }
 
     }
 
