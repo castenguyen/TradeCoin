@@ -204,6 +204,15 @@ namespace DataModel.Extension
             //da_xoa = 6148,
         }
 
+
+        public enum UpgradeStatus : int
+        {
+            cho_duyet = 1,
+            duyet = 2,
+            het_han = 3,
+
+        }
+
         #endregion END BACKEND
 
 
