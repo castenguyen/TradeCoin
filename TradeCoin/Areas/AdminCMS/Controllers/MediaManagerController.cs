@@ -274,7 +274,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,CreateVideo")]
         public ActionResult VideoManager()
         {
             List<MediaContent> model = new List<MediaContent>();
