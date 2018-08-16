@@ -1,10 +1,11 @@
 ﻿@{
     ViewBag.Title = "Trang thông báo";
     Layout = "~/Areas/AdminCMS/Views/Shared/_MainLayout.cshtml";
+
 }
 @model DataModel.DataViewModel.AlertPageViewModel
 
-@*<body class="hold-transition lockscreen">
+<body class="hold-transition lockscreen">
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
         <div class="lockscreen-logo">
@@ -14,7 +15,7 @@
         <div class="lockscreen-name">@Model.AlertString</div>
         <div class="text-center">
             @Model.AlertLink
-
+            <a href="@Url.Action("Login", "AccountAdmin")">Vui lòng đăng nhập tại đây</a>
         </div>
         <div class="lockscreen-footer text-center">
             Copyright © 2014-2015 <b><a href="" class="text-black">CMSSHOP</a></b><br>
@@ -27,47 +28,5 @@
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
 
-</body>*@
+</body>
 
-
-<section class="content">
- 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <i class="fa fa-warning"></i>
-                    <h3 class="box-title">TRADECOIN</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <div class="alert alert-info alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h4><i class="icon fa fa-info"></i> Alert!</h4>
-                        @Model.AlertString
-                        @Model.AlertLink
-                    </div>
-
-
-                    @*<div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                        Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
-                    </div>
-                    <div class="alert alert-warning alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                        Warning alert preview. This alert is dismissable.
-                    </div>
-
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h4>	<i class="icon fa fa-check"></i> Alert!</h4>
-                        Success alert preview. This alert is dismissable.
-                    </div>*@
-
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-     
-    </div> <!-- /.row -->
-    </section>
