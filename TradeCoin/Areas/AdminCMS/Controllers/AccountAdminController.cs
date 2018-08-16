@@ -263,7 +263,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         #endregion
 
-        #region Register-Login-Reset
+        #region Register-Login-Reset-LogOff-forget
+
+
         /// <summary>
         /// có 2 kieu đăng nhập
         /// 1 : Đăng nhập bằng usernam và password
@@ -417,6 +419,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
             {
                 var user = UserManager.Find(model.Email, "123456");
+                if (user.IsLogin == true)
+                {
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "User đã login ở một  nợi khác vui lòng đăng xuất tất cả cả thiết bị trước khi đăng nhập lại",type= (int)EnumCore.AlertPageType.lockscreen});
+                }
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Invalid username");
@@ -427,12 +433,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     if (UserManager.GetLockoutEnabled(user.Id) == true)
                     {
                         string AlertString = "Tài khoản tạm khoá vui lòng liên hệ quản trị viên";
-                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                     }
                     if (UserManager.IsEmailConfirmed(user.Id) == false)
                     {
                         string AlertString = "Tài khoản chưa kích hoạt vui lòng kiểm tra mail và kích hoạt";
-                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                     }
 
                     string code = UserManager.GenerateUserToken("LoginWithToken", user.Id);
@@ -468,13 +474,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         if (UserManager.GetLockoutEnabled(user.Id) == true)
                         {
                             string AlertString = "Tài khoản tạm khoá vui lòng liên hệ quản trị viên";
-                            return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                            return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                         }
 
                         if (UserManager.IsEmailConfirmed(user.Id) == false)
                         {
                             string AlertString = "Tài khoản chưa kích hoạt vui lòng kiểm tra mail và kích hoạt";
-                            return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString });
+                            return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                         }
                         await SignInAsync(user, model.RememberMe);
                         int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
@@ -528,6 +534,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tokenCorrect)
             {
                 var user = UserManager.FindById(userId);
+             
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Invalid username");
@@ -535,18 +542,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
                 await SignInAsync(user, true);
                 User _ObjUser = await cms_db.GetObjUserById(userId);
+                _ObjUser.IsLogin = true;
                     ///kiểm tra ngày hết hạn của user
-               if(_ObjUser.ExpiredDay.HasValue)
+               if (_ObjUser.ExpiredDay.HasValue)
                 {
                     if (_ObjUser.ExpiredDay.Value < DateTime.Now)
                     {
                         _ObjUser.PackageId = 1;
                         _ObjUser.PackageName = "Free";
-                        int updateUser = await cms_db.UpdateUser(_ObjUser);
                         int CreateUpdateUserPackage = cms_db.CreateUpdateUserPackage(_ObjUser, 1, (int)EnumCore.UpgradeStatus.het_han, "Hết hạn", "");
                     }
-
                 }
+                int updateUser = await cms_db.UpdateUser(_ObjUser);
                 int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
                 return RedirectToAction("Index", "Dashboard");
@@ -670,9 +677,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
         #endregion
 
-        #region methods
-
-
+        #region ChangePassword-ChangeState-RemoveAccountList
         [AdminAuthorize]
         public async Task<ActionResult> ChangePassword(ManageMessageId? message)
         {
@@ -774,7 +779,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         #endregion
-        #region Profile
+
+
+        #region Profile-SaveImageForUser
         [AdminAuthorize]
         public ActionResult Profile()
         {
@@ -835,8 +842,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         #endregion End Profile
 
-        #region USER MANAGER
-       
+        #region ListUser-DetailUser-ManagerUser-ListUserUpgrade-DetailUpgradeUser-UpgradePackage
+
 
         [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
         public ActionResult ListUser(string letter, string RoleName, int? page = 1)
@@ -868,6 +875,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.letter = letter;
             return View(model);
         }
+
+
+
+
 
         /// <summary>
         /// HIỂN THỊ THÔNG TIN CHI TIẾT USER
@@ -936,6 +947,51 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             return View(model);
         }
+   
+
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public ActionResult ListUserUpgrade(string letter, string RoleName, int? page = 1)
+        {
+            int pageNum = (page ?? 1);
+            UserRoleViewModel model = new UserRoleViewModel();
+            model.LstRole = cms_db.GetRoleList2();
+            var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
+            IQueryable<User> tmp = null;
+            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "devuser"))
+            {
+                tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
+            }
+            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "supperadmin"))
+            {
+                tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
+            }
+            if (!String.IsNullOrEmpty(letter))
+            {
+                letter = letter.ToLower();
+                tmp = tmp.Where(c => c.Login.StartsWith(letter) || c.EMail.StartsWith(letter));
+            }
+            if (!String.IsNullOrEmpty(RoleName))
+            {
+                tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
+            }
+            model.LstAllUser = tmp.OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.Page = pageNum;
+            model.letter = letter;
+            return View(model);
+        }
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        public async Task<ActionResult> DetailUpgradeUser(long id)
+        {
+            User _ObjUser = await cms_db.GetObjUserById(id);
+            UserAndRoles model = new UserAndRoles();
+            model.LstCurPermission = await UserManager.GetRolesAsync(id);
+            model.ObjUser = _ObjUser;
+            model.LstAllPermission = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
+            return View(model);
+        }
+
         /// <summary>
         /// NÂNG CẤP 1 TÀI KHOẢN
         /// </summary>
@@ -943,6 +999,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// <param name="packageid"></param>
         /// <returns></returns>
         [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+
         public async Task<ActionResult> UpgradePackage(long id, long packageid)
         {
             try
@@ -1014,6 +1071,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
+        #endregion
+
+        #region AddUserRole-AddRoleForUser-RemoveUserRole
+
         /// <summary>
         /// THÊM ROLE MỚI CHO USER
         /// </summary>
@@ -1042,7 +1103,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         private async Task<int> AddRoleForUser(long Id, string RoleName)
         {
-            try {
+            try
+            {
                 var result = await UserManager.AddToRoleAsync(Id, RoleName);
                 Role objParentRole = cms_db.GetObjRoleByName(RoleName);
                 long[] lstChildRole = cms_db.GetlstPermission(objParentRole.Id);
@@ -1058,8 +1120,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 cms_db.AddToExceptionLog("AddRoleForUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return (int)EnumCore.Result.action_false;
             }
-         
-           
+
+
         }
         /// <summary>
         /// LOẠI BỎ MỘT ROLE CỦA USER
@@ -1093,15 +1155,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Xoá quyền không thành công" });
             }
         }
-
-
-
-
         #endregion
 
- 
 
-        #region Private Function
+
+        #region AddErrors- HasPassword -RedirectToLocal -SendEmail -SignInAsync -Dispose
 
         private void AddErrors(IdentityResult result)
         {

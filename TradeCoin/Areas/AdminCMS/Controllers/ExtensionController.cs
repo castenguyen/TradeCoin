@@ -91,12 +91,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
         }
-        public ActionResult AlertPage( string AlertString ,string link)
+        public ActionResult AlertPage( string AlertString ,string link,int? type)
         {
-            AlertPageViewModel model = new AlertPageViewModel();
-            model.AlertString = AlertString;
-            model.AlertLink = link;
-            return View(model);
+            if (!type.HasValue)
+                type = (int)EnumCore.AlertPageType.lockscreen;
+            ///lockscreen
+            if (type == (int)EnumCore.AlertPageType.lockscreen)
+            {
+                AlertPageViewModel model = new AlertPageViewModel();
+                model.AlertString = AlertString;
+                model.AlertLink = link;
+                return View("AlertPage", model);
+            }else
+            {
+                AlertPageViewModel model = new AlertPageViewModel();
+                model.AlertString = AlertString;
+                model.AlertLink = link;
+                return View("AlertPageFullScreen", model);
+            }
+           
         }
         public ActionResult ConfirmDelete(long id, string controller, string action)
         {

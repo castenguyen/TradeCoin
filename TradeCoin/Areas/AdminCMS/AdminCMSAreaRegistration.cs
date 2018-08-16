@@ -153,14 +153,6 @@ namespace CMSPROJECT.Areas.AdminCMS
              new { controller = "AccountAdmin", action = "ManagerUser" }
               );
 
-            context.MapRoute(
-            "AdminCMS_UpgradePackage",
-            "administrator/Account/UpgradePackage",
-            new { controller = "AccountAdmin", action = "UpgradePackage" }
-        );
-
-
-
 
             context.MapRoute(
              "AdminCMS_AddUserRole",
@@ -220,6 +212,33 @@ namespace CMSPROJECT.Areas.AdminCMS
 
 
             #endregion  END AccountAdmin
+
+
+            #region Account Upgrade User
+
+
+            context.MapRoute(
+        "AdminCMS_UpgradePackage",
+        "administrator/Account/UpgradePackage",
+        new { controller = "AccountAdmin", action = "UpgradePackage" }
+    );
+
+            context.MapRoute(
+           "AdminCMS_ListUserUpgrade",
+           "administrator/Account/ListUserUpgrade",
+           new { controller = "AccountAdmin", action = "ListUserUpgrade" }
+            );
+
+
+            context.MapRoute(
+           "AdminCMS_DetailUpgradeUser",
+           "administrator/Account/DetailUpgradeUser",
+           new { controller = "AccountAdmin", action = "DetailUpgradeUser" }
+            );
+
+
+
+            #endregion
 
             #region CONTENITEM
 
