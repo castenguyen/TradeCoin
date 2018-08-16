@@ -961,5 +961,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="UserPackages">
+      <EntityTypeMapping TypeName="alluneedbModel.UserPackage">
+        <MappingFragment StoreEntitySet="UserPackage">
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="UpgradeToken" ColumnName="UpgradeToken" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="AprvdDT" ColumnName="AprvdDT" />
+          <ScalarProperty Name="AprvdUID" ColumnName="AprvdUID" />
+          <ScalarProperty Name="AprvdUserName" ColumnName="AprvdUserName" />
+          <ScalarProperty Name="UpgradeUID" ColumnName="UpgradeUID" />
+          <ScalarProperty Name="UpgradeUserName" ColumnName="UpgradeUserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

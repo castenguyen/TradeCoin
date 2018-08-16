@@ -690,6 +690,7 @@
     </FunctionImport>
     <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
     <EntitySet Name="RoleGroups" EntityType="alluneedbModel.RoleGroup" />
+    <EntitySet Name="UserPackages" EntityType="alluneedbModel.UserPackage" />
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -1264,6 +1265,23 @@
     <Property Name="RoleId" Type="Int64" Nullable="false" />
     <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CrtdUserId" Type="Int64" />
+    <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="UserPackage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UpgradeUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UpgradeUID" Type="Int64" />
+    <Property Name="AprvdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="AprvdUID" Type="Int64" />
+    <Property Name="AprvdDT" Type="DateTime" Precision="3" />
+    <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="StateId" Type="Int64" />
+    <Property Name="PackageId" Type="Int64" />
+    <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UpgradeToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

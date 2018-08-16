@@ -700,6 +700,23 @@
     <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
+  <EntityType Name="UserPackage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UpgradeUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="UpgradeUID" Type="bigint" />
+    <Property Name="AprvdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="AprvdUID" Type="bigint" />
+    <Property Name="AprvdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="PackageId" Type="bigint" />
+    <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
+    <Property Name="UpgradeToken" Type="nvarchar" MaxLength="200" />
+    <Property Name="CrtdDT" Type="datetime" />
+  </EntityType>
   <EntityType Name="UserRegistrationToken">
     <Key>
       <PropertyRef Name="Id" />
@@ -1001,6 +1018,7 @@
     <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Userhists" EntityType="Self.Userhists" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserPackage" EntityType="Self.UserPackage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Classification_Classification" Association="Self.FK_Classification_Classification">

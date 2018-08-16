@@ -287,6 +287,9 @@
     <Compile Include="DataEntity\UserLogin.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataEntity\UserPackage.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataEntity\UserRegistrationToken.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -318,6 +321,7 @@
     <Compile Include="DataStore\Ctrl.User.cs" />
     <Compile Include="DataStore\Ctrl.ProductInforExt.cs" />
     <Compile Include="DataStore\Ctrl.UserHist.cs" />
+    <Compile Include="DataStore\Ctrl.UserPackage.cs" />
     <Compile Include="DataViewModel\AccountViewModels.cs" />
     <Compile Include="DataViewModel\CheckoutViewModel.cs" />
     <Compile Include="DataViewModel\ClassificationSchemeViewModels.cs" />
