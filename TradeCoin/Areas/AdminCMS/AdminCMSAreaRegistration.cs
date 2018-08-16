@@ -969,6 +969,12 @@ namespace CMSPROJECT.Areas.AdminCMS
 new { controller = "PackageManager", action = "ConfirmUpgrade" }
 );
 
+            context.MapRoute(
+"AdminCMS_PackageManager_UpgradePackageUser",
+"administrator/PackageManager/UpgradePackageUser",
+new { controller = "PackageManager", action = "UpgradePackageUser" }
+);
+            
 
             #endregion
 
