@@ -129,7 +129,7 @@
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.media == 1)
             {
-                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
                 {
 
                     <li class="treeview">
@@ -142,6 +142,14 @@
                             <li><a href="@Url.Action("BannerManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Banner</a></li>
                             <li><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Video</a></li>
                         </ul>
+                    </li>
+                }
+                else if (User.IsInRole("Mod"))
+                {
+                    <li>
+                        <a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })">
+                            <i class="fa fa-comments"></i> <span>Quản lý Video</span>
+                        </a>
                     </li>
                 }
 

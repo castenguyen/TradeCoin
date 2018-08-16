@@ -100,9 +100,22 @@
                             <li class="user-header">
                                 @*<img src="~/Areas/AdminCMS/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">*@
                                 <p>
-                                    @User.Identity.GetUserName()
-                                    - Web Developer
-                                    <small>Member since Nov. 2015</small>
+                                    @User.Identity.GetUserName()<br>
+
+                                    @if (User.IsInRole("Member"))
+                                    {
+                                        <span> Member</span>
+                                    }
+                                    else if (User.IsInRole("Mod"))
+                                    {
+                                        <span> Mod</span>
+                                    }
+                                    else if (User.IsInRole("AdminUser"))
+                                    {
+                                        <span> AdminUser</span>
+                                    }
+
+
                                 </p>
                             </li>
                             <!-- Menu Body
@@ -175,7 +188,7 @@
         });
 
         ListNewEmail();
-        
+
     });
 
     function ListNewEmail() {

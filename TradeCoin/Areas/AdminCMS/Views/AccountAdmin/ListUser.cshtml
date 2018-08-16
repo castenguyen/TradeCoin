@@ -82,7 +82,7 @@
                                 <th>Email</th>
                                 <th>Loại tài khoản</th>
                                 <th>Gói cước</th>
-                                <th>Action</th>
+                                <th>Duyệt nâng cấp</th>
                                 <th>Quản lý Chi Tiết</th>
 
                             </tr>
@@ -91,12 +91,25 @@
                                 <tr>
                                     <td>@item.Login</td>
                                     <td>@item.EMail</td>
-                                    <td>Mod</td>
-                                    <td>@item.PackageName</td>
                                     <td>
+
                                         @foreach (Role _val in item.LstRole)
                                         {
-                                            <span class="label label-success">@_val.Name.ToString()</span>
+                                            if (_val.Name == "Mod" || _val.Name == "AdminUser" || _val.Name == "Member")
+                                            {
+                                                <span class="label label-success">@_val.Name</span>
+                                            }
+                                        }
+                                    </td>
+
+
+                                    <td>@item.PackageName</td>
+                                    <td>
+                                        @if (item.AwaitPackageId.HasValue)
+                                        {
+
+                                            <span class="label label-success">Chờ duyệt</span>
+
                                         }
                                     </td>
                                     @if (@item.LockoutEnabled == true)
