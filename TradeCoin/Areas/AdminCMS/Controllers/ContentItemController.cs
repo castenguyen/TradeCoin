@@ -20,7 +20,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
     [AdminAuthorize]
     public class ContentItemController : CoreBackEnd
     {
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateNews")]
         public ActionResult Index(int? page, int? catalogry, int? state)
         {
             int pageNum = (page ?? 1);
@@ -239,7 +239,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,CreatePageInfor")]
         public ActionResult PageInforIndex(int? page, int? catalogry, int? state)
         {
             int pageNum = (page ?? 1);

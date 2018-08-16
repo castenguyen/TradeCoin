@@ -534,6 +534,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     return View("Error");
                 }
                 await SignInAsync(user, true);
+                User _ObjUser = await cms_db.GetObjUserById(userId);
+                    ///kiểm tra ngày hết hạn của user
+               if(_ObjUser.ExpiredDay.HasValue)
+                {
+                    if (_ObjUser.ExpiredDay.Value < DateTime.Now)
+                    {
+                        _ObjUser.PackageId = 1;
+                        _ObjUser.PackageName = "Free";
+                        int updateUser = await cms_db.UpdateUser(_ObjUser);
+                        int CreateUpdateUserPackage = cms_db.CreateUpdateUserPackage(_ObjUser, 1, (int)EnumCore.UpgradeStatus.het_han, "Hết hạn", "");
+                    }
+
+                }
                 int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
                 return RedirectToAction("Index", "Dashboard");
@@ -891,16 +904,35 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.LstCurPermission = await UserManager.GetRolesAsync(id);
             model.LstAllPermission = new SelectList(cms_db.GetlstRole().Where(s=>s.IsGroup==false), "Id", "Name");
             model.ObjUser = _ObjUser;
-            model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
 
+            model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
             model.LstCurUserType = await UserManager.GetRolesAsync(id);
             model.LstAllUserType = new SelectList(cms_db.GetlstRole().Where(s => s.IsGroup == true), "Id", "Name");
+            if (UserManager.IsInRole(id, "Member"))
+            {
+                if(!model.ObjUser.PackageId.HasValue)
+                {
+                    model.ObjUser.PackageId = 1;
+                    model.ObjUser.PackageName = "Free";
+
+                }
+             
+            }
+
+            if (model.ObjUser.AwaitPackageId.HasValue)
+            {
+                model.UpgradeToken = cms_db.GetLastUpgradeToken(model.ObjUser.Id,model.ObjUser.AwaitPackageId.Value);
+            }
+
             if (!String.IsNullOrEmpty(alertMessage))
             {
                 model.AlertMessage = alertMessage;
             }
 
-          
+           
+
+
+
 
             return View(model);
         }
@@ -916,15 +948,61 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             try
             {
                 User _ObjUser = await cms_db.GetObjUserById(id);
-                Package ObjCurrentPackage = cms_db.GetObjPackage(_ObjUser.PackageId.Value);
-                Package ObjPackage = cms_db.GetObjPackage(packageid);
-                if (ObjCurrentPackage.NumDay > ObjPackage.NumDay)
+                Package ObjCurrentPackage = new Package();
+                ///Láy gòi cước hiện tại
+                if (_ObjUser.PackageId.HasValue)
+                {
+                    ObjCurrentPackage = cms_db.GetObjPackage(_ObjUser.PackageId.Value);
+                }
+                else
+                {
+                    //1 là package free
+                    ObjCurrentPackage = cms_db.GetObjPackage(1);
+                }
+
+                ///Láy gòi cước mới
+                Package ObjNewPackage = cms_db.GetObjPackage(packageid);
+
+                if (ObjCurrentPackage.NumDay > ObjNewPackage.NumDay)
                 {
                     return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Không thể nâng cấp gói cước mới" });
                 }
-                _ObjUser.PackageId = ObjPackage.PackageId;
-                _ObjUser.PackageName = ObjPackage.PackageName;
+                _ObjUser.PackageId = ObjNewPackage.PackageId;
+                _ObjUser.PackageName = ObjNewPackage.PackageName;
+                _ObjUser.AwaitPackageId = 0;
+                _ObjUser.AwaitPackageName = "";
+                //nếu thời gian của gói cước lớn hơn 0
+                if (ObjNewPackage.NumDay.HasValue)
+                {
+                    if (ObjNewPackage.NumDay.Value > 0)
+                    {
+                        _ObjUser.ExpiredDay = DateTime.Now.AddDays(ObjNewPackage.NumDay.Value);
+                    }
+                    //nếu thời gian của gói cước==0 hoac nhỏ hon 0
+                    else
+                    {
+                        _ObjUser.ExpiredDay = DateTime.Now.AddDays(0);
+                    }
+                }
+                else
+                {
+                    _ObjUser.ExpiredDay = DateTime.Now.AddDays(0);
+                }
+
                 int rs = await cms_db.UpdateUser(_ObjUser);
+
+
+                ////CẬP NHẬT LỊCH SỬ NÂNG CẤP
+                UserPackage objUserPackage = new UserPackage();
+                objUserPackage.CrtdDT = DateTime.Now;
+                objUserPackage.PackageId = ObjNewPackage.PackageId;
+                objUserPackage.PackageName = ObjNewPackage.PackageName;
+                objUserPackage.UpgradeUID = _ObjUser.Id;
+                objUserPackage.UpgradeUserName = _ObjUser.EMail;
+                objUserPackage.StateId = (int)EnumCore.StateType.cho_phep;
+                objUserPackage.StateName = "Duyệt";
+                cms_db.CreateUserPackage(objUserPackage);
+
                 return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Nâng cấp gói cước mới thành công" });
 
             }

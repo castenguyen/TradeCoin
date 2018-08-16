@@ -149,10 +149,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     objUserPackage.UpgradeUserName = ObjUser.EMail;
                     objUserPackage.StateId = (int)EnumCore.StateType.cho_duyet;
                     objUserPackage.StateName = "Chờ duyệt";
+                    objUserPackage.UpgradeToken = model.UpgradeToken;
                     cms_db.CreateUserPackage(objUserPackage);
 
                     ObjUser.AwaitPackageId = ObjNewPackage.PackageId;
                     ObjUser.AwaitPackageName = ObjNewPackage.PackageName;
+                 
                     int rs=  await cms_db.UpdateUser(ObjUser);
 
                     return RedirectToAction("AlertPage", "Extension", new { AlertString = "Đã thực hiện nâng cấp vui lòng chờ xét duyệt", link = "" });
