@@ -61,7 +61,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.LinkHref, new { @class = "col-md-4 control-label" })
-                                @Html.TextBoxFor(m => m.LinkHref, new { @class = "form-control" })
+                                @Html.TextBoxFor(m => m.LinkHref, new { @class = "form-control", id = "DuongDanVideo" })
                             </div>
 
                             <div class="form-group">
@@ -70,6 +70,9 @@
                         </div>
                         <div class="col-md-3">
                             @Html.Action("_UploadImagePartial")
+                            <!-- The file input field used as target for the file upload widget -->
+                            <label >Video</label>
+                            <label class="file-upload"><span><i class="glyphicon glyphicon-plus"></i>Add files...</span><input id="fileupload" type="file" name="files[]"></label>
                         </div>
                     </div><!-- /.box-body -->
                     @*<div class="box-footer col-md-9">
@@ -83,7 +86,74 @@
 
     </div>   <!-- /.row -->
 </section>
+<script src="~/Scripts/jQuery.FileUpload/vendor/jquery.ui.widget.js"></script>
+<script src="~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload.js"></script>
+<!-- The File Upload processing plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-process.js"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-image.js"></script>
+<!-- The File Upload audio preview plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-audio.js"></script>
+<!-- The File Upload video preview plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-video.js"></script>
+<!-- The File Upload validation plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-validate.js"></script>
+<!-- The File Upload user interface plugin -->
+<script src="~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js"></script>
+<!-- The File Upload jQuery UI plugin -->
 <script>
+
+    var url = "UploadVideo";
+    $('#fileupload').fileupload({
+        maxChunkSize: 1000000,
+        url: url,
+        dataType: 'json',
+        add: function (e, data) {
+            var goUpload = true;
+            var uploadFile = data.files[0];
+            //if (data.originalFiles.length > 10) {
+            //    coreApp.notificationError('Error', 'Your files too much, multi upload accept with files < 10.');
+            //    goUpload = false;
+            //    return false;
+            //}
+            if (!(/\.(mp4)$/i).test(uploadFile.name)) {
+                console.log('This file do not support. Please select file type .mp4');
+                //coreApp.notificationError('Error', 'This file do not support. Please select file type .mp4');
+                goUpload = false;
+                return false;
+            }
+            //if (uploadFile.size > 20000000) { // 2mb
+            //    coreApp.notificationError('Error', 'Please upload a smaller file, max size is 20 MB.');
+            //    goUpload = false;
+            //    return false;
+            //}
+            if (goUpload == true) {
+                data.submit();
+            }
+        },
+        done: function (e, data) {
+            var a = data.result.FilePath;
+            $("#DuongDanVideo").val(data.result.FilePath);
+            $("#DuongDanVideo").attr("disabled", "disabled"); 
+
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).on('fileuploadchunksend', function (e, data) { })
+        .on('fileuploadchunkdone', function (e, data) { })
+        .on('fileuploadchunkfail', function (e, data) {
+            coreApp.alertError({
+                title: 'Result', content: 'This file do not allow, upload file allow for file text, rar, mp3.'
+            });
+        })
+        .on('fileuploadchunkalways', function (e, data) { });
 
     //$(document).ready(function () {
 
