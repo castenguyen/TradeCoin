@@ -666,6 +666,12 @@ namespace CMSPROJECT.Areas.AdminCMS
              );
 
             context.MapRoute(
+             "AdminCMS_MediaManager_UploadVideo",
+             "administrator/UploadVideo",
+             new { controller = "MediaManager", action = "UploadVideo" }
+             );
+
+            context.MapRoute(
               "AdminCMS_MediaManager_EditVideo",
               "administrator/EditVideoMedia/{id}",
               new { controller = "MediaManager", action = "EditVideo", id = UrlParameter.Optional }
