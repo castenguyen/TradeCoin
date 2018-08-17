@@ -367,7 +367,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                string uploadPath = Server.MapPath("~/Contract");
+                string uploadPath = Server.MapPath("~/Video");
                 // Create new folder that does not exist yet
                 if (!Directory.Exists(uploadPath))
                 {
