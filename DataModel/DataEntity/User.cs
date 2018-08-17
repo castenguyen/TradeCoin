@@ -58,6 +58,7 @@ namespace DataModel.DataEntity
         public Nullable<System.DateTime> ExpiredDay { get; set; }
         public Nullable<long> AwaitPackageId { get; set; }
         public string AwaitPackageName { get; set; }
+        public Nullable<bool> IsLogin { get; set; }
     
         public virtual ICollection<Classification> LstClassifications { get; set; }
         public virtual ICollection<ClassificationScheme> LstClassificationSchemes { get; set; }

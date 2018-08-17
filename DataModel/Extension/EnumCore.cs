@@ -213,6 +213,15 @@ namespace DataModel.Extension
 
         }
 
+        public enum AlertPageType : int
+        {
+            lockscreen = 0,
+            FullScrenn = 1,
+           
+
+        }
+
+
         #endregion END BACKEND
 
 

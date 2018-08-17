@@ -248,6 +248,10 @@ namespace DataModel.DataViewModel
 
         public string AlertMessage { get; set; }
 
+        public string UpgradeToken { get; set; }
+
+     //   public UserPackage objUserPackage { get; set; }
+
 
         [Required]
         [Display(Name = "Danh sách loại tài khoản hiện tại")]

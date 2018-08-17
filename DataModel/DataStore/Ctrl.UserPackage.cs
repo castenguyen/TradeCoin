@@ -42,6 +42,42 @@ namespace DataModel.DataStore
 
         }
 
+        public string GetLastUpgradeToken(long UserID, long awaitPackageId)
+        {
+            UserPackage ObjUserPackage = db.UserPackages.Where(s => s.UpgradeUID.Value == UserID && s.PackageId.Value == awaitPackageId 
+                    && s.StateId == (int)EnumCore.StateType.cho_duyet).OrderByDescending(s => s.Id).FirstOrDefault();
+            if (ObjUserPackage != null)
+                return ObjUserPackage.UpgradeToken;
+            else
+                return "";
+
+        }
+
+        public int CreateUpdateUserPackage(User ObjUser, long PackageID,int StateId,string StateName, string code)
+        {
+            try
+            {
+         
+                Package ObjNewPackage = this.GetObjPackage(PackageID);
+
+                UserPackage objUserPackage = new UserPackage();
+                objUserPackage.CrtdDT = DateTime.Now;
+                objUserPackage.PackageId = ObjNewPackage.PackageId;
+                objUserPackage.PackageName = ObjNewPackage.PackageName;
+                objUserPackage.UpgradeUID = ObjUser.Id;
+                objUserPackage.UpgradeUserName = ObjUser.EMail;
+                objUserPackage.StateId = StateId;
+                objUserPackage.StateName = StateName;
+                objUserPackage.UpgradeToken = code;
+                int rs = this.CreateUserPackage(objUserPackage);
+                return rs;
+            }
+            catch (Exception e)
+            {
+                return (int)EnumCore.Result.action_false;
+            }
+        }
+
 
 
         //public int DeleteUserPackage(long ContentId)

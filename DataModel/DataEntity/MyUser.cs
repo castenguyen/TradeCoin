@@ -21,7 +21,9 @@ namespace DataModel.DataEntity
         public string PasswordAnswer { get; set; }
         public string PasswordQuestion { get; set; }
         public string FullName { get; set; }
-    
+
+        public Nullable<bool> IsLogin { get; set; }
+
 
         #endregion
 

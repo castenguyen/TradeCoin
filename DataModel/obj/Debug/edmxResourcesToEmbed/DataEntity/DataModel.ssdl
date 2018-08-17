@@ -662,6 +662,7 @@
     <Property Name="ExpiredDay" Type="datetime" />
     <Property Name="AwaitPackageId" Type="bigint" />
     <Property Name="AwaitPackageName" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsLogin" Type="bit" />
   </EntityType>
   <EntityType Name="UserClaim">
     <Key>

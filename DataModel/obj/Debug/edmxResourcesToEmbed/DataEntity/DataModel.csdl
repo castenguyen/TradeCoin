@@ -327,6 +327,7 @@
     <Property Name="ExpiredDay" Type="DateTime" Precision="3" />
     <Property Name="AwaitPackageId" Type="Int64" />
     <Property Name="AwaitPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IsLogin" Type="Boolean" />
   </EntityType>
   <EntityType Name="UserClaim">
     <Key>
