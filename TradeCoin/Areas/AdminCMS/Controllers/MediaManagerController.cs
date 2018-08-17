@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using PagedList;
+using System.IO;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -361,6 +360,62 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("ErrorExeption", "Extension");
             }
 
+        }
+
+        [HttpPost]
+        public JsonResult UploadVideo()
+        {
+            try
+            {
+                string uploadPath = Server.MapPath("~/Contract");
+                // Create new folder that does not exist yet
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+                var resultList = new List<ViewDataUploadFilesResult>();
+                var httpRequest = HttpContext.Request;
+                foreach (String inputTagName in httpRequest.Files)
+                {
+                    var headers = httpRequest.Headers;
+                    var file = httpRequest.Files[inputTagName];
+                    if (string.IsNullOrEmpty(headers["X-File-Name"]))
+                    {
+                        for (int i = 0; i < httpRequest.Files.Count; i++)
+                        {
+                            ViewDataUploadFilesResult item = new ViewDataUploadFilesResult();
+                            var file1 = httpRequest.Files[i];
+                            var ReplaceFileName = file.FileName.Replace(" ", string.Empty);
+                            item.FileName = Path.GetFileName(DateTime.Now.ToString("HH-mm-ss") + ReplaceFileName);
+                            item.FilePath = Path.Combine(uploadPath, item.FileName);
+                            item.type = Path.GetExtension(item.FileName);
+                            file.SaveAs(item.FilePath);
+                            resultList.Add(item);
+                            return Json(item);
+                        }
+                    }
+                    else
+                    {
+                    }
+                }
+                return Json(resultList);
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                return Json("Error");
+            }
+        }
+
+        public class ViewDataUploadFilesResult
+        {
+            public string FileName { get; set; }
+            public int size { get; set; }
+            public string type { get; set; }
+            public string FilePath { get; set; }
+            public string deleteUrl { get; set; }
+            public string thumbnailUrl { get; set; }
+            public string deleteType { get; set; }
         }
     }
 }
