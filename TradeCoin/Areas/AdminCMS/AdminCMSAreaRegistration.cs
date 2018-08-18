@@ -1107,17 +1107,17 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
            new { controller = "Member", action = "ListNews" }
            );
 
-            context.MapRoute(
-        "AdminCMS_member_DetailNews",
-        "chi-tiet-bai-viet",
-        new { controller = "Member", action = "DetailNews" }
-        );
+                context.MapRoute(
+            "AdminCMS_member_DetailNews",
+            "chi-tiet-bai-viet",
+            new { controller = "Member", action = "DetailNews" }
+            );
 
-            context.MapRoute(
-      "AdminCMS_member_MemberDashBoard",
-      "trang-chinh",
-      new { controller = "Member", action = "MemberDashBoard" }
-      );
+                    context.MapRoute(
+              "AdminCMS_member_MemberDashBoard",
+              "trang-chinh",
+              new { controller = "Member", action = "MemberDashBoard" }
+              );
 
             
 
