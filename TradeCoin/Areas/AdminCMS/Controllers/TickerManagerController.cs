@@ -70,6 +70,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.CrtdUserName = User.Identity.Name;
                     MainModel.StateId = (int)EnumCore.StateType.cho_phep;
                     MainModel.StateName = "Enable";
+                    MainModel.Flag = model.Flag;
                     int rs = await cms_db.CreateTickerAsync(MainModel);
                     if (Default_files != null)
                     {
@@ -111,6 +112,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     Ticker MainModel = model._MainObj;
                     MainModel.StateId = (int)EnumCore.StateType.cho_phep;
                     MainModel.StateName = "Enable";
+                    MainModel.Flag = model.Flag;
                     int rs = await cms_db.UpdateTicker(MainModel);
                     if (Default_files != null)
                     {
