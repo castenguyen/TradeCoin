@@ -146,6 +146,12 @@ namespace DataModel.DataViewModel
             set { _MainObj.MediaThumb = value; }
         }
 
+        public int? Flag
+        {
+            get { return _MainObj.Flag; }
+            set { _MainObj.Flag = value; }
+        }
+
         public List<SelectListObj> lstPackage { get; set; }
         [Display(Name = "Hình đại diện")]
         public long ImgdefaultId { get; set; }
@@ -164,8 +170,6 @@ namespace DataModel.DataViewModel
         public int TickerStatus { get; set; }
         public int TickerPackage { get; set; }
         public string FillterTickerName { get; set; }
-
-
     }
 
 
