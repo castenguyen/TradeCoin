@@ -512,5 +512,12 @@ namespace DataModel.DataViewModel
         [Required]
         [Display(Name = "Hình đại diện")]
         public long ImgdefaultId { get; set; }
+
+        [Display(Name = "Danh Mục")]
+        public SelectList CatalogryList { get; set; }
+
+        public List<SelectListObj> lstPackage { get; set; }
+
+        public long[] lstTickerPackage { get; set; }
     }
 }
