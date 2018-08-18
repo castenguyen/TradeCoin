@@ -53,6 +53,12 @@ namespace DataModel.DataStore
 
         }
 
+        public UserPackage GetlastAwaitUserPackage(long UserID)
+        {
+            UserPackage ObjUserPackage = db.UserPackages.Where(s => s.UpgradeUID.Value == UserID && s.StateId == (int)EnumCore.StateType.cho_duyet).OrderByDescending(s => s.Id).FirstOrDefault();
+            return ObjUserPackage ;
+        }
+
         public int CreateUpdateUserPackage(User ObjUser, long PackageID,int StateId,string StateName, string code)
         {
             try
@@ -78,6 +84,13 @@ namespace DataModel.DataStore
             }
         }
 
+        public List<UserPackage> GetlstUserPackage(long UserID)
+        {
+            List<UserPackage> lstResult = new List<UserPackage>();
+            lstResult = db.UserPackages.Where(s => s.UpgradeUID == UserID).ToList();
+            return lstResult;
+
+        }
 
 
         //public int DeleteUserPackage(long ContentId)
