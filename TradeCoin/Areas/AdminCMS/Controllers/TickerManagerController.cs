@@ -90,15 +90,24 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
           }
 
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateTicker")]
         public ActionResult Update(int? id)
         {
             if (id == null)
                 id = 1;
             Ticker _obj = cms_db.GetObjTicker(id.Value);
             TickerViewModel model = new TickerViewModel(_obj);
-            model.lstPackage = cms_db.GetObjSelectListPackage();
-            model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
-            return View(model);
+            if (model.CrtdUserId == (long)Convert.ToDouble(User.Identity.GetUserId()) || !User.IsInRole("UpdateTicker"))
+            {
+                model.lstPackage = cms_db.GetObjSelectListPackage();
+                model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
         }
 
         [HttpPost]
