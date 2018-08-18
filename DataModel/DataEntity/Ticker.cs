@@ -33,5 +33,6 @@ namespace DataModel.DataEntity
         public Nullable<long> StateId { get; set; }
         public string MediaUrl { get; set; }
         public string MediaThumb { get; set; }
+        public Nullable<int> Flag { get; set; }
     }
 }
