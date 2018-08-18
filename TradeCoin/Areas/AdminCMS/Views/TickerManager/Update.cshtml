@@ -32,49 +32,81 @@
                         @Html.ValidationSummary("", new { @class = "text-danger" })
                         <row>
                             <div class="col-lg-6">
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
 
                                     @Html.LabelFor(m => m.TickerName, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.TickerName, new { @class = "form-control" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.TickerName, new { @class = "form-control" })
+                                    </div>
 
                                 </div><!-- /input-group -->
 
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
 
-                                    @Html.LabelFor(m => m.SellZone1, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control" })
+                                    @Html.LabelFor(m => m.SellZone1, new { @class = "col-md-12 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.RadioButtonFor(m => m.Flag, "1")
+                                    </div>
+
 
                                 </div>
 
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
                                     @Html.LabelFor(m => m.SellZone2, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.RadioButtonFor(m => m.Flag, "2")
+                                    </div>
+
                                 </div>
 
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
                                     @Html.LabelFor(m => m.SellZone3, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.RadioButtonFor(m => m.Flag, "1")
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
 
-
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
 
                                     @Html.LabelFor(m => m.BuyZone1, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control" })
+                                    </div>
+
                                 </div><!-- /input-group -->
 
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
                                     @Html.LabelFor(m => m.DeficitControl, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.RadioButtonFor(m => m.Flag, "4")
+                                    </div>
+
                                 </div><!-- /input-group -->
 
-                                <div class="input-group">
+                                <div class="input-group col-md-12">
+
                                     @Html.LabelFor(m => m.BTCInput, new { @class = "col-md-9 control-label" })
-                                    @Html.TextBoxFor(m => m.BTCInput, new { @class = "form-control" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.BTCInput, new { @class = "form-control" })
+                                    </div>
+
                                 </div><!-- /input-group -->
+
                             </div>
 
 
