@@ -60,7 +60,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult ConfirmUpgrade(long UserId, long PackageId)
+        public ActionResult ConfirmUpgrade(long UserId, long PackageId,int PackageTimeType)
         {
             try
             {
@@ -69,7 +69,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 //hoặc user không phải là member thì không nâng cấp
                 if (CurrentUserId != UserId || !User.IsInRole("Member"))
                 {
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                    return RedirectToAction("AlertPage", "Extension", 
+                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
                 User ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
 
@@ -95,20 +96,40 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     model.UpgradeUID = ObjUser.Id;
                     model.UpgradeUserName = ObjUser.EMail;
                     model.CrtdDT = DateTime.Now;
+                    if (PackageTimeType == (int)EnumCore.PackageTimeType.thang)
+                    {
+                        model.TotalPrice = ObjNewPackage.NewPrice.Value;
+                        model.TotalDay = 30;
+                    }
+
+                    if (PackageTimeType == (int)EnumCore.PackageTimeType.quy)
+                    {
+                        model.TotalPrice = ObjNewPackage.NewPrice.Value * 3;
+                        model.TotalDay = 90;
+                    }
+
+                    if (PackageTimeType == (int)EnumCore.PackageTimeType.vinhvien)
+                    {
+                        model.TotalPrice = ObjNewPackage.ForeverPrice.Value;
+                      
+                    }
+                       
                     string coderandom = DateTime.UtcNow.Ticks.ToString();
                     model.UpgradeToken = coderandom;
                     return View(model);
                 }
                 else
                 {
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                    return RedirectToAction("AlertPage", "Extension", 
+                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
 
             }
             catch (Exception e)
             {
                 cms_db.AddToExceptionLog("ConfirmUpdate", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
-                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                return RedirectToAction("AlertPage", "Extension",
+                    new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
             }
         }
 
@@ -142,6 +163,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (ObjNewPackage.NumDay > ObjOldPackage.NumDay)
                 {
                     UserPackage objUserPackage = new UserPackage();
+
+                    objUserPackage.OldPackageID = ObjOldPackage.PackageId;
+                    objUserPackage.OldPackageName = ObjOldPackage.PackageName;
                     objUserPackage.CrtdDT = DateTime.Now;
                     objUserPackage.PackageId = ObjNewPackage.PackageId;
                     objUserPackage.PackageName = ObjNewPackage.PackageName;
@@ -150,6 +174,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     objUserPackage.StateId = (int)EnumCore.StateType.cho_duyet;
                     objUserPackage.StateName = "Chờ duyệt";
                     objUserPackage.UpgradeToken = model.UpgradeToken;
+                    objUserPackage.Price = model.TotalPrice;
+                    if (model.TotalDay.HasValue)
+                        objUserPackage.NumDay = model.TotalDay.Value;
+                    else
+                        objUserPackage.NumDay = 0;
+
                     cms_db.CreateUserPackage(objUserPackage);
 
                     ObjUser.AwaitPackageId = ObjNewPackage.PackageId;
@@ -157,17 +187,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                  
                     int rs=  await cms_db.UpdateUser(ObjUser);
 
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Đã thực hiện nâng cấp vui lòng chờ xét duyệt", link = "" });
+                    return RedirectToAction("AlertPage", "Extension", 
+                        new { AlertString = "Đã thực hiện nâng cấp vui lòng chờ xét duyệt", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
                 else
                 {
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                    return RedirectToAction("AlertPage", "Extension", 
+                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
             }
             catch (Exception e)
             {
                 cms_db.AddToExceptionLog("UpgradePackageUser", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
-                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
             }
         }
 

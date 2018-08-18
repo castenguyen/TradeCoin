@@ -947,9 +947,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             return View(model);
         }
-   
 
-
+        /// <summary>
+        /// Danh sách user chờ upgrade
+        /// </summary>
+        /// <param name="letter"></param>
+        /// <param name="RoleName"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
         public ActionResult ListUserUpgrade(string letter, string RoleName, int? page = 1)
         {
@@ -975,20 +980,61 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
             }
-            model.LstAllUser = tmp.OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.LstAllUser = tmp.Where(s=>s.AwaitPackageId.Value>0).OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.Page = pageNum;
             model.letter = letter;
             return View(model);
         }
 
+
+        /// <summary>
+        /// Chi tiết thông tin nâng cấp của 1 tài khoản
+        /// Lịch sử nâng cấp
+        /// Tổng giá trị nâng cấp
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="alertMessage"></param>
+        /// <returns></returns>
         [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public async Task<ActionResult> DetailUpgradeUser(long id)
+        public async Task<ActionResult> DetailUpgradeUser(long id, string alertMessage)
         {
             User _ObjUser = await cms_db.GetObjUserById(id);
-            UserAndRoles model = new UserAndRoles();
-            model.LstCurPermission = await UserManager.GetRolesAsync(id);
+            DetailUserUpgrade model = new DetailUserUpgrade();
             model.ObjUser = _ObjUser;
-            model.LstAllPermission = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
+            model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
+            model.LstHistoryUpgrade = cms_db.GetlstUserPackage(id);
+            model.objAwaitUserPackage = cms_db.GetlastAwaitUserPackage(id);
+            model.PackageID = model.objAwaitUserPackage.PackageId.Value;
+            model.Price = model.objAwaitUserPackage.Price.Value;
+            model.ExpiryDay = DateTime.Now.AddDays(model.objAwaitUserPackage.NumDay.Value);
+
+            ///nếu so ngay nâng cấp lớn hon 9 thi goi đó là tháng hoac quý
+            if (model.objAwaitUserPackage.NumDay > 0)
+            {
+                model.Datetime = model.ExpiryDay.ToShortDateString();
+            }//nguoc lai là vinh vien
+            else {
+                model.checkForerver = true;
+            }
+
+
+            if (UserManager.IsInRole(id, "Member"))
+            {
+                if (!model.ObjUser.PackageId.HasValue)
+                {
+                    model.ObjUser.PackageId = 1;
+                    model.ObjUser.PackageName = "Free";
+                }
+            }
+            if (model.ObjUser.AwaitPackageId.HasValue)
+            {
+                model.UpgradeToken = model.objAwaitUserPackage.UpgradeToken;
+            }
+
+            if (!String.IsNullOrEmpty(alertMessage))
+            {
+                model.AlertMessage = alertMessage;
+            }
             return View(model);
         }
 
@@ -999,12 +1045,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// <param name="packageid"></param>
         /// <returns></returns>
         [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-
-        public async Task<ActionResult> UpgradePackage(long id, long packageid)
+        public async Task<ActionResult> UpgradePackage(DetailUserUpgrade model)
         {
             try
             {
-                User _ObjUser = await cms_db.GetObjUserById(id);
+                User _ObjUser = await cms_db.GetObjUserById(model.ObjUser.Id);
                 Package ObjCurrentPackage = new Package();
                 ///Láy gòi cước hiện tại
                 if (_ObjUser.PackageId.HasValue)
@@ -1018,58 +1063,71 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
 
                 ///Láy gòi cước mới
-                Package ObjNewPackage = cms_db.GetObjPackage(packageid);
+                Package ObjNewPackage = cms_db.GetObjPackage(model.PackageID);
 
-                if (ObjCurrentPackage.NumDay > ObjNewPackage.NumDay)
-                {
-                    return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Không thể nâng cấp gói cước mới" });
-                }
+                //cập nhật lại thông tin gói cước cho user
                 _ObjUser.PackageId = ObjNewPackage.PackageId;
                 _ObjUser.PackageName = ObjNewPackage.PackageName;
+
+                // chuyển lại gói cước chờ nâng cấp thành null
                 _ObjUser.AwaitPackageId = 0;
                 _ObjUser.AwaitPackageName = "";
+
+                //cập nhat lai ngay hết hạn cho user
                 //nếu thời gian của gói cước lớn hơn 0
-                if (ObjNewPackage.NumDay.HasValue)
+                //thì co nghi a la nâng cấp tháng-quý
+                if (!String.IsNullOrEmpty(model.Datetime))
                 {
-                    if (ObjNewPackage.NumDay.Value > 0)
-                    {
-                        _ObjUser.ExpiredDay = DateTime.Now.AddDays(ObjNewPackage.NumDay.Value);
-                    }
-                    //nếu thời gian của gói cước==0 hoac nhỏ hon 0
-                    else
-                    {
-                        _ObjUser.ExpiredDay = DateTime.Now.AddDays(0);
-                    }
+                        _ObjUser.ExpiredDay = this.SpritDateTime(model.Datetime)[1];
                 }
                 else
                 {
-                    _ObjUser.ExpiredDay = DateTime.Now.AddDays(0);
+                    _ObjUser.ExpiredDay = null;
                 }
-
                 int rs = await cms_db.UpdateUser(_ObjUser);
 
 
                 ////CẬP NHẬT LỊCH SỬ NÂNG CẤP
                 UserPackage objUserPackage = new UserPackage();
                 objUserPackage.CrtdDT = DateTime.Now;
+                objUserPackage.AprvdDT = DateTime.Now;
+                objUserPackage.AprvdUID =long.Parse(User.Identity.GetUserId());
+                objUserPackage.AprvdUserName = User.Identity.GetUserName();
+
                 objUserPackage.PackageId = ObjNewPackage.PackageId;
                 objUserPackage.PackageName = ObjNewPackage.PackageName;
                 objUserPackage.UpgradeUID = _ObjUser.Id;
                 objUserPackage.UpgradeUserName = _ObjUser.EMail;
+
                 objUserPackage.StateId = (int)EnumCore.StateType.cho_phep;
                 objUserPackage.StateName = "Duyệt";
+                objUserPackage.OldPackageID = ObjCurrentPackage.PackageId;
+                objUserPackage.PackageName = ObjCurrentPackage.PackageName;
+                objUserPackage.Price = model.Price;
+
                 cms_db.CreateUserPackage(objUserPackage);
 
-                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id, alertMessage = "Nâng cấp gói cước mới thành công" });
+                return RedirectToAction("DetailUpgradeUser", "AccountAdmin", new { id = model.ObjUser.Id, alertMessage = "Nâng cấp gói cước mới thành công" });
 
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("UpgradePackage", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
-                return RedirectToAction("ManagerUser", "AccountAdmin", new { id = id });
+                cms_db.AddToExceptionLog("DetailUpgradeUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("DetailUpgradeUser", "AccountAdmin", new { id = model.ObjUser.Id, alertMessage = "Nâng cấp gói cước không thành công" });
             }
         }
-
+        private DateTime[] SpritDateTime(string datetime)
+        {
+            try {
+                DateTime[] model = new DateTime[] { Convert.ToDateTime(datetime), Convert.ToDateTime(datetime) };
+                return model;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("SpritDateTime", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return null;
+            }
+        }
 
         #endregion
 
@@ -1157,8 +1215,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
         #endregion
 
-
-
         #region AddErrors- HasPassword -RedirectToLocal -SendEmail -SignInAsync -Dispose
 
         private void AddErrors(IdentityResult result)
@@ -1233,9 +1289,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 UserId = userId;
             }
 
-            #endregion
 
-            #region properties
 
             public string LoginProvider { get; set; }
 
@@ -1243,9 +1297,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             public string UserId { get; set; }
 
-            #endregion
-
-            #region methods
+       
+        
 
             public override void ExecuteResult(ControllerContext context)
             {
