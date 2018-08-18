@@ -1003,33 +1003,39 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.ObjUser = _ObjUser;
             model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
             model.LstHistoryUpgrade = cms_db.GetlstUserPackage(id);
-            model.objAwaitUserPackage = cms_db.GetlastAwaitUserPackage(id);
-            model.PackageID = model.objAwaitUserPackage.PackageId.Value;
-            model.Price = model.objAwaitUserPackage.Price.Value;
-            model.ExpiryDay = DateTime.Now.AddDays(model.objAwaitUserPackage.NumDay.Value);
 
-            ///nếu so ngay nâng cấp lớn hon 9 thi goi đó là tháng hoac quý
-            if (model.objAwaitUserPackage.NumDay > 0)
+            UserPackage objAwaitUserPackage = cms_db.GetlastAwaitUserPackage(id);
+            if (objAwaitUserPackage != null)
             {
-                model.Datetime = model.ExpiryDay.ToShortDateString();
-            }//nguoc lai là vinh vien
-            else {
-                model.checkForerver = true;
-            }
-
-
-            if (UserManager.IsInRole(id, "Member"))
-            {
-                if (!model.ObjUser.PackageId.HasValue)
+                model.objAwaitUserPackage = cms_db.GetlastAwaitUserPackage(id);
+                model.PackageID = model.objAwaitUserPackage.PackageId.Value;
+                model.Price = model.objAwaitUserPackage.Price.Value;
+                model.ExpiryDay = DateTime.Now.AddDays(model.objAwaitUserPackage.NumDay.Value);
+                ///nếu so ngay nâng cấp lớn hon 9 thi goi đó là tháng hoac quý
+                if (model.objAwaitUserPackage.NumDay > 0)
                 {
-                    model.ObjUser.PackageId = 1;
-                    model.ObjUser.PackageName = "Free";
+                    model.Datetime = model.ExpiryDay.ToShortDateString();
+                }//nguoc lai là vinh vien
+                else
+                {
+                    model.checkForerver = true;
                 }
+                if (UserManager.IsInRole(id, "Member"))
+                {
+                    if (!model.ObjUser.PackageId.HasValue)
+                    {
+                        model.ObjUser.PackageId = 1;
+                        model.ObjUser.PackageName = "Free";
+                    }
+                }
+                if (model.ObjUser.AwaitPackageId.HasValue)
+                {
+                    model.UpgradeToken = model.objAwaitUserPackage.UpgradeToken;
+                }
+
             }
-            if (model.ObjUser.AwaitPackageId.HasValue)
-            {
-                model.UpgradeToken = model.objAwaitUserPackage.UpgradeToken;
-            }
+   
+           
 
             if (!String.IsNullOrEmpty(alertMessage))
             {
@@ -1102,8 +1108,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 objUserPackage.StateId = (int)EnumCore.StateType.cho_phep;
                 objUserPackage.StateName = "Duyệt";
                 objUserPackage.OldPackageID = ObjCurrentPackage.PackageId;
-                objUserPackage.PackageName = ObjCurrentPackage.PackageName;
-                objUserPackage.Price = model.Price;
+                objUserPackage.OldPackageName = ObjCurrentPackage.PackageName;
+                if (ObjNewPackage.PackageId == (int)EnumCore.Package.free)
+                {
+                    objUserPackage.Price =0;
+                }
+                else {
+                    objUserPackage.Price = model.Price;
+
+                }
+               
 
                 cms_db.CreateUserPackage(objUserPackage);
 
