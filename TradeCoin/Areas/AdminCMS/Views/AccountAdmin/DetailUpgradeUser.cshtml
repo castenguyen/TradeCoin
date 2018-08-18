@@ -120,6 +120,13 @@ else
 
                             <div class="row">
                                 <div class="form-group col-md-6">
+                                    <label>Số tiền</label>
+                                    @Html.TextBoxFor(c => c.Price, new { @class = "form-control" })
+                                </div><!-- /.form group -->
+
+
+
+                                <div class="form-group col-md-6">
                                     <label class="col-md-6">Nâng cấp vĩnh viễn</label>
                                     @Html.CheckBoxFor(c => c.checkForerver)
                                 </div>
@@ -131,8 +138,6 @@ else
 
                             <div class="form-group col-md-12">
                                 @Html.HiddenFor(s => s.ObjUser.Id)
-                                @Html.HiddenFor(s => s.Price)
-
                                 <div class="form-group">
                                     <label>   </label>
                                     <button type="submit" class="btn btn-primary">Update</button>
