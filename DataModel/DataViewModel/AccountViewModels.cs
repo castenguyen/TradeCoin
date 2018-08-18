@@ -245,6 +245,7 @@ namespace DataModel.DataViewModel
         public string RoleName { get; set; }
 
         public SelectList LstPackages { get; set; }
+        public long PackageID { get; set; }
 
         public string AlertMessage { get; set; }
 
@@ -260,8 +261,42 @@ namespace DataModel.DataViewModel
         [Display(Name = "Tất cả các loại tài khoản")]
         public SelectList LstAllUserType { get; set; }
 
+
+        public List<UserPackage> LstHistoryUpgrade { get; set; }
+
     }
 
+
+    public class DetailUserUpgrade
+    {
+        [Required]
+        [Display(Name = "Object User")]
+        public User ObjUser { get; set; }
+
+        public string RoleName { get; set; }
+
+        public SelectList LstPackages { get; set; }
+        public long PackageID { get; set; }
+
+        public string AlertMessage { get; set; }
+
+        public string UpgradeToken { get; set; }
+        [Required]
+        [Display(Name = "Thời gian")]
+        public string Datetime { get; set; }
+
+        public DateTime ExpiryDay { get; set; }
+        public double Price { get; set; }
+
+        public bool checkForerver { get; set; }
+
+        public UserPackage objAwaitUserPackage { get; set; }
+        public List<UserPackage> LstHistoryUpgrade { get; set; }
+
+
+        
+
+    }
     public class AlertPageViewModel
     {
         public string AlertString { get; set; }

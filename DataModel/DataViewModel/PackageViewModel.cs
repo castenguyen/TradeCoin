@@ -100,7 +100,8 @@ namespace DataModel.DataViewModel
         public Nullable<long> PackageId { get; set; }
         public string PackageName { get; set; }
         public string UpgradeUserName { get; set; }
-
+        public double TotalPrice { get; set; }
+        public int? TotalDay { get; set; }
         public Nullable<System.DateTime> CrtdDT { get; set; }
 
     }
