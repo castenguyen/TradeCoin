@@ -22,28 +22,28 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <tr>
-                                <th width="30%">Image</th>
-                                <th width="15%" >EXIFInfo</th>
+                                <th width="20%">Image</th>
+                                <th width="15%">Name</th>
                                 <th width="15%">Caption</th>
                                 <th width="15%">MediaDesc</th>
                                 <th width="7%">ViewCount</th>
                                 <th width="18%">Action</th>
                             </tr>
                             @foreach (MediaContent item in Model)
-                            { 
-                                  <tr>
-                                <td><img class="img-responsive" src="~/@item.ThumbURL" alt="Photo" width="100%"></td>
-                                <td>@item.EXIFInfo</td>
-                                      <td>@item.Caption</td>
-                                      <td>@item.MediaDesc</td>
-                                <td><span class="label label-success">@item.ViewCount</span></td>
-                                <td>
-                                    <a href='@Url.Action("EditBanner", "MediaManager", new { id=item.MediaContentId})'>Edit</a> |
-                                    <a href='@Url.Action("DeleteBanner", "MediaManager", new { id = item.MediaContentId })'>Delete</a>
-                                   
-                                </td>
-                            </tr>
-                            
+                            {
+                                <tr>
+                                    <td><img class="img-responsive" src="~/@item.ThumbURL" alt="Photo" width="100%"></td>
+                                    <td>@item.Filename</td>
+                                    <td>@item.Caption</td>
+                                    <td>@item.MediaDesc</td>
+                                    <td><span class="label label-success">@item.ViewCount</span></td>
+                                    <td>
+                                        <a href='@Url.Action("EditVideo", "MediaManager", new { id=item.MediaContentId})'>Edit</a> |
+                                        <a href='@Url.Action("DeleteVideo", "MediaManager", new { id = item.MediaContentId })'>Delete</a>
+
+                                    </td>
+                                </tr>
+
                             }
                         </table>
                     </div><!-- /.box-body -->
