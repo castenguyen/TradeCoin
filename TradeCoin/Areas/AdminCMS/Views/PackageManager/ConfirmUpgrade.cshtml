@@ -36,7 +36,7 @@
             <b>Tên:</b>
             @if (String.IsNullOrEmpty(Model.ObjUser.PackageName))
             {
-               <span>FREE</span>
+                <span>FREE</span>
             }
             else
             {
@@ -65,8 +65,19 @@
                     <tr>
 
                         <td>@Model.PackageName</td>
-                        <td>@Model.ObjPackage.NumDay Ngày</td>
-                        <td>@Model.ObjPackage.NewPrice</td>
+                        @if (@Model.TotalDay.HasValue)
+                        {
+                            <td>@Model.TotalDay Ngày</td>
+                        }
+                        else
+                        {
+
+                            <td>Vĩnh Viễn</td>
+                        }
+
+
+
+                        <td>@Model.TotalPrice VNĐ</td>
                     </tr>
 
 
@@ -94,16 +105,18 @@
             <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> In</a>
 
             @using (Html.BeginForm("UpgradePackageUser", "PackageManager", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.PackageId)
-        @Html.HiddenFor(m => m.UpgradeUID)
-        @Html.HiddenFor(m => m.UpgradeToken)
-      
-        <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Xác nhận nâng cấp</button>
-}
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.PackageId)
+                @Html.HiddenFor(m => m.UpgradeUID)
+                @Html.HiddenFor(m => m.UpgradeToken)
+                @Html.HiddenFor(m => m.TotalDay)
+                @Html.HiddenFor(m => m.TotalPrice)
 
-       
+                <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Xác nhận nâng cấp</button>
+            }
+
+
 
 
 

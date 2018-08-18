@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Trang thông báo";
-    Layout = "~/Areas/AdminCMS/Views/Shared/_MainLayout.cshtml";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
 }
 @model DataModel.DataViewModel.AlertPageViewModel
 <section class="content">
@@ -14,7 +14,7 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <div class="alert alert-info alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      
                         <h4><i class="icon fa fa-info"></i> Alert!</h4>
                         @Model.AlertString
                         @Model.AlertLink

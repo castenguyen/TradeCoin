@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
 @using DataModel.DataEntity;
 @using DataModel.DataViewModel;
-@model UserAndRoles
+@using DataModel.Extension;
+@model DetailUserUpgrade
 @{
     ViewBag.Title = "DetailUser";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -22,158 +23,203 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
+
         <div class="col-md-3">
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="User profile picture">
                     <h3 class="profile-username text-center">@Model.ObjUser.FullName</h3>
-                    <p class="text-muted text-center">Member)</p>
+                    <p class="text-muted text-center">Member</p>
                     <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Email</b> <a class="pull-right">abc@gmail.com</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Số điện thoại</b> <a class="pull-right">0906316422</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Ngày tạo</b> <a class="pull-right">@Model.ObjUser.CreationDate</a>
-                        </li>
 
                         <li class="list-group-item">
-                            <b>Ngày được duyệt</b> <a class="pull-right">@Model.ObjUser.ApprovalDate</a>
+                            <b>Email</b> <span class="pull-right">@Model.ObjUser.EMail</span>
                         </li>
+                        <li class="list-group-item">
+                            <b>Gói cước đang sử dụng</b> <span class="pull-right">@Model.ObjUser.PackageName</span>
+                        </li>
+                        <li class="list-group-item">
+                            @if (Model.ObjUser.ExpiredDay != null)
+    {
+                        <b>Ngày hết hạn</b> <span class="pull-right">@Model.ObjUser.ExpiredDay</span>
 
-                        <li class="list-group-item">
-                            <b>Lần đăng nhập cuối cùng</b> <a class="pull-right">@Model.ObjUser.LastLoginDate</a>
+}
+else
+{
+                        <b>Ngày hết hạn</b> <span class="pull-right">Vĩnh Viễn</span>
+}
+
                         </li>
-                        <li class="list-group-item">
-                            <b>Số bài viết</b> <a class="pull-right">1,322</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Số support</b> <a class="pull-right">543</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Điểm</b> <a class="pull-right">13,287</a>
-                        </li>
+                        @if (Model.ObjUser.AwaitPackageId.HasValue)
+                        {
+                            if (Model.ObjUser.AwaitPackageId.Value > 0)
+                            {
+
+                                <li class="list-group-item">
+                                    <b> Gói cước chờ nâng cấp</b> <span class="pull-right badge bg-green">@Model.objAwaitUserPackage.PackageName</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b> Mã nâng cấp</b> <span class="pull-right badge bg-green">@Model.objAwaitUserPackage.UpgradeToken</span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <b> Số tiền </b> <span class="pull-right badge bg-green">@Model.objAwaitUserPackage.Price VNĐ</span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    @if (@Model.objAwaitUserPackage.NumDay == 0)
+                                    {
+                                        <b> Thời gian</b> <span class="pull-right badge bg-green">Vĩnh Viễn</span>
+                                    }
+                                    else
+                                    {
+                                        <b> Thời gian</b> <span class="pull-right badge bg-green">@Model.objAwaitUserPackage.NumDay Ngày</span><br><hr>
+                                        <b> Ngày hết hạn</b><span class="pull-right badge bg-green">@Model.ExpiryDay</span>
+                                    }
+                                </li>
+                            }
+
+                        }
+
+
                     </ul>
-                    @*<a href="#" class="btn btn-primary btn-block"><b>Cập nhật</b></a>*@
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-            <!-- About Me Box -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Chi tiết</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
 
-
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Gói cước đang sử dụng</strong>
-                    <p>
-                        <span class="label label-danger">@Model.ObjUser.PackageName</span>
-                    </p>
-                    <hr>
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ngày hết hạn</strong>
-                    <p class="text-muted">26-09-2018</p>
-                    <hr>
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Ghi chú</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                    <hr>
-                    <a href="@Url.Action("ManagerUser", "AccountAdmin", new { id = Model.ObjUser.Id })" class="btn btn-primary btn-block"><b>Phân Quyền/ Nâng cấp</b></a>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div><!-- /.col -->
         <div class="col-md-9">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#activity" data-toggle="tab">Hoạt động</a></li>
-                    <li><a href="#timeline" data-toggle="tab">Lịch sử nâng cấp</a></li>
+            <div class="row">
+                @using (Html.BeginForm("UpgradePackage", "AccountAdmin", FormMethod.Post, new { @class = "", role = "form" }))
+                {
 
-                </ul>
-                <div class="tab-content">
-                    <div class="active tab-pane" id="activity">
-                        <ul class="timeline timeline-inverse">
-                            <!-- timeline time label -->
-                            @foreach (Userhist _val in Model.ObjUser.LstUserhists.Take(20))
-                            {
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Nâng cấp gói cước</h3>
+                            <p class="text-red">  Nâng cấp gói cước cho tài khoản.</p>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
 
-
-                                <li>
-                                    <i class="fa fa-envelope bg-blue"></i>
-                                    <div class="timeline-item">
-                                        <span class="time"><i class="fa fa-clock-o"></i> @_val.CrtdDT</span>
-                                        <h3 class="timeline-header"><a href="#"> @_val.ActionTypeName</a> @_val.ActionObjName </h3>
-                                        <div class="timeline-body">
-                                            Tài khoản @Model.ObjUser.FullName đã   @_val.ActionTypeName @_val.ActionObjName vào lúc @_val.CrtdDT  địa chi IP @_val.IPadress
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-6">Gói cước</label>
+                                    @Html.DropDownListFor(c => c.PackageID, Model.LstPackages as SelectList, "Select...", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Ngày hết hạn:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
                                         </div>
-                                        <div class="timeline-footer">
+                                        @Html.TextBoxFor(c => c.Datetime, new { @class = "form-control", id = "reservation" })
 
-                                            <a class="btn btn-danger btn-xs">Delete</a>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </div><!-- /.input group -->
+                                </div><!-- /.form group -->
 
+                            </div>
 
-                            }
-
-
-
-
-                        </ul>
-                    </div><!-- /.tab-pane -->
-                    <div class="tab-pane" id="timeline">
-                        <!-- The timeline -->
-                        <ul class="timeline timeline-inverse">
-
-                            <li>
-                                <i class="fa fa-envelope bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                                    <h3 class="timeline-header"><a href="#">Nâng cấp</a> kim cương</h3>
-                                    <div class="timeline-body">
-                                        D9ược nâng cấp bởi dasdsa thành adada vào lúc 12312313
-                                    </div>
-                                    <div class="timeline-footer">
-
-                                        <a class="btn btn-danger btn-xs">Delete</a>
-                                    </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-6">Nâng cấp vĩnh viễn</label>
+                                    @Html.CheckBoxFor(c => c.checkForerver)
                                 </div>
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                                    <h3 class="timeline-header"><a href="#">Nâng cấp</a> kim cương</h3>
-                                    <div class="timeline-body">
-                                        D9ược nâng cấp bởi dasdsa thành adada vào lúc 12312313
-                                    </div>
-                                    <div class="timeline-footer">
-
-                                        <a class="btn btn-danger btn-xs">Delete</a>
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <p class="text-red">Nếu nâng cấp vĩnh viễn được chọn thì ngày hết hạn sẽ không khả dụng </p>
                                 </div>
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                                    <h3 class="timeline-header"><a href="#">Nâng cấp</a> kim cương</h3>
-                                    <div class="timeline-body">
-                                        D9ược nâng cấp bởi dasdsa thành adada vào lúc 12312313
-                                    </div>
-                                    <div class="timeline-footer">
 
-                                        <a class="btn btn-danger btn-xs">Delete</a>
-                                    </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.HiddenFor(s => s.ObjUser.Id)
+                                @Html.HiddenFor(s => s.Price)
+
+                                <div class="form-group">
+                                    <label>   </label>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
-                            </li>
+                            </div>
+
+                        </div><!-- /.box-body -->
+                        </div><!-- /.box -->
+
+                }
+            </div>
+            <div class="row">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Lịch Sử Nâng cấp gói cước</h3>
+                     
+                    </div><!-- /.box-header -->
+                    <div class="nav-tabs-custom">
+                      
+                        <div class="tab-content">
+
+                            <div class="active tab-pane" id="timeline">
+                                <!-- The timeline -->
+                                <ul class="timeline timeline-inverse">
+
+                                    @foreach (UserPackage Item in Model.LstHistoryUpgrade)
+                                    {
+                                        if (Item.StateId.Value == (int)EnumCore.StateType.cho_duyet)
+                                        {
+                                            <li>
+                                                <i class="fa fa-envelope bg-blue"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fa fa-clock-o"></i> @Item.CrtdDT</span>
+                                                    <h3 class="timeline-header"><a href="#">Nâng cấp</a> @Item.PackageName</h3>
+                                                    <div class="timeline-body">
+                                                        Đã gửi yêu cầu nâng cấp từ  @Item.OldPackageName thành  @Item.PackageName
+                                                        <br>
+                                                        Thời gian @Item.CrtdDT
+                                                        <br>
+                                                        Số tiền @Item.Price
+                                                    </div>
+                                                   
+                                                </div>
+                                            </li>
+                                        }
+                                        else if (Item.StateId.Value == (int)EnumCore.StateType.cho_phep)
+                                        {
+
+                                            <li>
+                                                <i class="fa fa-envelope bg-blue"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fa fa-clock-o"></i>@Item.CrtdDT</span>
+                                                    <h3 class="timeline-header"><a href="#">Nâng cấp</a> @Item.PackageName</h3>
+                                                    <div class="timeline-body">
+                                                        Đã được duyệt nâng cấp từ  @Item.OldPackageName thành  @Item.PackageName
+                                                        <br>
+                                                        Duyệt Bởi @Item.AprvdUserName
+                                                        <br>
+                                                        Thời gian @Item.CrtdDT
+                                                        <br>
+                                                        Số tiền @Item.Price VNĐ
+                                                    </div>
+                                                  
+                                                </div>
+                                            </li>
+
+                                        }
 
 
-                        </ul>
-                    </div><!-- /.tab-pane -->
+                                    }
 
-                </div><!-- /.tab-content -->
-            </div><!-- /.nav-tabs-custom -->
+                                </ul>
+                            </div><!-- /.tab-pane -->
+
+                        </div><!-- /.tab-content -->
+                    </div><!-- /.nav-tabs-custom -->
+                </div><!-- /.row -->
+            </div><!-- /.row -->
+
         </div><!-- /.col -->
+
     </div><!-- /.row -->
+
 </section><!-- /.content -->
+<script>
+    $(function () {
+
+        $('#reservation').daterangepicker();
+    })
+</script>
