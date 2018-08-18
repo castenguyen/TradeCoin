@@ -430,6 +430,7 @@
           <Property Name="CrtdDT" Type="datetime" />
           <Property Name="StateName" Type="nvarchar" MaxLength="250" />
           <Property Name="StateId" Type="int" />
+          <Property Name="ForeverPrice" Type="float" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -722,6 +723,10 @@
           <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
           <Property Name="UpgradeToken" Type="nvarchar" MaxLength="200" />
           <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="Price" Type="float" />
+          <Property Name="OldPackageID" Type="bigint" />
+          <Property Name="OldPackageName" Type="nvarchar" MaxLength="250" />
+          <Property Name="NumDay" Type="int" />
         </EntityType>
         <EntityType Name="UserRegistrationToken">
           <Key>
@@ -2344,6 +2349,7 @@
           <Property Name="CrtdDT" Type="DateTime" Precision="3" />
           <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="StateId" Type="Int32" />
+          <Property Name="ForeverPrice" Type="Double" />
         </EntityType>
         <EntityType Name="RoleGroup">
           <Key>
@@ -2372,6 +2378,10 @@
           <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="UpgradeToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="OldPackageID" Type="Int64" />
+          <Property Name="OldPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NumDay" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3316,6 +3326,7 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="alluneedbModel.Package">
               <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="ForeverPrice" ColumnName="ForeverPrice" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
                 <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
@@ -3343,6 +3354,10 @@
           <EntitySetMapping Name="UserPackages">
             <EntityTypeMapping TypeName="alluneedbModel.UserPackage">
               <MappingFragment StoreEntitySet="UserPackage">
+                <ScalarProperty Name="NumDay" ColumnName="NumDay" />
+                <ScalarProperty Name="OldPackageName" ColumnName="OldPackageName" />
+                <ScalarProperty Name="OldPackageID" ColumnName="OldPackageID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
                 <ScalarProperty Name="UpgradeToken" ColumnName="UpgradeToken" />
                 <ScalarProperty Name="PackageName" ColumnName="PackageName" />

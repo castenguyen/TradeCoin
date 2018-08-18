@@ -24,5 +24,6 @@ namespace DataModel.DataEntity
         public Nullable<System.DateTime> CrtdDT { get; set; }
         public string StateName { get; set; }
         public Nullable<int> StateId { get; set; }
+        public Nullable<double> ForeverPrice { get; set; }
     }
 }

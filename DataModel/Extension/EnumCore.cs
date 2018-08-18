@@ -221,6 +221,25 @@ namespace DataModel.Extension
 
         }
 
+        public enum Package : int
+        {
+           free=1,
+           dem=2,
+           dong=3,
+           vang=4,
+           kimcuong=5,
+
+
+        }
+
+        public enum PackageTimeType : int
+        {
+            thang = 1,
+            quy = 2,
+            vinhvien = 3,
+        }
+        
+
 
         #endregion END BACKEND
 

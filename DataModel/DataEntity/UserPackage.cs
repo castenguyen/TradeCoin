@@ -26,5 +26,9 @@ namespace DataModel.DataEntity
         public string PackageName { get; set; }
         public string UpgradeToken { get; set; }
         public Nullable<System.DateTime> CrtdDT { get; set; }
+        public Nullable<double> Price { get; set; }
+        public Nullable<long> OldPackageID { get; set; }
+        public string OldPackageName { get; set; }
+        public Nullable<int> NumDay { get; set; }
     }
 }
