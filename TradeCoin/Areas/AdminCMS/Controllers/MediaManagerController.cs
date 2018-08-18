@@ -284,36 +284,104 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult CreateVideo()
         {
             VideoViewModels model = new VideoViewModels();
+            model.CatalogryList = new SelectList(cms_db.Getnewcatagory(), "ClassificationId", "ClassificationNM");
+            model.lstPackage = cms_db.GetObjSelectListPackage();
             return View(model);
         }
         [AdminAuthorize(Roles = "supperadmin,devuser,CreateVideo")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateVideo(VideoViewModels model)
+        public async Task<ActionResult> CreateVideo(VideoViewModels model, HttpPostedFileBase Default_files)
         {
             if (ModelState.IsValid)
             {
-
+                MediaContent MainModel = model.objMediaContent;
                 MediaContent MainObj = cms_db.GetObjMediaContent(model.ImgdefaultId);
-                if (MainObj != null)
+                if (MainModel != null)
                 {
-                    MainObj.Filename = model.Filename;
-                    MainObj.CrtdUID = long.Parse(User.Identity.GetUserId());
-                    MainObj.CrtdDT = DateTime.Now;
-                    MainObj.AlternativeText = model.AlternativeText;
-                    MainObj.Caption = model.Caption;
-                    MainObj.EXIFInfo = model.EXIFInfo;
-                    MainObj.MediaDesc = model.MediaDesc;
-                    MainObj.MetadataDesc = model.MetadataDesc;
-                    MainObj.MetadataKeyword = model.MetadataKeyword;
-                    MainObj.LinkHref = model.LinkHref;
-                    MainObj.ObjTypeId = (int)EnumCore.ObjTypeId.video;
-                    int rs = await cms_db.UpdateMediaContent(MainObj);
+                    MainModel.Filename = model.Filename;
+                    MainModel.CrtdUID = long.Parse(User.Identity.GetUserId());
+                    MainModel.CrtdDT = DateTime.Now;
+                    MainModel.AlternativeText = model.AlternativeText;
+                    MainModel.Caption = model.Caption;
+                    MainModel.EXIFInfo = model.EXIFInfo;
+                    MainModel.MediaDesc = model.MediaDesc;
+                    MainModel.MetadataDesc = model.MetadataDesc;
+                    MainModel.MetadataKeyword = model.MetadataKeyword;
+                    MainModel.LinkHref = model.LinkHref;
+                    MainModel.ObjTypeId = (int)EnumCore.ObjTypeId.video;
+                    if (Default_files != null)
+                    {
+                        MediaContentViewModels rsdf = await this.SaveDefaultImageForVideo(Default_files, MainModel.MediaContentId);
+                        int rsup = await this.UpdateImageUrlForVideo(rsdf, MainModel);
+                    }
+                    int rs = await cms_db.UpdateMediaContent(MainModel);
+
+                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel.MediaContentId);
+                    int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                        (int)EnumCore.ActionType.Create, "Create", MainModel.MediaContentId, MainModel.Filename, "MediaManage", (int)EnumCore.ObjTypeId.video);
                 }
                 return RedirectToAction("VideoManager");
             }
             return RedirectToAction("VideoManager");
         }
+
+        private async Task<MediaContentViewModels> SaveDefaultImageForVideo(HttpPostedFileBase file, long Videoid)
+        {
+            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc
+                    && s.MediaTypeId == (int)EnumCore.mediatype.hinh_anh_dai_dien && s.ContentObjId == Videoid).FirstOrDefault();
+            if (CurrentMediaId != null)
+            {
+                int rs = await cms_db.DeleteMediaContent(CurrentMediaId.MediaContentId);
+            }
+            ImageUploadViewModel item = new ImageUploadViewModel();
+            item = cms_db.UploadHttpPostedFileBase(file);
+            MediaContentViewModels _Media = new MediaContentViewModels();
+            _Media.Filename = item.ImageName;
+            _Media.FullURL = item.ImageUrl;
+            _Media.ContentObjId = Videoid;
+            _Media.ObjTypeId = (int)EnumCore.ObjTypeId.video;
+            _Media.ViewCount = 0;
+            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh_dai_dien;
+            _Media.CrtdDT = DateTime.UtcNow;
+            _Media.MediaContentSize = file.ContentLength;
+            _Media.ThumbURL = item.ImageThumbUrl;
+            _Media.CrtdUID = long.Parse(User.Identity.GetUserId());
+            await cms_db.AddNewMediaContent(_Media);
+            return _Media;
+
+        }
+
+        private async Task<int> UpdateImageUrlForVideo(MediaContentViewModels ImageObj, MediaContent ContentObj)
+        {
+            ContentObj.FullURL = ImageObj.FullURL;
+            ContentObj.ThumbURL = ImageObj.ThumbURL;
+            return await cms_db.UpdateMediaContent(ContentObj);
+        }
+
+        private int SaveContentItemPackage(long[] model, long ContentObjId)
+        {
+            try
+            {
+                int dl = cms_db.DeleteContentPackage(ContentObjId, (int)EnumCore.ObjTypeId.tin_tuc);
+                foreach (int _val in model)
+                {
+                    ContentPackage tmp = new ContentPackage();
+                    tmp.ContentId = ContentObjId;
+                    tmp.ContentType = (int)EnumCore.ObjTypeId.tin_tuc;
+                    tmp.PackageId = _val;
+
+                    cms_db.CreateContentPackage(tmp);
+                }
+                return (int)EnumCore.Result.action_true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("SaveContentItemPackage", "ContentItem", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return (int)EnumCore.Result.action_false;
+            }
+        }
+
         [AdminAuthorize(Roles = "supperadmin,devuser,UpdateVideo")]
         public ActionResult EditVideo(long id)
         {
