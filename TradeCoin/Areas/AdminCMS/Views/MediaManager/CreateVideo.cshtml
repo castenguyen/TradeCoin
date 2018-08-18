@@ -69,10 +69,43 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            @Html.Action("_UploadImagePartial")
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <h2 class="box-title">Hình minh hoạ</h2>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Hình minh hoạ</label>
+                                        <input type="file" id="Default_files" name="Default_files" value="Chọn và upload">
+
+                                    </div>
+                                    <div class="form-group imgboxdata">
+                                        <img class="img-responsive" src="/" id="blah" alt="Photo">
+                                    </div>
+
+                                </div>
+                            </div><!-- /.box -->
                             <!-- The file input field used as target for the file upload widget -->
-                            <label >Video</label>
+                            <label>Video</label>
                             <label class="file-upload"><span><i class="glyphicon glyphicon-plus"></i>Add files...</span><input id="fileupload" type="file" name="files[]"></label>
+
+                            <div class="box box-primary">
+
+                                <div class="box-header">
+                                    <h2 class="box-title">Phân quyền người xem</h2>
+                                </div><!-- /.box-header -->
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        @foreach (SelectListObj _val in Model.lstPackage)
+                                        {
+                                            <label>
+                                                <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
+                                            </label><br />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div><!-- /.box-body -->
                     @*<div class="box-footer col-md-9">
