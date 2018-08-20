@@ -121,5 +121,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Core
             }
         }
 
+        public int SetInforMeta(string metakey, string metades)
+        {
+            Config model = new Config();
+            model.site_metadadescription = metades;
+            model.site_metadatakeyword = metakey;
+            HttpContext.Application["PageConfig"] = model;
+            return (int)EnumCore.Result.action_true;
+        }
+
     }
 }

@@ -25,10 +25,6 @@
 <input type="hidden" value="@Model.TickerStatus" name="StatusId" />
 <input type="hidden" value="@Model.TickerPackage" name="PackageId" />
 
-
-
-
-
 <section class="content">
     <div class="row">
         <!-- left column -->
@@ -38,7 +34,6 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Quản Lý Kèo</h3>
                     <div class="box-tools">
-
                         <a href="@Url.Action("Create", "TickerManager", null)" class="btn btn-primary">Thêm mới Kèo</a>
                     </div>
                 </div><!-- /.box-header -->
@@ -63,7 +58,6 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Ngày tạo</th>
                                 <th>Người tạo</th>
@@ -75,15 +69,14 @@
                                 foreach (var _val in Model.lstMainTicker)
                                 {
                                     <tr>
-                                        <td>@_val.TickerId</td>
                                         <td><a href="#">@_val.TickerName</a></td>
                                         <td>@_val.CrtdDT</td>
                                         <td>@_val.CrtdUserName</td>
                                         <td>Free - Đêm - Vàng - Kim cương</td>
                                         <td>@_val.StateName</td>
                                         <td>
-                                            <a href="#">Duyệt</a>
-                                            | <a href="@Url.Action("Update", "TickerManager", new { id = _val.TickerId })">Chỉnh sửa</a>
+                                        
+                                           <a href="@Url.Action("Update", "TickerManager", new { id = _val.TickerId })">Chỉnh sửa</a>
                                             | <a href="#">Delete</a>
                                         </td>
                                     </tr>
