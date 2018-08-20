@@ -152,6 +152,8 @@
           <Property Name="PackageId" Type="bigint" Nullable="false" />
           <Property Name="ContentType" Type="bigint" Nullable="false" />
           <Property Name="StateId" Type="bigint" />
+          <Property Name="ContentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ContentTag">
           <Key>
@@ -2086,6 +2088,8 @@
           <Property Name="PackageId" Type="Int64" Nullable="false" />
           <Property Name="ContentType" Type="Int64" Nullable="false" />
           <Property Name="StateId" Type="Int64" />
+          <Property Name="ContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PackageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ContentView">
           <Key>
@@ -3038,6 +3042,8 @@
           <EntitySetMapping Name="ContentPackages">
             <EntityTypeMapping TypeName="alluneedbModel.ContentPackage">
               <MappingFragment StoreEntitySet="ContentPackage">
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="ContentName" ColumnName="ContentName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="PackageId" ColumnName="PackageId" />
