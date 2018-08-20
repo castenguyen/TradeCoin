@@ -1,4 +1,10 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model TickerAdminViewModel
 @{
     ViewBag.Title = "ListTicker";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -17,102 +23,54 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-            <div class="col-md-12">
-                <div class="box box-widget">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Danh sách Kèo</h3>
-                    </div><!-- /.box-header -->
-                    <div class='box-body'>
+        <div class="col-md-12">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách Kèo</h3>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+                    @foreach (Ticker _val in Model.lstMainTicker)
+    {
+
+                <div class="attachment-block clearfix">
+                    <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
+                    <div class="attachment-pushed">
+                        <h4 class="attachment-heading">
+                            <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
+                            <span class="badge bg-yellow">Vàng</span>
+                        </h4>
+                        <div class="attachment-text">
+                            Description about the attachment can be placed here.
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
+                        </div><!-- /.attachment-text -->
+                        <div class='user-block pull-right'>
+                            <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
+                            <span class='description'>Shared publicly - 7:30 PM Today</span>
+                        </div><!-- /.user-block -->
+                    </div><!-- /.attachment-pushed -->
+                </div><!-- /.attachment-block -->
+
+}
 
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class="badge bg-yellow">Vàng</span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class="badge bg-yellow">Vàng</span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class="badge bg-yellow">Vàng</span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class="badge bg-yellow">Vàng</span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
 
 
-                    </div><!-- /.user-block -->
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">«</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
-                    </div>
+
                 </div><!-- /.user-block -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">«</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div><!-- /.user-block -->
 
 
-            </div>
-         
+        </div>
+
 
     </div><!-- /.tab-content -->
 

@@ -101,7 +101,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.StateId = (int)EnumCore.StateType.cho_phep;
                     MainModel.StateName = this.StateName_Enable;
                     int rs = await cms_db.CreateContentItem(MainModel);
-                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel.ContentItemId);
+                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
                     //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
@@ -151,7 +151,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         MediaContentViewModels rsdf = await this.SaveDefaultImageForContentItem(Default_files, MainModel.ContentItemId);
                         int rsup = await this.UpdateImageUrlForContentItem(rsdf, MainModel);
                     }
-                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel.ContentItemId);
+                    int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel);
 
 
                     int rs = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
@@ -209,17 +209,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return await cms_db.UpdateContentItem(ContentObj);
         }
 
-        private int SaveContentItemPackage(long[] model, long ContentObjId)
+        private int SaveContentItemPackage(long[] model, ContentItem ContentObj)
         {
             try
             {
-                int dl = cms_db.DeleteContentPackage(ContentObjId, (int)EnumCore.ObjTypeId.tin_tuc);
+                int dl = cms_db.DeleteContentPackage(ContentObj.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
                 foreach (int _val in model)
                 {
                     ContentPackage tmp = new ContentPackage();
-                    tmp.ContentId = ContentObjId;
+                    tmp.ContentId = ContentObj.ContentItemId;
+                    tmp.ContentName = ContentObj.ContentTitle;
                     tmp.ContentType = (int)EnumCore.ObjTypeId.tin_tuc;
                     tmp.PackageId = _val;
+                    tmp.PackageName = cms_db.GetPackageName(_val);
 
                     cms_db.CreateContentPackage(tmp);
                 }

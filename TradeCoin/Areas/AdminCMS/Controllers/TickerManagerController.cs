@@ -18,11 +18,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
     public class TickerManagerController : CoreBackEnd
     {
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
         public ActionResult Index(int? page, int? TickerStatus, int? TickerPackage,  string FillterTickerName)
         {
             int pageNum = (page ?? 1);
             TickerAdminViewModel model = new TickerAdminViewModel();
-            IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.StateType.da_xoa);
+            IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
 
             if (TickerStatus.HasValue)
             {
@@ -45,11 +46,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 pageNum = 1;
             model.pageNum = pageNum;
             model.lstMainTicker = tmp.OrderByDescending(c => c.TickerId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-            model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type), "value", "text");
+            model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text"); 
 
             return View(model);
         }
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
         public ActionResult Create()
         {
             TickerViewModel model = new TickerViewModel();
@@ -58,6 +60,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
         public async Task<ActionResult> Create(TickerViewModel model, HttpPostedFileBase Default_files)
         {
             try
@@ -68,7 +71,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.CrtdDT = DateTime.Now;
                     MainModel.CrtdUserId = long.Parse(User.Identity.GetUserId());
                     MainModel.CrtdUserName = User.Identity.Name;
-                    MainModel.StateId = (int)EnumCore.StateType.cho_phep;
+                    MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
                     MainModel.StateName = "Enable";
                     MainModel.Flag = model.Flag;
                     int rs = await cms_db.CreateTickerAsync(MainModel);
@@ -77,7 +80,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         MediaContentViewModels rsdf = await this.SaveDefaultImageForTicker(Default_files, MainModel.TickerId);
                         int rsup = await this.UpdateImageUrlForTicker(rsdf, MainModel);
                     }
-                    int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel.TickerId);
+                    int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.TickerId, MainModel.TickerName, "TickerManager", (int)EnumCore.ObjTypeId.ticker);
                 }
@@ -90,14 +93,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
           }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateTicker")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,UpdateTicker")]
         public ActionResult Update(int? id)
         {
             if (id == null)
                 id = 1;
             Ticker _obj = cms_db.GetObjTicker(id.Value);
             TickerViewModel model = new TickerViewModel(_obj);
-            if (model.CrtdUserId == (long)Convert.ToDouble(User.Identity.GetUserId()) || !User.IsInRole("UpdateTicker"))
+            if (  (model.CrtdUserId == long.Parse(User.Identity.GetUserId()) && User.IsInRole("Mod")) || User.IsInRole("AdminUser") || User.IsInRole("devuser"))
             {
                 model.lstPackage = cms_db.GetObjSelectListPackage();
                 model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
@@ -112,25 +115,29 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateTicker")]
         public async Task<ActionResult> Update(TickerViewModel model, HttpPostedFileBase Default_files)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Ticker MainModel = model._MainObj;
-                    MainModel.StateId = (int)EnumCore.StateType.cho_phep;
-                    MainModel.StateName = "Enable";
-                    MainModel.Flag = model.Flag;
-                    int rs = await cms_db.UpdateTicker(MainModel);
-                    if (Default_files != null)
+                    if ((model.CrtdUserId == long.Parse(User.Identity.GetUserId()) && User.IsInRole("Mod")) || User.IsInRole("AdminUser") || User.IsInRole("devuser"))
                     {
-                        MediaContentViewModels rsdf = await this.SaveDefaultImageForTicker(Default_files, MainModel.TickerId);
-                        int rsup = await this.UpdateImageUrlForTicker(rsdf, MainModel);
+                        Ticker MainModel = model._MainObj;
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
+                        MainModel.StateName = "Enable";
+                        MainModel.Flag = model.Flag;
+                        int rs = await cms_db.UpdateTicker(MainModel);
+                        if (Default_files != null)
+                        {
+                            MediaContentViewModels rsdf = await this.SaveDefaultImageForTicker(Default_files, MainModel.TickerId);
+                            int rsup = await this.UpdateImageUrlForTicker(rsdf, MainModel);
+                        }
+                        int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel);
+                        int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                            (int)EnumCore.ActionType.Update, "Update", MainModel.TickerId, MainModel.TickerName, "TickerManager", (int)EnumCore.ObjTypeId.ticker);
                     }
-                    int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel.TickerId);
-                    int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                        (int)EnumCore.ActionType.Create, "Create", MainModel.TickerId, MainModel.TickerName, "TickerManager", (int)EnumCore.ObjTypeId.ticker);
                 }
                 return RedirectToAction("Index");
             }
@@ -140,6 +147,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateTicker")]
         public async Task<ActionResult> ChangeState(long id, int state)
         {
             try
@@ -149,13 +157,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 MainModel.AprvdDT = DateTime.Now;
                 MainModel.StateId = state;
 
-                if (MainModel.StateId == (int)EnumCore.StateType.cho_phep)
-                    MainModel.StateName = this.StateName_Enable;
-                if (MainModel.StateId == (int)EnumCore.StateType.khong_cho_phep)
-                    MainModel.StateName = this.StateName_Disable;
+                if (MainModel.StateId == (int)EnumCore.TickerStatusType.lo)
+                    MainModel.StateName = "Lỗ";
+                if (MainModel.StateId == (int)EnumCore.TickerStatusType.loi)
+                    MainModel.StateName ="Lời";
                 await cms_db.UpdateTicker(MainModel);
                 int ach = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                 (int)EnumCore.ActionType.Create, "ChangeState", MainModel.TickerId, MainModel.TickerName, "Ticker", (int)EnumCore.ObjTypeId.ticker);
+                 (int)EnumCore.ActionType.Update, "ChangeState", MainModel.TickerId, MainModel.TickerName, "Ticker", (int)EnumCore.ObjTypeId.ticker);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -164,7 +172,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("Index");
             }
         }
-    
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,DeleteTicker")]
         public async Task<ActionResult> Delete(long id)
         {
             try
@@ -221,29 +229,31 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return await cms_db.UpdateTicker(TickerObj);
         }
 
-        private int SaveTickerPackage(long[] model, long TickerId)
+        private int SaveTickerPackage(long[] model, Ticker Ticker)
         {
             try
             {
-                int dl = cms_db.DeleteContentPackage(TickerId, (int)EnumCore.ObjTypeId.ticker);
+                int dl = cms_db.DeleteContentPackage(Ticker.TickerId, (int)EnumCore.ObjTypeId.ticker);
                 foreach (int _val in model)
                 {
                     ContentPackage tmp = new ContentPackage();
-                    tmp.ContentId = TickerId;
+                    tmp.ContentId = Ticker.TickerId;
+                    tmp.ContentName = Ticker.TickerName;
                     tmp.ContentType = (int)EnumCore.ObjTypeId.ticker;
                     tmp.PackageId = _val;
-                 
+                    tmp.PackageName = cms_db.GetPackageName(_val);
+
                     cms_db.CreateContentPackage(tmp);
                 }
                 return (int)EnumCore.Result.action_true;
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("SaveProductSize", "ProductManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                cms_db.AddToExceptionLog("SaveTickerPackage", "TickerManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return (int)EnumCore.Result.action_false;
             }
         }
 
-
+       
     }
 }

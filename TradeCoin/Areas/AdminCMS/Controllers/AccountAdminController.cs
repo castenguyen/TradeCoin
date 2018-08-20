@@ -425,8 +425,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Invalid username");
-                    return View(model);
+                    //ModelState.AddModelError("", "Invalid username");
+                   // return View(model);
+                    string AlertString = "Tài khoản chưa đúng";
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
+
+
                 }
                 else
                 {
@@ -560,7 +564,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             else
             {
-
                 return RedirectToAction("Login", "AccountAdmin");
             }
         }
@@ -620,11 +623,22 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public async Task<ActionResult> LogOff()
         {
-            AuthenticationManager.SignOut();
+            try
+            {
+                User _ObjUser = await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
+                _ObjUser.IsLogin = false;
+                int updateUser = await cms_db.UpdateUser(_ObjUser);
+                AuthenticationManager.SignOut();
+                return RedirectToAction("Login");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Login");
 
-            return RedirectToAction("Login");
+            }
+        
         }
 
 

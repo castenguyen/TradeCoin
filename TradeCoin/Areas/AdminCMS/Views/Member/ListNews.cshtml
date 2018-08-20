@@ -1,4 +1,10 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@model ContentItemIndexViewModel
 @{
     ViewBag.Title = "ListNews";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -18,217 +24,110 @@
 <section class="content">
     <div class="row">
 
-            <div class="col-md-8">
+        <div class="col-md-8">
 
 
-                <div class="box box-widget">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Danh Sách tin tức</h3>
-                    </div><!-- /.box-header -->
-                    <div class='box-body'>
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh Sách tin tức</h3>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
 
+
+                    @foreach (ContentItem _val in Model.lstMainContent)
+                    {
                         <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
+                            <img class="attachment-img" src="~/@_val.MediaThumb" alt="attachment image">
                             <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
+                                <h4 class="attachment-heading"><a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })">@_val.ContentTitle</a></h4>
                                 <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
+                                    @_val.ContentExcerpt ...<a href="#">Chi tiết</a>
                                 </div><!-- /.attachment-text -->
                                 <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
+                                    <span class='username'><a href="#">@_val.CategoryName</a></span>
+                                    <span class='description'> @_val.CrtdUserName -  @_val.CrtdDT</span>
                                 </div><!-- /.user-block -->
                             </div><!-- /.attachment-pushed -->
                         </div><!-- /.attachment-block -->
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                    }
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                </div><!-- /.box-body -->
 
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainContent.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainContent, page => Url.Action("Index", new { page, state = Model.ContentState, catalogry = Model.ContentCatalogry }))
+                    }
+                </div>
+            </div><!-- /.box -->
+        </div>
+        <div class="col-md-4">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh sách Kèo</h3>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+                    <div class="post">
+                        <div class="user-block">
+                            <img class="img-circle img-bordered-sm" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="user image">
+                            <span class='username'>
+                                <a href="#">
+                                    USDJPY - 24/07/201
+                                </a>
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                            </span>
+                            <span class='description'>Shared publicly - 7:30 PM today</span>
+                        </div><!-- /.user-block -->
+                    </div><!-- /.post -->
+                    <!-- Post -->
+                    <div class="post clearfix">
+                        <div class='user-block'>
+                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'>
+                                <a href="#">
+                                    EURUSD - 24/07/201
+                                </a>
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                            </span>
+                            <span class='description'>Sent you a message - 3 days ago</span>
+                        </div><!-- /.user-block -->
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                    </div><!-- /.post -->
+                    <!-- Post -->
+                    <!-- Post -->
+                    <div class="post clearfix">
+                        <div class='user-block'>
+                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'>
+                                <a href="#">
+                                    USDJPY - 25/07/2018
+                                </a>
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                            </span>
+                            <span class='description'>Sent you a message - 3 days ago</span>
+                        </div><!-- /.user-block -->
 
+                    </div><!-- /.post -->
+                    <!-- Post -->
+                    <div class="post clearfix">
+                        <div class='user-block'>
+                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'>
+                                <a href="#">
+                                    GBPUSD - 25/07/2018
+                                </a>
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-                                    <span class='username'><a href="#">Jonathan Burke Jr.</a></span>
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                            </span>
+                            <span class='description'>Sent you a message - 3 days ago</span>
+                        </div><!-- /.user-block -->
 
-
-                    </div><!-- /.box-body -->
-
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">«</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
-                    </div>
-                </div><!-- /.box -->
-            </div>
-            <div class="col-md-4">
-                <div class="box box-widget">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Danh sách Kèo</h3>
-                    </div><!-- /.box-header -->
-                    <div class='box-body'>
-                        <div class="post">
-                            <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="user image">
-                                <span class='username'>
-                                    <a href="#">
-                                        USDJPY - 24/07/201
-                                    </a>
-
-                                </span>
-                                <span class='description'>Shared publicly - 7:30 PM today</span>
-                            </div><!-- /.user-block -->
-                        </div><!-- /.post -->
-                        <!-- Post -->
-                        <div class="post clearfix">
-                            <div class='user-block'>
-                                <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'>
-                                    <a href="#">
-                                        EURUSD - 24/07/201
-                                    </a>
-
-                                </span>
-                                <span class='description'>Sent you a message - 3 days ago</span>
-                            </div><!-- /.user-block -->
-
-                        </div><!-- /.post -->
-                        <!-- Post -->
-                        <!-- Post -->
-                        <div class="post clearfix">
-                            <div class='user-block'>
-                                <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'>
-                                    <a href="#">
-                                        USDJPY - 25/07/2018
-                                    </a>
-
-                                </span>
-                                <span class='description'>Sent you a message - 3 days ago</span>
-                            </div><!-- /.user-block -->
-
-                        </div><!-- /.post -->
-                        <!-- Post -->
-                        <div class="post clearfix">
-                            <div class='user-block'>
-                                <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'>
-                                    <a href="#">
-                                        GBPUSD - 25/07/2018
-                                    </a>
-
-                                </span>
-                                <span class='description'>Sent you a message - 3 days ago</span>
-                            </div><!-- /.user-block -->
-
-                        </div><!-- /.post -->
-                    </div><!-- /.user-block -->
-
+                    </div><!-- /.post -->
                 </div><!-- /.user-block -->
 
-            </div>
+            </div><!-- /.user-block -->
+
+        </div>
 
     </div><!-- /.tab-content -->
 

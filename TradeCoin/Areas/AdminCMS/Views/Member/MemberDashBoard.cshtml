@@ -1,4 +1,8 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using DataModel.DataViewModel;
+@model MemberFrontEndViewModel
 @{
     ViewBag.Title = "MemberDashBoard";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -23,183 +27,103 @@
             <div class="box box-primary">
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="~/Areas/AdminCMS/dist/img/user1-128x128.png" alt="User profile picture">
-                    <h3 class="profile-username text-center">Tên Member</h3>
-                    <p class="text-muted text-center">Kim cương</p>
+                    <h3 class="profile-username text-center">@Model.ObjectUser.FullName</h3>
+                    <p class="text-muted text-center">@Model.ObjectUser.EMail</p>
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
-                            <b>Bài viết</b> <a class="pull-right">1,322</a>
+                            <b>Gói cước sử dụng</b> <a class="pull-right">@Model.ObjectUser.PackageName</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kèo đã xem</b> <a class="pull-right">543</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Friends</b> <a class="pull-right">13,287</a>
+                            <b>Ngày hết hạn</b> <a class="pull-right">@Model.ObjectUser.ExpiredDay</a>
                         </li>
                     </ul>
-                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
             <!-- About Me Box -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">About Me</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
 
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Gói cước sử dụng</strong>
-                    <p>
-                        <span class="label label-danger">KIM CƯƠNG</span>
-
-                    </p>
-                    <hr>
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ngày hết hạn</strong>
-                    <p class="text-muted">26-09-1990</p>
-                    <hr>
-
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
         </div><!-- /.col -->
         <div class="col-md-9">
+
             <div class="col-md-6">
                 <div class="box box-widget">
                     <div class="box-header with-border">
                         <h3 class="box-title">Kèo mới</h3>
                     </div><!-- /.box-header -->
                     <div class='box-body'>
+                        @foreach (TickerViewModel _val in Model.lstTicker)
+                        {
+                            <div class="attachment-block clearfix">
+                                <img class="attachment-img" src="~/@_val.MediaThumb" alt="attachment image">
+                                <div class="attachment-pushed">
+                                    <h4 class="attachment-heading">
+                                        <a href="#">@_val.TickerName</a>
 
+                                        @foreach (ContentPackage _item in _val.lstTickerContentPackage)
+                                        {
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class='username'><span class="badge bg-yellow">Vàng</span></span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.. <a href="#">Chi tiết</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class='username'><span class="badge bg-orange">Đồng</span></span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.. <a href="#">Chi tiết</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class='username'><span class="badge bg-red">Kim cương</span></span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.. <a href="#">Chi tiết</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                                            <span class="badge bg-yellow">@_item.PackageName</span>
+                                        }
 
 
 
+                                    </h4>
+                                    <div class="attachment-text">
+                                      @Html.Raw(_val.Description)   <a href="#">Chi tiết</a>
+                                    </div><!-- /.attachment-text -->
+                                    <div class='user-block pull-right'>
+
+                                        <span class='description'> @_val.CrtdUserName - @_val.CrtdDT</span>
+                                    </div><!-- /.user-block -->
+                                </div><!-- /.attachment-pushed -->
+                            </div><!-- /.attachment-block -->
+
+                        }
 
                     </div><!-- /.user-block -->
                     <div class="box-footer with-border">
-                        <a href="#" class="box-title pull-right">Xem tất cả</a>
+                        <a href="@Url.Action("ListTicker", "Member")" class="box-title pull-right">Xem tất cả</a>
                     </div><!-- /.box-header -->
                 </div><!-- /.user-block -->
 
 
             </div>
+
+
             <div class="col-md-6">
                 <div class="box box-widget">
                     <div class="box-header with-border">
                         <h3 class="box-title">Bài viết mới</h3>
                     </div><!-- /.box-header -->
                     <div class='box-body'>
+                        @foreach (ContentItemViewModels _val in Model.lstNews)
+                        {
+                            <div class="attachment-block clearfix">
+                                <img class="attachment-img" src="~/@_val.MediaThumb" alt="attachment image">
+                                <div class="attachment-pushed">
+                                    <h4 class="attachment-heading">
+                                        <a href="#">@_val.ContentTitle</a>
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class='username'><span class="badge bg-yellow">Vàng</span></span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.. <a href="#">Chi tiết</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
+                                        @foreach (ContentPackage _item in _val.lstNewsContentPackage)
+                                        {
 
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
+                                            <span class="badge bg-yellow">@_item.PackageName</span>
+                                        }
+                                    </h4>
+                                    <div class="attachment-text">
+                                        @_val.ContentExcerpt <a href="#">Chi tiết</a>
+                                    </div><!-- /.attachment-text -->
+                                    <div class='user-block pull-right'>
 
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class='username'><span class="badge bg-orange">Đồng</span></span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.. <a href="#">Chi tiết</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
+                                        <span class='description'> @_val.CrtdUserName - @_val.CrtdDT</span>
+                                    </div><!-- /.user-block -->
+                                </div><!-- /.attachment-pushed -->
+                            </div><!-- /.attachment-block -->
 
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading">
-                                    <a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-                                    <span class='username'><span class="badge bg-red">Kim cương</span></span>
-                                </h4>
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.. <a href="#">Chi tiết</a>
-                                </div><!-- /.attachment-text -->
-                                <div class='user-block pull-right'>
-
-                                    <span class='description'>Shared publicly - 7:30 PM Today</span>
-                                </div><!-- /.user-block -->
-                            </div><!-- /.attachment-pushed -->
-                        </div><!-- /.attachment-block -->
-
-
+                        }
                     </div><!-- /.box-body -->
                     <div class="box-footer with-border">
-                        <a href="#" class="box-title pull-right">Xem tất cả</a>
+                        <a href="@Url.Action("ListNews", "Member")" class="box-title pull-right">Xem tất cả</a>
                     </div><!-- /.box-header -->
 
                 </div><!-- /.box -->
@@ -209,7 +133,5 @@
 
 
     </div><!-- /.tab-content -->
-    </div><!-- /.nav-tabs-custom -->
-    </div><!-- /.col -->
-    </div><!-- /.row -->
+
 </section><!-- /.content -->

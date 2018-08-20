@@ -331,7 +331,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int rsup = await this.UpdateImageUrlForVideo(rsdf, MainModel);
                     }
                   
-                    int SaveTickerPackage = this.SaveVideoPackage(model.lstTickerPackage, MainModel.MediaContentId);
+                    int SaveTickerPackage = this.SaveVideoPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.MediaContentId, MainModel.Filename, "MediaManage", (int)EnumCore.ObjTypeId.video);
                 }
@@ -381,17 +381,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
            
         }
 
-        private int SaveVideoPackage(long[] model, long VideoId)
+        private int SaveVideoPackage(long[] model, MediaContent Video)
         {
             try
             {
-                int dl = cms_db.DeleteContentPackage(VideoId, (int)EnumCore.ObjTypeId.video);
+                int dl = cms_db.DeleteContentPackage(Video.MediaContentId, (int)EnumCore.ObjTypeId.video);
                 foreach (int _val in model)
                 {
                     ContentPackage tmp = new ContentPackage();
-                    tmp.ContentId = VideoId;
+                    tmp.ContentId = Video.MediaContentId;
+                    tmp.ContentName = Video.Filename;
                     tmp.ContentType = (int)EnumCore.ObjTypeId.video;
                     tmp.PackageId = _val;
+                    tmp.PackageName = cms_db.GetPackageName(_val);
                     cms_db.CreateContentPackage(tmp);
                 }
                 return (int)EnumCore.Result.action_true;
@@ -437,7 +439,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int rsup = await this.UpdateImageUrlForVideo(rsdf, MainModel);
                     }
 
-                    int SaveTickerPackage = this.SaveVideoPackage(model.lstTickerPackage, MainModel.MediaContentId);
+                    int SaveTickerPackage = this.SaveVideoPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "EditVideo", MainModel.MediaContentId, MainModel.Filename, "MediaManage", (int)EnumCore.ObjTypeId.video);
 
