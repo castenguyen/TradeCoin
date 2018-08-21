@@ -127,7 +127,7 @@
         objHub.client.onConnected = function (id, userName, UserID, userGroup) {
 
             $('#discussion').append('  <li class="media"><div class="media-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-circle " src="content/images/user-icon50.png" /></a><div class="media-body">Chào mừng '
-                       + htmlEncode(name) + ' đến với thoitrangphaidep.com.vn  <br /><small class="text-muted"> ADMIN | 23rd June at 5:00pm</small><hr /></div></div></div></li>');
+                       + htmlEncode(name) + ' đến với TRADECOIN  <br /><small class="text-muted"> ADMIN | 23rd June at 5:00pm</small><hr /></div></div></div></li>');
 
             $('#hId').val(id);
             $('#hUserId').val(UserID);
@@ -145,6 +145,9 @@
             $('#message').attr('readonly', false);
             $('#sendmessage').removeAttr('disabled');
         }
+
+
+     
 
     }
     function htmlEncode(value) {

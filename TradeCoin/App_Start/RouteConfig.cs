@@ -77,34 +77,34 @@ namespace Alluneecms
 
             #endregion trang chu
 
-            #region tin tuc
+            //#region tin tuc
 
-            routes.MapRoute(
-                   name: "NewsList",
-                   url: "tin-tuc/{CataFriendlyUrl}-{id}",
-                   defaults: new
-                   {
-                       controller = "News",
-                       action = "Index",
-                       CataFriendlyUrl = UrlParameter.Optional,
-                       id = UrlParameter.Optional
+            //routes.MapRoute(
+            //       name: "NewsList",
+            //       url: "tin-tuc/{CataFriendlyUrl}-{id}",
+            //       defaults: new
+            //       {
+            //           controller = "News",
+            //           action = "Index",
+            //           CataFriendlyUrl = UrlParameter.Optional,
+            //           id = UrlParameter.Optional
 
-                   });
+            //       });
 
-            routes.MapRoute(
-                   name: "NewsDetail",
-                   url: "tin-tuc/{CataFriendlyUrl}/{FriendlyUrl}-{id}.html",
-                   defaults: new
-                   {
-                       controller = "News",
-                       action = "Detail",
-                       FriendlyUrl = UrlParameter.Optional,
-                       CataFriendlyUrl = UrlParameter.Optional,
-                       id = UrlParameter.Optional
+            //routes.MapRoute(
+            //       name: "NewsDetail",
+            //       url: "tin-tuc/{CataFriendlyUrl}/{FriendlyUrl}-{id}.html",
+            //       defaults: new
+            //       {
+            //           controller = "News",
+            //           action = "Detail",
+            //           FriendlyUrl = UrlParameter.Optional,
+            //           CataFriendlyUrl = UrlParameter.Optional,
+            //           id = UrlParameter.Optional
 
-                   });
+            //       });
 
-            #endregion tin tuc
+            //#endregion tin tuc
 
             #region san pham
 

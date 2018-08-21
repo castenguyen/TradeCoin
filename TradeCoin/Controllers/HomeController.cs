@@ -20,28 +20,28 @@ namespace Alluneecms.Controllers
         public ActionResult Index()
         {
           //  string ip = HttpContext.Request.UserHostAddress;
-            IndexViewModel MainModel = new IndexViewModel();
-            List<HomeListProductViewModel> ProductModel = new List<HomeListProductViewModel>();
-            List<Classification> lstParent = cms_db.GetlstClassifiBySchemeId((int)EnumCore.ClassificationScheme.san_pham).Where(s=>s.ParentClassificationId==null).ToList();
-            foreach (Classification _item in lstParent)
-            {
-                HomeListProductViewModel blockpro = new HomeListProductViewModel();
-                blockpro = cms_db.GetLstHomeProductByCataId(_item.ClassificationId, (int)EnumCore.IndexConst.NbrProduct_In_Home);
-                if (blockpro.lstProduct.Count() > 0)
-                    ProductModel.Add(blockpro);
-            }
-            MainModel.HomeProduct = ProductModel;
-          //  MainModel.ListNewProduct = cms_db.GetListNewsProduct(4);
-            MainModel.lstNews = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.baiviet).OrderByDescending(s => s.CrtdDT).Take(4).ToList();
-            MainModel.lstIdeas = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.ykien).OrderByDescending(s => s.CrtdDT).Take(10).ToList();
-            MainModel.lstParner = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.doitac).OrderByDescending(s => s.CrtdDT).Take(10).ToList();
-            MainModel.lstWhy = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.visao).OrderByDescending(s => s.CrtdDT).Take(3).ToList();
-            //  MainModel.ListViewProduct = cms_db.GetListViewProduct(4);
+          //  IndexViewModel MainModel = new IndexViewModel();
+          //  List<HomeListProductViewModel> ProductModel = new List<HomeListProductViewModel>();
+          //  List<Classification> lstParent = cms_db.GetlstClassifiBySchemeId((int)EnumCore.ClassificationScheme.san_pham).Where(s=>s.ParentClassificationId==null).ToList();
+          //  foreach (Classification _item in lstParent)
+          //  {
+          //      HomeListProductViewModel blockpro = new HomeListProductViewModel();
+          //      blockpro = cms_db.GetLstHomeProductByCataId(_item.ClassificationId, (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
+          //      if (blockpro.lstProduct.Count() > 0)
+          //          ProductModel.Add(blockpro);
+          //  }
+          //  MainModel.HomeProduct = ProductModel;
+          ////  MainModel.ListNewProduct = cms_db.GetListNewsProduct(4);
+          //  MainModel.lstNews = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.baiviet).OrderByDescending(s => s.CrtdDT).Take(4).ToList();
+          //  MainModel.lstIdeas = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.ykien).OrderByDescending(s => s.CrtdDT).Take(10).ToList();
+          //  MainModel.lstParner = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.doitac).OrderByDescending(s => s.CrtdDT).Take(10).ToList();
+          //  MainModel.lstWhy = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.visao).OrderByDescending(s => s.CrtdDT).Take(3).ToList();
+          //  //  MainModel.ListViewProduct = cms_db.GetListViewProduct(4);
 
-            Config cf = new Config();
-            cf = cms_db.GetConfig();
-            this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
-            return View(MainModel);
+          //  Config cf = new Config();
+          //  cf = cms_db.GetConfig();
+           // this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
+            return View();
         }
 
         public ActionResult HeaderPartial()
@@ -138,7 +138,7 @@ namespace Alluneecms.Controllers
         {
             List<HomeSliderPartialViewModel> model = new List<HomeSliderPartialViewModel>();
             model.Clear();
-            List<DisplayContent> lstDisplayContent = cms_db.GetlstDisplayContent(null, (int)EnumCore.Classification_DisplayType.HomeSlider, null).ToList();
+            List<DisplayContent> lstDisplayContent = cms_db.GetlstDisplayContent(null, (int)ConstFrontEnd.FontEndConstDisplayType.HomeSlider, null).ToList();
             foreach (DisplayContent _item in lstDisplayContent)
             {
                 HomeSliderPartialViewModel ChildItem = new HomeSliderPartialViewModel();

@@ -94,7 +94,7 @@ namespace Alluneecms.Controllers
         public ActionResult IndexAD1Partial()
          {
             HomeSliderPartialViewModel model = new HomeSliderPartialViewModel();
-            DisplayContent DisplayContent = cms_db.GetlstDisplayContent(null, (int)EnumCore.Classification_DisplayType.HomeSlider, null).FirstOrDefault();
+            DisplayContent DisplayContent = cms_db.GetlstDisplayContent(null, (int)ConstFrontEnd.FontEndConstDisplayType.HomeSlider, null).FirstOrDefault();
             if (DisplayContent == null)
                 return PartialView("_IndexAD1Partial", model);
             MediaContent Banner_tmp = cms_db.GetObjMediaContent(DisplayContent.ContentId.Value);
