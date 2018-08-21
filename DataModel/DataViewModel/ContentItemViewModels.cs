@@ -242,6 +242,8 @@ namespace DataModel.DataViewModel
 
         public long[] lstTickerPackage { get; set; }
 
+        public List<ContentPackage> lstNewsContentPackage { get; set; }
+
     }
 
     public class ContentRelatedViewModels

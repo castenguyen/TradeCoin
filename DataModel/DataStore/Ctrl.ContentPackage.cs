@@ -61,5 +61,34 @@ namespace DataModel.DataStore
             long[] lstContentPackage = db.ContentPackages.Where(s => s.ContentId == ContentId && s.ContentType == Type).Select(s=>s.PackageId).ToArray();
             return lstContentPackage;
         }
+
+        public long[] GetlstContentPackage(long ContentId, int Type)
+        {
+            long[] lstContentPackage = db.ContentPackages.Where(s => s.ContentId == ContentId && s.ContentType == Type).Select(s => s.PackageId).ToArray();
+            return lstContentPackage;
+        }
+
+
+        public List<ContentPackage> GetlstObjContentPackage(long ContentId, int Type)
+        {
+            List<ContentPackage> lstContentPackage = db.ContentPackages.Where(s => s.ContentId == ContentId && s.ContentType == Type).ToList();
+            return lstContentPackage;
+        }
+
+        public string GetPackageName(long PackageID)
+        {
+            if (PackageID == 1)
+                return "Free";
+            if (PackageID == 2)
+                return "Đêm";
+            if (PackageID == 3)
+                return "Đồng";
+            if (PackageID == 4)
+                return "Vàng";
+            else
+                return "Kim Cương";
+
+        }
+
     }
 }

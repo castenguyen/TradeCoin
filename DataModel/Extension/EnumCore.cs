@@ -69,6 +69,7 @@ namespace DataModel.Extension
             trang_thai_don_hang = 4010,
             kich_thuoc = 5021,
             don_vi_hanh_chinh = 4009,
+            status_ticker=5022,
         
         }
 
@@ -238,63 +239,15 @@ namespace DataModel.Extension
             quy = 2,
             vinhvien = 3,
         }
-        
 
 
-        #endregion END BACKEND
-
-
-        #region FRONTEND
-        public enum Classification_DisplayType : int
+        public enum TickerStatusType : int
         {
-            HomeSlider = 6020,
+            da_xoa = 11919,
+            dang_chay = 11918,
+            loi = 11917,
+            lo = 11916,
         }
-
-        public enum Classifi_news_index : int
-        {
-            ykien = 11883,
-            baiviet = 10815,
-           doitac= 11909,
-         visao=  11910
-           
-        }
-
-        public enum Classifi_tour_index : int
-        {
-            Daily_tours = 11828,
-            tro_giup = 6140,
-            thi_truong = 6144,
-            cong_dong = 8186,
-            thanh_toan = 6141,
-
-        }
-
-        public enum Classifi_Product_Cata : int
-        {
-            cay_giong_chai_mo = 11912,
-            lan_rung= 11895,
-            dendro = 11894,
-            ho_diep = 11893,
-           van_da= 11892,
-            phan_thuoc = 11891,
-            lan_quy_hiem = 11885
-
-        }
-
-       
-
-        public enum IndexConst : int
-        {
-            NbrProduct_In_Home = 100,
-            NbrProductSame_in_productdetail = 10,
-            NbrNews_In_Home = 2,
-            NbrProduct_In_rightcontent = 3,
-            NbrAds_In_TopRight = 3,
-            NbrAds_In_MidleRight = 3,
-            NbrNews_In_rightcontent = 10,
-
-        }
-
 
         public enum FlagForChatHub : int
         {
@@ -305,9 +258,56 @@ namespace DataModel.Extension
             waitting = 1,
             notwaitting = 0,
         }
-     
 
-        public enum Classifi_PageinforMicrosite : int
+
+        #endregion END BACKEND
+
+    }
+
+    public static partial class ConstFrontEnd
+    {
+
+        #region FRONTEND
+        public enum FontEndConstDisplayType : int
+        {
+            HomeSlider = 6020,
+        }
+
+        public enum Classifi_news_index : int
+        {
+            ykien = 11883,
+            baiviet = 10815,
+            doitac = 11909,
+            visao = 11910
+
+        }
+
+
+        public enum FontEndConstProductCata : int
+        {
+            cay_giong_chai_mo = 11912,
+            lan_rung = 11895,
+            dendro = 11894,
+            ho_diep = 11893,
+            van_da = 11892,
+            phan_thuoc = 11891,
+            lan_quy_hiem = 11885
+
+        }
+
+
+
+        public enum FontEndConstNumberRecord : int
+        {
+            Nbr_News_In_Home = 10,
+            Nbr_Ticker_In_Home = 10,
+
+        }
+
+    
+
+
+        public enum FontEndConstPageinforMicrosite : int
         {
 
             gioi_thieu = 6178,
@@ -316,16 +316,19 @@ namespace DataModel.Extension
             tin_tuc = 6183,
         }
 
-        public enum Classifi_Pageinfor : int
+        public enum FontEndConstPageinfor : int
         {
-            ve_chung_toi=6139,
-            tro_giup=6140,
-            thi_truong=6144,
-            cong_dong= 8186,
+            ve_chung_toi = 6139,
+            tro_giup = 6140,
+            thi_truong = 6144,
+            cong_dong = 8186,
             thanh_toan = 6141,
-         
+
         }
 
         #endregion END FRONTEND
+
     }
+
+
 }

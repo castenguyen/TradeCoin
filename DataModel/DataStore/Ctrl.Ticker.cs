@@ -59,7 +59,9 @@ namespace DataModel.DataStore
         {
             try
             {
-                db.Tickers.Remove(TickerObj);
+                TickerObj.StateId = (int)EnumCore.TickerStatusType.da_xoa;
+                TickerObj.StateName = "Đã Xoá";
+                db.Entry(TickerObj).State = EntityState.Modified;
                 return await db.SaveChangesAsync();
             }
             catch (Exception ex)

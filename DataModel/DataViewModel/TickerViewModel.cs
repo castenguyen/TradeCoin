@@ -156,6 +156,13 @@ namespace DataModel.DataViewModel
         [Display(Name = "Hình đại diện")]
         public long ImgdefaultId { get; set; }
         public long[] lstTickerPackage { get; set; }
+
+
+
+        /// <summary>
+        /// danh cho frontend
+        /// </summary>
+        public List<ContentPackage> lstTickerContentPackage { get; set; }
     }
 
 
@@ -170,6 +177,9 @@ namespace DataModel.DataViewModel
         public int TickerStatus { get; set; }
         public int TickerPackage { get; set; }
         public string FillterTickerName { get; set; }
+
+        public List<ContentPackage> lstContentPackage  { get; set; }
+
     }
 
 
