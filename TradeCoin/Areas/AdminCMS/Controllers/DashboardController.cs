@@ -52,7 +52,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
 
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod")]
         public ActionResult ModIndex()
         {
             return View();

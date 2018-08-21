@@ -560,7 +560,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 int updateUser = await cms_db.UpdateUser(_ObjUser);
                 int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
-                return RedirectToAction("Index", "Dashboard");
+                if (User.IsInRole("Member"))
+                {
+                    return RedirectToAction("MemberDashBoard", "Member");
+                }
+                else if (User.IsInRole("Mod"))
+                {
+                    return RedirectToAction("ModIndex", "Dashboard");
+                }
+                else if (User.IsInRole("AdminUser"))
+                {
+                    return RedirectToAction("ModIndex", "Dashboard");
+                }
+                else {
+
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                
             }
             else
             {
