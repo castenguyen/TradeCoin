@@ -18,5 +18,7 @@ namespace DataModel.DataEntity
         public long UserId { get; set; }
         public long ContentType { get; set; }
         public Nullable<long> StateId { get; set; }
+        public string ContentName { get; set; }
+        public string UserName { get; set; }
     }
 }

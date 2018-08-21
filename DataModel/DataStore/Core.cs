@@ -32,7 +32,6 @@ namespace DataModel.DataStore
                 model.CrtdDT = DateTime.Now;
                 db.ExceptionLogs.Add(model);
                 db.SaveChanges();
-
             }
             catch
             {

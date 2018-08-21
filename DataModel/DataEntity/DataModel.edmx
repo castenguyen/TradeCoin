@@ -176,6 +176,8 @@
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="ContentType" Type="bigint" Nullable="false" />
           <Property Name="StateId" Type="bigint" />
+          <Property Name="ContentName" Type="nvarchar" MaxLength="250" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="CountLike">
           <Key>
@@ -2101,6 +2103,8 @@
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="ContentType" Type="Int64" Nullable="false" />
           <Property Name="StateId" Type="Int64" />
+          <Property Name="ContentName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EmailSupport">
           <Key>
@@ -3054,6 +3058,8 @@
           <EntitySetMapping Name="ContentViews">
             <EntityTypeMapping TypeName="alluneedbModel.ContentView">
               <MappingFragment StoreEntitySet="ContentView">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ContentName" ColumnName="ContentName" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
