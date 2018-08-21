@@ -92,19 +92,32 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-           //  tmp = tmp.OrderByDescending(c => c.TickerId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
 
-           // model.lstMainTicker
-           model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
-           model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
+            IPagedList<Ticker> tmplstticker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
+            List<TickerViewModel> mainlstticker = new List<TickerViewModel>();
+
+            foreach (Ticker _item in tmplstticker)
+            {
+                TickerViewModel abc = new TickerViewModel(_item);
+                abc.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                mainlstticker.Add(abc);
+            }
+
+            model.lstMainTicker = mainlstticker.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
+            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
 
             return View(model);
         }
 
 
-        public ActionResult DetailTicker()
+        public ActionResult DetailTicker(long tickerId)
         {
-            return View();
+            TickerViewModel model = new TickerViewModel();
+            Ticker mainObj = cms_db.GetObjTicker(tickerId);
+            model._MainObj = mainObj;
+            return View(model);
         }
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
@@ -137,9 +150,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// ok
         /// </summary>
         /// <returns></returns>
-        public ActionResult DetailNews()
+        public ActionResult DetailNews(long id)
         {
-            return View();
+            ContentItemViewModels model = new ContentItemViewModels();
+            ContentItem mainObj = cms_db.GetObjContentItemById(id);
+            model._MainObj = mainObj;
+            model.lstSameNews = cms_db.GetlstContentItemByCataId(mainObj.CategoryId.Value,10);
+
+
+            return View(model);
+       
         }
 
 

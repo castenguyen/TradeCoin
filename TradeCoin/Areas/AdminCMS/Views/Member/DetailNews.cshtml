@@ -1,4 +1,7 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataViewModel;
+@using DataModel.DataEntity;
+@model DataModel.DataViewModel.ContentItemViewModels
 @{
     ViewBag.Title = "DetailNews";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -6,7 +9,7 @@
 
 <section class="content-header">
     <h1>
-        Member Dashboard
+        Chi tiết bài viết
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -17,81 +20,27 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <div class="col-md-3">
-            <!-- Profile Image -->
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="~/Areas/AdminCMS/dist/img/user1-128x128.png" alt="User profile picture">
-                    <h3 class="profile-username text-center">Tên Member</h3>
-                    <p class="text-muted text-center">Kim cương</p>
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Bài viết</b> <a class="pull-right">1,322</a>
-                        </li>
-                        <li class="list-grouDetailNewsp-item">
-                            <b>Kèo đã xem</b> <a class="pull-right">543</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Friends</b> <a class="pull-right">13,287</a>
-                        </li>
-                    </ul>
-                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-            <!-- About Me Box -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">About Me</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
 
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Gói cước sử dụng</strong>
-                    <p>
-                        <span class="label label-danger">KIM CƯƠNG</span>
-
-                    </p>
-                    <hr>
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Ngày hết hạn</strong>
-                    <p class="text-muted">26-09-1990</p>
-                    <hr>
-
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-        <div class="col-md-9">
+        
             <div class="col-md-8">
                 <div class="box box-widget">
+
                     <div class="box box-widget">
                         <div class='box-header with-border'>
                             <div class='user-block'>
                                 <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'><a href="#">Chi tiết tin tức</a></span>
-                                <span class='description'>Được gửi bởi mod 1 - 7:30 PM Today</span>
+                                <span class='username'><a href="#">@Model.ContentTitle</a></span>
+                                <span class='description'>Được gửi bởi @Model.CrtdUserName - @Model.CrtdDT</span>
                             </div><!-- /.user-block -->
                         </div><!-- /.box-header -->
                         <div class='box-body'>
-                            <img class="img-responsive" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">
-                            <p>
-                                Far far away, behind the word mountains, far from the
-                                countries Vokalia and Consonantia, there live the blind
-                                texts. Separated they live in Bookmarksgrove right at
-                            </p>
-                            <p>
-                                the coast of the Semantics, a large language ocean.
-                                A small river named Duden flows by their place and supplies
-                                it with the necessary regelialia. It is a paradisematic
-                                country, in which roasted parts of sentences fly into
-                                your mouth.
-                            </p>
+                            <img class="img-responsive" src="~/@Model.MediaUrl" alt="attachment image">
+                            @Html.Raw(Model.ContentText)
                             <!-- Attachment -->
                             <!-- Social sharing buttons -->
-                            <button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>
-                            <span class='pull-right text-muted'>45 Share - 2 Lượt xem</span>
+                            @*<button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>*@
+                            <span class='pull-right text-muted'> 200 Lượt xem</span>
                         </div><!-- /.box-body -->
-
-
                     </div><!-- /.box -->
 
                 </div><!-- /.user-block -->
@@ -103,51 +52,22 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Tin tức khác</h3>
                     </div><!-- /.box-header -->
+                    @foreach (ContentItem _item in Model.lstSameNews)
+                    {
+                        <div class='box-header with-border'>
+                            <div class='user-block'>
+                                <img class='img-circle' src='~/@_item.MediaThumb' alt='user image'>
+                                <span class='username'><a href="#">@_item.ContentTitle</a></span>
+                                <span class='description'>@_item.CrtdUserId - @_item.CrtdDT</span>
+                            </div><!-- /.user-block -->
+                        </div><!-- /.box-header -->
 
-                    <div class='box-header with-border'>
-                        <div class='user-block'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'><a href="#">Tin tức 1</a></span>
-                            <span class='description'>Shared publicly - 7:30 PM Today</span>
-                        </div><!-- /.user-block -->
-                    </div><!-- /.box-header -->
+                    }
 
-                    <div class='box-header with-border'>
-                        <div class='user-block'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'><a href="#">Tin tức 1</a></span>
-                            <span class='description'>Shared publicly - 7:30 PM Today</span>
-                        </div><!-- /.user-block -->
-                    </div><!-- /.box-header -->
-
-
-                    <div class='box-header with-border'>
-                        <div class='user-block'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'><a href="#">Tin tức 1</a></span>
-                            <span class='description'>Shared publicly - 7:30 PM Today</span>
-                        </div><!-- /.user-block -->
-                    </div><!-- /.box-header -->
-
-                    <div class='box-header with-border'>
-                        <div class='user-block'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'><a href="#">Tin tức 1</a></span>
-                            <span class='description'>Shared publicly - 7:30 PM Today</span>
-                        </div><!-- /.user-block -->
-                    </div><!-- /.box-header -->
-
-                    <div class='box-header with-border'>
-                        <div class='user-block'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'><a href="#">Tin tức 1</a></span>
-                            <span class='description'>Shared publicly - 7:30 PM Today</span>
-                        </div><!-- /.user-block -->
-                    </div><!-- /.box-header -->
                 </div><!-- /.box -->
             </div>
 
-        </div><!-- /.tab-pane -->
+    
 
 
     </div><!-- /.tab-content -->

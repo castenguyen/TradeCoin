@@ -57,9 +57,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             return View();
 
-
         }
-            public ActionResult MainSliderPartial()
+        public ActionResult MainSliderPartial()
         {
 
             MainSliderAdminViewModel MainModel = new MainSliderAdminViewModel();
