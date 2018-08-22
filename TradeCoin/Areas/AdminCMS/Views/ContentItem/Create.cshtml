@@ -14,7 +14,7 @@
 
 
 
-        @using (Html.BeginForm("Create", "ContentItem", FormMethod.Post, new { role = "form", id = "CreateForm" }))
+        @using (Html.BeginForm("Create", "ContentItem", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", id = "CreateForm" }))
         {
             @Html.AntiForgeryToken()
 
