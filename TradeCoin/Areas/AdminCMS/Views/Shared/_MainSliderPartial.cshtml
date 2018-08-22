@@ -26,20 +26,21 @@
             <li class="header">Danh mục</li>
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.dashboard == 1)
-            {
-                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
-                {
+                        {
+             
+                 if (User.IsInRole("Mod")|| User.IsInRole("AdminUser"))
+                 {
                     <li class="treeview">
-                        <a href="@Url.Action("Index", "Dashboard", new { area = "AdminCMS" })">
+                        <a href="@Url.Action("ModIndex", "Dashboard", new { area = "AdminCMS" })">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
 
                 }
-                else if (User.IsInRole("Mod"))
+                else if ( User.IsInRole("devuser") || User.IsInRole("supperadmin"))
                 {
                     <li class="treeview">
-                        <a href="@Url.Action("ModIndex", "Dashboard", new { area = "AdminCMS" })">
+                        <a href = "@Url.Action("Index", "Dashboard", new { area = "AdminCMS" })">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
