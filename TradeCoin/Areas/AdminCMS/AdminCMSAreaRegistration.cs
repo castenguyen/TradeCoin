@@ -339,6 +339,7 @@ namespace CMSPROJECT.Areas.AdminCMS
 
 
             #endregion END CONTENITEM
+
             #region COMMENT
 
             context.MapRoute(
@@ -766,7 +767,7 @@ namespace CMSPROJECT.Areas.AdminCMS
 
             context.MapRoute(
          "AdminCMS_Dashboard_ModIndex",
-         "administrator/Dashboard/ModIndex",
+         "quan-tri/index",
          new { controller = "Dashboard", action = "ModIndex" }
          );
 
@@ -1090,32 +1091,32 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
 
             context.MapRoute(
             "AdminCMS_member_ListTicker",
-            "tat-ca-keo",
+            "thanh-vien/danh-sach-keo",
             new { controller = "Member", action = "ListTicker" }
             );
 
             context.MapRoute(
            "AdminCMS_member_DetailTicker",
-           "chi-tiet-keo",
+           "thanh-vien/chi-tiet-keo",
            new { controller = "Member", action = "DetailTicker" }
            );
 
 
             context.MapRoute(
            "AdminCMS_member_ListNews",
-           "tat-ca-bai-viet",
+           "thanh-vien/bai-viet",
            new { controller = "Member", action = "ListNews" }
            );
 
                 context.MapRoute(
             "AdminCMS_member_DetailNews",
-            "chi-tiet-bai-viet",
+            "thanh-vien/chi-tiet-bai-viet",
             new { controller = "Member", action = "DetailNews" }
             );
 
                     context.MapRoute(
               "AdminCMS_member_MemberDashBoard",
-              "trang-chinh",
+              "thanh-vien/index",
               new { controller = "Member", action = "MemberDashBoard" }
               );
 
