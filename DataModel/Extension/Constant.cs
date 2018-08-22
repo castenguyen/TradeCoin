@@ -13,15 +13,15 @@ namespace DataModel.Extension
 
         public static string PageName = "HQDN";
         public static string EmailAdminSMTP = "smtp.gmail.com";
-        public static string EmailAdmin = "botogiasi@gmail.com";
-        public static string EmailAdminPassword = "Botogiasi2016";
+        public static string EmailAdmin = "ncoinclub@gmail.com";
+        public static string EmailAdminPassword = "ncoinclubdnq";
         public static int Portmail = 587;
 
         #endregion
         #region Media
 
-        public static string PrefixImageName = "phong-lan-gia-si";
-        public static string PrefixImageContentURL = "phong-lan-gia-si";
+        public static string PrefixImageName = "ncoinclub";
+        public static string PrefixImageContentURL = "ncoinclub";
         public static string DefaulMediaContentURL = "";
         public static string FolderImage = "images";
         public static string FolderFrontEnd = "Media";
