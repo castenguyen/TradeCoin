@@ -878,38 +878,49 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
         public ActionResult ListUser(string letter, string RoleName, int? page = 1)
         {
-            int pageNum = (page ?? 1);
-            UserRoleViewModel model = new UserRoleViewModel();
-            model.LstRole = cms_db.GetRoleList2();
-            var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
-            IQueryable<User> tmp = null;
-            if (User.IsInRole("devuser"))
+            try
             {
-                tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
-            }
-            if (User.IsInRole("supperadmin"))
-            {
-              
-                tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
-            }
-            if (User.IsInRole("AdminUser"))
-            {
-                tmp = cms_db.GetUsersForAdminByLinkq();
-            }
 
-            if (!String.IsNullOrEmpty(letter))
-            {
-                letter = letter.ToLower();
-                tmp = tmp.Where(c => c.Login.StartsWith(letter) || c.EMail.StartsWith(letter));
+                int pageNum = (page ?? 1);
+                UserRoleViewModel model = new UserRoleViewModel();
+                model.LstRole = cms_db.GetRoleList2();
+                var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
+                IQueryable<User> tmp = null;
+                if (User.IsInRole("devuser"))
+                {
+                    tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
+                }
+                if (User.IsInRole("supperadmin"))
+                {
+
+                    tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
+                }
+                if (User.IsInRole("AdminUser"))
+                {
+                    tmp = cms_db.GetUsersForAdminByLinkq();
+                }
+
+                if (!String.IsNullOrEmpty(letter))
+                {
+                    letter = letter.ToLower();
+                    tmp = tmp.Where(c => c.Login.StartsWith(letter) || c.EMail.StartsWith(letter));
+                }
+                if (!String.IsNullOrEmpty(RoleName))
+                {
+                    tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
+                }
+                model.LstAllUser = tmp.OrderBy(c => c.EMail).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                model.Page = pageNum;
+                model.letter = letter;
+                return View(model);
             }
-            if (!String.IsNullOrEmpty(RoleName))
+            catch (Exception e)
             {
-                tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
+
+                cms_db.AddToExceptionLog("ListUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("Index", "Dashboard");
             }
-            model.LstAllUser = tmp.OrderBy(c => c.EMail).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-            model.Page = pageNum;
-            model.letter = letter;
-            return View(model);
+          
         }
 
 
