@@ -1,6 +1,6 @@
 * {
-  direction: rtl;
-  unicode-bidi: embed; /* bidi-override */
+    direction: inherit;
+    unicode-bidi: embed; /* bidi-override */
 }
 
 .style-swticher-header .theme-close {
