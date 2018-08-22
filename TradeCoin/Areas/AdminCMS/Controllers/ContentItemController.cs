@@ -92,15 +92,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.ObjTypeId = (int)EnumCore.ObjTypeId.tin_tuc;
                     MainModel.CategoryName = _objcata.ClassificationNM;
                     MainModel.ViewCount = 0;
+                    MainModel.StateId = (int)EnumCore.StateType.cho_phep;
+                    MainModel.StateName = this.StateName_Enable;
+                    int rs = await cms_db.CreateContentItem(MainModel);
                     if (Default_files != null)
                     {
                         MediaContentViewModels rsdf = await this.SaveDefaultImageForContentItem(Default_files, MainModel.ContentItemId);
                         int rsup = await this.UpdateImageUrlForContentItem(rsdf, MainModel);
                     }
 
-                    MainModel.StateId = (int)EnumCore.StateType.cho_phep;
-                    MainModel.StateName = this.StateName_Enable;
-                    int rs = await cms_db.CreateContentItem(MainModel);
+
                     int SaveTickerPackage = this.SaveContentItemPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
@@ -156,12 +157,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     int rs = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                                     (int)EnumCore.ActionType.Update, "Update", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
-
-                    //int _DeleteRelatedTag = await cms_db.DeleteRelatedTag(MainModel.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-                    //int _DeleteRelatedContent = await this.DeleteRelatedContent(MainModel.ContentItemId);
-                    //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
-                    //int SaveRelatedTag = await this.SaveRelateTag(MainModel.ContentItemId, model.related_tag);//lưu tag liên quan cho tin tức này
-                  
 
                     return RedirectToAction("Index");
                 }
@@ -279,7 +274,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,CreatePageInfor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreatePageInfor(ContentItemViewModels model)
+        public async Task<ActionResult> CreatePageInfor(ContentItemViewModels model,HttpPostedFileBase Default_files)
         {
             try {
                 if (ModelState.IsValid)
@@ -294,22 +289,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.ObjTypeId = (int)EnumCore.ObjTypeId.page_infor;
                     MainModel.CategoryName = _objcata.ClassificationNM;
                     MainModel.ViewCount = 0;
-                    if (_objmedia != null)
-                    {
-                        MainModel.MediaUrl = _objmedia.FullURL;
-                        MainModel.MediaThumb = _objmedia.ThumbURL;
-                    }
                     MainModel.StateId = (int)EnumCore.StateType.cho_phep;
                     MainModel.StateName = this.StateName_Enable;
                     int rs = await cms_db.CreateContentItem(MainModel);
-                    int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                        (int)EnumCore.ActionType.Create, "Create", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
-                    //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
-                    //int SaveRelatedTag = await this.SaveRelateTag(MainModel.ContentItemId, model.related_tag);//lưu tag liên quan cho tin tức này
-                    if (_objmedia != null)
+                    if (Default_files != null)
                     {
-                        int UpdateDefaultMedia = await this.UpdateContentObjForMedia(_objmedia, MainModel.ContentItemId);//cập nhật id tin tức này cho hình ảnh bên bảng mediacontent
+                        MediaContentViewModels rsdf = await this.SaveDefaultImageForPageinfo(Default_files, MainModel.ContentItemId);
+                        int rsup = await this.UpdateImageUrlForContentItem(rsdf, MainModel);
                     }
+
+                    int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                        (int)EnumCore.ActionType.Create, "CreatePageInfor", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
+                 
+               
                     return RedirectToAction("PageInforIndex");
                 }
                 model.CatalogryList = new SelectList(cms_db.GetPageInforCatagory(), "ClassificationId", "ClassificationNM");
@@ -334,7 +326,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,UpdatePageInfor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditPageInfor(ContentItemViewModels model)
+        public async Task<ActionResult> EditPageInfor(ContentItemViewModels model, HttpPostedFileBase Default_files)
         {
             try
             {
@@ -353,20 +345,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.MetadataKeyword = model.MetadataKeyword;
                     MainModel.CategoryId = model.CategoryId;
                     MainModel.CategoryName = _objcata.ClassificationNM;
-                    if (_objnewmedia != null)
-                    {
-                        MainModel.MediaUrl = _objnewmedia.FullURL;
-                        MainModel.MediaThumb = _objnewmedia.ThumbURL;
-                    }
                     int UpdateContent = await cms_db.UpdateContentItem(MainModel);
+                    if (Default_files != null)
+                    {
+                        MediaContentViewModels rsdf = await this.SaveDefaultImageForPageinfo(Default_files, MainModel.ContentItemId);
+                        int rsup = await this.UpdateImageUrlForPageinfo(rsdf, MainModel);
+                    }
+
+
+
                     int rs = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                                     (int)EnumCore.ActionType.Update, "Update", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
 
-                    //int _DeleteRelatedTag = await cms_db.DeleteRelatedTag(MainModel.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-                    //int _DeleteRelatedContent = await this.DeleteRelatedContent(MainModel.ContentItemId);
-                    //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
-                    //int SaveRelatedTag = await this.SaveRelateTag(MainModel.ContentItemId, model.related_tag);//lưu tag liên quan cho tin tức này
-                    int UpdateMediaForContent = await this.UpdateMediaForContent(_objnewmedia, _objoldmedia, model.ContentItemId);
+               
 
                     return RedirectToAction("PageInforIndex");
                 }
@@ -382,52 +373,41 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-
-
-
-
-
-
-
-        /// <summary>
-        /// Cập nhật lai id tin tức cho media
-        /// 
-        /// </summary>
-        /// <param name="_objnewmedia"></param>
-        /// <param name="_objoldmedia"></param>
-        /// <param name="ContentId"></param>
-        /// <returns></returns>
-        private async Task<int> UpdateMediaForContent(MediaContent _objnewmedia, MediaContent _objoldmedia, long ContentId)
+        private async Task<MediaContentViewModels> SaveDefaultImageForPageinfo(HttpPostedFileBase file, long ContentItemId)
         {
-            if (_objnewmedia != null && _objoldmedia != null)
+            MediaContent CurrentMediaId = cms_db.GetObjMedia().Where(s => s.ObjTypeId == (int)EnumCore.ObjTypeId.page_infor
+                    && s.MediaTypeId == (int)EnumCore.mediatype.hinh_anh_dai_dien && s.ContentObjId == ContentItemId).FirstOrDefault();
+            if (CurrentMediaId != null)
             {
-                if (_objnewmedia.MediaContentId != _objoldmedia.MediaContentId)
-                {
-                    int _dlmedia = await cms_db.DeleteMediaContent(_objoldmedia.MediaContentId);
-                    int UpdateDefaultMedia = await this.UpdateContentObjForMedia(_objnewmedia, ContentId);
-                    return (int)EnumCore.Result.action_true;
-                }
+                int rs = await cms_db.DeleteMediaContent(CurrentMediaId.MediaContentId);
             }
-            if (_objnewmedia != null && _objoldmedia == null)
-            {
-                int UpdateDefaultMedia = await this.UpdateContentObjForMedia(_objnewmedia, ContentId);
-                return (int)EnumCore.Result.action_true;
-            }
-            if (_objnewmedia == null && _objoldmedia == null)
-            {
-               // int UpdateDefaultMedia = await this.UpdateContentObjForMedia(_objnewmedia, ContentId);
-                return (int)EnumCore.Result.action_true;
-            }
-            return (int)EnumCore.Result.action_false;
+            ImageUploadViewModel item = new ImageUploadViewModel();
+            item = cms_db.UploadHttpPostedFileBase(file);
+            MediaContentViewModels _Media = new MediaContentViewModels();
+            _Media.Filename = item.ImageName;
+            _Media.FullURL = item.ImageUrl;
+            _Media.ContentObjId = ContentItemId;
+            _Media.ObjTypeId = (int)EnumCore.ObjTypeId.page_infor;
+            _Media.ViewCount = 0;
+            _Media.MediaTypeId = (int)EnumCore.mediatype.hinh_anh_dai_dien;
+            _Media.CrtdDT = DateTime.UtcNow;
+            _Media.MediaContentSize = file.ContentLength;
+            _Media.ThumbURL = item.ImageThumbUrl;
+            _Media.CrtdUID = long.Parse(User.Identity.GetUserId());
+            await cms_db.AddNewMediaContent(_Media);
+            return _Media;
+
         }
 
-        private async Task<int> UpdateContentObjForMedia(MediaContent Media, long ContentId)
+        private async Task<int> UpdateImageUrlForPageinfo(MediaContentViewModels ImageObj, ContentItem ContentObj)
         {
-            Media.ContentObjId = ContentId;
-            Media.ObjTypeId = (int)EnumCore.ObjTypeId.tin_tuc;
-            int rs = await cms_db.UpdateMediaContent(Media);
-            return (int)EnumCore.Result.action_true;
+            ContentObj.MediaUrl = ImageObj.FullURL;
+            ContentObj.MediaThumb = ImageObj.ThumbURL;
+            return await cms_db.UpdateContentItem(ContentObj);
         }
+
+
+
 
 
 

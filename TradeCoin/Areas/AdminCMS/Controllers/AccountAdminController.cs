@@ -880,7 +880,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-
                 int pageNum = (page ?? 1);
                 UserRoleViewModel model = new UserRoleViewModel();
                 model.LstRole = cms_db.GetRoleList2();
@@ -922,10 +921,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
           
         }
-
-
-
-
 
         /// <summary>
         /// HIỂN THỊ THÔNG TIN CHI TIẾT USER
