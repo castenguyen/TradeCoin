@@ -130,7 +130,7 @@
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.media == 1)
             {
-                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                if (  User.IsInRole("devuser") || User.IsInRole("supperadmin"))
                 {
 
                     <li class="treeview">
@@ -145,7 +145,7 @@
                         </ul>
                     </li>
                 }
-                else if (User.IsInRole("Mod"))
+                else if (User.IsInRole("Mod")|| User.IsInRole("AdminUser"))
                 {
                     <li>
                         <a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })">
