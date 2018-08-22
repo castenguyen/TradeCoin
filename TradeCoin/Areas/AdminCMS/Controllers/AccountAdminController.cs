@@ -883,14 +883,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.LstRole = cms_db.GetRoleList2();
             var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
             IQueryable<User> tmp = null;
-            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "devuser"))
+            if (User.IsInRole("devuser"))
             {
                 tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
             }
-            if (UserManager.IsInRole(long.Parse(User.Identity.GetUserId()), "supperadmin"))
+            if (User.IsInRole("supperadmin"))
             {
+              
                 tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
             }
+            if (User.IsInRole("AdminUser"))
+            {
+                tmp = cms_db.GetUsersForAdminByLinkq();
+            }
+
             if (!String.IsNullOrEmpty(letter))
             {
                 letter = letter.ToLower();
@@ -900,7 +906,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
             }
-            model.LstAllUser = tmp.OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.LstAllUser = tmp.OrderBy(c => c.EMail).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.Page = pageNum;
             model.letter = letter;
             return View(model);
