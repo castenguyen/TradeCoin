@@ -419,10 +419,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
             {
                 var user = UserManager.Find(model.Email, "123456");
-                if (user.IsLogin == true)
-                {
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "User đã login ở một  nợi khác vui lòng đăng xuất tất cả cả thiết bị trước khi đăng nhập lại",type= (int)EnumCore.AlertPageType.lockscreen});
-                }
+                //if (user.IsLogin == true)
+                //{
+                //    return RedirectToAction("AlertPage", "Extension", new { AlertString = "User đã login ở một  nợi khác vui lòng đăng xuất tất cả cả thiết bị trước khi đăng nhập lại",type= (int)EnumCore.AlertPageType.lockscreen});
+                //}
                 if (user == null)
                 {
                     //ModelState.AddModelError("", "Invalid username");

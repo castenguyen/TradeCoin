@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using CMSPROJECT.Areas.AdminCMS.Core;
 using DataModel.DataEntity;
@@ -53,9 +54,42 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod")]
-        public ActionResult ModIndex()
+        public async Task<ActionResult> ModIndex()
         {
-            return View();
+            MemberFrontEndViewModel model = new MemberFrontEndViewModel();
+
+
+            List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
+            List<ContentItem> lstNews = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep)
+                                            .Take((int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home).ToList();
+            foreach (ContentItem _val in lstNews)
+            {
+                ContentItemViewModels tmp = new ContentItemViewModels(_val);
+                tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                lstmpNews.Add(tmp);
+            }
+
+            List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
+            List<Ticker> lstTicker = cms_db.GetlstTicker().Where(s => s.StateId == (int)EnumCore.TickerStatusType.dang_chay)
+                                            .Take((int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home).ToList();
+
+            foreach (Ticker _val in lstTicker)
+            {
+                TickerViewModel tmp = new TickerViewModel(_val);
+                tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                lstmpTickers.Add(tmp);
+            }
+
+
+
+            model.lstNews = lstmpNews;
+            model.lstTicker = lstmpTickers;
+            model.ObjectUser = await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
+            Config cf = new Config();
+            cf = cms_db.GetConfig();
+            this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
+
+            return View(model);
 
         }
         public ActionResult MainSliderPartial()
