@@ -557,6 +557,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int CreateUpdateUserPackage = cms_db.CreateUpdateUserPackage(_ObjUser, 1, (int)EnumCore.UpgradeStatus.het_han, "Hết hạn", "");
                     }
                 }
+                Session["ListPackageOfUser"] =cms_db.GetlstPackage().Where(s=>s.PackageId<= _ObjUser.PackageId).ToList();
                 int updateUser = await cms_db.UpdateUser(_ObjUser);
                 int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);

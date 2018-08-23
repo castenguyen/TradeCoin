@@ -231,6 +231,16 @@ namespace DataModel.DataStore
         }
 
 
+        public List<ContentItem> GetListContentItemByUser(long UserId, int Num)
+        {
+            var lstContentItem = db.Database.SqlQuery<ContentItem>("exec GetContentItemByUser @UserUID, @Num",
+                 new SqlParameter("@UserUID", UserId),
+                 new SqlParameter("@Num", Num)).ToList();
+
+            return lstContentItem;
+        }
+
+
 
         #endregion Stop BackEnd
     }

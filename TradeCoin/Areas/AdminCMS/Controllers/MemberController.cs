@@ -28,12 +28,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public async Task<ActionResult> MemberDashBoard()
         {
+
+            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>; 
+
             MemberFrontEndViewModel model = new MemberFrontEndViewModel();
-
-
             List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-            List<ContentItem> lstNews = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep)
-                                            .Take((int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home).ToList();
+            List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()),(int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
             foreach (ContentItem _val in lstNews)
             {
                 ContentItemViewModels tmp =new ContentItemViewModels(_val);
@@ -41,17 +41,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 lstmpNews.Add(tmp);
             }
 
-            List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
-            List<Ticker> lstTicker = cms_db.GetlstTicker().Where(s => s.StateId == (int)EnumCore.TickerStatusType.dang_chay)
-                                            .Take((int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home).ToList();
 
-            foreach(Ticker _val in lstTicker)
+
+
+            List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
+       
+            List<Ticker> lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home);
+            foreach (Ticker _val in lstTicker)
             {
                 TickerViewModel tmp = new TickerViewModel(_val);
                 tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
                 lstmpTickers.Add(tmp);
             }
-
 
 
             model.lstNews = lstmpNews;

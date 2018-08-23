@@ -1,12 +1,14 @@
-﻿using System;
+﻿using DataModel.DataEntity;
+using DataModel.DataViewModel;
+using DataModel.Extension;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataModel.DataEntity;
-using DataModel.Extension;
-using System.Data.Entity;
-using System.Collections;
 
 namespace DataModel.DataStore
 {
@@ -69,5 +71,21 @@ namespace DataModel.DataStore
                 return 0;
             }
         }
+
+
+
+
+        public List<Ticker> GetListTickerByUser(long UserId, int Num)
+        {
+            var lstContentItem = db.Database.SqlQuery<Ticker>("exec GetTickerByUser @Useruid, @NumReord ",
+                 new SqlParameter("@Useruid", UserId),
+                 new SqlParameter("@NumReord", Num)
+
+                 ).ToList();
+            return lstContentItem;
+        }
+
+
+
     }
 }
