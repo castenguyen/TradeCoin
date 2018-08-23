@@ -1,424 +1,34 @@
-﻿@using DataModel.Extension;
-@using DataModel.DataEntity;
-@using DataModel.DataViewModel;
-@model IndexViewModel
-
+﻿
 @{
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
+@using DataModel.Extension;
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@model IndexViewModel
 
 
-@*@foreach (HomeListProductViewModel _item in Model.HomeProduct)
-                {
-                    string prefixlink = _item.CataObj.FriendlyURL;
-                    if (_item.CataObj.ObjPrent != null)
-                    {
-                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                    }
-
-
-                    foreach (Product val in _item.lstProduct)
-                    {
-                        <div class="col-sm-4">
-                            <div class="blog-item main-product">
-                                <div class="bets-img-hover">
-                                    <a href="~/@prefixlink/@val.FriendlyURL"><img src="~/@val.MediaThumb" alt="@val.ProductName" width="100%"></a>
-                                </div>
-                                <div class="blog-item-body">
-                                    <div class="space25">&nbsp;</div>
-                                    <h5 class="blog-item-title other-title"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h5>
-                                    <div class="space5">&nbsp;</div>
-                                    <p class="blog-item-excerpt">
-                                        @val.NewPrice vnđ/kg
-                                    </p>
-                                    <a href="~/@prefixlink/@val.FriendlyURL">Chi tiết<i class="fa fa-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-
-
-
-    @Html.Action("RightSlidePartial2", "Home")
-
-
-
-            @foreach (ContentItem _item in Model.lstNews)
-            {
-
-                <div class="col-sm-4 ">
-                    <div class="blog-item">
-                        <div class="bets-img-hover">
-                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })"><img src="@_item.MediaUrl" alt="@_item.ContentTitle"></a>
-
-                        </div>
-                        <div class="beta-timer">
-
-                            <span>@_item.CrtdDT</span>
-                        </div>
-                        <div class="blog-item-body">
-                            <div class="space30">&nbsp;</div>
-                            <h5 class="blog-item-title other-title">
-                                <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
-                                    @_item.ContentTitle
-                                </a>
-                            </h5>
-                            <div class="space10">&nbsp;</div>
-                            <p class="blog-item-excerpt">
-                                @_item.ContentExcerpt
-                            </p>
-                            <div class="space20">&nbsp;</div>
-                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })" class="read-more beta-btn primary">Chi tiết<i class="fa fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-            }*@
-
-@*
-                    @foreach (HomeListProductViewModel _item in Model.HomeProduct)
-            {
-                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.lan_quy_hiem)
-                {
-
-                    string prefixlink = _item.CataObj.FriendlyURL;
-                    if (_item.CataObj.ObjPrent != null)
-                    {
-                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                    }
-                    foreach (Product val in _item.lstProduct)
-                    {
-                        <li class="item">
-                            <div class="product-img">
-                                <a href="~/@prefixlink/@val.FriendlyURL"><img class="full-width img-responsive" src="~/@val.MediaThumb" alt="@val.ProductName"></a>
-                                <!--<a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                        <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>-->
-                            </div>
-                            <div class="product-description product-description-brd">
-                                <div class="overflow-h margin-bottom-5">
-                                    <div class="pull-left">
-                                        <h4 class="title-price"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
-
-                                        <span class="gender">@val.ProductDes</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span class="title-price line-through">@val.OldPrice vnđ</span>
-                                        <span class="title-price">@val.NewPrice</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-            }
-
-
-        }
-
-    }
-
-            @foreach (HomeListProductViewModel _item in Model.HomeProduct)
-            {
-                if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.lan_rung)
-                {
-
-                    string prefixlink = _item.CataObj.FriendlyURL;
-                    if (_item.CataObj.ObjPrent != null)
-                    {
-                        prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                    }
-                    foreach (Product val in _item.lstProduct)
-                    {
-                        <div class="col-md-3 col-sm-6 md-margin-bottom-30">
-                            <div class="product-img">
-                                <a href="~/@prefixlink/@val.FriendlyURL"><img class="full-width img-responsive" src="~/@val.MediaThumb" alt="@val.ProductName"></a>
-                            </div>
-                            <div class="product-description product-description-brd">
-                                <div class="overflow-h margin-bottom-5">
-                                    <div class="pull-left">
-                                        <h4 class="title-price"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
-
-                                        <span class="gender">@val.ProductDes</span>
-                                    </div>
-
-                                    <div class="product-price">
-                                        <span class="title-price line-through">@val.OldPrice vnđ</span>
-                                        <span class="title-price">@val.NewPrice vnđ</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    }
-                }
-
-            }
-
-
-
-
-
-                @foreach (HomeListProductViewModel _item in Model.HomeProduct)
-                {
-                    if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.van_da)
-                    {
-
-                        string prefixlink = _item.CataObj.FriendlyURL;
-                        if (_item.CataObj.ObjPrent != null)
-                        {
-                            prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                        }
-                        foreach (Product val in _item.lstProduct)
-                        {
-
-                            <li class="item">
-                                <div class="product-img">
-                                    <a href="shop-ui-inner.html"><img class="full-width img-responsive" src="~/@val.MediaThumb" alt="@val.ProductName"></a>
-                                    <!--<a class="product-review" href="shop-ui-inner.html">Quick review</a>
-                                    <a class="add-to-cart" href="#"><i class="fa fa-shopping-cart"></i>Add to cart</a>-->
-                                </div>
-                                <div class="product-description product-description-brd">
-                                    <div class="overflow-h margin-bottom-5">
-                                        <div class="pull-left">
-                                            <h4 class="title-price"><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
-
-                                            <span class="gender">@val.ProductDes</span>
-                                        </div>
-                                        <div class="product-price">
-                                            <span class="title-price line-through">@val.OldPrice vnđ</span>
-                                            <span class="title-price">@val.NewPrice vnđ</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-
-                        }
-                    }
-
-                }
-
-
-                @foreach (HomeListProductViewModel _item in Model.HomeProduct)
-                {
-                    if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.dendro)
-                    {
-
-                        string prefixlink = _item.CataObj.FriendlyURL;
-                        if (_item.CataObj.ObjPrent != null)
-                        {
-                            prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                        }
-                        foreach (Product val in _item.lstProduct)
-                        {
-
-
-                            <div class="thumb-product">
-                                <img class="thumb-product-img" src="~/@val.MediaThumb" alt="">
-                                <div class="thumb-product-in">
-                                    <h4><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
-                                    <span class="thumb-product-type">@val.ProductDes</span>
-                                </div>
-                                <ul class="list-inline overflow-h">
-                                    <li class="thumb-product-price line-through">@val.OldPrice vnđ</li>
-                                    <li class="thumb-product-price">@val.NewPrice vnđ</li>
-
-                                </ul>
-                            </div>
-                        }
-                    }
-
-                }
-
-
-                @foreach (HomeListProductViewModel _item in Model.HomeProduct)
-                {
-                    if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.cay_giong_chai_mo)
-                    {
-
-                        string prefixlink = _item.CataObj.FriendlyURL;
-                        if (_item.CataObj.ObjPrent != null)
-                        {
-                            prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                        }
-                        foreach (Product val in _item.lstProduct)
-                        {
-
-
-                            <div class="thumb-product">
-                                <img class="thumb-product-img" src="~/@val.MediaThumb" alt="">
-                                <div class="thumb-product-in">
-                                    <h4><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
-                                    <span class="thumb-product-type">>@val.ProductDes</span>
-                                </div>
-                                <ul class="list-inline overflow-h">
-                                    <li class="thumb-product-price line-through">@val.OldPrice vnđ</li>
-                                    <li class="thumb-product-price">@val.NewPrice vnđ</li>
-
-                                </ul>
-                            </div>
-                        }
-                    }
-
-                }
-
-
-
-                @foreach (HomeListProductViewModel _item in Model.HomeProduct)
-                {
-                    if (_item.CataObj.ClassificationId == (int)EnumCore.Classifi_Product_Cata.ho_diep)
-                    {
-
-                        string prefixlink = _item.CataObj.FriendlyURL;
-                        if (_item.CataObj.ObjPrent != null)
-                        {
-                            prefixlink = _item.CataObj.ObjPrent.FriendlyURL + "/" + prefixlink;
-                        }
-                        foreach (Product val in _item.lstProduct)
-                        {
-
-
-                            <div class="thumb-product">
-                                <img class="thumb-product-img" src="~/@val.MediaThumb" alt="">
-                                <div class="thumb-product-in">
-                                    <h4><a href="~/@prefixlink/@val.FriendlyURL">@val.ProductName</a></h4>
-                                    <span class="thumb-product-type">>@val.ProductDes</span>
-                                </div>
-                                <ul class="list-inline overflow-h">
-                                    <li class="thumb-product-price line-through">@val.OldPrice vnđ</li>
-                                    <li class="thumb-product-price">@val.NewPrice vnđ</li>
-
-                                </ul>
-                            </div>
-                        }
-                    }
-
-                }
-
-
-
-            @{ int i = 1; }
-            @foreach (ContentItem _item in Model.lstWhy)
-            {
-                if (i == 1)
-                {
-                    <div class="col-md-4 product-service md-margin-bottom-30">
-                        <div class="product-service-heading">
-                            <i class="icon-refresh"></i>
-
-                        </div>
-                        <div class="product-service-in">
-                            <h3>@_item.ContentTitle</h3>
-                            <p>@_item.ContentExcerpt</p>
-
-                        </div>
-                    </div>
-                }
-
-                else if (i == 2)
-                {
-                    <div class="col-md-4 product-service md-margin-bottom-30">
-                        <div class="product-service-heading">
-                            <i class="icon-earphones-alt"></i>
-                        </div>
-                        <div class="product-service-in">
-                            <h3>@_item.ContentTitle</h3>
-                            <p>@_item.ContentExcerpt</p>
-
-                        </div>
-                    </div>
-
-                }
-                else
-                {
-                    <div class="col-md-4 product-service md-margin-bottom-30">
-                        <div class="product-service-heading">
-
-                            <i class="fa fa-truck"></i>
-                        </div>
-                        <div class="product-service-in">
-                            <h3>@_item.ContentTitle</h3>
-                            <p>@_item.ContentExcerpt</p>
-
-                        </div>
-                    </div>
-
-                }
-                i++;
-            }
-
-                    @{
-                        int k = 1;
-                    }
-                    @foreach (ContentItem _item in Model.lstIdeas)
-                    {
-                        if (k == 1)
-                        {
-                            <div class="item active">
-                                <p>@Html.Raw(_item.ContentText)<p>
-                                <p><a href="@_item.ContentExcerpt">@_item.ContentTitle</a></p>
-
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="item">
-                                <p>@Html.Raw(_item.ContentText)<p>
-                                <p><a href="@_item.ContentExcerpt">@_item.ContentTitle</a></p>
-
-                            </div>
-                        }
-                        k++;
-                    }
-
-
-                @foreach (ContentItem _item in Model.lstNews)
-                {
-                    <li class="item">
-                        <div class="product-img product-img-brd">
-                            <a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">
-                                <img class="full-width img-responsive" src="~/@_item.MediaUrl" alt="@_item.ContentTitle">
-                            </a>
-
-                        </div>
-                        <div class="product-description product-description-brd">
-                            <div class="overflow-h margin-bottom-5">
-                                <div class="pull-left">
-                                    <h4 class="title-price"><a href="@Url.Action("Detail", "News", new { FriendlyUrl = _item.FriendlyURL, CataFriendlyUrl=_item.ObjCategory.FriendlyURL,id=_item.ContentItemId })">@_item.ContentTitle</a></h4>
-
-                                    <span class="gender">@_item.ContentExcerpt</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </li>
-                }
-
-*@
 <style>
     .service-box-v1 ul {
-        padding: unset!important;
+        padding: unset !important;
     }
 </style>
 
 <!-- Intro Section -->
-<section id="intro" class="intro-section">
+<section id="body" class="intro-section">
     <div class="fullscreenbanner-container">
         <div class="fullscreenbanner">
             <ul>
                 <!-- SLIDE 1 -->
                 <li data-transition="curtain-1" data-slotamount="5" data-masterspeed="700" data-title="Slide">
-                    <!-- MAIN IMAGE -->
-                    @*<video controls alt="slidebg1" width="100%" height="100%"
-                           data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
-                        <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4">
-                        Trình duyệt của bạn không hỗ trợ HTML5.
-                    </video>*@
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RTQ_fZEQ0S0" 
+
+                    <iframe width="100%" height="100%" src="@Model.indexvideo.PageContent.ContentExcerpt"
                             frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
                             alt="slidebg1"
-                           data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat"></iframe>
+                            data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat"></iframe>
                 </li>
 
             </ul>
@@ -428,49 +38,72 @@
     </div>
 </section>
 <!-- End Intro Section -->
-
 <!-- Services Section -->
-<section id="services">
+<section id="crypto">
     <div class="container content-lg">
         <div class="parallax-twitter parallaxBg">
             <div class="container parallax-twitter-in">
                 <div class="margin-bottom-30">
-                    <h4>What is</h4>
-                    <h2>CRYPTOCURRENCY</h2>
+                    <h2>CRYPTO là gì</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <p style="unicode-bidi: plaintext!important;color: white!important;font-size: 16px!important">
-                            Is a type of exchange that uses encryption to secure transaction and control the creation of 
-                            new currency units. Cryptocoins are a subset of digital coins. Bitcoin was created in 2008, 
-                            open source 2009 and became the first decentralizes Cryptocion
+                            @Html.Raw(Model.crypto.PageContent.ContentText)
+                           
                         </p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
+<!-- Portfolio Section -->
+<section id="portfolio" class="about-section">
+    <div class="container content-lg">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive" src="~/@Model.intro.PageContent.MediaUrl" alt="">
+            </div>
+            <div class="col-md-6 ">
+                <div class="clearfix margin-bottom-30">
+                    <div class="content-boxes-in-v3">
+                        <h1>Giới thiệu</h1>
+                      <span class="text-bold" style="color:white"> @Html.Raw(Model.intro.PageContent.ContentText) </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End Portfolio Section -->
+<!-- News Section -->
+<section id="trading" class="news-section">
+    <div class="container content-lg">
         <div class="parallax-twitter parallaxBg">
             <div class="container parallax-twitter-in">
                 <div class="margin-bottom-30">
-                    <h4>What is</h4>
-                    <h2>BITCOIN</h2>
+
+                    <h2>TRADE</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <p style="unicode-bidi: plaintext!important;color: white!important;font-size: 16px!important">
-                            Bitcoin is different than any currency you've used before, so it's very important to 
-                            understand some key points. You can use them to send or receive any amount of money, 
-                            with anyone, anywhere in the world, at very low cost. bitcoin payments are impossible 
-                            to block, and bitcoin wallets can't be frozen. Short of turning off the entire world's 
-                            internet, and keeping it turned off, the bitcoin network is instoppable and uncensorable.
-                        </p>
+                        @Html.Raw(Model.trade.PageContent.ContentText)
+                 
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+</section>
+<!-- End News Section -->
 
+<section id="contact">
+    <div class="container content-lg">
         <div class="row service-box-v1">
             <div class="col-md-3 col-sm-6">
                 <div class="service-block service-block-default">
@@ -531,64 +164,8 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>
+
 <!-- End Services Section -->
-<!-- News Section -->
-<section id="trading" class="news-section">
-    <div class="container content-lg">
-        <div class="parallax-twitter parallaxBg">
-            <div class="container parallax-twitter-in">
-                <div class="margin-bottom-30">
-                    <h4>What is</h4>
-                    <h2>WHAT IS TRADING?</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <p style="unicode-bidi: plaintext!important;color: white!important;font-size: 16px!important">
-                            Financial trading consists of buying or selling an underlying amount in a financial market
-                            with the intention of earning a speculative profit. We buy something with the intention of 
-                            being able to sell for a higher price or with the intention of buying again later for a lowr
-                            price.
-                        </p>
-                        <p style="unicode-bidi: plaintext!important;color: white!important;font-size: 16px!important">
-                            Example: We buy low and sell hight, and then we buy it again when the currency goes down.
-                        </p>
-                        <img class="img-responsive" style="display: block;margin-left: auto;margin-right: auto;width: 40%;" src="~/Content/assets/img/contents/img1.jpg" alt="">
-                        <p style="unicode-bidi: plaintext!important;color: white!important;font-size: 16px!important">
-                            A developed software with high-tech for optimization in the trades of crypto currency. 
-                            Our traders can upload daily into the system which maintains high precision of all 
-                            transactions Allowing members to gain throuhout most operations.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
-<!-- End News Section -->
-<!-- Portfolio Section -->
-<section id="opportunity" class="about-section">
-    <div class="container content-lg">
-        <div class="row">
-            <div class="col-md-6">
-                <img class="img-responsive" src="~/Content/assets/img/mockup/mockup1.png" alt="">
-            </div>
-            <div class="col-md-6 ">
-                <div class="clearfix margin-bottom-30">
-                    <div class="content-boxes-in-v3">
-                        <h1 >WHO IS TCC?</h1>
-                        <p>It is a membership club, created to revolutionize the trading market of digital coins.</p>
-                        <p>In a competitive billion dollar market to which only a few have the access to, TCC's 
-                        software is developed by a specialized team bringing the opportunity to anybody to start 
-                        in the trading market of digital coins, obtaining automatic gains in three levels of risk 
-                        our0automatic in 30 coins, with a little or no skills in the trading world!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
-<!-- End Portfolio Section -->

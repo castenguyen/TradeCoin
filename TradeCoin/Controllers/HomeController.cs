@@ -19,46 +19,45 @@ namespace Alluneecms.Controllers
     {
         public ActionResult Index()
         {
-          //  string ip = HttpContext.Request.UserHostAddress;
-          //  IndexViewModel MainModel = new IndexViewModel();
-          //  List<HomeListProductViewModel> ProductModel = new List<HomeListProductViewModel>();
-          //  List<Classification> lstParent = cms_db.GetlstClassifiBySchemeId((int)EnumCore.ClassificationScheme.san_pham).Where(s=>s.ParentClassificationId==null).ToList();
-          //  foreach (Classification _item in lstParent)
-          //  {
-          //      HomeListProductViewModel blockpro = new HomeListProductViewModel();
-          //      blockpro = cms_db.GetLstHomeProductByCataId(_item.ClassificationId, (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
-          //      if (blockpro.lstProduct.Count() > 0)
-          //          ProductModel.Add(blockpro);
-          //  }
-          //  MainModel.HomeProduct = ProductModel;
-          ////  MainModel.ListNewProduct = cms_db.GetListNewsProduct(4);
-          //  MainModel.lstNews = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.baiviet).OrderByDescending(s => s.CrtdDT).Take(4).ToList();
-          //  MainModel.lstIdeas = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.ykien).OrderByDescending(s => s.CrtdDT).Take(10).ToList();
-          //  MainModel.lstParner = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.doitac).OrderByDescending(s => s.CrtdDT).Take(10).ToList();
-          //  MainModel.lstWhy = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep && s.CategoryId == (int)EnumCore.Classifi_news_index.visao).OrderByDescending(s => s.CrtdDT).Take(3).ToList();
-          //  //  MainModel.ListViewProduct = cms_db.GetListViewProduct(4);
+            try {
 
-          //  Config cf = new Config();
-          //  cf = cms_db.GetConfig();
-           // this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
-            return View();
+                IndexViewModel model = new IndexViewModel();
+                model.crypto = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.crypto);
+                model.indexvideo = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.indexvideo);
+                model.intro = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.intro);
+                model.trade = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.trade);
+                return View(model);
+            }
+            catch (Exception e) {
+                DataModel.DataStore.Core core = new DataModel.DataStore.Core();
+                core.AddToExceptionLog("UpdatePhotoUser", "AccountController", "Upload photo Error: " + e.Message);
+                return View();
+
+            }
+         
         }
+
+        private PageInforViewModel GetDatPageInforViewModelaPageInfor(int CataPageInfor)
+        {
+            PageInforViewModel model = new PageInforViewModel();
+
+            model.PageTitle = cms_db.GetObjClasscifiById(CataPageInfor);
+            model.PageContent = cms_db.GetlstContentItem().Where(s => s.CategoryId == CataPageInfor
+                    && s.StateId != (int)EnumCore.StateType.da_xoa).OrderByDescending(s => s.ContentItemId).FirstOrDefault();
+            return model;
+        }
+
+
+
+
+
 
         public ActionResult HeaderPartial()
         {
             try
             {
-                List<SubMenuViewModels> Model = new List<SubMenuViewModels>();
-
-                List<Classification> ParentListMenu = cms_db.GetMainMenuList(null);
-                foreach (Classification item in ParentListMenu)
-                {
-                    SubMenuViewModels MenuItem = new SubMenuViewModels();
-                    MenuItem.Parent = item;
-                    MenuItem.lstChild = cms_db.GetMainMenuList(item.ClassificationId);
-                    Model.Add(MenuItem);
-                }
-                return PartialView("_HeaderPartial", Model);
+              
+                return PartialView("_HeaderPartial");
 
             }
             catch (Exception e)
@@ -79,16 +78,8 @@ namespace Alluneecms.Controllers
         {
             try
             {
-                List<SubMenuViewModels> Model = new List<SubMenuViewModels>();
-                List<Classification> ParentListMenu = cms_db.GetMainMenuList(null);
-                foreach (Classification item in ParentListMenu)
-                {
-                    SubMenuViewModels MenuItem = new SubMenuViewModels();
-                    MenuItem.Parent = item;
-                    MenuItem.lstChild = cms_db.GetMainMenuList(item.ClassificationId);
-                    Model.Add(MenuItem);
-                }
-                return PartialView("_FooterPartial", Model);
+              
+                return PartialView("_FooterPartial");
             }
             catch (Exception e)
             {
@@ -97,15 +88,7 @@ namespace Alluneecms.Controllers
             }
         }
 
-        private BlockPageInforViewModel GetDataForBlockFooter(int CataPageInfor)
-        {
-            BlockPageInforViewModel model = new BlockPageInforViewModel();
-            model.PageInforObj = cms_db.GetObjClasscifiById(CataPageInfor);
-            model.lstContentItem = cms_db.GetlstContentItemByCataId(CataPageInfor, 10).Where(s => s.StateId == (int)EnumCore.StateType.cho_phep).ToList();
-            return model;
-
-        }
-
+     
 
         public ActionResult About()
         {
