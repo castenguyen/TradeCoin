@@ -110,7 +110,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             return View(model);
         }
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
 
         public ActionResult DetailTicker(long tickerId)
         {
@@ -150,6 +150,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// ok
         /// </summary>
         /// <returns></returns>
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult DetailNews(long id)
         {
             ContentItemViewModels model = new ContentItemViewModels();
@@ -168,7 +169,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             int pageNum = (page ?? 1);
             MediaMemberViewModel model = new MediaMemberViewModel();
-            IQueryable<MediaContent> tmp = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId != (int)EnumCore.ObjTypeId.video);
+            IQueryable<MediaContent> tmp = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId != (int)EnumCore.ObjTypeId.video && s.ObjTypeId== (int)EnumCore.ObjTypeId.video);
 
             //if (MediaStatus.HasValue)
             //{
@@ -208,6 +209,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             return View(model);
         }
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult DetailVideo(long id)
         {
             MediaContentViewModels model = new MediaContentViewModels();
