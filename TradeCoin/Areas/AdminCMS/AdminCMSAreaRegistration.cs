@@ -305,10 +305,11 @@ namespace CMSPROJECT.Areas.AdminCMS
           new { controller = "ContentItem", action = "RelatedContent" }
              );
 
-
-
-
-
+            context.MapRoute(
+                "AdminCMS_ListNotificationNewPost",
+                "AdminCMS/ContentItem/ListNotificationNewPost",
+                new { controller = "ContentItem", action = "ListNotificationNewPost" }
+            );
 
             context.MapRoute(
           "AdminCMS_ContentItem_RelatedTag",
@@ -585,6 +586,12 @@ namespace CMSPROJECT.Areas.AdminCMS
              "administrator/MediaManager",
              new { controller = "MediaManager", action = "Index" }
              );
+
+            context.MapRoute(
+             "AdminCMS_MediaManager_ListNotificationNewKeo",
+             "AdminCMS/MediaManager/ListNotificationNewKeo",
+                new { controller = "MediaManager", action = "ListNotificationNewKeo" }
+                );
 
             context.MapRoute(
             "AdminCMS_MediaManager_CreateAlbum",
@@ -1015,6 +1022,11 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
              "AdminCMS_tickermanager_Create",
              "administrator/createticker",
              new { controller = "TickerManager", action = "Create" }
+             );
+            context.MapRoute(
+             "AdminCMS_tickermanager_ListNotificationNewKeo",
+             "AdminCMS/TickerManager/ListNotificationNewKeo",
+             new { controller = "TickerManager", action = "ListNotificationNewKeo" }
              );
             context.MapRoute(
              "AdminCMS_tickermanager_Update",
