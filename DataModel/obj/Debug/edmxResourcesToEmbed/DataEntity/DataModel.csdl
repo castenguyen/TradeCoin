@@ -992,6 +992,8 @@
     <Property Name="PackageId" Type="Int64" Nullable="false" />
     <Property Name="ContentType" Type="Int64" Nullable="false" />
     <Property Name="StateId" Type="Int64" />
+    <Property Name="ContentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PackageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ContentView">
     <Key>
@@ -1003,6 +1005,8 @@
     <Property Name="UserId" Type="Int64" Nullable="false" />
     <Property Name="ContentType" Type="Int64" Nullable="false" />
     <Property Name="StateId" Type="Int64" />
+    <Property Name="ContentName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="EmailSupport">
     <Key>
@@ -1050,6 +1054,7 @@
     <Property Name="StateId" Type="Int64" />
     <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Flag" Type="Int32" />
   </EntityType>
   <ComplexType Name="ContentItemPagination_Result">
     <Property Type="Int64" Name="ContentItemId" Nullable="false" />
@@ -1256,6 +1261,7 @@
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
     <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StateId" Type="Int32" />
+    <Property Name="ForeverPrice" Type="Double" />
   </EntityType>
   <EntityType Name="RoleGroup">
     <Key>
@@ -1284,5 +1290,9 @@
     <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="UpgradeToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="OldPackageID" Type="Int64" />
+    <Property Name="OldPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="NumDay" Type="Int32" />
   </EntityType>
 </Schema>

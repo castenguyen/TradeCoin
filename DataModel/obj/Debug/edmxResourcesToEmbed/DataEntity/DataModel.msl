@@ -648,6 +648,8 @@
     <EntitySetMapping Name="ContentPackages">
       <EntityTypeMapping TypeName="alluneedbModel.ContentPackage">
         <MappingFragment StoreEntitySet="ContentPackage">
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="ContentName" ColumnName="ContentName" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
           <ScalarProperty Name="ContentType" ColumnName="ContentType" />
           <ScalarProperty Name="PackageId" ColumnName="PackageId" />
@@ -658,6 +660,8 @@
     <EntitySetMapping Name="ContentViews">
       <EntityTypeMapping TypeName="alluneedbModel.ContentView">
         <MappingFragment StoreEntitySet="ContentView">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ContentName" ColumnName="ContentName" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
           <ScalarProperty Name="ContentType" ColumnName="ContentType" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -692,6 +696,7 @@
     <EntitySetMapping Name="Tickers">
       <EntityTypeMapping TypeName="alluneedbModel.Ticker">
         <MappingFragment StoreEntitySet="Ticker">
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
           <ScalarProperty Name="MediaThumb" ColumnName="MediaThumb" />
           <ScalarProperty Name="MediaUrl" ColumnName="MediaUrl" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
@@ -938,6 +943,7 @@
     <EntitySetMapping Name="Packages">
       <EntityTypeMapping TypeName="alluneedbModel.Package">
         <MappingFragment StoreEntitySet="Package">
+          <ScalarProperty Name="ForeverPrice" ColumnName="ForeverPrice" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
           <ScalarProperty Name="StateName" ColumnName="StateName" />
           <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
@@ -965,6 +971,10 @@
     <EntitySetMapping Name="UserPackages">
       <EntityTypeMapping TypeName="alluneedbModel.UserPackage">
         <MappingFragment StoreEntitySet="UserPackage">
+          <ScalarProperty Name="NumDay" ColumnName="NumDay" />
+          <ScalarProperty Name="OldPackageName" ColumnName="OldPackageName" />
+          <ScalarProperty Name="OldPackageID" ColumnName="OldPackageID" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
           <ScalarProperty Name="UpgradeToken" ColumnName="UpgradeToken" />
           <ScalarProperty Name="PackageName" ColumnName="PackageName" />

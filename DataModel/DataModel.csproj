@@ -296,6 +296,7 @@
     <Compile Include="DataStore\Core.cs" />
     <Compile Include="DataStore\Ctrl.Account.cs" />
     <Compile Include="DataStore\Ctrl.ContentPackage.cs" />
+    <Compile Include="DataStore\Ctrl.ContentView.cs" />
     <Compile Include="DataStore\Ctrl.CountLike.cs" />
     <Compile Include="DataStore\Ctrl.EmailSupport.cs" />
     <Compile Include="DataStore\Ctrl.ImageHelper.cs" />
@@ -336,6 +337,7 @@
     <Compile Include="DataViewModel\InformationOrderViewModel.cs" />
     <Compile Include="DataViewModel\ItemCartViewModel.cs" />
     <Compile Include="DataViewModel\MediaContentViewModels.cs" />
+    <Compile Include="DataViewModel\MemberFrontEndViewModel.cs" />
     <Compile Include="DataViewModel\MicroClassifiViewModels.cs" />
     <Compile Include="DataViewModel\MicroSiteViewModels.cs" />
     <Compile Include="DataViewModel\PackageViewModel.cs" />

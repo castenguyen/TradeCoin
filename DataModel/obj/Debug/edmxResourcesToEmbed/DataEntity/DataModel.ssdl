@@ -147,6 +147,8 @@
     <Property Name="PackageId" Type="bigint" Nullable="false" />
     <Property Name="ContentType" Type="bigint" Nullable="false" />
     <Property Name="StateId" Type="bigint" />
+    <Property Name="ContentName" Type="nvarchar" MaxLength="500" />
+    <Property Name="PackageName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ContentTag">
     <Key>
@@ -169,6 +171,8 @@
     <Property Name="UserId" Type="bigint" Nullable="false" />
     <Property Name="ContentType" Type="bigint" Nullable="false" />
     <Property Name="StateId" Type="bigint" />
+    <Property Name="ContentName" Type="nvarchar" MaxLength="250" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="CountLike">
     <Key>
@@ -425,6 +429,7 @@
     <Property Name="CrtdDT" Type="datetime" />
     <Property Name="StateName" Type="nvarchar" MaxLength="250" />
     <Property Name="StateId" Type="int" />
+    <Property Name="ForeverPrice" Type="float" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -609,6 +614,7 @@
     <Property Name="StateId" Type="bigint" />
     <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
     <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
+    <Property Name="Flag" Type="int" />
   </EntityType>
   <EntityType Name="TransactionHis">
     <Key>
@@ -717,6 +723,10 @@
     <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
     <Property Name="UpgradeToken" Type="nvarchar" MaxLength="200" />
     <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="Price" Type="float" />
+    <Property Name="OldPackageID" Type="bigint" />
+    <Property Name="OldPackageName" Type="nvarchar" MaxLength="250" />
+    <Property Name="NumDay" Type="int" />
   </EntityType>
   <EntityType Name="UserRegistrationToken">
     <Key>
