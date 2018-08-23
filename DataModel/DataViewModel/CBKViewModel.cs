@@ -20,15 +20,12 @@ namespace DataModel.DataViewModel
     }
     public class IndexViewModel
     {
-        public List<HomeListProductViewModel> HomeProduct { get; set; }
-        public List<ProductItemViewModel> ListNewProduct { get; set; }
-        public List<ProductItemViewModel> ListViewProduct { get; set; }
-        public List<ContentItem> lstNews { get; set; }
-        public List<ContentItem> lstIdeas { get; set; }
-        public List<ContentItem> lstParner { get; set; }
-        public List<ContentItem> lstWhy { get; set; }
+       
+        public PageInforViewModel trade { get; set; }
+        public PageInforViewModel crypto { get; set; }
+        public PageInforViewModel intro { get; set; }
+        public PageInforViewModel indexvideo { get; set; }
 
-        // public List<HomeSliderPartialViewModel> HomeSlider { get; set; }
     }
     public class HomeListProductViewModel
     {
@@ -49,7 +46,7 @@ namespace DataModel.DataViewModel
         public List<ProductItemViewModel> ListDayProduct { get; set; }
         public List<ContentItem> lstPolixyNews { get; set; }
         public List<ContentItem> lstIdea { get; set; }
-        public List<HomeSliderPartialViewModel> HomeSlider { get; set; }
+    
 
     }
 

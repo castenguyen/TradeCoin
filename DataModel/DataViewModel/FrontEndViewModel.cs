@@ -65,33 +65,8 @@ namespace DataModel.DataViewModel
         public List<MediaContent> lstImage { get; set; }
     }
 
-    public class DataMicrositeInvolve
-    {
-        public Microsite Microsite { get; set; }
-        public List<Product> LstProduct { get; set; }
-    }
-
-    public class DetailPublicMicrositeProductViewModel
-    {
-        public Product MainProduct { get; set; }
-        public List<Product> lstSameProduct { get; set; }
-        public MicroClassification CataObj { get; set; }
-        public List<Product> lstUserProduct { get; set; }
-        public List<MediaContent> lstImage { get; set; }
-        public string FriendlyUrlShop { get; set; }
-        public long Idshop { get; set; }
-       
-    }
 
 
-    public class DetailPublicNewMicrositeViewModel
-    {
-        public ContentItem MainNews { get; set; }
-        public Classification CataObj { get; set; }
-        public string FriendlyUrlShop { get; set; }
-        public long Idshop { get; set; }
-       
-    }
 
     public class ListProductViewModel
     {
@@ -99,15 +74,6 @@ namespace DataModel.DataViewModel
         public Classification CataObj { get; set; }
         public List<Product> lstProduct { get; set; }
 
-    }
-
-    public class PageAddImageProductViewModel
-    {
-        public Product ProductObj { get; set; }
-        public List<MediaContent> lstImage { get; set; }
-
-        public string FriendlyUrlShop { get; set; }
-        public long Idshop { get; set; }
     }
 
     public class SendMessageViewModel
@@ -134,17 +100,6 @@ namespace DataModel.DataViewModel
     {
         public List<SubMenuViewModels> CataList { get; set; }
        
-
-    }
-
-    public class IndexNewHomeViewModel
-    {
-        public BlockPageInforViewModel lang_nghe_viet { get; set; }
-        public BlockPageInforViewModel chuyen_dong { get; set; }
-        public BlockPageInforViewModel khoi_nghiep { get; set; }
-        public BlockPageInforViewModel kinh_doanh { get; set; }
-        public BlockPageInforViewModel su_kien_van_hoa { get; set; }
-        public BlockPageInforViewModel allunee { get; set; }
 
     }
 

@@ -316,13 +316,12 @@ namespace DataModel.Extension
             tin_tuc = 6183,
         }
 
-        public enum FontEndConstPageinfor : int
+        public enum FrontendPageinfor : int
         {
-            ve_chung_toi = 6139,
-            tro_giup = 6140,
-            thi_truong = 6144,
-            cong_dong = 8186,
-            thanh_toan = 6141,
+            trade = 6141,
+            crypto = 6145,
+            intro = 6143,
+            indexvideo = 6139,
 
         }
 

@@ -184,6 +184,26 @@ namespace DataModel.DataStore
             return model;
         }
 
+        public IQueryable<User> GetUsersForAdminByLinkq()
+        {
+
+           
+            Role data = db.Roles.Where(s => s.Name == "devuser").FirstOrDefault();
+            Role data2 = db.Roles.Where(s => s.Name == "supperadmin").FirstOrDefault();
+            Role data3 = db.Roles.Where(s => s.Name == "AdminUser").FirstOrDefault();
+
+            List<long> lstUinRole = data.Users.Select(s => s.Id).ToList();
+            List<long> lstUinRole2 = data2.Users.Select(s => s.Id).ToList();
+            List<long> lstUinRole3 = data3.Users.Select(s => s.Id).ToList();
+
+            IQueryable<User> model = db.Users.Where(x => !lstUinRole.Contains(x.Id));
+            model= model.Where(x => !lstUinRole2.Contains(x.Id));
+            model = model.Where(x => !lstUinRole3.Contains(x.Id));
+
+            return model;
+        }
+
+
         public IQueryable<User> GetUsersInRoleByLinkq(string roleName)
         {
             Role data = db.Roles.Where(s => s.Name == roleName).FirstOrDefault();
