@@ -82,39 +82,40 @@
                                 <th>Email</th>
                                 <th>Loại tài khoản</th>
                                 <th>Gói cước</th>
-                               
+                                <th>Quản lý nâng cấp</th>
                                 <th>Quản lý Chi Tiết</th>
 
                             </tr>
                             @foreach (User item in Model.LstAllUser)
                             {
-                                <tr>
-                                    <td>@item.Login</td>
-                                    <td>@item.EMail</td>
-                                    <td>
+                            <tr>
+                                <td>@item.Login</td>
+                                <td>@item.EMail</td>
+                                <td>
 
-                                        @foreach (Role _val in item.LstRole)
-                                        {
-                                            if (_val.Name == "Mod" || _val.Name == "AdminUser" || _val.Name == "Member")
-                                            {
-                                                <span class="label label-success">@_val.Name</span>
-                                            }
-                                        }
-                                    </td>
+                                    @foreach (Role _val in item.LstRole)
+        {
+            if (_val.Name == "Mod" || _val.Name == "AdminUser" || _val.Name == "Member")
+            {
+                            <span class="label label-success">@_val.Name</span>
+}
+}
+                                </td>
 
 
-                                    <td>@item.PackageName</td>
-                                    @if (@item.LockoutEnabled == true)
-                                    {
-                                        <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = false })" class="btn btn-block btn-success btn-xs">Kích hoat</a></td>
-                                    }
-                                    else
-                                    {
-                                        <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = true })" class="btn btn-block btn-danger btn-xs">Tạm khoá</a></td>
-                                    }
-                                    <td><a href="@Url.Action("DetailUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+                                <td>@item.PackageName</td>
+                                <td><a href="@Url.Action("DetailUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
+                                @if (@item.LockoutEnabled == true)
+    {
+                            <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = false })" class="btn btn-block btn-success btn-xs">Kích hoat</a></td>
+}
+else
+{
+                            <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = true })" class="btn btn-block btn-danger btn-xs">Tạm khoá</a></td>
+}
+                                <td><a href="@Url.Action("DetailUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
 
-                                </tr>
+                            </tr>
                             }
                         </tbody>
                     </table>
