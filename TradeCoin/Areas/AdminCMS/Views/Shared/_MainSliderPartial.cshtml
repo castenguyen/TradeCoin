@@ -181,6 +181,16 @@
                         </a>
                     </li>
                 }
+                else if (User.IsInRole("Member"))
+                {
+                    <li>
+                        <a href="@Url.Action("ListVideo", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-comments"></i> <span>Video</span>
+                        </a>
+                    </li>
+
+
+                }
 
             }
 

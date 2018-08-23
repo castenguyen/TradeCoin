@@ -163,6 +163,62 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
- 
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
+        public ActionResult ListVideo(int? page, int? MediaStatus, int? MediaPackage, string FillterMediaName)
+        {
+            int pageNum = (page ?? 1);
+            MediaMemberViewModel model = new MediaMemberViewModel();
+            IQueryable<MediaContent> tmp = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId != (int)EnumCore.ObjTypeId.video);
+
+            //if (MediaStatus.HasValue)
+            //{
+            //    tmp = tmp.Where(s => s.StateId == TickerStatus);
+            //    model.TickerStatus = TickerStatus.Value;
+            //}
+
+            if (MediaPackage.HasValue && MediaPackage.Value != 0)
+            {
+                // tmp = tmp.Where(s => s.StateId == Pakage);
+                model.MediaPackage = MediaPackage.Value;
+            }
+
+            if (!String.IsNullOrEmpty(FillterMediaName))
+            {
+                tmp = tmp.Where(s => s.Filename.ToLower().Contains(FillterMediaName.ToLower()));
+                model.FillterMediaName = FillterMediaName;
+            }
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
+
+            IPagedList<MediaContent> tmplstticker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
+            List<MediaContentViewModels> mainlstticker = new List<MediaContentViewModels>();
+
+            foreach (MediaContent _item in tmplstticker)
+            {
+                MediaContentViewModels abc = new MediaContentViewModels(_item);
+                abc.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.MediaContentId, (int)EnumCore.ObjTypeId.ticker);
+                mainlstticker.Add(abc);
+            }
+
+            model.lstMainTicker = mainlstticker.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+           // model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
+            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
+
+            return View(model);
+        }
+        public ActionResult DetailVideo(long id)
+        {
+            MediaContentViewModels model = new MediaContentViewModels();
+            MediaContent mainObj = cms_db.GetObjMediaContent(id);
+            model.objMediaContent = mainObj;
+            model.lstSameVideo = cms_db.GetLstMediaContent().Where(s=>s.MediaTypeId==(int)EnumCore.ObjTypeId.video).Take(10).ToList();
+
+
+            return View(model);
+
+        }
+
     }
 }

@@ -1120,6 +1120,22 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
               new { controller = "Member", action = "MemberDashBoard" }
               );
 
+
+
+            context.MapRoute(
+           "AdminCMS_member_ListVideo",
+           "thanh-vien/video",
+           new { controller = "Member", action = "ListVideo" }
+           );
+
+
+            context.MapRoute(
+     "AdminCMS_member_DetailVideo",
+     "thanh-vien/chi-tiet-video",
+     new { controller = "Member", action = "DetailVideo" }
+     );
+
+
             
 
             #endregion
