@@ -109,52 +109,36 @@
 <section id="contact">
     <div class="container content-lg">
         <div class="row service-box-v1">
-            <div class="col-md-3 col-sm-6">
-                <div class="service-block service-block-default">
-                    <i class="icon-custom icon-lg icon-bg-u rounded-x fa fa-lightbulb-o"></i>
-                    <h2 class="heading-md">Gold Package</h2>
-                    <p>Gold Package</p>
-                    <ul class="list-unstyled">
-                        <li>
-                            A month: 10$
-                        </li>
-                        <li>Three months: 25$</li>
-                        <li>Six months: 50$</li>
-                        <li>A year 90$</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
+
+            <div class="col-md-4 col-sm-6">
                 <div class="service-block service-block-default">
                     <i class="icon-custom icon-lg icon-bg-u rounded-x icon-line icon-present"></i>
                     <h2 class="heading-sm">Silver Package</h2>
                     <p>Silver Package</p>
                     <ul class="list-unstyled">
                         <li>
-                            A month: 10$
+                            A month: @ViewBag.Silver
                         </li>
-                        <li>Three months: 25$</li>
-                        <li>Six months: 50$</li>
-                        <li>A year 90$</li>
+                        <li>Three months: @(ViewBag.Silver * 3)</li>
+                        <li>A year: @(ViewBag.Silver * 12)</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
                 <div class="service-block service-block-default">
                     <i class="icon-custom icon-lg icon-bg-u rounded-x icon-line icon-rocket"></i>
                     <h2 class="heading-sm">Night Package</h2>
                     <p>Night Package</p>
                     <ul class="list-unstyled">
                         <li>
-                            A month: 10$
+                            A month: @ViewBag.Night
                         </li>
-                        <li>Three months: 25$</li>
-                        <li>Six months: 50$</li>
-                        <li>A year 90$</li>
+                        <li>Three months: @(ViewBag.Night * 3)</li>
+                        <li>A year: @(ViewBag.Night * 12)</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
                 <div class="service-block service-block-default">
                     <i class="icon-custom icon-lg icon-bg-u rounded-x icon-line icon-rocket"></i>
                     <h2 class="heading-sm">Free</h2>
@@ -164,6 +148,34 @@
                             Free
                         </li>
 
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="service-block service-block-default">
+                    <i class="icon-custom icon-lg icon-bg-u rounded-x fa fa-lightbulb-o"></i>
+                    <h2 class="heading-md">Diamond Package</h2>
+                    <p>Diamond Package</p>
+                    <ul class="list-unstyled">
+                        <li>
+                            A month: @ViewBag.Diamond
+                        </li>
+                        <li>Three months: @(ViewBag.Diamond * 3)</li>
+                        <li>A year: @(ViewBag.Diamond * 12)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="service-block service-block-default">
+                    <i class="icon-custom icon-lg icon-bg-u rounded-x fa fa-lightbulb-o"></i>
+                    <h2 class="heading-md">Gold Package</h2>
+                    <p>Gold Package</p>
+                    <ul class="list-unstyled">
+                        <li>
+                            A month: @ViewBag.Gold
+                        </li>
+                        <li>Three months: @(ViewBag.Gold * 3)</li>
+                        <li>A year: @(ViewBag.Gold * 3)</li>
                     </ul>
                 </div>
             </div>
