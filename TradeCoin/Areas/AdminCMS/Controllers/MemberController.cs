@@ -140,6 +140,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
+            model.lstTicker = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa).Take(10).ToList();
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
             model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);
