@@ -34,6 +34,22 @@ namespace DataModel.DataViewModel
     }
 
 
+    public class MediaMemberViewModel
+    {
+        public IPagedList<MediaContentViewModels> lstMainTicker { get; set; }
+      
+        public SelectList lstPackage { get; set; }
+
+        public int pageNum { get; set; }
+        public int MediaStatus { get; set; }
+        public int MediaPackage { get; set; }
+        public string FillterMediaName { get; set; }
+
+        public List<ContentPackage> lstContentPackage { get; set; }
+
+    }
+
+
 
 
 }

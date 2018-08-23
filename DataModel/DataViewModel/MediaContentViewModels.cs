@@ -122,7 +122,10 @@ namespace DataModel.DataViewModel
             get { return objMediaContent.LinkHref; }
             set { objMediaContent.LinkHref = value; }
         }
-        
+
+
+        public List<ContentPackage> lstTickerContentPackage { get; set; }
+        public List<MediaContent> lstSameVideo { get; set; }
     }
     public class AlbumMediaViewModels
     {
@@ -426,6 +429,8 @@ namespace DataModel.DataViewModel
             get { return objMediaContent.ThumbURL; }
             set { objMediaContent.ThumbURL = value; }
         }
+
+
         public string MetadataDesc
         {
             get { return objMediaContent.MetadataDesc; }

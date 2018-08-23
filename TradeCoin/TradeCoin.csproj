@@ -2122,6 +2122,8 @@
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ListUserUpgrade.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\DetailUpgradeUser.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Dashboard\ModIndex.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Member\ListVideo.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Member\DetailVideo.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\core.app.js" />
