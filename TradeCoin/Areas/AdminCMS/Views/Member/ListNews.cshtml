@@ -68,61 +68,25 @@
                     <h3 class="box-title">Danh sách Kèo</h3>
                 </div><!-- /.box-header -->
                 <div class='box-body'>
-                    <div class="post">
-                        <div class="user-block">
-                            <img class="img-circle img-bordered-sm" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="user image">
-                            <span class='username'>
-                                <a href="#">
-                                    USDJPY - 24/07/201
-                                </a>
 
-                            </span>
-                            <span class='description'>Shared publicly - 7:30 PM today</span>
-                        </div><!-- /.user-block -->
-                    </div><!-- /.post -->
-                    <!-- Post -->
-                    <div class="post clearfix">
-                        <div class='user-block'>
-                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'>
-                                <a href="#">
-                                    EURUSD - 24/07/201
-                                </a>
+                    @foreach (Ticker _item in Model.lstTicker)
+    {
+                <div class="post">
+                    <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="~/@_item.MediaThumb" alt="user image">
+                        <span class='username'>
+                            <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_item.TickerId })">
+                                @_item.TickerName
+                            </a>
 
-                            </span>
-                            <span class='description'>Sent you a message - 3 days ago</span>
-                        </div><!-- /.user-block -->
+                        </span>
+                        <span class='description'>@_item.CrtdUserName - @_item.CrtdDT</span>
+                    </div><!-- /.user-block -->
+                </div><!-- /.post -->
 
-                    </div><!-- /.post -->
-                    <!-- Post -->
-                    <!-- Post -->
-                    <div class="post clearfix">
-                        <div class='user-block'>
-                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'>
-                                <a href="#">
-                                    USDJPY - 25/07/2018
-                                </a>
+}
 
-                            </span>
-                            <span class='description'>Sent you a message - 3 days ago</span>
-                        </div><!-- /.user-block -->
-
-                    </div><!-- /.post -->
-                    <!-- Post -->
-                    <div class="post clearfix">
-                        <div class='user-block'>
-                            <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'>
-                                <a href="#">
-                                    GBPUSD - 25/07/2018
-                                </a>
-
-                            </span>
-                            <span class='description'>Sent you a message - 3 days ago</span>
-                        </div><!-- /.user-block -->
-
-                    </div><!-- /.post -->
+             
                 </div><!-- /.user-block -->
 
             </div><!-- /.user-block -->
