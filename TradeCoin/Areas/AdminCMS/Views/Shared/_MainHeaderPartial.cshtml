@@ -45,6 +45,52 @@
                             <li class="footer"><a href="#">See All Messages</a></li>
                         </ul>
                     </li>
+
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-pencil"></i>
+                            <span class="label label-success" id="NewPost1"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have <span id="NewPost2"></span> post</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu" id="NewPost"></ul>
+                            </li>
+                            <li class="footer"><a href="#">See All post</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-compress"></i>
+                            <span class="label label-success" id="NewKeo1"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have <span id="NewKeo2"></span> keo</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu" id="NewKeo"></ul>
+                            </li>
+                            <li class="footer"><a href="#">See All keo</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-youtube-play"></i>
+                            <span class="label label-success" id="NewVideo1"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have <span id="NewVideo2"></span> video</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu" id="NewVideo"></ul>
+                            </li>
+                            <li class="footer"><a href="#">See All video</a></li>
+                        </ul>
+                    </li>
+
                     <!-- Notifications: style can be found in dropdown.less -->
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -119,18 +165,18 @@
                                 </p>
                             </li>
                             <!-- Menu Body
-                             <li class="user-body">
-                                 <div class="col-xs-4 text-center">
-                                     <a href="#">Followers</a>
-                                 </div>
-                                 <div class="col-xs-4 text-center">
-                                     <a href="#">Sales</a>
-                                 </div>
-                                 <div class="col-xs-4 text-center">
-                                     <a href="#">Friends</a>
-                                 </div>
-                             </li>
-                            Menu Footer-->
+             <li class="user-body">
+                 <div class="col-xs-4 text-center">
+                     <a href="#">Followers</a>
+                 </div>
+                 <div class="col-xs-4 text-center">
+                     <a href="#">Sales</a>
+                 </div>
+                 <div class="col-xs-4 text-center">
+                     <a href="#">Friends</a>
+                 </div>
+             </li>
+            Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })" class="btn btn-default btn-flat">Profile</a>
@@ -148,8 +194,8 @@
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     @*<li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>*@
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+        </li>*@
                 </ul>
             </div>
         }
@@ -183,11 +229,30 @@
             $.playSound("http://www.noiseaddicts.com/samples_1w72b820/3724.mp3");
         };
 
+        notificationHub.client.notificationNewPost = function () {
+            $("#NewPost").empty();
+            ListNewPost();
+            $.playSound("http://www.noiseaddicts.com/samples_1w72b820/3724.mp3");
+        };
+        notificationHub.client.notificationNewKeo = function () {
+            $("#NewKeo").empty();
+            ListNewKeo();
+            $.playSound("http://www.noiseaddicts.com/samples_1w72b820/3724.mp3");
+        };
+        notificationHub.client.notificationNewVideo = function () {
+            $("#NewVideo").empty();
+            ListNewVideo();
+            $.playSound("http://www.noiseaddicts.com/samples_1w72b820/3724.mp3");
+        };
+
         // Start the connection.
         $.connection.hub.start().done(function () {
         });
 
         ListNewEmail();
+        ListNewPost();
+        ListNewKeo();
+        ListNewVideo();
 
     });
 
@@ -208,6 +273,78 @@
                                                 <small><i class="fa fa-clock-o"></i> 5 mins</small>
                                             </h4>
                                             <p>`+ text.Content + `</p>
+                                        </a>
+                                    </li>`);
+                });
+            }
+        });
+    }
+
+    function ListNewPost() {
+        coreApp.callAjaxGateway({
+            url: 'AdminCMS/ContentItem/ListNotificationNewPost',
+            callback: function (data) {
+                $("#NewPost1").text(data.TotalRows);
+                $("#NewPost2").text(data.TotalRows);
+                $.each(data.Rows, function (val, text) {
+                    $('#NewPost').append(`<li>
+                                        <a href="EditContentItem/`+ text.ContentItemId+`">
+                                            <div class="pull-left">
+                                                <img src="" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                `+ text.CrtdUserName + `
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>`+ text.ContentTitle + `</p>
+                                        </a>
+                                    </li>`);
+                });
+            }
+        });
+    }
+
+    function ListNewKeo() {
+        coreApp.callAjaxGateway({
+            url: 'AdminCMS/TickerManager/ListNotificationNewKeo',
+            callback: function (data) {
+                $("#NewKeo1").text(data.TotalRows);
+                $("#NewKeo2").text(data.TotalRows);
+                $.each(data.Rows, function (val, text) {
+                    $('#NewKeo').append(`<li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                `+ text.CrtdUserName + `
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>`+ text.TickerName + `</p>
+                                        </a>
+                                    </li>`);
+                });
+            }
+        });
+    }
+
+    function ListNewVideo() {
+        coreApp.callAjaxGateway({
+            url: 'AdminCMS/MediaManager/ListNotificationNewKeo',
+            callback: function (data) {
+                $("#NewVideo1").text(data.TotalRows);
+                $("#NewVideo2").text(data.TotalRows);
+                $.each(data.Rows, function (val, text) {
+                    $('#NewVideo').append(`<li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                `+ text.Filename + `
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>`+ text.Caption + `</p>
                                         </a>
                                     </li>`);
                 });
