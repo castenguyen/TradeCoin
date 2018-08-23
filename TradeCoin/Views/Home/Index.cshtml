@@ -24,7 +24,11 @@
             <ul>
                 <!-- SLIDE 1 -->
                 <li data-transition="curtain-1" data-slotamount="5" data-masterspeed="700" data-title="Slide">
-
+                    @*<video controls alt="slidebg1" width="100%" height="100%"
+                           data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+                        <source src="@Model.indexvideo.PageContent.ContentExcerpt" type="video/mp4">
+                        Trình duyệt của bạn không hỗ trợ HTML5.
+                    </video>*@
                     <iframe width="100%" height="100%" src="@Model.indexvideo.PageContent.ContentExcerpt"
                             frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
                             alt="slidebg1"
