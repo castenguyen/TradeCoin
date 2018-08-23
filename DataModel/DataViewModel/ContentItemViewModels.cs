@@ -282,6 +282,7 @@ namespace DataModel.DataViewModel
     public class ContentItemIndexViewModel
     {
         public IPagedList<ContentItem> lstMainContent { get; set; }
+        public List<Ticker> lstTicker { get; set; }
         public List<SelectListObj> lstContentState { get; set; }
         public List<SelectListObj> lstContentCatalogry { get; set; }
 
