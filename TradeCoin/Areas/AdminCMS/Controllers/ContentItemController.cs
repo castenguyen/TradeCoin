@@ -280,7 +280,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (ModelState.IsValid)
                 {
                     Classification _objcata = cms_db.GetObjClasscifiById(model.CategoryId.Value);
-                    MediaContent _objmedia = cms_db.GetObjMediaContent(model.ImgdefaultId);
                     ContentItem MainModel = model._MainObj;
                     MainModel.CommentCount = 0;
                     MainModel.CrtdDT = DateTime.Now;
@@ -333,10 +332,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (ModelState.IsValid)
                 {
                     Classification _objcata = cms_db.GetObjClasscifiById(model.CategoryId.Value);
-
-                    MediaContent _objnewmedia = cms_db.GetObjMediaContent(model.ImgdefaultId);
-                    MediaContent _objoldmedia = cms_db.GetObjDefaultMediaByContentIdvsType(model.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-
                     ContentItem MainModel = cms_db.GetObjContentItemById(model.ContentItemId);
                     MainModel.ContentTitle = model.ContentTitle;
                     MainModel.ContentText = model.ContentText;
@@ -352,12 +347,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int rsup = await this.UpdateImageUrlForPageinfo(rsdf, MainModel);
                     }
 
-
-
                     int rs = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                                    (int)EnumCore.ActionType.Update, "Update", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
-
-               
+                                    (int)EnumCore.ActionType.Update, "EditPageInfor", MainModel.ContentItemId, MainModel.ContentTitle, "ContentItem", (int)EnumCore.ObjTypeId.tin_tuc);
 
                     return RedirectToAction("PageInforIndex");
                 }
