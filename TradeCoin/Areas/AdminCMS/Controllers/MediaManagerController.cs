@@ -11,6 +11,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using System.IO;
+using Microsoft.AspNet.SignalR;
+using CMSPROJECT.Hubs;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -293,6 +295,31 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId == (int)EnumCore.ObjTypeId.video).ToList();
             return View(model);
         }
+
+        public ActionResult ListNotificationNewKeo()
+        {
+            try
+            {
+                List<MediaContent> model = new List<MediaContent>();
+                model = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId == (int)EnumCore.ObjTypeId.video).ToList();
+
+                var result = new
+                {
+                    TotalRows = model.Count(),
+                    Rows = model.Select(x => new
+                    {
+                        Filename = x.Filename,
+                        Caption = x.Caption,
+                    })
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [AdminAuthorize(Roles = "supperadmin,devuser,CreateVideo")]
         public ActionResult CreateVideo()
         {
@@ -334,6 +361,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     int SaveTickerPackage = this.SaveVideoPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.MediaContentId, MainModel.Filename, "MediaManage", (int)EnumCore.ObjTypeId.video);
+
+                    var context = GlobalHost.ConnectionManager.GetHubContext<NotifiHub>();
+                    context.Clients.All.notificationNewVideo();
                 }
                 return RedirectToAction("VideoManager");
             }

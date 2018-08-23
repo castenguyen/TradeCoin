@@ -12,6 +12,8 @@ using PagedList;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.AspNet.SignalR;
+using CMSPROJECT.Hubs;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -51,6 +53,32 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             return View(model);
         }
+
+        public ActionResult ListNotificationNewKeo()
+        {
+            try
+            {
+                TickerAdminViewModel model = new TickerAdminViewModel();
+                IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
+                model.lstMainTicker = tmp.OrderByDescending(c => c.TickerId).ToPagedList(1, 20);
+
+                var result = new
+                {
+                    TotalRows = model.lstMainTicker.Count(),
+                    Rows = model.lstMainTicker.Select(x => new
+                    {
+                        CrtdUserName = x.CrtdUserName,
+                        TickerName = x.TickerName,
+                    })
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
         public ActionResult Create()
         {
@@ -83,6 +111,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.TickerId, MainModel.TickerName, "TickerManager", (int)EnumCore.ObjTypeId.ticker);
+
+                    var context = GlobalHost.ConnectionManager.GetHubContext<NotifiHub>();
+                    context.Clients.All.notificationNewKeo();
                 }
                 return RedirectToAction("Index");
             }

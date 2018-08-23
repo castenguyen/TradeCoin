@@ -14,6 +14,8 @@ using DataModel.Extension;
 using System.Threading.Tasks;
 using System.Collections;
 using PagedList;
+using Microsoft.AspNet.SignalR;
+using CMSPROJECT.Hubs;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -45,6 +47,33 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);
             return View(model);
         }
+
+        public ActionResult ListNotificationNewPost()
+        {
+            try
+            {
+                ContentItemIndexViewModel model = new ContentItemIndexViewModel();
+                IQueryable<ContentItem> tmp = cms_db.GetlstContentItem().Where(s => (s.MicrositeID == null || s.MicrositeID == 0) && s.StateId != (int)EnumCore.StateType.da_xoa && s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc);
+                model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(1, 20);
+
+                var result = new
+                {
+                    TotalRows = model.lstMainContent.Count(),
+                    Rows = model.lstMainContent.Select(x => new
+                    {
+                        CrtdUserName = x.CrtdUserName,
+                        ContentTitle = x.ContentTitle,
+                        ContentItemId = x.ContentItemId
+                    })
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         /// <summary>
         /// Quy trình thêm 1 ContentItem :
         /// 
@@ -108,6 +137,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     //int SaveRelatedContent = await this.SaveRelateContent(MainModel.ContentItemId, model.related_content);//lưu noi dung liên quan cho tin tức này
                     //int SaveRelatedTag = await this.SaveRelateTag(MainModel.ContentItemId, model.related_tag);//lưu tag liên quan cho tin tức này
                     //int UpdateDefaultMedia = await this.UpdateContentObjForMedia(_objmedia, MainModel.ContentItemId);//cập nhật id tin tức này cho hình ảnh bên bảng mediacontent
+
+                    var context = GlobalHost.ConnectionManager.GetHubContext<NotifiHub>();
+                    context.Clients.All.notificationNewPost();
                     return RedirectToAction("Index");
                 }
                 model.CatalogryList = new SelectList(cms_db.Getnewcatagory(), "ClassificationId", "ClassificationNM");
