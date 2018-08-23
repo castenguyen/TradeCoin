@@ -10,8 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
-
-
+using PagedList;
 
 namespace Alluneecms.Controllers
 {
@@ -26,6 +25,28 @@ namespace Alluneecms.Controllers
                 model.indexvideo = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.indexvideo);
                 model.intro = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.intro);
                 model.trade = this.GetDatPageInforViewModelaPageInfor((int)ConstFrontEnd.FrontendPageinfor.trade);
+
+                IPagedList<Package> _lstPackage = cms_db.GetlstPackage()
+                        .OrderBy(c => c.PackageId).ToPagedList(1, (int)EnumCore.BackendConst.page_size);
+                foreach (var item in _lstPackage)
+                {
+                    if (item.PackageId == 2)
+                    {
+                        ViewBag.Night = item.NewPrice;
+                    }
+                    if (item.PackageId == 3)
+                    {
+                        ViewBag.Silver = item.NewPrice;
+                    }
+                    if (item.PackageId == 4)
+                    {
+                        ViewBag.Gold = item.NewPrice;
+                    }
+                    if (item.PackageId == 5)
+                    {
+                        ViewBag.Diamond = item.NewPrice;
+                    }
+                }
                 return View(model);
             }
             catch (Exception e) {
