@@ -1013,6 +1013,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
             }
+
+            if (User.IsInRole("AdminUser"))
+            {
+                tmp = cms_db.GetUsersForAdminByLinkq();
+            }
+
             if (!String.IsNullOrEmpty(letter))
             {
                 letter = letter.ToLower();
