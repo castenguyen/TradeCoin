@@ -426,7 +426,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (user == null)
                 {
                     //ModelState.AddModelError("", "Invalid username");
-                   // return View(model);
+                    // return View(model);
                     string AlertString = "Tài khoản chưa đúng";
                     return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
 
@@ -445,8 +445,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                     }
 
+                    UserManager.UpdateSecurityStamp(user.Id);
+
+                    long time = DateTime.Now.Ticks;
                     string code = UserManager.GenerateUserToken("LoginWithToken", user.Id);
-                    var callbackUrl = Url.Action("LoginWithToken", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    var callbackUrl = Url.Action("LoginWithToken", "AccountAdmin", new { userId = user.Id, code = code, time = time }, protocol: Request.Url.Scheme);
                     EmailService email = new EmailService();
                     IdentityMessage message = new IdentityMessage();
                     message.Body = string.Format("Để đăng nhập vui lòng nhấp vào liên kết: <a href='{0}'>Tại đây</a>", callbackUrl);
@@ -528,27 +531,28 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// </summary>
 
         [AllowAnonymous]
-        public async Task<ActionResult> LoginWithToken(long userId, string code)
+        public async Task<ActionResult> LoginWithToken(long userId, string code, string time)
         {
             if (code == null)
             {
                 return View("Error");
             }
-            var tokenCorrect = await UserManager.VerifyUserTokenAsync(userId, "LoginWithToken", code);
-            if (tokenCorrect)
+            bool tokenCorrect = await UserManager.VerifyUserTokenAsync(userId, "LoginWithToken", code);
+            bool tokenexpiry = this.CompareTwoTime(long.Parse(time), DateTime.Now.Ticks);
+            if (tokenCorrect && tokenexpiry)
             {
                 var user = UserManager.FindById(userId);
-             
+
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Invalid username");
                     return View("Error");
                 }
-                await SignInAsync(user, true);
+                await SignInAsync(user, false);
                 User _ObjUser = await cms_db.GetObjUserById(userId);
                 _ObjUser.IsLogin = true;
-                    ///kiểm tra ngày hết hạn của user
-               if (_ObjUser.ExpiredDay.HasValue)
+                ///kiểm tra ngày hết hạn của user
+                if (_ObjUser.ExpiredDay.HasValue)
                 {
                     if (_ObjUser.ExpiredDay.Value < DateTime.Now)
                     {
@@ -557,7 +561,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int CreateUpdateUserPackage = cms_db.CreateUpdateUserPackage(_ObjUser, 1, (int)EnumCore.UpgradeStatus.het_han, "Hết hạn", "");
                     }
                 }
-                Session["ListPackageOfUser"] =cms_db.GetlstPackage().Where(s=>s.PackageId<= _ObjUser.PackageId).ToList();
+                Session["ListPackageOfUser"] = cms_db.GetlstPackage().Where(s => s.PackageId <= _ObjUser.PackageId).ToList();
                 int updateUser = await cms_db.UpdateUser(_ObjUser);
                 int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
@@ -573,11 +577,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     return RedirectToAction("ModIndex", "Dashboard");
                 }
-                else {
+                else
+                {
 
                     return RedirectToAction("Index", "Dashboard");
                 }
-                
+
             }
             else
             {
@@ -655,7 +660,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("Login");
 
             }
-        
+
         }
 
 
@@ -920,7 +925,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 cms_db.AddToExceptionLog("ListUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return RedirectToAction("Index", "Dashboard");
             }
-          
+
         }
 
         /// <summary>
@@ -956,7 +961,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             User _ObjUser = await cms_db.GetObjUserById(id);
             UserAndRoles model = new UserAndRoles();
             model.LstCurPermission = await UserManager.GetRolesAsync(id);
-            model.LstAllPermission = new SelectList(cms_db.GetlstRole().Where(s=>s.IsGroup==false), "Id", "Name");
+            model.LstAllPermission = new SelectList(cms_db.GetlstRole().Where(s => s.IsGroup == false), "Id", "Name");
             model.ObjUser = _ObjUser;
 
             model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
@@ -964,18 +969,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.LstAllUserType = new SelectList(cms_db.GetlstRole().Where(s => s.IsGroup == true), "Id", "Name");
             if (UserManager.IsInRole(id, "Member"))
             {
-                if(!model.ObjUser.PackageId.HasValue)
+                if (!model.ObjUser.PackageId.HasValue)
                 {
                     model.ObjUser.PackageId = 1;
                     model.ObjUser.PackageName = "Free";
 
                 }
-             
+
             }
 
             if (model.ObjUser.AwaitPackageId.HasValue)
             {
-                model.UpgradeToken = cms_db.GetLastUpgradeToken(model.ObjUser.Id,model.ObjUser.AwaitPackageId.Value);
+                model.UpgradeToken = cms_db.GetLastUpgradeToken(model.ObjUser.Id, model.ObjUser.AwaitPackageId.Value);
             }
 
             if (!String.IsNullOrEmpty(alertMessage))
@@ -983,7 +988,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.AlertMessage = alertMessage;
             }
 
-           
+
 
 
 
@@ -1029,7 +1034,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
             }
-            model.LstAllUser = tmp.Where(s=>s.AwaitPackageId.Value>0).OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.LstAllUser = tmp.Where(s => s.AwaitPackageId.Value > 0).OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.Page = pageNum;
             model.letter = letter;
             return View(model);
@@ -1083,8 +1088,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
 
             }
-   
-           
+
+
 
             if (!String.IsNullOrEmpty(alertMessage))
             {
@@ -1133,7 +1138,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 //thì co nghi a la nâng cấp tháng-quý
                 if (!String.IsNullOrEmpty(model.Datetime))
                 {
-                        _ObjUser.ExpiredDay = this.SpritDateTime(model.Datetime)[1];
+                    _ObjUser.ExpiredDay = this.SpritDateTime(model.Datetime)[1];
                 }
                 else
                 {
@@ -1146,7 +1151,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 UserPackage objUserPackage = new UserPackage();
                 objUserPackage.CrtdDT = DateTime.Now;
                 objUserPackage.AprvdDT = DateTime.Now;
-                objUserPackage.AprvdUID =long.Parse(User.Identity.GetUserId());
+                objUserPackage.AprvdUID = long.Parse(User.Identity.GetUserId());
                 objUserPackage.AprvdUserName = User.Identity.GetUserName();
 
                 objUserPackage.PackageId = ObjNewPackage.PackageId;
@@ -1160,13 +1165,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 objUserPackage.OldPackageName = ObjCurrentPackage.PackageName;
                 if (ObjNewPackage.PackageId == (int)EnumCore.Package.free)
                 {
-                    objUserPackage.Price =0;
+                    objUserPackage.Price = 0;
                 }
-                else {
+                else
+                {
                     objUserPackage.Price = model.Price;
 
                 }
-               
+
 
                 cms_db.CreateUserPackage(objUserPackage);
 
@@ -1181,7 +1187,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
         private DateTime[] SpritDateTime(string datetime)
         {
-            try {
+            try
+            {
                 DateTime[] model = new DateTime[] { Convert.ToDateTime(datetime), Convert.ToDateTime(datetime) };
                 return model;
             }
@@ -1333,9 +1340,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             base.Dispose(disposing);
         }
 
+        private bool CompareTwoTime(long time1, long time2)
+        {
+            long elapsedTicks = time2 - time1;
+            TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
+            double count = elapsedSpan.TotalMinutes;
+            if (count < 5)
+                return true;
+            return false;
+        }
+
+
+
         #endregion
 
-     
+
         private class ChallengeResult : HttpUnauthorizedResult
         {
             #region constructors and destructors
@@ -1360,8 +1379,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             public string UserId { get; set; }
 
-       
-        
+
+
 
             public override void ExecuteResult(ControllerContext context)
             {
