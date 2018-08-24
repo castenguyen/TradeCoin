@@ -314,6 +314,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         string pass = UserManager.PasswordHasher.HashPassword("asdadasdasdsa");
                         UserManager.SetLockoutEnabled(user.Id, false);
                         await this.AddRoleForUser(user.Id, "Member");
+                        user.PackageId = 1;//package =1 la free
+                        user.PackageName = "Free";
+
                         UserManager.Update(user);
                         string code = UserManager.GenerateEmailConfirmationToken(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -325,7 +328,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
                             ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
 
-                        return RedirectToAction("Login", "AccountAdmin");
+                        string AlertString = "Đăng ký tài khoản thành công vui lòng kiểm tra mail để xác nhận tài khoản";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                     }
                     else
                     {
@@ -565,15 +569,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 int updateUser = await cms_db.UpdateUser(_ObjUser);
                 int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                           (int)EnumCore.ActionType.Login, "LoginWithToken", 0, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
-                if (User.IsInRole("Member"))
+
+
+
+
+                if (UserManager.IsInRole(userId, "Member"))
                 {
                     return RedirectToAction("MemberDashBoard", "Member");
                 }
-                else if (User.IsInRole("Mod"))
+                else if (UserManager.IsInRole(userId, "Mod"))
                 {
                     return RedirectToAction("ModIndex", "Dashboard");
                 }
-                else if (User.IsInRole("AdminUser"))
+                else if ( UserManager.IsInRole(userId, "AdminUser"))
                 {
                     return RedirectToAction("ModIndex", "Dashboard");
                 }
@@ -1345,7 +1353,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             long elapsedTicks = time2 - time1;
             TimeSpan elapsedSpan = new TimeSpan(elapsedTicks);
             double count = elapsedSpan.TotalMinutes;
-            if (count < 5)
+            if (count < 10)
                 return true;
             return false;
         }

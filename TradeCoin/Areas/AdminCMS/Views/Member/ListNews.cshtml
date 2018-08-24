@@ -70,23 +70,23 @@
                 <div class='box-body'>
 
                     @foreach (Ticker _item in Model.lstTicker)
-    {
-                <div class="post">
-                    <div class="user-block">
-                        <img class="img-circle img-bordered-sm" src="~/@_item.MediaThumb" alt="user image">
-                        <span class='username'>
-                            <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_item.TickerId })">
-                                @_item.TickerName
-                            </a>
+                    {
+                        <div class="post">
+                            <div class="user-block">
+                                <img class="img-circle img-bordered-sm" src="~/@_item.MediaThumb" alt="user image">
+                                <span class='username'>
+                                    <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_item.TickerId })">
+                                        @_item.TickerName
+                                    </a>
 
-                        </span>
-                        <span class='description'>@_item.CrtdUserName - @_item.CrtdDT</span>
-                    </div><!-- /.user-block -->
-                </div><!-- /.post -->
+                                </span>
+                                <span class='description'>@_item.CrtdUserName - @_item.CrtdDT</span>
+                            </div><!-- /.user-block -->
+                        </div><!-- /.post -->
 
-}
+                    }
 
-             
+
                 </div><!-- /.user-block -->
 
             </div><!-- /.user-block -->
