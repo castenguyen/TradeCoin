@@ -22,28 +22,28 @@
     <div class="fullscreenbanner-container">
         <div class="fullscreenbanner">
             @*    <ul>
-        <li data-transition="curtain-1" data-slotamount="5" data-masterspeed="700" data-title="Slide">
-            <!-- SLIDE 1 -->
+                <li data-transition="curtain-1" data-slotamount="5" data-masterspeed="700" data-title="Slide">
+                    <!-- SLIDE 1 -->
 
-        <video controls alt="slidebg1" width="100%" height="100%"
-               data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
-            <source src="@Model.indexvideo.PageContent.ContentExcerpt" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ HTML5.
-        </video>
-
-
-            <iframe width="100%" height="100%" src="@Model.indexvideo.PageContent.ContentExcerpt"
-                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
-                    alt="slidebg1"
-                    data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat"></iframe>
+                <video controls alt="slidebg1" width="100%" height="100%"
+                       data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
+                    <source src="@Model.indexvideo.PageContent.ContentExcerpt" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ HTML5.
+                </video>
 
 
+                    <iframe width="100%" height="100%" src="@Model.indexvideo.PageContent.ContentExcerpt"
+                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen
+                            alt="slidebg1"
+                            data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat"></iframe>
 
-            </li>
 
-            </ul>
-            <div class="tp-bannertimer tp-bottom"></div>
-            <div class="tp-dottedoverlay twoxtwo"></div>
+
+                    </li>
+
+                    </ul>
+                    <div class="tp-bannertimer tp-bottom"></div>
+                    <div class="tp-dottedoverlay twoxtwo"></div>
             *@
 
 
@@ -58,26 +58,25 @@
 </section>
 <!-- End Intro Section -->
 <!-- Services Section -->
-<section id="crypto">
-    <div class="container content-lg">
-        <div class="parallax-twitter parallaxBg">
-            <div class="container parallax-twitter-in">
-                <div class="margin-bottom-30">
-                    <h2>CRYPTO là gì</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <p style="unicode-bidi: plaintext!important;color: white!important;font-size: 16px!important">
-                            @Html.Raw(Model.crypto.PageContent.ContentText)
-                           
-                        </p>
-                    </div>
-                </div>
+<!--  About Section -->
+<section id="crypto" class="about-section section-first">
+
+    <div class="about-image bg-grey">
+        <div class="container">
+            <div class="title-v1">
+                <h1>CRYPTO là gì</h1>
+                <p>
+                    @Html.Raw(Model.crypto.PageContent.ContentText)
+                </p>
+            </div>
+            <div class="img-center">
+                <img class="img-responsive" src="~/@Model.crypto.PageContent.ContentText" alt="">
             </div>
         </div>
     </div>
-</section>
 
+</section>
+<!--  About Section -->
 <!-- Portfolio Section -->
 <section id="portfolio" class="about-section">
     <div class="container content-lg">
@@ -89,36 +88,43 @@
                 <div class="clearfix margin-bottom-30">
                     <div class="content-boxes-in-v3">
                         <h1>Giới thiệu</h1>
-                      <span class="text-bold" style="color:white"> @Html.Raw(Model.intro.PageContent.ContentText) </span>
+                        <span class="text-bold" style="color:white"> @Html.Raw(Model.intro.PageContent.ContentText) </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>
 <!-- End Portfolio Section -->
-<!-- News Section -->
-<section id="trading" class="news-section">
+
+
+<section id="trading" class="about-section section-first">
+ 
     <div class="container content-lg">
-        <div class="parallax-twitter parallaxBg">
-            <div class="container parallax-twitter-in">
-                <div class="margin-bottom-30">
-
-                    <h2>TRADE</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        @Html.Raw(Model.trade.PageContent.ContentText)
-                 
-
+        <div class="title-v1">
+            <h2>TRADE</h2>
+            <p>
+                @Html.Raw(Model.trade.PageContent.ContentExcerpt)
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-6 content-boxes-v3 margin-bottom-40">
+                <div class="clearfix margin-bottom-30">
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm"> @Html.Raw(Model.trade.PageContent.ContentText)</h2>
+                       
                     </div>
                 </div>
+            
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive" src="~/@Model.trade.PageContent.MediaUrl" alt="">
             </div>
         </div>
     </div>
-
+  
 </section>
+<!--  About Section -->
 <!-- End News Section -->
 
 <section id="contact">
