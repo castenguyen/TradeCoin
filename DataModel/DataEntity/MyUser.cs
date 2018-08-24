@@ -24,6 +24,8 @@ namespace DataModel.DataEntity
 
         public Nullable<bool> IsLogin { get; set; }
 
+        public Nullable<long> PackageId { get; set; }
+        public string PackageName { get; set; }
 
         #endregion
 

@@ -85,6 +85,17 @@ namespace DataModel.DataStore
             return lstContentItem;
         }
 
+        public List<Ticker> GetListTickerByUserToPageList(long UserId, int skip,int take)
+        {
+            var lstContentItem = db.Database.SqlQuery<Ticker>("exec GetListTickerByUserToPageList @Useruid, @take,@skip ",
+                 new SqlParameter("@Useruid", UserId),
+                 new SqlParameter("@take", take),
+                 new SqlParameter("@skip", skip)
+
+                 ).ToList();
+            return lstContentItem;
+        }
+
 
 
     }

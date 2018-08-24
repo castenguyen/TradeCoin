@@ -241,6 +241,18 @@ namespace DataModel.DataStore
         }
 
 
+        public List<ContentItem> GetContentItemByUserToPageList(long UserId, int skip,int take)
+        {
+            var lstContentItem = db.Database.SqlQuery<ContentItem>("exec GetContentItemByUserToPageList @UserUID, @take, @skip",
+                 new SqlParameter("@UserUID", UserId),
+                  new SqlParameter("@take", take),
+                 new SqlParameter("@skip", skip)).ToList();
+
+            return lstContentItem;
+        }
+
+        
+
 
         #endregion Stop BackEnd
     }
