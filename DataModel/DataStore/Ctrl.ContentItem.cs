@@ -231,11 +231,12 @@ namespace DataModel.DataStore
         }
 
 
-        public List<ContentItem> GetListContentItemByUser(long UserId, int Num)
+        public List<ContentItem> GetListContentItemByUser(long UserId, int Num, long PackageId)
         {
-            var lstContentItem = db.Database.SqlQuery<ContentItem>("exec GetContentItemByUser @UserUID, @Num",
+            var lstContentItem = db.Database.SqlQuery<ContentItem>("exec GetContentItemByUser @UserUID, @Num, @PackageId",
                  new SqlParameter("@UserUID", UserId),
-                 new SqlParameter("@Num", Num)).ToList();
+                 new SqlParameter("@Num", Num),
+                 new SqlParameter("@PackageId", PackageId)).ToList();
 
             return lstContentItem;
         }
