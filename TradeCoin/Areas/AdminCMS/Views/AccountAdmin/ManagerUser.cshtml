@@ -50,7 +50,7 @@
                         Xác nhận Email :
                         @if (@Model.ObjUser.EmailConfirmed == false)
                         {<strong> Chưa xác nhận</strong>
-                            <a href="#" class="btn bg-olive btn-flat margin">Yêu cầu xác nhận</a>
+                            <a href="@Url.Action("ManualConfirmMail", "AccountAdmin", new { id = Model.ObjUser.Id })" class="btn bg-olive btn-flat margin">Xác nhận</a>
                         }
                         else
                         {

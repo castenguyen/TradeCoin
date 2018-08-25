@@ -182,6 +182,15 @@ namespace CMSPROJECT.Areas.AdminCMS
       );
 
             context.MapRoute(
+"AdminCMS_ManualConfirmMail",
+"administrator/Account/ManualConfirmMail",
+new { controller = "AccountAdmin", action = "ManualConfirmMail" }
+ );
+
+
+            
+
+            context.MapRoute(
       "AdminCMS_ChangeState",
       "administrator/Account/ChangeState",
       new { controller = "AccountAdmin", action = "ChangeState" }

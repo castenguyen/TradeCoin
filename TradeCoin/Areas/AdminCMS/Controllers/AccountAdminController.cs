@@ -374,6 +374,34 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View();
         }
 
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+
+        public ActionResult ManualConfirmMail(long userId)
+        {
+            try
+            {
+                var user = UserManager.FindById(userId);
+                user.EmailConfirmed = true;
+                var result = UserManager.Update(user);
+                if (result.Succeeded)
+                {
+                     string AlertMessage = "Xác nhận email thành công";
+                    return View("ManagerUser",new { id = userId , alertMessage = AlertMessage });
+                }
+                AddErrors(result);
+                return View();
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("function ManualConfirmMail", "AccountAdmin", e.ToString());
+                string AlertString = "Xác nhận email không thành công";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+               
+            }
+
+        }
+        
+
 
         /// <summary>
         /// có 2 kieu đăng nhập

@@ -115,10 +115,36 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         public ActionResult DetailTicker(long tickerId)
         {
-            TickerViewModel model = new TickerViewModel();
-            Ticker mainObj = cms_db.GetObjTicker(tickerId);
-            model._MainObj = mainObj;
-            return View(model);
+            try {
+                if (cms_db.CheckTickerUserPackage(tickerId, long.Parse(User.Identity.GetUserId())))
+                {
+                    long UID = long.Parse(User.Identity.GetUserId());
+                    TickerViewModel model = new TickerViewModel();
+                    Ticker mainObj = cms_db.GetObjTicker(tickerId);
+                    model._MainObj = mainObj;
+                    ContentView ck = cms_db.GetObjContentView(mainObj.TickerId, (int)EnumCore.ObjTypeId.ticker, UID);
+                    if (ck == null)
+                    {
+                        ContentView tmp = new ContentView();
+                        tmp.UserId = UID;
+                        tmp.UserName = User.Identity.GetUserName();
+                        tmp.ContentId = mainObj.TickerId;
+                        tmp.ContentType = (int)EnumCore.ObjTypeId.ticker;
+                        tmp.ContentName = mainObj.TickerName;
+                        cms_db.CreateContentView(tmp);
+                    }
+                    return View(model);
+                }
+                string AlertString = "Nội dung xem không khả dụng";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("DetailTicker", " Member", e.ToString());
+                string AlertString = "Nội dung xem không khả dụng";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int) EnumCore.AlertPageType.FullScrenn });
+            }
+          
         }
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
@@ -143,6 +169,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.pageNum = pageNum;
             model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home).ToList();
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            foreach (MiniContentItemViewModel _val in model.lstMainContent)
+            {
+                _val.lstContentPackage = cms_db.GetlstObjContentPackage(_val.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+            
+            }
             model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
             model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);
             return View(model);
