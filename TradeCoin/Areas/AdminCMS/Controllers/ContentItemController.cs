@@ -65,15 +65,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    ContentItemIndexViewModel model = new ContentItemIndexViewModel();
-                    IQueryable<ContentItem> tmp = cms_db.GetlstContentItem().Where(s => (s.MicrositeID == null || s.MicrositeID == 0) && s.StateId != (int)EnumCore.StateType.da_xoa && s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc);
-                    model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(1, 20);
+                    List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
 
+                    MemberFrontEndViewModel model = new MemberFrontEndViewModel();
+                    List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
+                    List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
+                    foreach (ContentItem _val in lstNews)
+                    {
+                        ContentItemViewModels tmp = new ContentItemViewModels(_val);
+                        tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                        lstmpNews.Add(tmp);
+                    }
                     var result = new
                     {
-                        TotalRows = model.lstMainContent.Count(),
-                        Rows = model.lstMainContent.Select(x => new
+                        TotalRows = lstNews.Count(),
+                        Rows = lstNews.Select(x => new
                         {
+                            MicrositeID = x.MicrositeID,
                             CrtdUserName = x.CrtdUserName,
                             ContentTitle = x.ContentTitle,
                             ContentItemId = x.ContentItemId
@@ -89,7 +97,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                         MemberFrontEndViewModel model = new MemberFrontEndViewModel();
                         List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-                        List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
+                        List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
                         foreach (ContentItem _val in lstNews)
                         {
                             ContentItemViewModels tmp = new ContentItemViewModels(_val);
