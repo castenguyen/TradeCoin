@@ -1,21 +1,19 @@
 ﻿using CMSPROJECT.Areas.AdminCMS.Core;
 using DataModel.DataEntity;
 using DataModel.DataViewModel;
-using DataModel.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using PagedList;
+
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
+using DataModel.Extension;
+using System.Threading.Tasks;
+using PagedList;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
-
+    [AdminAuthorize]
     public class MemberController : CoreBackEnd
     {
         // GET: AdminCMS/Member
@@ -29,15 +27,22 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public async Task<ActionResult> MemberDashBoard()
         {
 
-            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>; 
-
+            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
             MemberFrontEndViewModel model = new MemberFrontEndViewModel();
             List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-            List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()),(int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
+            List<ContentItem> lstNews = new List<ContentItem>();
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
+            }
+            else
+            {
+                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
+            }
             foreach (ContentItem _val in lstNews)
             {
-                ContentItemViewModels tmp =new ContentItemViewModels(_val);
-                tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId,(int)EnumCore.ObjTypeId.tin_tuc);
+                ContentItemViewModels tmp = new ContentItemViewModels(_val);
+                tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
                 lstmpNews.Add(tmp);
             }
 
@@ -45,7 +50,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
             List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
-       
+
             List<Ticker> lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home);
             foreach (Ticker _val in lstTicker)
             {
@@ -57,10 +62,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             model.lstNews = lstmpNews;
             model.lstTicker = lstmpTickers;
-            model.ObjectUser =await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
+            model.ObjectUser = await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
             Config cf = new Config();
             cf = cms_db.GetConfig();
-           this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
+            this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
 
             return View(model);
         }
@@ -188,7 +193,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())))
+                if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     long UID = long.Parse(User.Identity.GetUserId());
                     ContentItemViewModels model = new ContentItemViewModels();
