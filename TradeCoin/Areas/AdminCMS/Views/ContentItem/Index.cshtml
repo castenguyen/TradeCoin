@@ -93,47 +93,41 @@
                                 <th>Ngày tạo</th>
                                 <th>Người tạo</th>
                                 <th>Thuộc</th>
+                                <th>Package</th>
                                 <th>Trạng thái</th>
                                 <th width="20%">Action</th>
                             </tr>
                             @{
                                 foreach (ContentItem _val in Model.lstMainContent)
                                 {
-                                    <tr>
-                                        <td>@_val.ContentItemId</td>
-                                        <td><a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })">@_val.ContentTitle</a></td>
-                                        <td>@_val.CrtdDT</td>
-                                        <td>@_val.CrtdUserName</td>
-                                        <td>@_val.CategoryName</td>
-                                        <td>@_val.StateName</td>
-                                        <td>
-                                            @if (_val.StateId == (int)EnumCore.StateType.cho_phep)
-                                            {
-                                                <a href="@Url.Action("ChangeState", "ContentItem", new { id = _val.ContentItemId, state = (int)EnumCore.StateType.khong_cho_phep, ObjType=(int)EnumCore.ObjTypeId.tin_tuc })" class="btn bg-navy">Disable</a>
-                                            }
-                                            @if (_val.StateId == (int)EnumCore.StateType.khong_cho_phep)
-                                            {
-                                                <a href="@Url.Action("ChangeState", "ContentItem", new { id = _val.ContentItemId, state = (int)EnumCore.StateType.cho_phep, ObjType = (int)EnumCore.ObjTypeId.tin_tuc })" class="btn bg-olive btn-flat">Enable</a>
-                                            }
+                            <tr>
+                                <td>@_val.ContentItemId</td>
+                                <td><a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })">@_val.ContentTitle</a></td>
+                                <td>@_val.CrtdDT</td>
+                                <td>@_val.CrtdUserName</td>
+                                <td>@_val.CategoryName</td>
+                                <td>@_val.CateMicrositeName</td>
+                                <td>@_val.StateName</td>
+                                <td>
+                                    @if (_val.StateId == (int)EnumCore.StateType.cho_phep)
+        {
+                            <a href="@Url.Action("ChangeState", "ContentItem", new { id = _val.ContentItemId, state = (int)EnumCore.StateType.khong_cho_phep, ObjType=(int)EnumCore.ObjTypeId.tin_tuc })" class="btn bg-navy">Disable</a>
+}
+                                    @if (_val.StateId == (int)EnumCore.StateType.khong_cho_phep)
+        {
+                            <a href="@Url.Action("ChangeState", "ContentItem", new { id = _val.ContentItemId, state = (int)EnumCore.StateType.cho_phep, ObjType = (int)EnumCore.ObjTypeId.tin_tuc })" class="btn bg-olive btn-flat">Enable</a>
+}
 
-                                            | <a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })" class="btn bg-maroon btn-flat">Edit</a>
-                                            | <a href="@Url.Action("Delete", "ContentItem", new { id = _val.ContentItemId })" onclick="return confirm('Bạn chắc chắn muốn xoá ?');" class="btn bg-maroon btn-flat">Delete</a>
-                                        </td>
-                                    </tr>
+                                    | <a href="@Url.Action("Edit", "ContentItem", new { id = _val.ContentItemId })" class="btn bg-maroon btn-flat">Edit</a>
+                                    | <a href="@Url.Action("Delete", "ContentItem", new { id = _val.ContentItemId })" onclick="return confirm('Bạn chắc chắn muốn xoá ?');" class="btn bg-maroon btn-flat">Delete</a>
+                                </td>
+                            </tr>
                                 }
                             }
                         </tbody>
                     </table>
                 </div><!-- /.box-body -->
-                @*<div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">«</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
-                    </div>*@
+                
                 <div class="box-footer clearfix">
                     @if (Model.lstMainContent.PageCount > 1)
                     {

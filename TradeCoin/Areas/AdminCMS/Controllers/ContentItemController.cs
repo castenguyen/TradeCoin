@@ -43,7 +43,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 pageNum = 1;
             model.pageNum = pageNum;
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-           
+
+            foreach (ContentItem _val in model.lstMainContent)
+            {
+                List<ContentPackage> lstNewsContentPackage=  cms_db.GetlstObjContentPackage(_val.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                foreach (ContentPackage item in lstNewsContentPackage)
+                {
+                    _val.CateMicrositeName = _val.CateMicrositeName + " - " +item.PackageName;
+                }
+             }
 
 
             model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
