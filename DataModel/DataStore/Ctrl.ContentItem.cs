@@ -267,9 +267,9 @@ namespace DataModel.DataStore
                                   select ci.ContentItemId).ToArray();
 
             IQueryable<MiniContentItemViewModel> rs = from ci in db.ContentItems
-                                                      join cv in db.ContentViews on ci.ContentItemId equals cv.ContentId
+                                                      from cv in db.ContentViews
+                                                      where (ci.ContentItemId == cv.ContentId)
                                                       where lstContentItems.Contains(ci.ContentItemId)
-
                                                       select (new MiniContentItemViewModel
                                                       {
                                                           ContentItemId = ci.ContentItemId,
@@ -288,7 +288,7 @@ namespace DataModel.DataStore
                                                           CrtdDT = ci.CrtdDT,
                                                           StateId = ci.StateId,
                                                           StateName = ci.StateName,
-                                                          MicrositeID = cv.ContentId
+                                                          MicrositeID = (cv.ContentId>0) ?  1: 0
                                                       });
 
 
