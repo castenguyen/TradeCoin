@@ -152,6 +152,22 @@ namespace DataModel.DataViewModel
             set { _MainObj.Flag = value; }
         }
 
+
+        public Nullable<double> Profit
+        {
+            get { return _MainObj.Profit; }
+            set { _MainObj.Profit = value; }
+        }
+        public Nullable<double> Deficit
+        {
+            get { return _MainObj.Deficit; }
+            set { _MainObj.Deficit = value; }
+        }
+        public Nullable<int> tmp
+        {
+            get { return _MainObj.tmp; }
+            set { _MainObj.tmp = value; }
+        }
         public List<SelectListObj> lstPackage { get; set; }
         [Display(Name = "Hình đại diện")]
         public long ImgdefaultId { get; set; }

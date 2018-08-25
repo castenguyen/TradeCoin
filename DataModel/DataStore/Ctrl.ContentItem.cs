@@ -297,7 +297,13 @@ namespace DataModel.DataStore
             return rs.Distinct();
         }
 
-
+        /// <summary>
+        /// Kiem tra thu xem user co xem dc bà viết hay ko
+        /// kiem tra gói package cua tin tức và package của user
+        /// </summary>
+        /// <param name="ContentItemId"></param>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
         public bool CheckContentItemUerPackage(long ContentItemId,long UserId)
         {
             long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();

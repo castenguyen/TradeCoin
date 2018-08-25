@@ -100,22 +100,74 @@ namespace DataModel.DataStore
 
         public IQueryable<Ticker> GetTickerByUserLinq(long UserId)
         {
-
+            ///lấy package id của user
             long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
 
-            long[] lstpackageid = (from pa in db.Packages where pa.PackageId < packageiduser select pa.PackageId).ToArray();
+            //lấy gói package mà user có thể xem được
+            long[] lstpackageid = (from pa in db.Packages where pa.PackageId <= packageiduser select pa.PackageId).ToArray();
 
+            //lấy danh sách id của ticker thuoc gói cước bên trên
             long[] lstTickerid = (from tk in db.Tickers
 
                                       join cp in db.ContentPackages on tk.TickerId equals cp.ContentId
 
-                                      where cp.ContentType == (int)EnumCore.ObjTypeId.ticker && tk.StateId == (int)EnumCore.TickerStatusType.dang_chay && lstpackageid.Contains(cp.PackageId)
+                                      where cp.ContentType == (int)EnumCore.ObjTypeId.ticker && tk.StateId == (int)EnumCore.TickerStatusType.dang_chay 
+                                        
+                                      && lstpackageid.Contains(cp.PackageId)
+                                      //twánh trùng lặp
+                                      select tk.TickerId).Distinct().ToArray();
 
-                                      select tk.TickerId).ToArray();
 
-            IQueryable<Ticker> rs = from tk in db.Tickers where lstTickerid.Contains(tk.TickerId) select tk;
+            IQueryable<Ticker> rs = from tk in db.Tickers
+                                    from cv in db.ContentViews
+                                        ///co the sai khúc này  where tk.TickerId == cv.ContentId && co thể phải xem lại
+                                    where tk.TickerId == cv.ContentId &&  lstTickerid.Contains(tk.TickerId)
+                                    select (new Ticker
+                                    {
+                                           TickerId =tk.TickerId,
+                                        TickerName = tk.TickerName,
+                                        BuyZone1 = tk.BuyZone1,
+                                        SellZone1 = tk.SellZone1,
+                                        SellZone2 = tk.SellZone2,
+                                        SellZone3 = tk.SellZone3,
+                                        BTCInput = tk.BTCInput,
+                                        DeficitControl = tk.DeficitControl,
+                                        Description = tk.Description,
+                                        CrtdUserName = tk.CrtdUserName,
+                                        CrtdUserId = tk.CrtdUserId,
+                                        CrtdDT = tk.CrtdDT,
+                                        AprvdUserName = tk.AprvdUserName,
+                                        AprvdUID = tk.AprvdUID,
+                                        AprvdDT = tk.AprvdDT,
+                                        StateName = tk.StateName,
+                                        StateId = tk.StateId,
+                                        MediaUrl = tk.MediaUrl,
+                                        MediaThumb = tk.MediaThumb,
+                                        Flag = tk.Flag,
+                                        Profit = tk.Profit,
+                                        Deficit = tk.Profit,
+                                        tmp = (cv.ContentId > 0) ? 1 : 0
+                                      
+                                    });
+            return rs.Distinct();
+        }
 
-            return rs;
+
+
+        public bool CheckTickerUserPackage(long TickerId, long UserId)
+        {
+            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long[] lstContentItemsPackage = (from pa in db.ContentPackages
+                                             where pa.ContentType == (int)EnumCore.ObjTypeId.ticker && pa.ContentId == TickerId
+                                             select pa.PackageId).ToArray();
+            foreach (long _val in lstContentItemsPackage)
+            {
+                if (packageiduser >= _val)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

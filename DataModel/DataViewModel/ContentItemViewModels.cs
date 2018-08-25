@@ -333,6 +333,8 @@ namespace DataModel.DataViewModel
         public string StateName { get; set; }
         public Nullable<long> MicrositeID { get; set; }
 
+        public List<ContentPackage> lstContentPackage { get; set; }
+
     }
 
 
