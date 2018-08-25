@@ -125,8 +125,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult ListNews(int? page, int? catalogry, int? state)
         {
             int pageNum = (page ?? 1);
-            ContentItemIndexViewModel model = new ContentItemIndexViewModel();
-            IQueryable<ContentItem> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()));
+            ContentItemMemberViewModel model = new ContentItemMemberViewModel();
+            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()));
             if (catalogry.HasValue && catalogry.Value != 0)
             {
                 tmp = tmp.Where(s => s.CategoryId == catalogry);
@@ -141,7 +141,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-            model.lstTicker = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa).Take(10).ToList();
+            model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home).ToList();
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
             model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);

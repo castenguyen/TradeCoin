@@ -4,7 +4,7 @@
 @using DataModel.Extension;
 @using PagedList;
 @using PagedList.Mvc;
-@model ContentItemIndexViewModel
+@model ContentItemMemberViewModel
 @{
     ViewBag.Title = "ListNews";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -24,8 +24,32 @@
 <section class="content">
     <div class="row">
 
-        <div class="col-md-8">
 
+
+        <div class="col-md-2">
+
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh Mục</h3>
+                    <div class="box-tools">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                 
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        @{
+                    foreach (SelectListObj _val in Model.lstContentCatalogry)
+                    {
+                        <li><a href="@Url.Action("ListNews", "Member", new { catalogry =_val.value })"> @_val.text </a></li>
+                      }
+                        }
+                    </ul>
+                </div>
+            </div><!-- /. box -->
+
+        </div>
+        <div class="col-md-7">
 
             <div class="box box-widget">
                 <div class="box-header with-border">
@@ -34,7 +58,7 @@
                 <div class='box-body'>
 
 
-                    @foreach (ContentItem _val in Model.lstMainContent)
+                    @foreach (MiniContentItemViewModel _val in Model.lstMainContent)
                     {
                         <div class="attachment-block clearfix">
                             <img class="attachment-img" src="~/@_val.MediaThumb" alt="attachment image">
@@ -46,7 +70,7 @@
                                 <div class='user-block pull-right'>
                                     <span class='username'><a href="@Url.Action("DetailNews", "Member",new { NewId =_val.ContentItemId })">@_val.CategoryName</a></span>
                                     <span class='description'> @_val.CrtdUserName -  @_val.CrtdDT</span>
-                                    @if (_val.MicrositeID == 1)
+                                    @if (_val.MicrositeID >0)
     {
                                 <span class='badge bg-green'> Đã xem</span>
 }
@@ -66,7 +90,8 @@
                 </div>
             </div><!-- /.box -->
         </div>
-        <div class="col-md-4">
+
+        <div class="col-md-3">
             <div class="box box-widget">
                 <div class="box-header with-border">
                     <h3 class="box-title">Danh sách Kèo</h3>

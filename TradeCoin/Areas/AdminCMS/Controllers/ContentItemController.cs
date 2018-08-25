@@ -43,6 +43,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 pageNum = 1;
             model.pageNum = pageNum;
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+           
+
+
             model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
             model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);
             return View(model);
