@@ -26,7 +26,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             int pageNum = (page ?? 1);
             TickerAdminViewModel model = new TickerAdminViewModel();
             IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
-
             if (TickerStatus.HasValue)
             {
                 tmp = tmp.Where(s => s.StateId == TickerStatus);
@@ -35,7 +34,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             if (TickerPackage.HasValue && TickerPackage.Value != 0)
             {
-               // tmp = tmp.Where(s => s.StateId == Pakage);
+                foreach (Ticker _val in tmp)
+                {
+                  
+                    List<ContentPackage> lstpackageofticker= cms_db.GetlstObjContentPackage(_val.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                    if (!lstpackageofticker.Select(s => s.PackageId).Contains(TickerPackage.Value))
+                    {
+                        tmp = tmp.Where(s=>s.TickerId!= _val.TickerId);
+                    }
+                  
+
+                }
+
                 model.TickerPackage = TickerPackage.Value;
             }
 
@@ -47,10 +57,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-            model.lstMainTicker = tmp.OrderByDescending(c => c.TickerId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            List<TickerViewModel> prelistmain = new List<TickerViewModel>();
+            foreach (Ticker _val in tmp)
+            {
+                TickerViewModel abc = new TickerViewModel(_val);
+                abc.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_val.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                prelistmain.Add(abc);
+
+            }
+            model.lstMainTickerViewModel = prelistmain.ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text"); 
-
             return View(model);
         }
 
@@ -185,6 +203,29 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
                         MainModel.StateName = "Enable";
                         MainModel.Flag = model.Flag;
+                        if (model.Flag.HasValue)
+                        {
+                            if (model.Flag.Value == 1)
+                            {
+                                MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone1.Value,MainModel.BTCInput.Value);
+                                MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            }
+                            else if (model.Flag.Value == 2)
+                            {
+                                MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.BTCInput.Value);
+                                MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            }
+                            else if (model.Flag.Value == 3)
+                            {
+                                MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.BTCInput.Value);
+                                MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            }
+                            else if (model.Flag.Value == 4)
+                            {
+                                MainModel.Deficit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
+                                MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            }
+                        }
                         int rs = await cms_db.UpdateTicker(MainModel);
                         if (Default_files != null)
                         {
@@ -204,6 +245,30 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("Index");
             }
         }
+        /// <summary>
+        /// tinh toan so lieu cho kèo sau khi cập nhật
+        /// numbuy là giá mua
+        /// input là giá bán có thể là lỗ hoặc lời
+        /// </summary>
+        /// <param name="FlagZone"></param>
+        /// <param name="numbuy"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private double SumTicker(int FlagZone, double numbuy ,double input,double btc)
+        {
+            double result = 0;
+            if (FlagZone == 1 || FlagZone == 2 || FlagZone == 3)
+            {
+                result = input / numbuy * 100 * btc;
+            }
+            else if (FlagZone == 4)
+            {
+                result = input / numbuy * 100 * btc;
+            }
+            return result;
+        }
+
+
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateTicker")]
         public async Task<ActionResult> ChangeState(long id, int state)
         {

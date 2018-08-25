@@ -63,20 +63,40 @@
                                 <th>Người tạo</th>
                                 <th>Thuộc</th>
                                 <th>Trạng thái</th>
+                                <th>Tình trạng</th>
                                 <th width="20%">Action</th>
                             </tr>
                             @{
-                                foreach (var _val in Model.lstMainTicker)
+                                foreach (var _val in Model.lstMainTickerViewModel)
                                 {
                                     <tr>
                                         <td><a href="#">@_val.TickerName</a></td>
                                         <td>@_val.CrtdDT</td>
                                         <td>@_val.CrtdUserName</td>
-                                        <td>Free - Đêm - Vàng - Kim cương</td>
+                                        <td>
+                                            @foreach (ContentPackage _p in _val.lstTickerContentPackage)
+                                            {
+
+                                                @_p.PackageName <span>-</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (_val.Profit.HasValue)
+                                            {
+                                                <span>Lời - @_val.Profit.Value % </span>
+
+                                            }
+                                            @if (_val.Deficit.HasValue)
+                                            {
+                                                <span>Lỗ - @_val.Profit.Value % </span>
+
+                                            }
+                                        </td>
+
                                         <td>@_val.StateName</td>
                                         <td>
-                                        
-                                           <a href="@Url.Action("Update", "TickerManager", new { id = _val.TickerId })">Chỉnh sửa</a>
+
+                                            <a href="@Url.Action("Update", "TickerManager", new { id = _val.TickerId })">Chỉnh sửa</a>
                                             | <a href="#">Delete</a>
                                         </td>
                                     </tr>
@@ -87,9 +107,9 @@
                     </table>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    @if (Model.lstMainTicker.PageCount > 1)
+                    @if (Model.lstMainTickerViewModel.PageCount > 1)
                     {
-                        @Html.PagedListPager(Model.lstMainTicker, page => Url.Action("Index", new
+                        @Html.PagedListPager(Model.lstMainTickerViewModel, page => Url.Action("Index", new
                         {
                             page,
                             TickerStatus = Model.TickerStatus,
