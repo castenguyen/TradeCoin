@@ -36,5 +36,7 @@ namespace DataModel.DataEntity
         public Nullable<long> ContentObjId { get; set; }
         public string ContentObjName { get; set; }
         public string LinkHref { get; set; }
+        public Nullable<int> StatusId { get; set; }
+        public string StatusName { get; set; }
     }
 }

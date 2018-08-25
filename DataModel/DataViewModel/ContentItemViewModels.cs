@@ -295,6 +295,29 @@ namespace DataModel.DataViewModel
 
     }
 
+    public class MiniContentItemViewModel
+    {
+        public long ContentItemId { get; set; }
+        public Nullable<int> ObjTypeId { get; set; }
+        public Nullable<int> CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string ContentText { get; set; }
+        public string ContentTitle { get; set; }
+        public string ContentExcerpt { get; set; }
+        public string MetadataDesc { get; set; }
+        public string MetadataKeyword { get; set; }
+        public string MediaUrl { get; set; }
+        public string MediaThumb { get; set; }
+        public string CrtdUserName { get; set; }
+        public Nullable<long> CrtdUserId { get; set; }
+        public Nullable<System.DateTime> CrtdDT { get; set; }
+        public Nullable<long> StateId { get; set; }
+        public string StateName { get; set; }
+        public Nullable<long> MicrositeID { get; set; }
+
+    }
 
 
 }
+
+

@@ -227,6 +227,8 @@
           <Property Name="StateId" Type="bigint" />
           <Property Name="EmailTypeId" Type="bigint" />
           <Property Name="EmailTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateName2" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId2" Type="bigint" />
         </EntityType>
         <EntityType Name="ExceptionLogs">
           <Key>
@@ -282,6 +284,8 @@
           <Property Name="ContentObjId" Type="bigint" />
           <Property Name="ContentObjName" Type="nvarchar" MaxLength="500" />
           <Property Name="LinkHref" Type="nvarchar" MaxLength="500" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MicroClassification">
           <Key>
@@ -1300,6 +1304,8 @@
           <Property Name="ContentObjId" Type="Int64" />
           <Property Name="ContentObjName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="LinkHref" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Microsite">
           <Key>
@@ -2128,6 +2134,8 @@
           <Property Name="StateId" Type="Int64" />
           <Property Name="EmailTypeId" Type="Int64" />
           <Property Name="EmailTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateName2" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId2" Type="Int64" />
         </EntityType>
         <EntityType Name="Ticker">
           <Key>
@@ -2570,6 +2578,8 @@
           <EntitySetMapping Name="MediaContents">
             <EntityTypeMapping TypeName="alluneedbModel.MediaContent">
               <MappingFragment StoreEntitySet="MediaContent">
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="LinkHref" ColumnName="LinkHref" />
                 <ScalarProperty Name="MediaContentId" ColumnName="MediaContentId" />
                 <ScalarProperty Name="MediaContentGuidId" ColumnName="MediaContentGuidId" />
@@ -3070,6 +3080,8 @@
           <EntitySetMapping Name="EmailSupports">
             <EntityTypeMapping TypeName="alluneedbModel.EmailSupport">
               <MappingFragment StoreEntitySet="EmailSupport">
+                <ScalarProperty Name="StateId2" ColumnName="StateId2" />
+                <ScalarProperty Name="StateName2" ColumnName="StateName2" />
                 <ScalarProperty Name="EmailTypeName" ColumnName="EmailTypeName" />
                 <ScalarProperty Name="EmailTypeId" ColumnName="EmailTypeId" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />

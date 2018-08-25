@@ -76,7 +76,11 @@ namespace DataModel.DataStore
             return lstContentView;
         }
 
-
+        public ContentView GetObjContentView(long ContentId, int Type,long UserID)
+        {
+            ContentView lstContentView = db.ContentViews.Where(s => s.ContentId == ContentId && s.ContentType == Type && s.UserId== UserID).FirstOrDefault();
+            return lstContentView;
+        }
 
 
 

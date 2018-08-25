@@ -222,6 +222,8 @@
     <Property Name="StateId" Type="bigint" />
     <Property Name="EmailTypeId" Type="bigint" />
     <Property Name="EmailTypeName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateName2" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId2" Type="bigint" />
   </EntityType>
   <EntityType Name="ExceptionLogs">
     <Key>
@@ -277,6 +279,8 @@
     <Property Name="ContentObjId" Type="bigint" />
     <Property Name="ContentObjName" Type="nvarchar" MaxLength="500" />
     <Property Name="LinkHref" Type="nvarchar" MaxLength="500" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="MicroClassification">
     <Key>

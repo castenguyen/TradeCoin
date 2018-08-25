@@ -46,6 +46,10 @@
                                 <div class='user-block pull-right'>
                                     <span class='username'><a href="@Url.Action("DetailNews", "Member",new { NewId =_val.ContentItemId })">@_val.CategoryName</a></span>
                                     <span class='description'> @_val.CrtdUserName -  @_val.CrtdDT</span>
+                                    @if (_val.MicrositeID == 1)
+    {
+                                <span class='badge bg-green'> Đã xem</span>
+}
                                 </div><!-- /.user-block -->
                             </div><!-- /.attachment-pushed -->
                         </div><!-- /.attachment-block -->

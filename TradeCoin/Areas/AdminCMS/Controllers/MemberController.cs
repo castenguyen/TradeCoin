@@ -71,7 +71,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
-            IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
+            IQueryable<Ticker> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()));
 
             if (TickerStatus.HasValue)
             {
@@ -126,7 +126,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             int pageNum = (page ?? 1);
             ContentItemIndexViewModel model = new ContentItemIndexViewModel();
-            IQueryable<ContentItem> tmp = cms_db.GetlstContentItem().Where(s => (s.MicrositeID == null || s.MicrositeID == 0) && s.StateId != (int)EnumCore.StateType.da_xoa && s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc);
+            IQueryable<ContentItem> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()));
             if (catalogry.HasValue && catalogry.Value != 0)
             {
                 tmp = tmp.Where(s => s.CategoryId == catalogry);
@@ -155,14 +155,41 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult DetailNews(long id)
         {
-            ContentItemViewModels model = new ContentItemViewModels();
-            ContentItem mainObj = cms_db.GetObjContentItemById(id);
-            model._MainObj = mainObj;
-            model.lstSameNews = cms_db.GetlstContentItemByCataId(mainObj.CategoryId.Value,10);
-
-
-            return View(model);
-       
+            try
+            {
+                if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())))
+                {
+                    long UID = long.Parse(User.Identity.GetUserId());
+                    ContentItemViewModels model = new ContentItemViewModels();
+                    ContentItem mainObj = cms_db.GetObjContentItemById(id);
+                    model._MainObj = mainObj;
+                    model.lstSameNews = cms_db.GetContentItemByUserLinq(UID).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
+                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UID);
+                    if (ck == null)
+                    {
+                        ContentView tmp = new ContentView();
+                        tmp.UserId = UID;
+                        tmp.UserName = User.Identity.GetUserName();
+                        tmp.ContentId = id;
+                        tmp.ContentType = (int)EnumCore.ObjTypeId.tin_tuc;
+                        tmp.ContentName = mainObj.ContentTitle;
+                        cms_db.CreateContentView(tmp);
+                    }
+                 
+                    return View(model);
+                }
+                else
+                {
+                    string AlertString = "Nội dung xem không khả dụng";
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+                }
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("DetailNews", "MemberDashBoard", e.ToString());
+                string AlertString = "Nội dung xem không khả dụng";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+            }
         }
 
 
@@ -171,7 +198,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             int pageNum = (page ?? 1);
             MediaMemberViewModel model = new MediaMemberViewModel();
-            IQueryable<MediaContent> tmp = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId != (int)EnumCore.ObjTypeId.video && s.ObjTypeId== (int)EnumCore.ObjTypeId.video);
+            IQueryable<MediaContent> tmp = cms_db.GetMediaByUserLinq(long.Parse(User.Identity.GetUserId()));
 
             //if (MediaStatus.HasValue)
             //{

@@ -251,8 +251,39 @@ namespace DataModel.DataStore
             return lstContentItem;
         }
 
-        
+        public IQueryable<ContentItem> GetContentItemByUserLinq(long UserId)
+        {
 
+            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+
+            long[] lstpackageid = (from pa in db.Packages where pa.PackageId < packageiduser select pa.PackageId).ToArray();
+
+           long[] lstContentItems = (from ci in db.ContentItems
+
+                                   join cp in db.ContentPackages on ci.ContentItemId equals cp.ContentId
+
+                                   where cp.ContentType== 6011 && ci.StateId != 6148 && lstpackageid.Contains(cp.PackageId)
+
+                                  select ci.ContentItemId).ToArray();
+
+            IQueryable<ContentItem> rs = from ci in db.ContentItems where lstContentItems.Contains(ci.ContentItemId) select ci;
+
+            return rs;
+        }
+
+
+        public bool CheckContentItemUerPackage(long ContentItemId,long UserId)
+        {
+            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long[] lstContentItemsPackage = (from pa in db.ContentPackages where pa.ContentType == (int)EnumCore.ObjTypeId.tin_tuc && pa.ContentId == ContentItemId
+                                             select pa.PackageId).ToArray();
+            foreach (long _val in lstContentItemsPackage)
+            {
+                if(_val < packageiduser)
+                return true;
+            }
+            return false;
+        }
 
         #endregion Stop BackEnd
     }

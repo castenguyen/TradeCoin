@@ -545,6 +545,27 @@ namespace DataModel.DataStore
         }
 
 
+
+        public IQueryable<MediaContent> GetMediaByUserLinq(long UserId)
+        {
+
+            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+
+            long[] lstpackageid = (from pa in db.Packages where pa.PackageId < packageiduser select pa.PackageId).ToArray();
+
+            long[] lstMediaid = (from me in db.MediaContents
+
+                                  join cp in db.ContentPackages on me.MediaContentId equals cp.ContentId
+
+                                  where cp.ContentType == (int)EnumCore.ObjTypeId.video && me.MediaTypeId == (int)EnumCore.ObjTypeId.video && me.StatusId != (int)EnumCore.TickerStatusType.da_xoa && lstpackageid.Contains(cp.PackageId)
+
+                                  select me.MediaContentId).ToArray();
+
+            IQueryable<MediaContent> rs = from me in db.MediaContents where lstMediaid.Contains(me.MediaContentId) select me;
+
+            return rs;
+        }
+
         #endregion FrontEND
 
     }

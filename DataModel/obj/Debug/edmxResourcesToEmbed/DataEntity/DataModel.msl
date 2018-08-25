@@ -172,6 +172,8 @@
     <EntitySetMapping Name="MediaContents">
       <EntityTypeMapping TypeName="alluneedbModel.MediaContent">
         <MappingFragment StoreEntitySet="MediaContent">
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
           <ScalarProperty Name="LinkHref" ColumnName="LinkHref" />
           <ScalarProperty Name="MediaContentId" ColumnName="MediaContentId" />
           <ScalarProperty Name="MediaContentGuidId" ColumnName="MediaContentGuidId" />
@@ -672,6 +674,8 @@
     <EntitySetMapping Name="EmailSupports">
       <EntityTypeMapping TypeName="alluneedbModel.EmailSupport">
         <MappingFragment StoreEntitySet="EmailSupport">
+          <ScalarProperty Name="StateId2" ColumnName="StateId2" />
+          <ScalarProperty Name="StateName2" ColumnName="StateName2" />
           <ScalarProperty Name="EmailTypeName" ColumnName="EmailTypeName" />
           <ScalarProperty Name="EmailTypeId" ColumnName="EmailTypeId" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />

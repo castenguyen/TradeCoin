@@ -37,7 +37,7 @@
                             <b>Ngày hết hạn</b> <a class="pull-right">@Model.ObjectUser.ExpiredDay</a>
                         </li>
                     </ul>
-                
+
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
             <!-- About Me Box -->
@@ -69,7 +69,7 @@
 
                                     </h4>
                                     <div class="attachment-text">
-                                      @Html.Raw(_val.Description)   <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">Chi tiết</a>
+                                        @Html.Raw(_val.Description)   <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">Chi tiết</a>
                                     </div><!-- /.attachment-text -->
                                     <div class='user-block pull-right'>
 
@@ -116,6 +116,11 @@
                                     <div class='user-block pull-right'>
 
                                         <span class='description'> @_val.CrtdUserName - @_val.CrtdDT</span>
+                                        @if (_val.MicrositeID == 1)
+                                        {
+                                            <span class='badge bg-green'> Đã xem</span>
+                                        }
+
                                     </div><!-- /.user-block -->
                                 </div><!-- /.attachment-pushed -->
                             </div><!-- /.attachment-block -->

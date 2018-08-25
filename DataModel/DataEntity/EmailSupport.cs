@@ -32,5 +32,7 @@ namespace DataModel.DataEntity
         public Nullable<long> StateId { get; set; }
         public Nullable<long> EmailTypeId { get; set; }
         public string EmailTypeName { get; set; }
+        public string StateName2 { get; set; }
+        public Nullable<long> StateId2 { get; set; }
     }
 }

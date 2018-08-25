@@ -59,6 +59,13 @@
                                 <img class='img-circle' src='~/@_item.MediaThumb' alt='user image'>
                                 <span class='username'><a href="#">@_item.ContentTitle</a></span>
                                 <span class='description'>@_item.CrtdUserId - @_item.CrtdDT</span>
+
+                                @if (_item.MicrositeID!=null)
+    {
+                            <span class='description'>Đã Xem </span>
+
+}
+
                             </div><!-- /.user-block -->
                         </div><!-- /.box-header -->
 
