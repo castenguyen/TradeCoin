@@ -264,12 +264,12 @@ namespace DataModel.DataStore
 
                                    where cp.ContentType== 6011 && ci.StateId != 6148 && lstpackageid.Contains(cp.PackageId)
 
-                                  select ci.ContentItemId).ToArray();
+                                  select ci.ContentItemId).Distinct().ToArray();
 
             IQueryable<MiniContentItemViewModel> rs = from ci in db.ContentItems
                                                       from cv in db.ContentViews
-                                                      where (ci.ContentItemId == cv.ContentId)
-                                                      where lstContentItems.Contains(ci.ContentItemId)
+                                                      where ci.ContentItemId == cv.ContentId && lstContentItems.Contains(ci.ContentItemId)
+
                                                       select (new MiniContentItemViewModel
                                                       {
                                                           ContentItemId = ci.ContentItemId,
@@ -294,7 +294,7 @@ namespace DataModel.DataStore
 
 
 
-            return rs;
+            return rs.Distinct();
         }
 
 
