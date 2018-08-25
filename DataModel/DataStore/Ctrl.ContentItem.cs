@@ -279,8 +279,10 @@ namespace DataModel.DataStore
                                              select pa.PackageId).ToArray();
             foreach (long _val in lstContentItemsPackage)
             {
-                if(_val < packageiduser)
-                return true;
+                if(packageiduser >= _val )
+                {
+                    return true;
+                }
             }
             return false;
         }
