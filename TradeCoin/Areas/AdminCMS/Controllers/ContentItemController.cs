@@ -75,26 +75,38 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
                 else
                 {
-                    MemberFrontEndViewModel model = new MemberFrontEndViewModel();
-                    List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-                    List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
-                    foreach (ContentItem _val in lstNews)
+                    try
                     {
-                        ContentItemViewModels tmp = new ContentItemViewModels(_val);
-                        tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-                        lstmpNews.Add(tmp);
-                    }
-                    var result = new
-                    {
-                        TotalRows = lstmpNews.Count(),
-                        Rows = lstmpNews.Select(x => new
+                        List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+
+                        MemberFrontEndViewModel model = new MemberFrontEndViewModel();
+                        List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
+                        List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
+                        foreach (ContentItem _val in lstNews)
                         {
-                            CrtdUserName = x.CrtdUserName,
-                            ContentTitle = x.ContentTitle,
-                            ContentItemId = x.ContentItemId
-                        })
-                    };
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                            ContentItemViewModels tmp = new ContentItemViewModels(_val);
+                            tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                            lstmpNews.Add(tmp);
+                        }
+                        var result = new
+                        {
+                            TotalRows = lstNews.Count(),
+                            Rows = lstNews.Select(x => new
+                            {
+                                MicrositeID = x.MicrositeID,
+                                CrtdUserName = x.CrtdUserName,
+                                ContentTitle = x.ContentTitle,
+                                ContentItemId = x.ContentItemId
+                            })
+                        };
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+                    catch (Exception e)
+                    {
+
+                        return Json("", JsonRequestBehavior.AllowGet);
+                    }
+                    
                 }
                
             }
