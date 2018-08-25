@@ -1059,6 +1059,9 @@
     <Property Name="MediaUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="MediaThumb" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Flag" Type="Int32" />
+    <Property Name="Profit" Type="Double" />
+    <Property Name="Deficit" Type="Double" />
+    <Property Name="tmp" Type="Int32" />
   </EntityType>
   <ComplexType Name="ContentItemPagination_Result">
     <Property Type="Int64" Name="ContentItemId" Nullable="false" />

@@ -619,6 +619,9 @@
     <Property Name="MediaUrl" Type="nvarchar" MaxLength="500" />
     <Property Name="MediaThumb" Type="nvarchar" MaxLength="500" />
     <Property Name="Flag" Type="int" />
+    <Property Name="Profit" Type="float" />
+    <Property Name="Deficit" Type="float" />
+    <Property Name="tmp" Type="int" />
   </EntityType>
   <EntityType Name="TransactionHis">
     <Key>

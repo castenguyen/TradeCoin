@@ -186,6 +186,8 @@ namespace DataModel.DataViewModel
     public class TickerAdminViewModel
     {
         public IPagedList<Ticker> lstMainTicker { get; set; }
+
+        public IPagedList<TickerViewModel> lstMainTickerViewModel { get; set; }
         public SelectList lstTickerStatus { get; set; }
         public SelectList lstPackage { get; set; }
 
