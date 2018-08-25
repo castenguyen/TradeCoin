@@ -268,10 +268,13 @@
         coreApp.callAjaxGateway({
             url: 'AdminCMS/ContentItem/ListNotificationNewPost',
             callback: function (data) {
-                $("#NewPost1").text(data.TotalRows);
-                $("#NewPost2").text(data.TotalRows);
-                var host = location.host;
+                var countNew = 0;
                 $.each(data.Rows, function (val, text) {
+                    var newpost = "Đã xem";
+                    if (text.MicrositeID == 0) {
+                        countNew++;
+                        newpost = "New Post"; 
+                    }
                     $('#NewPost').append(`<li>
                                         <a href="/thanh-vien/chi-tiet-bai-viet?id=`+ text.ContentItemId+`">
                                             <div class="pull-left">
@@ -279,12 +282,14 @@
                                             </div>
                                             <h4>
                                                 `+ text.CrtdUserName + `
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                <small><i class="fa fa-clock-o"></i>`+ newpost +`</small>
                                             </h4>
                                             <p>`+ text.ContentTitle + `</p>
                                         </a>
                                     </li>`);
                 });
+                $("#NewPost1").text(countNew);
+                $("#NewPost2").text(countNew);
             }
         });
     }
