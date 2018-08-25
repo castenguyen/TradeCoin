@@ -243,7 +243,7 @@ namespace DataModel.DataViewModel
         public long[] lstTickerPackage { get; set; }
 
         public List<ContentPackage> lstNewsContentPackage { get; set; }
-        public List<ContentItem> lstSameNews { get; set; }
+        public List<MiniContentItemViewModel> lstSameNews { get; set; }
 
     }
 
@@ -294,6 +294,24 @@ namespace DataModel.DataViewModel
         public long Idshop { get; set; }
 
     }
+
+
+    public class ContentItemMemberViewModel
+    {
+        public IPagedList<MiniContentItemViewModel> lstMainContent { get; set; }
+        public List<Ticker> lstTicker { get; set; }
+        public List<SelectListObj> lstContentState { get; set; }
+        public List<SelectListObj> lstContentCatalogry { get; set; }
+
+        public int pageNum { get; set; }
+        public int ContentState { get; set; }
+        public int ContentCatalogry { get; set; }
+
+        public string FriendlyUrlShop { get; set; }
+        public long Idshop { get; set; }
+
+    }
+
 
     public class MiniContentItemViewModel
     {
