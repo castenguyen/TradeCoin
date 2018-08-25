@@ -256,7 +256,7 @@ namespace DataModel.DataStore
 
             long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
 
-            long[] lstpackageid = (from pa in db.Packages where pa.PackageId < packageiduser select pa.PackageId).ToArray();
+            long[] lstpackageid = (from pa in db.Packages where pa.PackageId <= packageiduser select pa.PackageId).ToArray();
 
            long[] lstContentItems = (from ci in db.ContentItems
 
