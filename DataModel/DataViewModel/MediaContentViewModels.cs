@@ -106,6 +106,7 @@ namespace DataModel.DataViewModel
             get { return objMediaContent.AlternativeText; }
             set { objMediaContent.AlternativeText = value; }
         }
+        [AllowHtml]
         public string MediaDesc
         {
             get { return objMediaContent.MediaDesc; }
@@ -244,7 +245,7 @@ namespace DataModel.DataViewModel
             get { return objMediaContent.AlternativeText; }
             set { objMediaContent.AlternativeText = value; }
         }
-
+        [AllowHtml]
         public string MediaDesc
         {
             get { return objMediaContent.MediaDesc; }
@@ -371,6 +372,7 @@ namespace DataModel.DataViewModel
             get { return _MainObj.AlternativeText; }
             set { _MainObj.AlternativeText = value; }
         }
+        [AllowHtml]
         public string MediaDesc
         {
             get { return _MainObj.MediaDesc; }
@@ -496,7 +498,7 @@ namespace DataModel.DataViewModel
             get { return objMediaContent.AlternativeText; }
             set { objMediaContent.AlternativeText = value; }
         }
-
+        [AllowHtml]
         public string MediaDesc
         {
             get { return objMediaContent.MediaDesc; }
