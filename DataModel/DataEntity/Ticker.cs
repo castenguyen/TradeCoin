@@ -34,5 +34,8 @@ namespace DataModel.DataEntity
         public string MediaUrl { get; set; }
         public string MediaThumb { get; set; }
         public Nullable<int> Flag { get; set; }
+        public Nullable<double> Profit { get; set; }
+        public Nullable<double> Deficit { get; set; }
+        public Nullable<int> tmp { get; set; }
     }
 }
