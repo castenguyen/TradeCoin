@@ -251,7 +251,7 @@ namespace DataModel.DataStore
             return lstContentItem;
         }
 
-        public IQueryable<ContentItem> GetContentItemByUserLinq(long UserId)
+        public IQueryable<MiniContentItemViewModel> GetContentItemByUserLinq(long UserId)
         {
 
             long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
@@ -266,7 +266,33 @@ namespace DataModel.DataStore
 
                                   select ci.ContentItemId).ToArray();
 
-            IQueryable<ContentItem> rs = from ci in db.ContentItems where lstContentItems.Contains(ci.ContentItemId) select ci;
+            IQueryable<MiniContentItemViewModel> rs = from ci in db.ContentItems
+                                                      join cv in db.ContentViews on ci.ContentItemId equals cv.ContentId
+                                                      where lstContentItems.Contains(ci.ContentItemId)
+
+                                                      select (new MiniContentItemViewModel
+                                                      {
+                                                          ContentItemId = ci.ContentItemId,
+                                                          ObjTypeId = ci.ObjTypeId,
+                                                          CategoryId = ci.CategoryId,
+                                                          CategoryName = ci.CategoryName,
+                                                          ContentText = ci.ContentText,
+                                                          ContentTitle = ci.ContentTitle,
+                                                          ContentExcerpt = ci.ContentExcerpt,
+                                                          MetadataDesc = ci.MetadataDesc,
+                                                          MetadataKeyword = ci.MetadataKeyword,
+                                                          MediaUrl = ci.MediaUrl,
+                                                          MediaThumb = ci.MediaThumb,
+                                                          CrtdUserName = ci.CrtdUserName,
+                                                          CrtdUserId = ci.ContentItemId,
+                                                          CrtdDT = ci.CrtdDT,
+                                                          StateId = ci.StateId,
+                                                          StateName = ci.StateName,
+                                                          MicrositeID = cv.ContentId
+                                                      });
+
+
+
 
             return rs;
         }
