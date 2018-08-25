@@ -42,7 +42,8 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewEmail"></ul>
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="@Url.Action("Index", "EmailManager", new { area = "AdminCMS" })">See all email</a></li>
+
                         </ul>
                     </li>
 
@@ -57,7 +58,14 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewPost"></ul>
                             </li>
-                            <li class="footer"><a href="#">See All post</a></li>
+                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                            {
+                                <li class="footer"><a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })">See all post</a></li>
+                            }
+                            else
+                            {
+                                <li class="footer"><a href="@Url.Action("ListNews", "Member", new { area = "AdminCMS" })">See all post</a></li>
+                            }
                         </ul>
                     </li>
 
@@ -72,10 +80,16 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewKeo"></ul>
                             </li>
-                            <li class="footer"><a href="#">See All keo</a></li>
+                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                            {
+                                <li class="footer"><a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })">See All keo</a></li>
+                            }
+                            else
+                            {
+                                <li class="footer"><a href="@Url.Action("ListTicker", "Member", new { area = "AdminCMS" })">See All keo</a></li>
+                            }
                         </ul>
                     </li>
-
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-youtube-play"></i>
@@ -87,9 +101,18 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewVideo"></ul>
                             </li>
-                            <li class="footer"><a href="#">See All video</a></li>
+                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                            {
+                                <li class="footer"><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })">See All keo</a></li>
+                            }
+                            else
+                            {
+                                <li class="footer"><a href="@Url.Action("ListVideo", "Member", new { area = "AdminCMS" })">See All keo</a></li>
+                            }
+                            
                         </ul>
                     </li>
+                    
 
                     <!-- Notifications: style can be found in dropdown.less -->
                 
@@ -225,7 +248,7 @@
                 $("#NewEmail2").text(data.length);
                 $.each(data, function (val, text) {
                     $('#NewEmail').append(`<li>
-                                        <a href="#">
+                                        <a href="/chi-tiet-thu?emailId=`+ text.EmailId +`">
                                             <div class="pull-left">
                                                 <img src="" class="img-circle" alt="User Image">
                                             </div>
@@ -247,9 +270,10 @@
             callback: function (data) {
                 $("#NewPost1").text(data.TotalRows);
                 $("#NewPost2").text(data.TotalRows);
+                var host = location.host;
                 $.each(data.Rows, function (val, text) {
                     $('#NewPost').append(`<li>
-                                        <a href="EditContentItem/`+ text.ContentItemId+`">
+                                        <a href="/thanh-vien/chi-tiet-bai-viet?id=`+ text.ContentItemId+`">
                                             <div class="pull-left">
                                                 <img src="" class="img-circle" alt="User Image">
                                             </div>
@@ -273,7 +297,7 @@
                 $("#NewKeo2").text(data.TotalRows);
                 $.each(data.Rows, function (val, text) {
                     $('#NewKeo').append(`<li>
-                                        <a href="#">
+                                        <a href="/thanh-vien/chi-tiet-keo?tickerId=`+ text.TickerId+`">
                                             <div class="pull-left">
                                                 <img src="" class="img-circle" alt="User Image">
                                             </div>
@@ -297,7 +321,7 @@
                 $("#NewVideo2").text(data.TotalRows);
                 $.each(data.Rows, function (val, text) {
                     $('#NewVideo').append(`<li>
-                                        <a href="#">
+                                        <a href="/administrator/EditVideoMedia/`+ text.MediaContentId+`">
                                             <div class="pull-left">
                                                 <img src="" class="img-circle" alt="User Image">
                                             </div>

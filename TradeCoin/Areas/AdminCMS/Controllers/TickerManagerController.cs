@@ -58,20 +58,46 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                TickerAdminViewModel model = new TickerAdminViewModel();
-                IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
-                model.lstMainTicker = tmp.OrderByDescending(c => c.TickerId).ToPagedList(1, 20);
-
-                var result = new
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    TotalRows = model.lstMainTicker.Count(),
-                    Rows = model.lstMainTicker.Select(x => new
+                    TickerAdminViewModel model = new TickerAdminViewModel();
+                    IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
+                    model.lstMainTicker = tmp.OrderByDescending(c => c.TickerId).ToPagedList(1, 20);
+                    var result = new
                     {
-                        CrtdUserName = x.CrtdUserName,
-                        TickerName = x.TickerName,
-                    })
-                };
-                return Json(result, JsonRequestBehavior.AllowGet);
+                        TotalRows = model.lstMainTicker.Count(),
+                        Rows = model.lstMainTicker.Select(x => new
+                        {
+                            TickerId = x.TickerId,
+                            CrtdUserName = x.CrtdUserName,
+                            TickerName = x.TickerName,
+                        })
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
+
+                    List<Ticker> lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home);
+                    foreach (Ticker _val in lstTicker)
+                    {
+                        TickerViewModel tmp = new TickerViewModel(_val);
+                        tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                        lstmpTickers.Add(tmp);
+                    }
+                    var result = new
+                    {
+                        TotalRows = lstmpTickers.Count(),
+                        Rows = lstmpTickers.Select(x => new
+                        {
+                            TickerId = x.TickerId,
+                            CrtdUserName = x.CrtdUserName,
+                            TickerName = x.TickerName,
+                        })
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {

@@ -96,8 +96,15 @@
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="mailbox-name"><a href="@Url.Action("DetailEmail", "EmailManager", new {emailId=_val.EmailId })">@_val.DestinationName</a></td>
-                                            <td class="mailbox-subject"><b>@_val.EmailName</b> @_val.EmailName</td>
+                                            <td class="mailbox-name"><b>@_val.DestinationName</b></td>
+                                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                                            {
+                                            <td class="mailbox-subject"><a href="@Url.Action("DetailEmail", "EmailManager", new {emailId=_val.EmailId })">@_val.EmailName</a></td>
+                                            }
+                                            else
+                                            {
+                                            <td class="mailbox-subject"><b>@_val.EmailName</b></td>
+                                            }
                                             <td class="mailbox-attachment"></td>
                                             <td class="mailbox-date">@_val.CrtdDT</td>
                                         </tr>

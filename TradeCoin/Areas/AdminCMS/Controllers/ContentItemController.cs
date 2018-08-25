@@ -52,21 +52,48 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                ContentItemIndexViewModel model = new ContentItemIndexViewModel();
-                IQueryable<ContentItem> tmp = cms_db.GetlstContentItem().Where(s => (s.MicrositeID == null || s.MicrositeID == 0) && s.StateId != (int)EnumCore.StateType.da_xoa && s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc);
-                model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(1, 20);
-
-                var result = new
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    TotalRows = model.lstMainContent.Count(),
-                    Rows = model.lstMainContent.Select(x => new
+                    ContentItemIndexViewModel model = new ContentItemIndexViewModel();
+                    IQueryable<ContentItem> tmp = cms_db.GetlstContentItem().Where(s => (s.MicrositeID == null || s.MicrositeID == 0) && s.StateId != (int)EnumCore.StateType.da_xoa && s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc);
+                    model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(1, 20);
+
+                    var result = new
                     {
-                        CrtdUserName = x.CrtdUserName,
-                        ContentTitle = x.ContentTitle,
-                        ContentItemId = x.ContentItemId
-                    })
-                };
-                return Json(result, JsonRequestBehavior.AllowGet);
+                        TotalRows = model.lstMainContent.Count(),
+                        Rows = model.lstMainContent.Select(x => new
+                        {
+                            CrtdUserName = x.CrtdUserName,
+                            ContentTitle = x.ContentTitle,
+                            ContentItemId = x.ContentItemId
+                        })
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    MemberFrontEndViewModel model = new MemberFrontEndViewModel();
+                    List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
+                    List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home);
+                    foreach (ContentItem _val in lstNews)
+                    {
+                        ContentItemViewModels tmp = new ContentItemViewModels(_val);
+                        tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                        lstmpNews.Add(tmp);
+                    }
+                    var result = new
+                    {
+                        TotalRows = lstmpNews.Count(),
+                        Rows = lstmpNews.Select(x => new
+                        {
+                            CrtdUserName = x.CrtdUserName,
+                            ContentTitle = x.ContentTitle,
+                            ContentItemId = x.ContentItemId
+                        })
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+               
             }
             catch (Exception ex)
             {

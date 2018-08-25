@@ -308,6 +308,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     TotalRows = model.Count(),
                     Rows = model.Select(x => new
                     {
+                        MediaContentId = x.MediaContentId,
                         Filename = x.Filename,
                         Caption = x.Caption,
                     })

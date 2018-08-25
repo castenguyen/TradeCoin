@@ -28,8 +28,14 @@
                         <li><a href="#"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
                     </ul>
                 </div><!-- /.box-body -->
+                @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
 
-                <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
+                }
             </div><!-- /.box-body -->
             <div class="box box-solid">
                 <div class="box-header with-border">

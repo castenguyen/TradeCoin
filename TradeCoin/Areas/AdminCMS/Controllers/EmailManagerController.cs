@@ -28,13 +28,24 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             EmailSupportIndexViewModel model = new EmailSupportIndexViewModel();
             model.lstMod = cms_db.GetlstUser().Where(s => s.LstRole.Any(r => r.Name == "Mod")).ToList();
             long IdUser = long.Parse(User.Identity.GetUserId());
-            IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.EmailTypeId
-                         != (int)EnumCore.EmailStatus.da_xoa && (s.CrtdUserId== IdUser || s.DestinationId== IdUser));
-
-            pageNum = 1;
-            model.pageNum = pageNum;
-            model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-            return View(model);
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+                IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.EmailTypeId
+                         != (int)EnumCore.EmailStatus.da_xoa && (s.CrtdUserId != IdUser || s.DestinationId != IdUser));
+                pageNum = 1;
+                model.pageNum = pageNum;
+                model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                return View(model);
+            }
+            else
+            {
+                IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.EmailTypeId
+                         != (int)EnumCore.EmailStatus.da_xoa && (s.CrtdUserId == IdUser || s.DestinationId == IdUser));
+                pageNum = 1;
+                model.pageNum = pageNum;
+                model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                return View(model);
+            }
         }
         public ActionResult GridListBalancesStatement()
         {
