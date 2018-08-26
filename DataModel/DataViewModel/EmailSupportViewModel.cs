@@ -139,9 +139,10 @@ namespace DataModel.DataViewModel
     public class EmailSupportIndexViewModel
     {
      
-        public IPagedList<MiniEmailSupportViewModel> lstEmailSupport { get; set; }
+        public IPagedList<EmailSupport> lstEmailSupport { get; set; }
         public int EmailStatus { get; set; }
         public int pageNum { get; set; }
+        public long[]  lstViewed { get; set; }
     }
 
     public class MiniEmailSupportViewModel

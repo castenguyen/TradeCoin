@@ -314,9 +314,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         string pass = UserManager.PasswordHasher.HashPassword("asdadasdasdsa");
                         UserManager.SetLockoutEnabled(user.Id, false);
                         await this.AddRoleForUser(user.Id, "Member");
-                        user.PackageId = 1;//package =1 la free
+                        user.PackageId = 1;
                         user.PackageName = "Free";
-
                         UserManager.Update(user);
                         string code = UserManager.GenerateEmailConfirmationToken(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "AccountAdmin", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);

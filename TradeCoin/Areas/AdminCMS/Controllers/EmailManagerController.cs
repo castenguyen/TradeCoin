@@ -25,28 +25,58 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,Member")]
         public ActionResult Index(int? page, int? EmailStatus)
         {
-            int pageNum = (page ?? 1);
-            EmailSupportIndexViewModel model = new EmailSupportIndexViewModel();
-            long IdUser = long.Parse(User.Identity.GetUserId());
-            int isAdmin = 0;
-            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-            {
-                isAdmin = 1;
-                IQueryable<MiniEmailSupportViewModel> tmp = cms_db.GetEmailSupportByLinq(isAdmin, IdUser);
-                pageNum = 1;
-                model.pageNum = pageNum;
-                model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-                return View(model);
+            try {
+                int pageNum = (page ?? 1);
+                EmailSupportIndexViewModel model = new EmailSupportIndexViewModel();
+                long IdUser = long.Parse(User.Identity.GetUserId());
+
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+
+                    IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.StateId != (int)EnumCore.EmailStatus.da_xoa && s.ParentId == null);
+                    if (EmailStatus.HasValue)
+                    {
+                        tmp = tmp.Where(s => s.StateId == EmailStatus.Value);
+
+                    }
+
+
+                    //lấy danh sách email daxem cua user
+                    model.lstViewed = cms_db.GetlstContentView().Where(s => s.UserId == IdUser
+                            && s.ContentType == (int)EnumCore.ObjTypeId.emailsupport).Select(s => s.ContentId).ToArray();
+                    pageNum = 1;
+                    model.pageNum = pageNum;
+                    model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                    return View(model);
+                }
+                else
+                {
+
+                    IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.StateId2 != (int)EnumCore.EmailStatus.da_xoa && s.ParentId == null);
+                    if (EmailStatus.HasValue)
+                    {
+                        tmp = tmp.Where(s => s.StateId2 == EmailStatus.Value);
+
+                    }
+                    //lấy danh sách email daxem cua user
+                    model.lstViewed = cms_db.GetlstContentView().Where(s => s.UserId == IdUser
+                           && s.ContentType == (int)EnumCore.ObjTypeId.emailsupport).Select(s => s.ContentId).ToArray();
+                    pageNum = 1;
+                    model.pageNum = pageNum;
+                    model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                    return View(model);
+                }
+
+
             }
-            else
+            catch (Exception e)
             {
-                isAdmin = 0;
-                IQueryable<MiniEmailSupportViewModel> tmp = cms_db.GetEmailSupportByLinq(isAdmin, IdUser);
-                pageNum = 1;
-                model.pageNum = pageNum;
-                model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-                return View(model);
+                cms_db.AddToExceptionLog("CreateNewEmail", "EmailManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                string AlertString = "Nội dung xem không khả dụng";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+
             }
+         
         }
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,Member")]
         public ActionResult GridListBalancesStatement()
@@ -57,17 +87,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 int? page = null;
                 int pageNum = (page ?? 1);
                 EmailSupportIndexViewModel model = new EmailSupportIndexViewModel();
-                int isAdmin = 0;
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    IQueryable<MiniEmailSupportViewModel> tmp = cms_db.GetEmailSupportByLinq(isAdmin, IdUser);
+                    IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.StateId != (int)EnumCore.EmailStatus.da_xoa);
                     pageNum = 1;
                     model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
                     return Json(model.lstEmailSupport, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    IQueryable<MiniEmailSupportViewModel> tmp = cms_db.GetEmailSupportByLinq(isAdmin, IdUser);
+                    IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.StateId != (int)EnumCore.EmailStatus.da_xoa);
                     pageNum = 1;
                     model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
                     return Json(model.lstEmailSupport, JsonRequestBehavior.AllowGet);
@@ -181,13 +210,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                long ModUserId = long.Parse(User.Identity.GetUserId());
+
+                string AlertString = "";
+
+              long ModUserId = long.Parse(User.Identity.GetUserId());
                 User ModUser = await cms_db.GetObjUserById(ModUserId); 
                
                 EmailSupport SubjectEmail = cms_db.GetObjEmailSupport(model.EmailId);
+
+                if (SubjectEmail.DestinationId != null)
+                {
+                     AlertString = "Tạo mới thư trả lời thư không thành công đã có mod hỗ trợ";
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+                }
                 SubjectEmail.DestinationId = ModUser.Id;
                 SubjectEmail.DestinationName = ModUser.FullName;
-
+                ///cập nhật lại người nhận là mod cho email hỏi
+                await cms_db.UpdateEmailSupport(SubjectEmail);
 
                 User MemberUser = await cms_db.GetObjUserById(SubjectEmail.CrtdUserId.Value);
                 EmailSupport ReplyEmailSuport = new EmailSupport();
@@ -197,10 +236,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 ReplyEmailSuport.DestinationId = MemberUser.Id;
 
                 //vì day là email trả lời mod trả lời nên ParentId là id của thư  chủ 
-                ReplyEmailSuport.ParentId = SubjectEmail.EmailTypeId;
+                ReplyEmailSuport.ParentId = SubjectEmail.EmailId;
                 ReplyEmailSuport.ParentName = SubjectEmail.Subject;
-
-
                 ReplyEmailSuport.Content = model.Content;
                 ReplyEmailSuport.EmailName = SubjectEmail.Subject;
                 ReplyEmailSuport.CrtdDT = DateTime.Now;
@@ -208,10 +245,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 ReplyEmailSuport.CrtdUserName = ModUser.FullName;
                 ReplyEmailSuport.StateId = (int)EnumCore.EmailStatus.da_xem;
                 ReplyEmailSuport.StateName = "Đã Xem";
+
                 int rs = cms_db.CreateEmailSupport(ReplyEmailSuport);
 
 
-                //mod tạo ra mail này chắc nchan moad dã xem 
+                //mod tạo ra mail này chắc nchan moad dã xem mình trả lời
 
                 ContentView ck = cms_db.GetObjContentView(ReplyEmailSuport.EmailId, (int)EnumCore.ObjTypeId.emailsupport, ModUser.Id);
                 if (ck == null)
@@ -225,13 +263,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     cms_db.CreateContentView(tmp);
                 }
 
-                string AlertString = "Tạo mới thư trả lời thư thành công";
+                 AlertString = "Tạo mới thư trả lời thư thành công";
                 return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
             }
             catch (Exception e)
             {
                 cms_db.AddToExceptionLog("CreateNewEmail", "EmailManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
-                return RedirectToAction("Index");
+                string AlertString = "Tạo mới thư trả lời thư không thành công";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+               
             }
 
         }

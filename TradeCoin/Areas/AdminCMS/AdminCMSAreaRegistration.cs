@@ -1077,6 +1077,13 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
             "chi-tiet-thu",
             new { controller = "EmailManager", action = "DetailEmail" }
          );
+            context.MapRoute(
+          "AdminCMS_ReplyEmail",
+          "tra-loi-thu",
+          new { controller = "EmailManager", action = "ReplyEmail" }
+       );
+
+            
 
             context.MapRoute(
                 "AdminCMS_GridListBalancesStatement",

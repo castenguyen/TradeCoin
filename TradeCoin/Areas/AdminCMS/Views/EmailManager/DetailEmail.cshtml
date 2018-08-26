@@ -23,9 +23,9 @@
                 </div>
                 <div class="box-body no-padding">
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"><i class="fa fa-inbox"></i> Hộp thư tổng</a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
+                        <li><a href="@Url.Action("Index", "EmailManager", new { })"><i class="fa fa-inbox"></i> Hộp thư tổng</a></li>
+                        <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.chua_xem })"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
+                        <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.da_xem })"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
                     </ul>
                 </div><!-- /.box-body -->
                 @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
@@ -63,104 +63,81 @@
                     </div><!-- /.box -->
 
                     @foreach (EmailSupport _var in Model.lstChild)
-    {
-        if (_var.CrtdUserId == Model.CrtdUserId)
-        {
-                <div class="box box-widget">
-                    <div class='box-header'>
-                        <div class='user-block'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                            <span class='username'><a href="#">@_var.CrtdUserName</a></span>
-                            <span class='description'>Shared publicly - @_var.CrtdDT</span>
-                        </div><!-- /.user-block -->
+                    {
+                        if (_var.CrtdUserId == Model.CrtdUserId)
+                        {
+                            <div class="box box-widget">
+                                <div class='box-header'>
+                                    <div class='user-block'>
+                                        <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                                        <span class='username'><a href="#">@_var.CrtdUserName</a></span>
+                                        <span class='description'>Shared publicly - @_var.CrtdDT</span>
+                                    </div><!-- /.user-block -->
 
-                    </div><!-- /.box-header -->
-                    <div class='box-body'>
-                        @Html.Raw(_var.Content)
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
+                                </div><!-- /.box-header -->
+                                <div class='box-body'>
+                                    @Html.Raw(_var.Content)
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
 
-}
-else
-{
-                <div class="box box-widget">
-                    <div class='box-header'>
-                        <div class='user-block pull-right'>
-                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image' style="float:right">
-                            <span class='username'><a href="#">@_var.CrtdUserName</a></span>
-                            <span class='description'>Shared publicly - @_var.CrtdDT</span>
-                        </div><!-- /.user-block -->
+                        }
+                        else
+                        {
+                            <div class="box box-widget">
+                                <div class='box-header'>
+                                    <div class='user-block pull-right'>
+                                        <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image' style="float:right">
+                                        <span class='username'><a href="#">@_var.CrtdUserName</a></span>
+                                        <span class='description'>Shared publicly - @_var.CrtdDT</span>
+                                    </div><!-- /.user-block -->
 
-                    </div><!-- /.box-header -->
-                    <div class='box-body'>
-                        @Html.Raw(_var.Content)
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
-}
-}
+                                </div><!-- /.box-header -->
+                                <div class='box-body'>
+                                    @Html.Raw(_var.Content)
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        }
+                    }
 
-                    @if ((Model.DestinationId == null || Model.DestinationId == 0) && User.IsInRole("Mod") || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                    @if (Model.DestinationId == null &&( User.IsInRole("Mod") || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin")))
                     {
 
-                <div class="box box-widget">
+                        <div class="box box-widget">
 
-                    @using (Html.BeginForm("ReplyEmail", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
-    {
-                @Html.AntiForgeryToken()
-                <div class='box-header'>
-                    <div class='user-block '>
-                        <span class='username'>Trả lời</span>
-                    </div><!-- /.user-block -->
+                            @using (Html.BeginForm("ReplyEmail", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class='box-header'>
+                                    <div class='user-block '>
+                                        <span class='username'>Trả lời</span>
+                                    </div><!-- /.user-block -->
 
-                </div><!-- /.box-header -->
-                <div class='box-body'>
-                    <input type="hidden" id="EmailId" name="EmailId" value="@Model.EmailId">
-                    <textarea name="Content" id="Content" class="form-control" style="height: 300px"></textarea>
-                </div><!-- /.box-body -->
-                <div class='box-footer'>
-                    <button type="submit" class="btn btn-primary  pull-right"><i class="fa fa-envelope-o"></i> Trả lời</button>
-                </div>
-}
-                </div>
-                <script>
+                                </div><!-- /.box-header -->
+                                <div class='box-body'>
+                                    <input type="hidden" id="EmailId" name="EmailId" value="@Model.EmailId">
+                                    <textarea name="Content" id="Content" class="form-control" style="height: 300px"></textarea>
+                                </div><!-- /.box-body -->
+                                <div class='box-footer'>
+                                    <button type="submit" class="btn btn-primary  pull-right"><i class="fa fa-envelope-o"></i> Trả lời</button>
+                                </div>
+                            }
+                        </div>
+                        <script>
 
-                    $(function () {
-                        //Add text editor
-                        $("#Content").wysihtml5();
-                    });
-                    $(document).ready(function () {
+                            $(function () {
+                                //Add text editor
+                                $("#Content").wysihtml5();
+                            });
+                         
 
-                        var rules = {
-                            Subject: "required"
-                            , Content: "required"
+                        </script>
 
-                        };
-                        var messages = {
-                            Subject: "Vui lòng kiểm tiêu đề thư"
-                            , Content: "Vui lòng kiểm tra nội dung gửi"
-                        };
-
-                        ValidationForm({
-                            ctrID: "CreateForm"
-                            , rules: rules
-                            , messages: messages
-                        })
-
-                    });
-
-                </script>
-
-}
-
-
-
-
+                    }
 
                 </div>
             </div><!-- /.box-body -->
 
         </div><!-- /. box -->
     </div><!-- /.col -->
- 
-</section><!-- /.content -->
 
+</section><!-- /.content -->
