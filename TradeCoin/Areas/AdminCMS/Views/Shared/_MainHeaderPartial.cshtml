@@ -80,14 +80,14 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewKeo"></ul>
                             </li>
-                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                            @*@if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                             {
                                 <li class="footer"><a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })">See All keo</a></li>
                             }
                             else
-                            {
+                            {*@
                                 <li class="footer"><a href="@Url.Action("ListTicker", "Member", new { area = "AdminCMS" })">See All keo</a></li>
-                            }
+                            @*}*@
                         </ul>
                     </li>
                     <li class="dropdown messages-menu">
@@ -101,14 +101,14 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewVideo"></ul>
                             </li>
-                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                            @*@if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                             {
                                 <li class="footer"><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })">See All keo</a></li>
                             }
                             else
-                            {
-                                <li class="footer"><a href="@Url.Action("ListVideo", "Member", new { area = "AdminCMS" })">See All keo</a></li>
-                            }
+                            {*@
+                                <li class="footer"><a href="@Url.Action("ListVideo", "Member", new { area = "AdminCMS" })">See All video</a></li>
+                            @*}*@
                             
                         </ul>
                     </li>
@@ -317,34 +317,39 @@
                                             <p>`+ text.TickerName + `</p>
                                         </a>
                                     </li>`);
-
-                    $("#NewKeo1").text(countNew);
-                    $("#NewKeo2").text(countNew);
                 });
+                $("#NewKeo1").text(countNew);
+                $("#NewKeo2").text(countNew);
             }
         });
     }
 
     function ListNewVideo() {
         coreApp.callAjaxGateway({
-            url: 'AdminCMS/MediaManager/ListNotificationNewKeo',
+            url: 'AdminCMS/MediaManager/ListNotificationNewMedia',
             callback: function (data) {
-                $("#NewVideo1").text(data.TotalRows);
-                $("#NewVideo2").text(data.TotalRows);
+                var countNew = 0;
                 $.each(data.Rows, function (val, text) {
+                    var newpost = "Đã xem";
+                    if (text.tmp == 0) {
+                        countNew++;
+                        newpost = "New Post";
+                    }
                     $('#NewVideo').append(`<li>
-                                        <a href="/administrator/EditVideoMedia/`+ text.MediaContentId+`">
+                                        <a href="/thanh-vien/chi-tiet-video?id=`+ text.MediaContentId+`">
                                             <div class="pull-left">
                                                 <img src="" class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 `+ text.Filename + `
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                <small><i class="fa fa-clock-o"></i>`+ newpost +`</small>
                                             </h4>
                                             <p>`+ text.Caption + `</p>
                                         </a>
                                     </li>`);
                 });
+                $("#NewVideo1").text(countNew);
+                $("#NewVideo2").text(countNew);
             }
         });
     }
