@@ -291,7 +291,7 @@ namespace DataModel.DataStore
                                                           CrtdDT = ci.CrtdDT,
                                                           StateId = ci.StateId,
                                                           StateName = ci.StateName,
-                                                          MicrositeID = (cv.ContentId>0) ?  1: 0
+                                                          MicrositeID = (l.ContentId>0) ?  1: 0
                                                       });
 
 
