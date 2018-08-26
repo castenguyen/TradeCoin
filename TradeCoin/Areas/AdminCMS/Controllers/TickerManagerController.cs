@@ -76,6 +76,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
+                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     TickerAdminViewModel model = new TickerAdminViewModel();
@@ -97,7 +98,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
 
-                    List<Ticker> lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home);
+                    List<Ticker> lstTicker = new List<Ticker>();
+                    if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                    {
+                        lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                                         (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
+                    }
+                    else
+                    {
+                        lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
+
+                    }
+
                     foreach (Ticker _val in lstTicker)
                     {
                         TickerViewModel tmp = new TickerViewModel(_val);
