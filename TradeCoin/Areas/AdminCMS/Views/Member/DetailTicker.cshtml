@@ -19,150 +19,117 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-       
-        
-            <div class="col-md-8">
+
+
+        <div class="col-md-8">
+            <div class="box box-widget">
                 <div class="box box-widget">
-                    <div class="box box-widget">
-                        <div class='box-header with-border'>
-                            <div class='user-block'>
-                                <img class='img-circle' src='~/@Model.MediaUrl' alt='user image'>
-                                <span class='username'><a href="#">@Model.TickerName</a></span>
-                                <span class='description'>Được gửi bởi @Model.CrtdUserName - @Model.CrtdDT</span>
-                            </div><!-- /.user-block -->
-                        </div><!-- /.box-header -->
-
-                        <div class="box-body">
-                            <row>
-                                <div class="col-md-6">
-                                    <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 1</strong>
-                                    <p>
-                                        <span class="label label-danger">@Model.SellZone1</span>
-
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 2</strong>
-                                    <p>
-                                        <span class="label label-danger">@Model.SellZone2</span>
-
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 3</strong>
-                                    <p>
-                                        <span class="label label-danger">@Model.SellZone3</span>
-
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <strong><i class="fa fa-pencil margin-r-5"></i> Cắt lỗ</strong>
-                                    <p>
-                                        <span class="label label-danger">@Model.DeficitControl</span>
-
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fa fa-pencil margin-r-5"></i> Số BTC tối đa vào lệnh</strong>
-                                    <p>
-                                        <span class="label label-danger">@Model.BTCInput</span>
-
-                                    </p>
-                                </div>
-                            </row>
-
-                            <row>
-                                <div class="col-md-12">
-
-                                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Đánh giá</strong>
-                                    @*<img class="img-responsive" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">*@
-                                    @Html.Raw(Model.Description)
-                                    
-                                    <!-- Attachment -->
-                                    <!-- Social sharing buttons -->
-                                    @*<button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>*@
-                                    <span class='pull-right text-muted'> 200 Lượt xem</span>
-                                </div>
-
-                            </row>
-
-
-                        </div><!-- /.box-body -->
-
-
-
-
-                    </div><!-- /.box -->
-
-                </div><!-- /.user-block -->
-
-            </div>
-            <div class="col-md-4">
-                <div class="box box-widget">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Kèo Khác</h3>
+                    <div class='box-header with-border'>
+                        <div class='user-block'>
+                            <img class='img-circle' src='~/@Model.MediaUrl' alt='user image'>
+                            <span class='username'><a href="#">@Model.TickerName</a></span>
+                            <span class='description'>Được gửi bởi @Model.CrtdUserName - @Model.CrtdDT</span>
+                        </div><!-- /.user-block -->
                     </div><!-- /.box-header -->
-                    <div class='box-body'>
+
+                    <div class="box-body">
+                        <row>
+                            <div class="col-md-6">
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 1</strong>
+                                <p>
+                                    <span class="label label-danger">@Model.SellZone1</span>
+
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 2</strong>
+                                <p>
+                                    <span class="label label-danger">@Model.SellZone2</span>
+
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 3</strong>
+                                <p>
+                                    <span class="label label-danger">@Model.SellZone3</span>
+
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Cắt lỗ</strong>
+                                <p>
+                                    <span class="label label-danger">@Model.DeficitControl</span>
+
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Số BTC tối đa vào lệnh</strong>
+                                <p>
+                                    <span class="label label-danger">@Model.BTCInput</span>
+
+                                </p>
+                            </div>
+                        </row>
+
+                        <row>
+                            <div class="col-md-12">
+
+                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Đánh giá</strong>
+                                @*<img class="img-responsive" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">*@
+                                @Html.Raw(Model.Description)
+
+                                <!-- Attachment -->
+                                <!-- Social sharing buttons -->
+                                @*<button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>*@
+                                <span class='pull-right text-muted'> 200 Lượt xem</span>
+                            </div>
+
+                        </row>
+
+
+                    </div><!-- /.box-body -->
+
+
+
+
+                </div><!-- /.box -->
+
+            </div><!-- /.user-block -->
+
+        </div>
+        <div class="col-md-4">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Kèo Khác</h3>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+
+                    @foreach (TickerViewModel _item in Model.lstsameTickers)
+                    {
                         <div class="post">
                             <div class="user-block">
-                                <img class="img-circle img-bordered-sm" src="~/Areas/AdminCMS/dist/img/user1-128x128.jpg" alt="user image">
+                                <img class="img-circle img-bordered-sm" src="~/@_item.MediaThumb" alt="user image">
                                 <span class='username'>
-                                    <a href="#">
-                                        USDJPY - 24/07/201
+                                    <a href="@Url.Action("DetailTicker", "Member", new { tickerId = _item.TickerId })">
+                                        @_item.TickerName
                                     </a>
 
                                 </span>
-                                <span class='description'>Shared publicly - 7:30 PM today</span>
+                                <span class='description'>@_item.CrtdUserName-@_item.CrtdDT</span>
+                                @if (_item.tmp > 0)
+    {
+                            <span class='badge bg-green'> Đã xem</span>
+}
                             </div><!-- /.user-block -->
                         </div><!-- /.post -->
-                        <!-- Post -->
-                        <div class="post clearfix">
-                            <div class='user-block'>
-                                <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'>
-                                    <a href="#">
-                                        EURUSD - 24/07/201
-                                    </a>
+                        }
 
-                                </span>
-                                <span class='description'>Sent you a message - 3 days ago</span>
-                            </div><!-- /.user-block -->
 
-                        </div><!-- /.post -->
-                        <!-- Post -->
-                        <!-- Post -->
-                        <div class="post clearfix">
-                            <div class='user-block'>
-                                <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'>
-                                    <a href="#">
-                                        USDJPY - 25/07/2018
-                                    </a>
-
-                                </span>
-                                <span class='description'>Sent you a message - 3 days ago</span>
-                            </div><!-- /.user-block -->
-
-                        </div><!-- /.post -->
-                        <!-- Post -->
-                        <div class="post clearfix">
-                            <div class='user-block'>
-                                <img class='img-circle img-bordered-sm' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'>
-                                    <a href="#">
-                                        GBPUSD - 25/07/2018
-                                    </a>
-
-                                </span>
-                                <span class='description'>Sent you a message - 3 days ago</span>
-                            </div><!-- /.user-block -->
-
-                        </div><!-- /.post -->
                     </div><!-- /.user-block -->
 
                 </div><!-- /.user-block -->
             </div>
 
-      
 
 
-    </div><!-- /.tab-content -->
 
-</section><!-- /.content -->
+        </div><!-- /.tab-content -->
+
+    </section><!-- /.content -->

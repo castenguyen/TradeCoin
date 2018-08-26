@@ -33,9 +33,9 @@
                             {
                                 <tr>
                                     <td><img class="img-responsive" src="~/@item.ThumbURL" alt="Photo" width="100%"></td>
-                                    <td>@item.Filename</td>
+                                    <td>@item.AlternativeText</td>
                                     <td>@item.Caption</td>
-                                    <td>@item.MediaDesc</td>
+                                    <td>@Html.Raw(item.MediaDesc)</td>
                                     <td><span class="label label-success">@item.ViewCount</span></td>
                                     <td>
                                         <a href='@Url.Action("EditVideo", "MediaManager", new { id=item.MediaContentId})'>Edit</a> |

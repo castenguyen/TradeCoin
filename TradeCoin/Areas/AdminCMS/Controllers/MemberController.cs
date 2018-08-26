@@ -147,6 +147,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     TickerViewModel model = new TickerViewModel();
                     Ticker mainObj = cms_db.GetObjTicker(tickerId);
                     model._MainObj = mainObj;
+
+                    List<Ticker> lsttmpSameTicker = new List<Ticker>();
+                    model.lstsameTickers = new List<TickerViewModel>();
+
+                        lsttmpSameTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, packageID);
+
+                   
+                    foreach (Ticker _val in lsttmpSameTicker)
+                    {
+                        TickerViewModel tmp = new TickerViewModel(_val);
+                        tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                        model.lstsameTickers.Add(tmp);
+                    }
+
+
+
+
+
                     ContentView ck = cms_db.GetObjContentView(mainObj.TickerId, (int)EnumCore.ObjTypeId.ticker, UID);
                     if (ck == null)
                     {
