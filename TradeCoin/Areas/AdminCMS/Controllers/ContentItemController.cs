@@ -63,68 +63,43 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
+                long PackageId = 0;
+                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                if (lstPackageOfUser == null)
+                {
+                    return RedirectToAction("Login", "AccountAdmin");
+                }
+                MemberFrontEndViewModel model = new MemberFrontEndViewModel();
+                List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
+
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-
-                    MemberFrontEndViewModel model = new MemberFrontEndViewModel();
-                    List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-                    List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
-                    foreach (ContentItem _val in lstNews)
-                    {
-                        ContentItemViewModels tmp = new ContentItemViewModels(_val);
-                        tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-                        lstmpNews.Add(tmp);
-                    }
-                    var result = new
-                    {
-                        TotalRows = lstNews.Count(),
-                        Rows = lstNews.Select(x => new
-                        {
-                            MicrositeID = x.MicrositeID,
-                            CrtdUserName = x.CrtdUserName,
-                            ContentTitle = x.ContentTitle,
-                            ContentItemId = x.ContentItemId
-                        })
-                    };
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    PackageId = 5;
                 }
                 else
                 {
-                    try
-                    {
-                        List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-
-                        MemberFrontEndViewModel model = new MemberFrontEndViewModel();
-                        List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-                        List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
-                        foreach (ContentItem _val in lstNews)
-                        {
-                            ContentItemViewModels tmp = new ContentItemViewModels(_val);
-                            tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-                            lstmpNews.Add(tmp);
-                        }
-                        var result = new
-                        {
-                            TotalRows = lstNews.Count(),
-                            Rows = lstNews.Select(x => new
-                            {
-                                MicrositeID = x.MicrositeID,
-                                CrtdUserName = x.CrtdUserName,
-                                ContentTitle = x.ContentTitle,
-                                ContentItemId = x.ContentItemId
-                            })
-                        };
-                        return Json(result, JsonRequestBehavior.AllowGet);
-                    }
-                    catch (Exception e)
-                    {
-
-                        return Json("", JsonRequestBehavior.AllowGet);
-                    }
-                    
+                    PackageId = lstPackageOfUser[0].PackageId;
                 }
-               
+                List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, PackageId);
+                foreach (ContentItem _val in lstNews)
+                {
+                    ContentItemViewModels tmp = new ContentItemViewModels(_val);
+                    tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                    lstmpNews.Add(tmp);
+                }
+                var result = new
+                {
+                    TotalRows = lstNews.Count(),
+                    Rows = lstNews.Select(x => new
+                    {
+                        MicrositeID = x.MicrositeID,
+                        CrtdUserName = x.CrtdUserName,
+                        ContentTitle = x.ContentTitle,
+                        ContentItemId = x.ContentItemId
+                    })
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
