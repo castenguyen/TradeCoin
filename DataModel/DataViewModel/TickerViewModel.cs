@@ -176,6 +176,8 @@ namespace DataModel.DataViewModel
         /// <summary>
         /// danh cho frontend
         /// </summary>
+        /// 
+        public List<TickerViewModel> lstsameTickers { get; set; }
         public List<ContentPackage> lstTickerContentPackage { get; set; }
     }
 

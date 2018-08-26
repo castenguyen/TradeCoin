@@ -493,6 +493,8 @@ namespace DataModel.DataViewModel
             get { return objMediaContent.Caption; }
             set { objMediaContent.Caption = value; }
         }
+
+        [Display(Name = "Tên Hiển Thị")]
         public string AlternativeText
         {
             get { return objMediaContent.AlternativeText; }
