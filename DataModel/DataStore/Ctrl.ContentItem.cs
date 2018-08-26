@@ -252,10 +252,17 @@ namespace DataModel.DataStore
             return lstContentItem;
         }
 
-        public IQueryable<MiniContentItemViewModel> GetContentItemByUserLinq(long UserId)
+        public IQueryable<MiniContentItemViewModel> GetContentItemByUserLinq(long UserId, long packageID)
         {
-
-            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long packageiduser = 0;
+            if (packageID == 5)
+            {
+                packageiduser = packageID;
+            }
+            else
+            {
+                packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            }
 
             long[] lstpackageid = (from pa in db.Packages where pa.PackageId <= packageiduser select pa.PackageId).ToArray();
 
