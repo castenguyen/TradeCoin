@@ -95,7 +95,7 @@
                 <div class="box-footer clearfix">
                     @if (Model.lstMainContent.PageCount > 1)
                     {
-                        @Html.PagedListPager(Model.lstMainContent, page => Url.Action("Index", new { page, state = Model.ContentState, catalogry = Model.ContentCatalogry }))
+                        @Html.PagedListPager(Model.lstMainContent, page => Url.Action("Index", new { page, catalogry = Model.ContentCatalogry }))
                     }
                 </div>
             </div><!-- /.box -->

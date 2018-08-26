@@ -199,4 +199,34 @@ namespace DataModel.DataViewModel
     }
 
 
+
+    public class MiniTickerViewModel
+    {
+        public long TickerId { get; set; }
+        public string TickerName { get; set; }
+        public Nullable<double> BuyZone1 { get; set; }
+        public Nullable<double> SellZone1 { get; set; }
+        public Nullable<double> SellZone2 { get; set; }
+        public Nullable<double> SellZone3 { get; set; }
+        public Nullable<double> BTCInput { get; set; }
+        public Nullable<double> DeficitControl { get; set; }
+        public string Description { get; set; }
+        public string CrtdUserName { get; set; }
+        public Nullable<long> CrtdUserId { get; set; }
+        public Nullable<System.DateTime> CrtdDT { get; set; }
+        public string AprvdUserName { get; set; }
+        public Nullable<long> AprvdUID { get; set; }
+        public Nullable<System.DateTime> AprvdDT { get; set; }
+        public string StateName { get; set; }
+        public Nullable<long> StateId { get; set; }
+        public string MediaUrl { get; set; }
+        public string MediaThumb { get; set; }
+        public Nullable<int> Flag { get; set; }
+        public Nullable<double> Profit { get; set; }
+        public Nullable<double> Deficit { get; set; }
+        public Nullable<int> tmp { get; set; }
+        public List<ContentPackage> lstTickerContentPackage { get; set; }
+
+    }
+
 }

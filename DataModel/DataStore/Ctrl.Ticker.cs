@@ -98,7 +98,7 @@ namespace DataModel.DataStore
 
 
 
-        public IQueryable<TickerViewModel> GetTickerByUserLinq(long UserId)
+        public IQueryable<MiniTickerViewModel> GetTickerByUserLinq(long UserId)
         {
             ///lấy package id của user
             long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
@@ -114,16 +114,19 @@ namespace DataModel.DataStore
                                       where cp.ContentType == (int)EnumCore.ObjTypeId.ticker && tk.StateId == (int)EnumCore.TickerStatusType.dang_chay 
                                         
                                       && lstpackageid.Contains(cp.PackageId)
-                                      //twánh trùng lặp
+                                      //tránh trùng lặp
                                       select tk.TickerId).Distinct().ToArray();
 
 
-            IQueryable<TickerViewModel> rs = from tk in db.Tickers
-                                    from cv in db.ContentViews
-                                        ///co the sai khúc này  where tk.TickerId == cv.ContentId && co thể phải xem lại
-                                    where tk.TickerId == cv.ContentId &&  lstTickerid.Contains(tk.TickerId)
-                                    select (new TickerViewModel
-                                    {
+            IQueryable<MiniTickerViewModel> rs = from tk in db.Tickers
+                                             join cv in db.ContentViews on tk.TickerId equals cv.ContentId into all
+                                             from l in all.DefaultIfEmpty()
+
+                                             where lstTickerid.Contains(tk.TickerId)
+
+
+                                             select (new MiniTickerViewModel
+                                             {
                                         TickerId =tk.TickerId,
                                         TickerName = tk.TickerName,
                                         BuyZone1 = tk.BuyZone1,
@@ -146,7 +149,7 @@ namespace DataModel.DataStore
                                         Flag = tk.Flag,
                                         Profit = tk.Profit,
                                         Deficit = tk.Profit,
-                                        tmp = (cv.ContentId > 0) ? 1 : 0
+                                        tmp = (l.ContentId > 0) ? 1 : 0
                                       
                                     });
             return rs.Distinct();

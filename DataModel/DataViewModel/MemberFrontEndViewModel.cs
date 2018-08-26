@@ -20,7 +20,7 @@ namespace DataModel.DataViewModel
 
     public class TickerMemberViewModel
     {
-        public IPagedList<TickerViewModel> lstMainTicker { get; set; }
+        public IPagedList<MiniTickerViewModel> lstMainTicker { get; set; }
         public SelectList lstTickerStatus { get; set; }
         public SelectList lstPackage { get; set; }
 

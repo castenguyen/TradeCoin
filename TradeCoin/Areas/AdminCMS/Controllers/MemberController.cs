@@ -76,39 +76,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult ListTicker(int? page, int? TickerStatus, int? TickerPackage, string FillterTickerName)
+        public ActionResult ListTicker(int? page)
         {
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
-            IQueryable<TickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()));
-
-            if (TickerStatus.HasValue)
-            {
-                tmp = tmp.Where(s => s.StateId == TickerStatus);
-                model.TickerStatus = TickerStatus.Value;
-            }
-
-            if (TickerPackage.HasValue && TickerPackage.Value != 0)
-            {
-                // tmp = tmp.Where(s => s.StateId == Pakage);
-                model.TickerPackage = TickerPackage.Value;
-            }
-
-            if (!String.IsNullOrEmpty(FillterTickerName))
-            {
-                tmp = tmp.Where(s => s.TickerName.ToLower().Contains(FillterTickerName.ToLower()));
-                model.FillterTickerName = FillterTickerName;
-            }
+            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()));
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-
-
-            foreach (TickerViewModel _item in tmp)
+           
+            model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            foreach (MiniTickerViewModel _item in model.lstMainTicker)
             {
                 _item.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.TickerId, (int)EnumCore.ObjTypeId.ticker);
             }
-            model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
             return View(model);
@@ -150,7 +132,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult ListNews(int? page, int? catalogry, int? state)
+        public ActionResult ListNews(int? page, int? catalogry)
         {
             int pageNum = (page ?? 1);
             ContentItemMemberViewModel model = new ContentItemMemberViewModel();
@@ -161,11 +143,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.ContentCatalogry = catalogry.Value;
             }
 
-            if (state.HasValue && state.Value != 0)
-            {
-                tmp = tmp.Where(s => s.StateId == state);
-                model.ContentState = state.Value;
-            }
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
