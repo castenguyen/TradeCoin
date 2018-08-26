@@ -306,7 +306,7 @@ namespace DataModel.DataStore
 
             return rs.Distinct();
         }
-
+        
         /// <summary>
         /// Kiem tra thu xem user co xem dc bà viết hay ko
         /// kiem tra gói package cua tin tức và package của user

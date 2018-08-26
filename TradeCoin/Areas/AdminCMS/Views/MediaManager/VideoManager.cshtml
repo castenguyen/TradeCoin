@@ -1,9 +1,17 @@
-﻿@{
+﻿
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
     ViewBag.Title = "Banner Manager";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
 }
 @using DataModel.DataEntity;
-@model IEnumerable<MediaContent>
+@model VideoIndexViewModel
 <section class="content">
     <div class='col-sm-12'>
         <div class="row">
@@ -22,21 +30,21 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <tr>
-                                <th width="20%">Image</th>
-                                <th width="15%">Name</th>
-                                <th width="15%">Caption</th>
-                                <th width="15%">MediaDesc</th>
-                                <th width="7%">ViewCount</th>
+                                <th width="20%">Hình đại diện</th>
+                                <th width="15%">Tên Video</th>
+                                <th width="15%">Gói cước</th>
+                                <th width="15%">Mô tả</th>
+                                <th width="15%">Thời gian</th>
                                 <th width="18%">Action</th>
                             </tr>
-                            @foreach (MediaContent item in Model)
+                            @foreach (MediaContent item in Model.lstMainContent)
                             {
                                 <tr>
                                     <td><img class="img-responsive" src="~/@item.ThumbURL" alt="Photo" width="100%"></td>
                                     <td>@item.AlternativeText</td>
                                     <td>@item.Caption</td>
                                     <td>@Html.Raw(item.MediaDesc)</td>
-                                    <td><span class="label label-success">@item.ViewCount</span></td>
+                                    <td>@item.CrtdDT</td>
                                     <td>
                                         <a href='@Url.Action("EditVideo", "MediaManager", new { id=item.MediaContentId})'>Edit</a> |
                                         <a href='@Url.Action("DeleteVideo", "MediaManager", new { id = item.MediaContentId })'>Delete</a>

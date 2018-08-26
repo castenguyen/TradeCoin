@@ -25,20 +25,7 @@ namespace DataModel.DataStore
     public partial class Ctrl : Core
     {
 
-        /*
-        public static string PrefixImageName = "phong-lan-gia-si";
-        public static string PrefixImageContentURL = "phong-lan-gia-si";
-        public static string DefaulMediaContentURL = "";
-        public static string FolderImage = "images";
-        public static string FolderFrontEnd = "Media";
-        public static string FolderFTPImage = "ftp://103.3.250.22/BDSAdmin/images/media";
-        public static string FTPUser = "NGUYENHUY";
-        public static string FTPPass = "123456";
-        public static string FTPFolder = "CMSADMIN";
-        public static string FTPURL = "ftp://103.3.250.22";
-        public static string WaterMask = "";
 
-    */
 
 
         public async Task<long> AddNewMediaContent(MediaContentViewModels mediaContent)
@@ -284,6 +271,40 @@ namespace DataModel.DataStore
             _File.MediaContentId = _Media.MediaContentId;
             return _File;
         }
+
+
+        public string UploadHttpPostedVideoFileBase(HttpPostedFileBase Request)
+        {
+            try
+            {
+                HttpPostedFileBase video = Request;
+                string coderandom = DateTime.UtcNow.Ticks.ToString();
+                coderandom = ConstantSystem.PrefixImageName + coderandom;
+                var _Filename = Path.GetFileName(video.FileName);
+                string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstantSystem.FolderVideo);
+                string _NameRandom = coderandom + _Filename;
+                var path = Path.Combine(_ServerPath, _NameRandom);
+                if (!System.IO.Directory.Exists(_ServerPath))
+                    System.IO.Directory.CreateDirectory(_ServerPath);
+                video.SaveAs(path);
+                return path;
+            }
+            catch (Exception e)
+            {
+                ExceptionLog model = new ExceptionLog();
+                model.Controller = "Ctrl.MediaContent";
+                model.Action = "UploadHttpPostedVideoFileBase";
+                model.ErrorMessage = e.ToString();
+                model.CrtdDT = DateTime.Now;
+                db.ExceptionLogs.Add(model);
+                db.SaveChanges();
+                return "Video can't upload";
+            }
+          
+        }
+
+
+
         #region UPLOAD BY CKEDITOR
         public ImageUploadViewModel UploadHttpPostedFileBaseForCK(HttpPostedFileBase Request)
         {

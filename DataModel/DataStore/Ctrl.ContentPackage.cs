@@ -68,7 +68,10 @@ namespace DataModel.DataStore
             return lstContentPackage;
         }
 
-
+        public IQueryable<ContentPackage> GetlstContentPackageIquery()
+        {
+          return   db.ContentPackages;
+        }
         public List<ContentPackage> GetlstObjContentPackage(long ContentId, int Type)
         {
             List<ContentPackage> lstContentPackage = db.ContentPackages.Where(s => s.ContentId == ContentId && s.ContentType == Type).ToList();

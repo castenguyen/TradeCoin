@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using DataModel.DataEntity;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Collections;
+using PagedList;
 namespace DataModel.DataViewModel
 {
     public class MediaContentViewModels
     {
-          public MediaContent objMediaContent { get; set; }
+        public MediaContent objMediaContent { get; set; }
         public MediaContentViewModels()
         {
             objMediaContent = new MediaContent();
@@ -146,7 +148,7 @@ namespace DataModel.DataViewModel
         public MediaContent objMediaContent { get; set; }
     }
 
-    public class BannerViewModels 
+    public class BannerViewModels
     {
         public MediaContent objMediaContent { get; set; }
         public BannerViewModels()
@@ -268,11 +270,11 @@ namespace DataModel.DataViewModel
         public long ImgdefaultId { get; set; }
     }
 
-    public class DetailAlbumViewModel 
+    public class DetailAlbumViewModel
     {
         public Classification Album { get; set; }
         public List<MediaContent> lstImage { get; set; }
-    
+
     }
 
     public class BannerMicroViewModels
@@ -394,7 +396,7 @@ namespace DataModel.DataViewModel
         public SelectList DisplayBlockMicro { get; set; }
         public string FriendLyUrlShop { get; set; }
         public long MicrositeId { get; set; }
-       
+
     }
 
     public class VideoViewModels
@@ -529,4 +531,14 @@ namespace DataModel.DataViewModel
 
         public long[] lstTickerPackage { get; set; }
     }
+
+
+    public class VideoIndexViewModel
+    {
+        public IPagedList<MediaContent> lstMainContent { get; set; }
+        public int pageNum { get; set; }
+       
+
+    }
+
 }

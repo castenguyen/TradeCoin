@@ -289,10 +289,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize(Roles = "supperadmin,devuser,CreateVideo")]
-        public ActionResult VideoManager()
+        public ActionResult VideoManager(int? page)
         {
-            List<MediaContent> model = new List<MediaContent>();
-            model = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId == (int)EnumCore.ObjTypeId.video).ToList();
+           VideoIndexViewModel model = new VideoIndexViewModel();
+            IQueryable<MediaContent> tmp = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId == (int)EnumCore.ObjTypeId.video
+                                      && s.MediaTypeId == (int)EnumCore.ObjTypeId.video && s.StatusId != (int)EnumCore.StateType.da_xoa);
+            int pageNum = (page ?? 1);
+
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
+            model.lstMainContent = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
+            foreach (MediaContent _val in model.lstMainContent)
+            {
+                List<ContentPackage> lstNewsContentPackage = cms_db.GetlstObjContentPackage(_val.MediaContentId, (int)EnumCore.ObjTypeId.video);
+                foreach (ContentPackage item in lstNewsContentPackage)
+                {
+                    _val.Caption = _val.Caption + " - " + item.PackageName;
+                }
+            }
             return View(model);
         }
 
@@ -347,7 +363,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,CreateVideo")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateVideo(VideoViewModels model, HttpPostedFileBase Default_files)
+        public async Task<ActionResult> CreateVideo(VideoViewModels model, HttpPostedFileBase Default_files, HttpPostedFileBase Default_files2)
         {
             if (ModelState.IsValid)
             {
@@ -377,7 +393,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         MediaContentViewModels rsdf = await this.SaveDefaultImageForVideo(Default_files, MainModel.MediaContentId);
                         int rsup = await this.UpdateImageUrlForVideo(rsdf, MainModel);
                     }
-                  
+
+                    if (Default_files2 != null)
+                    {
+                       await this.SaveVideo(Default_files2, MainModel.MediaContentId);
+                    }
+
                     int SaveTickerPackage = this.SaveVideoPackage(model.lstTickerPackage, MainModel);
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.MediaContentId, MainModel.Filename, "MediaManage", (int)EnumCore.ObjTypeId.video);
@@ -415,6 +436,32 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return _Media;
 
         }
+
+
+        private async Task<int> SaveVideo(HttpPostedFileBase file, long Videoid)
+        {
+            try
+            {
+                string urlVideo = cms_db.UploadHttpPostedVideoFileBase(file);
+                MediaContent VideoObj = new MediaContent();
+                VideoObj = cms_db.GetObjMediaContent(Videoid);
+                VideoObj.LinkHref = urlVideo;
+                if (VideoObj != null)
+                {
+                    int rs = await cms_db.UpdateMediaContent(VideoObj);
+                }
+                return (int)EnumCore.Result.action_true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("SaveVideo", "MediaManager", e.ToString());
+                return (int)EnumCore.Result.action_false;
+            }
+        
+         
+
+        }
+
 
         private async Task<int> UpdateImageUrlForVideo(MediaContentViewModels ImageObj, MediaContent ContentObj)
         {

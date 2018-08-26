@@ -24,6 +24,7 @@ namespace DataModel.Extension
         public static string PrefixImageContentURL = "ncoinclub";
         public static string DefaulMediaContentURL = "";
         public static string FolderImage = "images";
+        public static string FolderVideo= "Video";
         public static string FolderFrontEnd = "Media";
         public static string FolderFTPImage = "ftp://103.3.250.22/BDSAdmin/images/media";
         public static string FTPUser = "NGUYENHUY";

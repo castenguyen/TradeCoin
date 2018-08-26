@@ -61,7 +61,7 @@
 <!--  About Section -->
 <section id="crypto" class="about-section section-first">
 
-    <div class="about-image bg-grey">
+    <div class="parallax-twitter parallaxBg">
         <div class="container">
             <div class="title-v1">
                 <h1>CRYPTO là gì</h1>
@@ -99,8 +99,8 @@
 
 
 <section id="trading" class="about-section section-first">
- 
-    <div class="container content-lg">
+
+    <div class="parallax-twitter parallaxBg">
         <div class="title-v1">
             <h2>TRADE</h2>
             <p>
@@ -112,17 +112,17 @@
                 <div class="clearfix margin-bottom-30">
                     <div class="content-boxes-in-v3">
                         <h2 class="heading-sm"> @Html.Raw(Model.trade.PageContent.ContentText)</h2>
-                       
+
                     </div>
                 </div>
-            
+
             </div>
             <div class="col-md-6">
                 <img class="img-responsive" src="~/@Model.trade.PageContent.MediaUrl" alt="">
             </div>
         </div>
     </div>
-  
+
 </section>
 <!--  About Section -->
 <!-- End News Section -->
@@ -206,3 +206,34 @@
 </section>
 
 <!-- End Services Section -->
+<!-- News Section -->
+<section id="news" class="news-section">
+    <div class="container content-lg">
+        <div class="title-v1">
+            <h2>Tin tức</h2>
+
+        </div>
+        <div class="row news-v1">
+            @foreach (ContentItem _item in Model.lstNews)
+            {
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="news-v1-in">
+                        <img class="img-responsive" src="~/@_item.MediaThumb" alt="">
+                        <h3><a href="#">@_item.ContentTitle</a></h3>
+                        <p>@Html.Raw(_item.ContentExcerpt)</p>
+                        <ul class="list-inline news-v1-info">
+                            <li><span>D9ược gửi bởi </span> @_item.CrtdUserName</li>
+                            <li>|</li>
+                            <li><i class="fa fa-clock-o"></i> @_item.CrtdDT</li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            }
+
+
+        </div>
+    </div>
+</section>
+<!-- End News Section -->

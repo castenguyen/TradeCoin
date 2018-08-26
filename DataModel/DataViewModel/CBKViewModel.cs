@@ -25,7 +25,7 @@ namespace DataModel.DataViewModel
         public PageInforViewModel crypto { get; set; }
         public PageInforViewModel intro { get; set; }
         public PageInforViewModel indexvideo { get; set; }
-
+        public List<ContentItem> lstNews { get; set; }
     }
     public class HomeListProductViewModel
     {
