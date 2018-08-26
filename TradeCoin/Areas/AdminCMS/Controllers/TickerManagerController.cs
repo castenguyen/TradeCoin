@@ -77,58 +77,39 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             try
             {
                 List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
+
+                List<Ticker> lstTicker = new List<Ticker>();
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    TickerAdminViewModel model = new TickerAdminViewModel();
-                    IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
-                    model.lstMainTicker = tmp.OrderByDescending(c => c.TickerId).ToPagedList(1, 20);
-                    var result = new
-                    {
-                        TotalRows = model.lstMainTicker.Count(),
-                        Rows = model.lstMainTicker.Select(x => new
-                        {
-                            TickerId = x.TickerId,
-                            CrtdUserName = x.CrtdUserName,
-                            TickerName = x.TickerName,
-                        })
-                    };
-                    return Json(result, JsonRequestBehavior.AllowGet);
+                    lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
                 }
                 else
                 {
-                    List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
+                    lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                            (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
 
-                    List<Ticker> lstTicker = new List<Ticker>();
-                    if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-                    {
-                        lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
-                                         (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
-                    }
-                    else
-                    {
-                        lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
-                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
-
-                    }
-
-                    foreach (Ticker _val in lstTicker)
-                    {
-                        TickerViewModel tmp = new TickerViewModel(_val);
-                        tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
-                        lstmpTickers.Add(tmp);
-                    }
-                    var result = new
-                    {
-                        TotalRows = lstmpTickers.Count(),
-                        Rows = lstmpTickers.Select(x => new
-                        {
-                            TickerId = x.TickerId,
-                            CrtdUserName = x.CrtdUserName,
-                            TickerName = x.TickerName,
-                        })
-                    };
-                    return Json(result, JsonRequestBehavior.AllowGet);
                 }
+
+                foreach (Ticker _val in lstTicker)
+                {
+                    TickerViewModel tmp = new TickerViewModel(_val);
+                    tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                    lstmpTickers.Add(tmp);
+                }
+                var result = new
+                {
+                    TotalRows = lstmpTickers.Count(),
+                    Rows = lstmpTickers.Select(x => new
+                    {
+                        tmp = x.tmp,
+                        TickerId = x.TickerId,
+                        CrtdUserName = x.CrtdUserName,
+                        TickerName = x.TickerName,
+                    })
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
