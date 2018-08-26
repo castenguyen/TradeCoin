@@ -267,11 +267,13 @@ namespace DataModel.DataStore
 
                                   select ci.ContentItemId).Distinct().ToArray();
 
-            IQueryable<MiniContentItemViewModel> rs = from ci in db.ContentItems
-                                                      from cv in db.ContentViews
-                                                      where ci.ContentItemId == cv.ContentId && lstContentItems.Contains(ci.ContentItemId)
+            IQueryable<MiniContentItemViewModel> rs =       from ci in db.ContentItems
+                                                            join cv in db.ContentViews on ci.ContentItemId equals cv.ContentId into all
+                                                            from l in all.DefaultIfEmpty()
 
-                                                      select (new MiniContentItemViewModel
+                                                            where lstContentItems.Contains(ci.ContentItemId)
+
+                select (new MiniContentItemViewModel
                                                       {
                                                           ContentItemId = ci.ContentItemId,
                                                           ObjTypeId = ci.ObjTypeId,
