@@ -617,9 +617,18 @@ namespace DataModel.DataStore
                                                 });
             return rs.Distinct();
         }
-        public bool CheckVideoUserPackage(long MediaId, long UserId)
+        public bool CheckVideoUserPackage(long MediaId, long UserId, long packageID)
         {
-            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long packageiduser = 0;
+            if (packageID == 5)
+            {
+                packageiduser = packageID;
+            }
+            else
+            {
+                ///lấy package id của user
+                packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            }
 
             long[] lstContentItemsPackage = (from pa in db.ContentPackages
                                              where pa.ContentType == (int)EnumCore.ObjTypeId.video && pa.ContentId == MediaId
