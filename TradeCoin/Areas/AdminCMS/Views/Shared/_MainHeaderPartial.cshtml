@@ -298,9 +298,13 @@
         coreApp.callAjaxGateway({
             url: 'AdminCMS/TickerManager/ListNotificationNewKeo',
             callback: function (data) {
-                $("#NewKeo1").text(data.TotalRows);
-                $("#NewKeo2").text(data.TotalRows);
+                var countNew = 0;
                 $.each(data.Rows, function (val, text) {
+                    var newpost = "Đã xem";
+                    if (text.tmp == 0) {
+                        countNew++;
+                        newpost = "New Post";
+                    }
                     $('#NewKeo').append(`<li>
                                         <a href="/thanh-vien/chi-tiet-keo?tickerId=`+ text.TickerId+`">
                                             <div class="pull-left">
@@ -308,11 +312,14 @@
                                             </div>
                                             <h4>
                                                 `+ text.CrtdUserName + `
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                <small><i class="fa fa-clock-o"></i>`+ newpost +`</small>
                                             </h4>
                                             <p>`+ text.TickerName + `</p>
                                         </a>
                                     </li>`);
+
+                    $("#NewKeo1").text(countNew);
+                    $("#NewKeo2").text(countNew);
                 });
             }
         });
