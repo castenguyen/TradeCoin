@@ -597,10 +597,10 @@ new { controller = "AccountAdmin", action = "ManualConfirmMail" }
              );
 
             context.MapRoute(
-             "AdminCMS_MediaManager_ListNotificationNewKeo",
-             "AdminCMS/MediaManager/ListNotificationNewKeo",
-                new { controller = "MediaManager", action = "ListNotificationNewKeo" }
-                );
+             "AdminCMS_MediaManager_ListNotificationNewMedia",
+             "AdminCMS/MediaManager/ListNotificationNewMedia",
+                new { controller = "MediaManager", action = "ListNotificationNewMedia" }
+            );
 
             context.MapRoute(
             "AdminCMS_MediaManager_CreateAlbum",
