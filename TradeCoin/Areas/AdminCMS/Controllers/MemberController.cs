@@ -134,9 +134,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult ListNews(int? page, int? catalogry)
         {
+            long packageID = 0;
+            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+            if (lstPackageOfUser == null)
+            {
+                return RedirectToAction("Login", "AccountAdmin");
+            }
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+                packageID = 5;
+            }
+            else
+            {
+                packageID = lstPackageOfUser[0].PackageId;
+            }
             int pageNum = (page ?? 1);
             ContentItemMemberViewModel model = new ContentItemMemberViewModel();
-            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()));
+            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
             if (catalogry.HasValue && catalogry.Value != 0)
             {
                 tmp = tmp.Where(s => s.CategoryId == catalogry);
@@ -169,11 +183,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
+                    long packageID = 0;
+                    List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                    if (lstPackageOfUser == null)
+                    {
+                        return RedirectToAction("Login", "AccountAdmin");
+                    }
+                    if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                    {
+                        packageID = 5;
+                    }
+                    else
+                    {
+                        packageID = lstPackageOfUser[0].PackageId;
+                    }
                     long UID = long.Parse(User.Identity.GetUserId());
                     ContentItemViewModels model = new ContentItemViewModels();
                     ContentItem mainObj = cms_db.GetObjContentItemById(id);
                     model._MainObj = mainObj;
-                    model.lstSameNews = cms_db.GetContentItemByUserLinq(UID).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
+                    model.lstSameNews = cms_db.GetContentItemByUserLinq(UID, packageID).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
                     ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UID);
                     if (ck == null)
                     {
