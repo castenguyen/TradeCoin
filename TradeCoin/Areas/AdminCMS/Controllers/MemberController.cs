@@ -28,6 +28,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
 
             List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+            if (lstPackageOfUser == null)
+            {
+                return RedirectToAction("Login", "AccountAdmin");
+            }
             MemberFrontEndViewModel model = new MemberFrontEndViewModel();
             List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
             List<ContentItem> lstNews = new List<ContentItem>();
