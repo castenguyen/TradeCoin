@@ -18,6 +18,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Collections;
+using System.Data.SqlClient;
 
 namespace DataModel.DataStore
 {
@@ -545,6 +546,14 @@ namespace DataModel.DataStore
         }
 
 
+        public List<MiniMediaViewModel> GetListVideoByUser(long UserId, int Num, long PackageId)
+        {
+            var lstContentItem = db.Database.SqlQuery<MiniMediaViewModel>("exec GetVideoByUser @Useruid, @NumReord,  @PackageId ",
+                 new SqlParameter("@Useruid", UserId),
+                 new SqlParameter("@NumReord", Num),
+                new SqlParameter("@PackageId", PackageId)).ToList();
+            return lstContentItem;
+        }
 
         public IQueryable<MiniMediaViewModel> GetMediaByUserLinq(long UserId, long packageID)
         {
@@ -608,7 +617,22 @@ namespace DataModel.DataStore
                                                 });
             return rs.Distinct();
         }
+        public bool CheckVideoUserPackage(long MediaId, long UserId)
+        {
+            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
 
+            long[] lstContentItemsPackage = (from pa in db.ContentPackages
+                                             where pa.ContentType == (int)EnumCore.ObjTypeId.video && pa.ContentId == MediaId
+                                             select pa.PackageId).ToArray();
+            foreach (long _val in lstContentItemsPackage)
+            {
+                if (packageiduser >= _val)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion FrontEND
 
     }

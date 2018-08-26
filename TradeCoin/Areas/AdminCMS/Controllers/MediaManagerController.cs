@@ -352,6 +352,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.LinkHref = model.LinkHref;
                     MainModel.MediaTypeId = (int)EnumCore.ObjTypeId.video;
                     MainModel.ObjTypeId = (int)EnumCore.ObjTypeId.video;
+                    MainModel.StatusId = (int)EnumCore.StateType.cho_phep;
+                    MainModel.StatusName = "Enable";
+
+
                     await cms_db.AddObjMediaContent(MainModel);
                     if (Default_files != null)
                     {

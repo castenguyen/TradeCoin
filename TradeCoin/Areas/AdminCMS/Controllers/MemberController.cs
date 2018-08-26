@@ -254,7 +254,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser") 
+                    || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     long packageID = 0;
                     List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
@@ -305,62 +306,109 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult ListVideo(int? page, int? MediaStatus, int? MediaPackage, string FillterMediaName)
+        public ActionResult ListVideo(int? page, int? MediaPackage)
         {
+            long packageID = 0;
+            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+            if (lstPackageOfUser == null)
+            {
+                return RedirectToAction("Login", "AccountAdmin");
+            }
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+                packageID = 5;
+            }
+            else
+            {
+                packageID = lstPackageOfUser[0].PackageId;
+            }
             int pageNum = (page ?? 1);
             MediaMemberViewModel model = new MediaMemberViewModel();
-            IQueryable<MediaContent> tmp = cms_db.GetMediaByUserLinq(long.Parse(User.Identity.GetUserId()));
 
-            //if (MediaStatus.HasValue)
-            //{
-            //    tmp = tmp.Where(s => s.StateId == TickerStatus);
-            //    model.TickerStatus = TickerStatus.Value;
-            //}
 
+
+            IQueryable<MiniMediaViewModel> tmp = cms_db.GetMediaByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
             if (MediaPackage.HasValue && MediaPackage.Value != 0)
             {
                 // tmp = tmp.Where(s => s.StateId == Pakage);
                 model.MediaPackage = MediaPackage.Value;
             }
-
-            if (!String.IsNullOrEmpty(FillterMediaName))
-            {
-                tmp = tmp.Where(s => s.Filename.ToLower().Contains(FillterMediaName.ToLower()));
-                model.FillterMediaName = FillterMediaName;
-            }
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
 
-            IPagedList<MediaContent> tmplstticker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-
-            List<MediaContentViewModels> mainlstticker = new List<MediaContentViewModels>();
-
-            foreach (MediaContent _item in tmplstticker)
+            model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            foreach (MiniMediaViewModel _item in model.lstMainTicker)
             {
-                MediaContentViewModels abc = new MediaContentViewModels(_item);
-                abc.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.MediaContentId, (int)EnumCore.ObjTypeId.ticker);
-                mainlstticker.Add(abc);
+                _item.lstVideoContentPackage = cms_db.GetlstObjContentPackage(_item.MediaContentId, (int)EnumCore.ObjTypeId.video);
             }
-
-            model.lstMainTicker = mainlstticker.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-           // model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
-
             return View(model);
         }
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult DetailVideo(long id)
         {
-            MediaContentViewModels model = new MediaContentViewModels();
-            MediaContent mainObj = cms_db.GetObjMediaContent(id);
-            model.objMediaContent = mainObj;
-            model.lstSameVideo = cms_db.GetLstMediaContent().Where(s=>s.MediaTypeId==(int)EnumCore.ObjTypeId.video).Take(10).ToList();
+
+            try
+            {
+                if (cms_db.CheckVideoUserPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser")
+                    || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+
+                    long packageID = 0;
+                    List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                    if (lstPackageOfUser == null)
+                    {
+                        return RedirectToAction("Login", "AccountAdmin");
+                    }
+                    if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                    {
+                        packageID = 5;
+                    }
+                    else
+                    {
+                        packageID = lstPackageOfUser[0].PackageId;
+                    }
+                    long UID = long.Parse(User.Identity.GetUserId());
 
 
-            return View(model);
+                    MediaContentViewModels model = new MediaContentViewModels();
+                    MediaContent mainObj = cms_db.GetObjMediaContent(id);
+                    model.objMediaContent = mainObj;
+                    model.lstSameVideo = cms_db.GetListVideoByUser(long.Parse(User.Identity.GetUserId()),
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, packageID);
 
+                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UID);
+                    if (ck == null)
+                    {
+                        ContentView tmp = new ContentView();
+                        tmp.UserId = UID;
+                        tmp.UserName = User.Identity.GetUserName();
+                        tmp.ContentId = id;
+                        tmp.ContentType = (int)EnumCore.ObjTypeId.video;
+                        tmp.ContentName = mainObj.AlternativeText;
+                        cms_db.CreateContentView(tmp);
+                    }
+                    return View(model);
+
+                }
+                else
+                {
+                    string AlertString = "Nội dung xem không khả dụng";
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+
+                }
+             
+
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("DetailNews", "MemberDashBoard", e.ToString());
+                string AlertString = "Nội dung xem không khả dụng";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+            }
+           
         }
 
     }

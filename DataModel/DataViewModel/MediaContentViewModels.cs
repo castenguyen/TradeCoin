@@ -126,7 +126,7 @@ namespace DataModel.DataViewModel
 
 
         public List<ContentPackage> lstTickerContentPackage { get; set; }
-        public List<MediaContent> lstSameVideo { get; set; }
+        public List<MiniMediaViewModel> lstSameVideo { get; set; }
     }
     public class AlbumMediaViewModels
     {

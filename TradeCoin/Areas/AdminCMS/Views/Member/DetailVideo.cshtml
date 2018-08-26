@@ -36,7 +36,7 @@
                     <div class='box-body'>
                         <img class="img-responsive" src="~/@Model.LinkHref" alt="attachment image">
                         @Html.Raw(Model.MediaDesc)
-                      
+
                         <span class='pull-right text-muted'> 200 Lượt xem</span>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
@@ -50,13 +50,17 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Video khác</h3>
                 </div><!-- /.box-header -->
-                @foreach (MediaContent _item in Model.lstSameVideo)
+                @foreach (MiniMediaViewModel _item in Model.lstSameVideo)
                 {
                     <div class='box-header with-border'>
                         <div class='user-block'>
                             <img class='img-circle' src='~/@_item.ThumbURL' alt='user image'>
                             <span class='username'><a href="#">@_item.Filename</a></span>
                             <span class='description'> @_item.CrtdDT</span>
+                            @if (_item.tmp > 0)
+                            {
+                                <span class='badge bg-green'> Đã xem</span>
+                            }
                         </div><!-- /.user-block -->
                     </div><!-- /.box-header -->
 
