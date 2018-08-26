@@ -296,18 +296,33 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View(model);
         }
 
-        public ActionResult ListNotificationNewKeo()
+        public ActionResult ListNotificationNewMedia()
         {
             try
             {
-                List<MediaContent> model = new List<MediaContent>();
-                model = cms_db.GetLstMediaContent().Where(s => s.MediaTypeId == (int)EnumCore.ObjTypeId.video).ToList();
+                long PackageId = 0;
+                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                if (lstPackageOfUser == null)
+                {
+                    return RedirectToAction("Login", "AccountAdmin");
+                }
+                MediaContentViewModels model = new MediaContentViewModels();
 
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+                    PackageId = 5;
+                }
+                else
+                {
+                    PackageId = lstPackageOfUser[0].PackageId;
+                }
+                model.lstSameVideo = cms_db.GetListVideoByUser(long.Parse(User.Identity.GetUserId()),
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, PackageId);
                 var result = new
                 {
-                    TotalRows = model.Count(),
-                    Rows = model.Select(x => new
+                    Rows = model.lstSameVideo.Select(x => new
                     {
+                        tmp = x.tmp,
                         MediaContentId = x.MediaContentId,
                         Filename = x.Filename,
                         Caption = x.Caption,
