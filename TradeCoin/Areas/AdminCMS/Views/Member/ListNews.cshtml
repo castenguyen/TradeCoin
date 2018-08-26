@@ -73,10 +73,10 @@
 
 
                                 <div class="attachment-text">
-                                    @_val.ContentExcerpt ...<a href="@Url.Action("DetailNews", "Member",new { NewId =_val.ContentItemId })">Chi tiết</a>
+                                    @_val.ContentExcerpt ...<a href="@Url.Action("DetailNews", "Member",new { id =_val.ContentItemId })">Chi tiết</a>
                                 </div><!-- /.attachment-text -->
                                 <div class='user-block pull-right'>
-                                    <span class='username'><a href="@Url.Action("DetailNews", "Member",new { NewId =_val.ContentItemId })">@_val.CategoryName</a></span>
+                                    <span class='username'><a href="@Url.Action("DetailNews", "Member",new { id =_val.ContentItemId })">@_val.CategoryName</a></span>
 
                                     <span class='description'> @_val.CrtdUserName -  @_val.CrtdDT</span>
 

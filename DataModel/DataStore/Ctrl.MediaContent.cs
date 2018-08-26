@@ -287,7 +287,7 @@ namespace DataModel.DataStore
                 if (!System.IO.Directory.Exists(_ServerPath))
                     System.IO.Directory.CreateDirectory(_ServerPath);
                 video.SaveAs(path);
-                return path;
+                return ConstantSystem.FolderVideo + "/" + _NameRandom; 
             }
             catch (Exception e)
             {
