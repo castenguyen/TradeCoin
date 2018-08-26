@@ -58,14 +58,14 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu" id="NewPost"></ul>
                             </li>
-                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                            @*@if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                             {
                                 <li class="footer"><a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })">See all post</a></li>
                             }
                             else
-                            {
+                            {*@
                                 <li class="footer"><a href="@Url.Action("ListNews", "Member", new { area = "AdminCMS" })">See all post</a></li>
-                            }
+                            @*}*@
                         </ul>
                     </li>
 
