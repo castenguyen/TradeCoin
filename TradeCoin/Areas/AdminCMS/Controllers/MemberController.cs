@@ -37,11 +37,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             List<ContentItem> lstNews = new List<ContentItem>();
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
+                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()),
+                    (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
             }
             else
             {
-                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
+                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()),
+                    (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
             }
             foreach (ContentItem _val in lstNews)
             {
@@ -54,8 +56,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
             List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
+            List<Ticker> lstTicker = new List<Ticker>();
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+               lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
+            }
+            else
+            {
+                lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
 
-            List<Ticker> lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home);
+            }
+               
             foreach (Ticker _val in lstTicker)
             {
                 TickerViewModel tmp = new TickerViewModel(_val);
@@ -160,7 +173,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-            model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home).ToList();
+
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+                model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                                 (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
+            }
+            else
+            {
+                model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
+
+            }
+
+          
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             foreach (MiniContentItemViewModel _val in model.lstMainContent)
             {

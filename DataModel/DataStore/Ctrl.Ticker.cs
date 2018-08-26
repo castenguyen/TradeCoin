@@ -75,13 +75,12 @@ namespace DataModel.DataStore
 
 
 
-        public List<Ticker> GetListTickerByUser(long UserId, int Num)
+        public List<Ticker> GetListTickerByUser(long UserId, int Num, long PackageId)
         {
-            var lstContentItem = db.Database.SqlQuery<Ticker>("exec GetTickerByUser @Useruid, @NumReord ",
+            var lstContentItem = db.Database.SqlQuery<Ticker>("exec GetTickerByUser @Useruid, @NumReord,  @PackageId ",
                  new SqlParameter("@Useruid", UserId),
-                 new SqlParameter("@NumReord", Num)
-
-                 ).ToList();
+                 new SqlParameter("@NumReord", Num),
+                new SqlParameter("@PackageId", PackageId)).ToList();
             return lstContentItem;
         }
 
