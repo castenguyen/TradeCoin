@@ -76,7 +76,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
-            IQueryable<Ticker> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()));
+            IQueryable<TickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()));
 
             if (TickerStatus.HasValue)
             {
@@ -99,21 +99,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 pageNum = 1;
             model.pageNum = pageNum;
 
-            IPagedList<Ticker> tmplstticker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
 
-            List<TickerViewModel> mainlstticker = new List<TickerViewModel>();
-
-            foreach (Ticker _item in tmplstticker)
+            foreach (TickerViewModel _item in tmp)
             {
-                TickerViewModel abc = new TickerViewModel(_item);
-                abc.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.TickerId, (int)EnumCore.ObjTypeId.ticker);
-                mainlstticker.Add(abc);
+                _item.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.TickerId, (int)EnumCore.ObjTypeId.ticker);
             }
-
-            model.lstMainTicker = mainlstticker.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
-
             return View(model);
         }
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]

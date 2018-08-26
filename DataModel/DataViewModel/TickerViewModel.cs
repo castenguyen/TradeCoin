@@ -173,8 +173,6 @@ namespace DataModel.DataViewModel
         public long ImgdefaultId { get; set; }
         public long[] lstTickerPackage { get; set; }
 
-
-
         /// <summary>
         /// danh cho frontend
         /// </summary>

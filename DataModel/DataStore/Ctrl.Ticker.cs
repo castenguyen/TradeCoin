@@ -98,7 +98,7 @@ namespace DataModel.DataStore
 
 
 
-        public IQueryable<Ticker> GetTickerByUserLinq(long UserId)
+        public IQueryable<TickerViewModel> GetTickerByUserLinq(long UserId)
         {
             ///lấy package id của user
             long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
@@ -118,13 +118,13 @@ namespace DataModel.DataStore
                                       select tk.TickerId).Distinct().ToArray();
 
 
-            IQueryable<Ticker> rs = from tk in db.Tickers
+            IQueryable<TickerViewModel> rs = from tk in db.Tickers
                                     from cv in db.ContentViews
                                         ///co the sai khúc này  where tk.TickerId == cv.ContentId && co thể phải xem lại
                                     where tk.TickerId == cv.ContentId &&  lstTickerid.Contains(tk.TickerId)
-                                    select (new Ticker
+                                    select (new TickerViewModel
                                     {
-                                           TickerId =tk.TickerId,
+                                        TickerId =tk.TickerId,
                                         TickerName = tk.TickerName,
                                         BuyZone1 = tk.BuyZone1,
                                         SellZone1 = tk.SellZone1,

