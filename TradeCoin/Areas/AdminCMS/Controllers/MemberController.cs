@@ -91,9 +91,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult ListTicker(int? page)
         {
+            long packageID = 0;
+            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+            if (lstPackageOfUser == null)
+            {
+                return RedirectToAction("Login", "AccountAdmin");
+            }
+            if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+            {
+                packageID = 5;
+            }
+            else
+            {
+                packageID = lstPackageOfUser[0].PackageId;
+            }
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
-            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()));
+            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
@@ -113,7 +127,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult DetailTicker(long tickerId)
         {
             try {
-                if (cms_db.CheckTickerUserPackage(tickerId, long.Parse(User.Identity.GetUserId())))
+                long packageID = 0;
+                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                if (lstPackageOfUser == null)
+                {
+                    return RedirectToAction("Login", "AccountAdmin");
+                }
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+                    packageID = 5;
+                }
+                else
+                {
+                    packageID = lstPackageOfUser[0].PackageId;
+                }
+                if (cms_db.CheckTickerUserPackage(tickerId, long.Parse(User.Identity.GetUserId()), packageID))
                 {
                     long UID = long.Parse(User.Identity.GetUserId());
                     TickerViewModel model = new TickerViewModel();
@@ -224,7 +252,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         packageID = lstPackageOfUser[0].PackageId;
                     }
                     long UID = long.Parse(User.Identity.GetUserId());
-                    ContentItemViewModels model = new ContentItemViewModels();
+                    ContentItemViewModels model = new ContentItemViewModels(); 
                     ContentItem mainObj = cms_db.GetObjContentItemById(id);
                     model._MainObj = mainObj;
                     model.lstSameNews = cms_db.GetContentItemByUserLinq(UID, packageID).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
