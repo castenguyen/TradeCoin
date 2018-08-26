@@ -65,10 +65,10 @@
                             <div class="attachment-pushed">
                                 <h4 class="attachment-heading"><a href="@Url.Action("DetailNews", "Member", new { id = _val.ContentItemId })">@_val.ContentTitle</a></h4>
                                 @foreach (ContentPackage _item in _val.lstContentPackage)
-    {
+                                {
 
-                            <span class="badge bg-yellow">@_item.PackageName</span>
-}
+                                    <span class="badge bg-yellow">@_item.PackageName</span>
+                                }
 
 
 
@@ -81,9 +81,9 @@
                                     <span class='description'> @_val.CrtdUserName -  @_val.CrtdDT</span>
 
                                     @if (_val.MicrositeID > 0)
-        {
-                            <span class='badge bg-green'> Đã xem</span>
-}
+                                    {
+                                        <span class='badge bg-green'> Đã xem</span>
+                                    }
                                 </div><!-- /.user-block -->
                             </div><!-- /.attachment-pushed -->
                         </div><!-- /.attachment-block -->

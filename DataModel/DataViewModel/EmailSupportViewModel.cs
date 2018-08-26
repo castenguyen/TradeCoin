@@ -122,17 +122,53 @@ namespace DataModel.DataViewModel
             get { return _MainObj.EmailTypeName; }
             set { _MainObj.EmailTypeName = value; }
         }
-        public List<EmailSupport> lstChild { get; set; }
-        public List<User> lstMod { get; set; }
 
+        public string StateName2
+        {
+            get { return _MainObj.StateName2; }
+            set { _MainObj.StateName2 = value; }
+        }
+        public Nullable<long> StateId2
+        {
+            get { return _MainObj.StateId2; }
+            set { _MainObj.StateId2 = value; }
+        }
+        public List<EmailSupport> lstChild { get; set; }
     }
 
     public class EmailSupportIndexViewModel
     {
-        public List<User> lstMod { get; set; }
-        public IPagedList<EmailSupport> lstEmailSupport { get; set; }
+     
+        public IPagedList<MiniEmailSupportViewModel> lstEmailSupport { get; set; }
         public int EmailStatus { get; set; }
         public int pageNum { get; set; }
+    }
+
+    public class MiniEmailSupportViewModel
+    {
+        public long EmailId { get; set; }
+        public string EmailName { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+        public Nullable<long> DestinationId { get; set; }
+        public string DestinationName { get; set; }
+        public Nullable<long> ParentId { get; set; }
+        public string ParentName { get; set; }
+        public string CrtdUserName { get; set; }
+        public Nullable<long> CrtdUserId { get; set; }
+        public Nullable<System.DateTime> CrtdDT { get; set; }
+        public string AprvdUserName { get; set; }
+        public Nullable<long> AprvdUID { get; set; }
+        public Nullable<System.DateTime> AprvdDT { get; set; }
+        public string StateName { get; set; }
+        public Nullable<long> StateId { get; set; }
+        public Nullable<long> EmailTypeId { get; set; }
+        public string EmailTypeName { get; set; }
+        public string StateName2 { get; set; }
+        public Nullable<long> StateId2 { get; set; }
+
+        public int tmp { get; set; }
+
     }
 
 }

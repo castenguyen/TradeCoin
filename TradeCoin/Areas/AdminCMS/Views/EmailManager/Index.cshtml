@@ -24,7 +24,7 @@
                 </div>
                 <div class="box-body no-padding">
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"><i class="fa fa-inbox"></i> Hộp thư tổng</a></li>
+                        <li><a href="#"><i class="fa fa-inbox"></i> Hộp thư đến</a></li>
                         <li><a href="#"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
                         <li><a href="#"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
                     </ul>
@@ -39,27 +39,25 @@
                 }
 
             </div><!-- /.box-body -->
-
-
-            <div class="box box-solid">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Danh sách support viên</h3>
-                    <div class="box-tools">
-                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            @*<div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Danh sách support viên</h3>
+                        <div class="box-tools">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <p class="text-red">Click chọn một support viên để đặt câu hỏi</p>
                     </div>
-                    <p class="text-red">Click chọn một support viên để đặt câu hỏi</p>
-                </div>
-                <div class="box-body no-padding">
-                    <ul class="nav nav-pills nav-stacked">
-                        @{
-                            foreach (User _val in Model.lstMod)
-                            {
-                                <li><a href="@Url.Action("CreateNewEmail", "EmailManager", new {ModId=_val.Id })"> @_val.FullName  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            @{
+                                foreach (User _val in Model.lstMod)
+                                {
+                                    <li><a href="@Url.Action("CreateNewEmail", "EmailManager", new {ModId=_val.Id })"> @_val.FullName  <span class="text-blue pull-right">230 điểm hạng 1 </span> </a></li>
+                                }
                             }
-                        }
-                    </ul>
-                </div>
-            </div><!-- /. box -->
+                        </ul>
+                    </div>
+                </div>*@
 
         </div><!-- /.col -->
         <div class="col-md-9">
@@ -79,7 +77,6 @@
                         <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
                         <div class="btn-group">
                             <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-
                         </div><!-- /.btn-group -->
                         <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
 
@@ -89,27 +86,31 @@
                             <tbody>
 
                                 @{
-                                    foreach (EmailSupport _val in Model.lstEmailSupport)
+                                    foreach (MiniEmailSupportViewModel _val in Model.lstEmailSupport)
                                     {
 
 
                                         <tr>
                                             <td><input type="checkbox"></td>
-                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                                            <td class="mailbox-star">
+                                                @if (_val.DestinationId == null || _val.DestinationId== 0)
+                                        {
+
+                                            <span class='badge bg-red'> Chờ trả lời</span>
+}
+
+                                            </td>
                                             <td class="mailbox-name"><b>@_val.DestinationName</b></td>
-                                            @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-                                            {
-                                            <td class="mailbox-subject"><a href="@Url.Action("DetailEmail", "EmailManager", new {emailId=_val.EmailId })">@_val.EmailName</a></td>
-                                            }
-                                            else
-                                            {
-                                            <td class="mailbox-subject"><b>@_val.EmailName</b></td>
-                                            }
-                                            <td class="mailbox-attachment"></td>
+                                           <td class="mailbox-subject"><a href="@Url.Action("DetailEmail", "EmailManager", new {emailId=_val.EmailId })">@_val.EmailName</a></td>
+                                            <td class="mailbox-attachment">@_val.CrtdUserName</td>
                                             <td class="mailbox-date">@_val.CrtdDT</td>
+                                            <td class="mailbox-date">
+                                                @if (_val.tmp > 0)
+                                                {
+                                                    <span class='badge bg-green'> Đã xem</span>
+                                                }
+                                            </td>
                                         </tr>
-
-
                                     }
                                 }
 

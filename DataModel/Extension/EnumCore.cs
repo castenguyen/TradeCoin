@@ -33,6 +33,7 @@ namespace DataModel.Extension
             page_infor_microsite = 8198,
             package= 11914,
             ticker= 11915,
+            emailsupport= 11923,
 
         }
         public enum IsEvent : int
@@ -194,15 +195,9 @@ namespace DataModel.Extension
 
         public enum EmailStatus : int
         {
-            cho_hoi_am = 6017,
-            da_xem = 6015,
-            da_xoa = 6148,
-
-
-            //cho_phep = 6015,
-            //khong_cho_phep = 6016,
-            //cho_duyet = 6017,
-            //da_xoa = 6148,
+            chua_xem = 11921,
+            da_xem = 11920,
+            da_xoa = 11922,
         }
 
 
