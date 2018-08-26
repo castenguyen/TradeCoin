@@ -61,8 +61,8 @@ namespace DataModel.DataStore
             try
             {
                 var result = db.MediaContents.Add(mediaContent.objMediaContent);
-                 db.SaveChanges();
-                 return mediaContent.objMediaContent;
+                db.SaveChanges();
+                return mediaContent.objMediaContent;
 
             }
             catch (Exception e)
@@ -120,8 +120,8 @@ namespace DataModel.DataStore
             List<MediaContent> LstMediaContent = db.MediaContents.Where(s => lstid.Contains(s.MediaContentId)).ToList();
             foreach (MediaContent _val in LstMediaContent)
             {
-               await this.DeleteMediaContent(_val.MediaContentId);
-            
+                await this.DeleteMediaContent(_val.MediaContentId);
+
             }
             return (int)EnumCore.Result.action_true;
         }
@@ -154,13 +154,13 @@ namespace DataModel.DataStore
         {
             IQueryable<MediaContent> lstMediaContent = db.MediaContents.OrderByDescending(c => c.MediaContentId);
             if (MediaContentId.HasValue)
-              lstMediaContent=  lstMediaContent.Where(s => s.MediaContentId == MediaContentId);
+                lstMediaContent = lstMediaContent.Where(s => s.MediaContentId == MediaContentId);
             if (MediaTypeId.HasValue)
-             lstMediaContent=   lstMediaContent.Where(s => s.MediaTypeId == MediaTypeId);
+                lstMediaContent = lstMediaContent.Where(s => s.MediaTypeId == MediaTypeId);
             if (ObjTypeId.HasValue)
-             lstMediaContent=   lstMediaContent.Where(s => s.ObjTypeId == ObjTypeId);
+                lstMediaContent = lstMediaContent.Where(s => s.ObjTypeId == ObjTypeId);
             if (ContentObjId.HasValue)
-             lstMediaContent=   lstMediaContent.Where(s => s.ContentObjId == ContentObjId);
+                lstMediaContent = lstMediaContent.Where(s => s.ContentObjId == ContentObjId);
             return lstMediaContent;
         }
 
@@ -242,7 +242,7 @@ namespace DataModel.DataStore
 
         public MediaContent GetObjMediaContentForMicrosite(long idMicroste)
         {
-            return db.MediaContents.SingleOrDefault(x=>x.ContentObjId == idMicroste && x.ObjTypeId ==(int)EnumCore.ObjTypeId.Microsite);
+            return db.MediaContents.SingleOrDefault(x => x.ContentObjId == idMicroste && x.ObjTypeId == (int)EnumCore.ObjTypeId.Microsite);
         }
 
         public ImageUploadViewModel UploadHttpPostedFileBase(HttpPostedFileBase Request)
@@ -546,24 +546,67 @@ namespace DataModel.DataStore
 
 
 
-        public IQueryable<MediaContent> GetMediaByUserLinq(long UserId)
+        public IQueryable<MiniMediaViewModel> GetMediaByUserLinq(long UserId, long packageID)
         {
-
-            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long packageiduser = 0;
+            if (packageID == 5)
+            {
+                packageiduser = packageID;
+            }
+            else
+            {
+                ///lấy package id của user
+                packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            }
+           
 
             long[] lstpackageid = (from pa in db.Packages where pa.PackageId < packageiduser select pa.PackageId).ToArray();
 
+
             long[] lstMediaid = (from me in db.MediaContents
 
-                                  join cp in db.ContentPackages on me.MediaContentId equals cp.ContentId
+                                 join cp in db.ContentPackages on me.MediaContentId equals cp.ContentId
 
-                                  where cp.ContentType == (int)EnumCore.ObjTypeId.video && me.MediaTypeId == (int)EnumCore.ObjTypeId.video && me.StatusId != (int)EnumCore.TickerStatusType.da_xoa && lstpackageid.Contains(cp.PackageId)
+                                 where cp.ContentType == (int)EnumCore.ObjTypeId.video && me.MediaTypeId == (int)EnumCore.ObjTypeId.video
+                                           && me.StatusId != (int)EnumCore.StateType.da_xoa && lstpackageid.Contains(cp.PackageId)
 
-                                  select me.MediaContentId).ToArray();
+                                 select me.MediaContentId).ToArray();
 
-            IQueryable<MediaContent> rs = from me in db.MediaContents where lstMediaid.Contains(me.MediaContentId) select me;
+            IQueryable<MiniMediaViewModel> rs = from me in db.MediaContents
+                                                join cv in db.ContentViews on me.MediaContentId equals cv.ContentId into all
+                                                from l in all.DefaultIfEmpty()
 
-            return rs;
+                                                where lstMediaid.Contains(me.MediaContentId)
+                                                select (new MiniMediaViewModel
+                                                {
+                                                    MediaContentId = me.MediaContentId,
+                                                    MediaContentGuidId = me.MediaContentGuidId,
+                                                    Filename = me.Filename,
+                                                    FullURL = me.FullURL,
+                                                    ThumbURL = me.ThumbURL,
+                                                    MetadataDesc = me.MetadataDesc,
+                                                    MetadataKeyword = me.MetadataKeyword,
+                                                    MediaContentSize = me.MediaContentSize,
+                                                    EXIFInfo = me.EXIFInfo,
+                                                    MediaTypeId = me.MediaTypeId,
+                                                    ObjTypeId = me.ObjTypeId,
+                                                    AprvdUID = me.AprvdUID,
+                                                    AprvdDT = me.AprvdDT,
+                                                    CrtdUID = me.CrtdUID,
+                                                    CrtdDT = me.CrtdDT,
+                                                    ViewCount = me.ViewCount,
+                                                    Caption = me.Caption,
+                                                    AlternativeText = me.AlternativeText,
+                                                    MediaDesc = me.MediaDesc,
+                                                    ContentObjId = me.ContentObjId,
+                                                    ContentObjName = me.ContentObjName,
+                                                    LinkHref = me.LinkHref,
+                                                    StatusId = me.StatusId,
+                                                    StatusName = me.StatusName,
+                                                    tmp = (l.ContentId > 0) ? 1 : 0
+
+                                                });
+            return rs.Distinct();
         }
 
         #endregion FrontEND
@@ -584,7 +627,7 @@ namespace DataModel.DataStore
 
         public static void SaveResizedImage(string filePath, string filename, string resizedFilename, int width, int height)
         {
-            FileStream fileStream = new FileStream(filePath +"\\"+ filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            FileStream fileStream = new FileStream(filePath + "\\" + filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             //Image origImg = Image.FromFile(Path.Combine(filePath, filename));
             Image origImg = Image.FromStream(fileStream);
             Image resizedImg = FixedSize(origImg, width, height);
