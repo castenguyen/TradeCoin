@@ -352,34 +352,31 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             try
             {
-                if (cms_db.CheckVideoUserPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser")
+                long packageID = 0;
+                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+                if (lstPackageOfUser == null)
+                {
+                    return RedirectToAction("Login", "AccountAdmin");
+                }
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+                    packageID = 5;
+                }
+                else
+                {
+                    packageID = lstPackageOfUser[0].PackageId;
+                }
+                if (cms_db.CheckVideoUserPackage(id, long.Parse(User.Identity.GetUserId()), packageID) || User.IsInRole("AdminUser")
                     || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-
-                    long packageID = 0;
-                    List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                    if (lstPackageOfUser == null)
-                    {
-                        return RedirectToAction("Login", "AccountAdmin");
-                    }
-                    if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-                    {
-                        packageID = 5;
-                    }
-                    else
-                    {
-                        packageID = lstPackageOfUser[0].PackageId;
-                    }
                     long UID = long.Parse(User.Identity.GetUserId());
-
-
                     MediaContentViewModels model = new MediaContentViewModels();
                     MediaContent mainObj = cms_db.GetObjMediaContent(id);
                     model.objMediaContent = mainObj;
                     model.lstSameVideo = cms_db.GetListVideoByUser(long.Parse(User.Identity.GetUserId()),
                                 (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, packageID);
 
-                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UID);
+                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.video, UID);
                     if (ck == null)
                     {
                         ContentView tmp = new ContentView();
