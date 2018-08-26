@@ -97,10 +97,18 @@ namespace DataModel.DataStore
 
 
 
-        public IQueryable<MiniTickerViewModel> GetTickerByUserLinq(long UserId)
+        public IQueryable<MiniTickerViewModel> GetTickerByUserLinq(long UserId, long packageID)
         {
-            ///lấy package id của user
-            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long packageiduser = 0;
+            if (packageID == 5)
+            {
+                packageiduser = packageID;
+            }
+            else
+            {
+                ///lấy package id của user
+                packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            }
 
             //lấy gói package mà user có thể xem được
             long[] lstpackageid = (from pa in db.Packages where pa.PackageId <= packageiduser select pa.PackageId).ToArray();
@@ -156,9 +164,18 @@ namespace DataModel.DataStore
 
 
 
-        public bool CheckTickerUserPackage(long TickerId, long UserId)
+        public bool CheckTickerUserPackage(long TickerId, long UserId, long packageID)
         {
-            long packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            long packageiduser = 0;
+            if (packageID == 5)
+            {
+                packageiduser = packageID;
+            }
+            else
+            {
+                ///lấy package id của user
+                packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
+            }
             long[] lstContentItemsPackage = (from pa in db.ContentPackages
                                              where pa.ContentType == (int)EnumCore.ObjTypeId.ticker && pa.ContentId == TickerId
                                              select pa.PackageId).ToArray();
