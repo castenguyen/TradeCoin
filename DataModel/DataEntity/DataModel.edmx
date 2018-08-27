@@ -439,6 +439,8 @@
           <Property Name="StateName" Type="nvarchar" MaxLength="250" />
           <Property Name="StateId" Type="int" />
           <Property Name="ForeverPrice" Type="float" />
+          <Property Name="NewPrice3M" Type="float" />
+          <Property Name="NewPrice1Y" Type="float" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -2374,6 +2376,8 @@
           <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="StateId" Type="Int32" />
           <Property Name="ForeverPrice" Type="Double" />
+          <Property Name="NewPrice3M" Type="Double" />
+          <Property Name="NewPrice1Y" Type="Double" />
         </EntityType>
         <EntityType Name="RoleGroup">
           <Key>
@@ -3362,6 +3366,8 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="alluneedbModel.Package">
               <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="NewPrice1Y" ColumnName="NewPrice1Y" />
+                <ScalarProperty Name="NewPrice3M" ColumnName="NewPrice3M" />
                 <ScalarProperty Name="ForeverPrice" ColumnName="ForeverPrice" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />

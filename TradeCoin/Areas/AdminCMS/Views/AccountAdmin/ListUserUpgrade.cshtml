@@ -78,19 +78,21 @@
                             <tr>
                                 <th>User Name</th>
                                 <th>Email</th>
-                                <th>Gói cước</th>
+                                <th>Gói cước hiện tại</th>
+                                <th>Gói cước chờ nâng cấp</th>
                                 <th>Quản lý Chi Tiết</th>
 
                             </tr>
                             @foreach (User item in Model.LstAllUser)
                             {
-                                <tr>
-                                    <td>@item.FullName</td>
-                                    <td>@item.EMail</td>
-                                    <td>@item.PackageName</td>
-                                    <td><a href="@Url.Action("DetailUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Duyệt nâng cấp</a></td>
+                            <tr>
+                                <td>@item.FullName</td>
+                                <td>@item.EMail</td>
+                                <td>@item.PackageName</td>
+                                <td>@item.AwaitPackageName</td>
+                                <td><a href="@Url.Action("DetailUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Duyệt nâng cấp</a></td>
 
-                                </tr>
+                            </tr>
                             }
                         </tbody>
                     </table>

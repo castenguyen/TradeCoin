@@ -104,7 +104,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     if (PackageTimeType == (int)EnumCore.PackageTimeType.quy)
                     {
-                        model.TotalPrice = ObjNewPackage.NewPrice.Value * 3;
+                        model.TotalPrice = ObjNewPackage.NewPrice3M.Value;
                         model.TotalDay = 90;
                     }
 

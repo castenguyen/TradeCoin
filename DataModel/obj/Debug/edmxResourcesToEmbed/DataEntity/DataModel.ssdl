@@ -434,6 +434,8 @@
     <Property Name="StateName" Type="nvarchar" MaxLength="250" />
     <Property Name="StateId" Type="int" />
     <Property Name="ForeverPrice" Type="float" />
+    <Property Name="NewPrice3M" Type="float" />
+    <Property Name="NewPrice1Y" Type="float" />
   </EntityType>
   <EntityType Name="Product">
     <Key>

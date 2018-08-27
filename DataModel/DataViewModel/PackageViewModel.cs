@@ -44,11 +44,35 @@ namespace DataModel.DataViewModel
             set { _MainObj.OldPrice = value; }
         }
         [Required]
-        [Display(Name = "Gía gói cước")]
+        [Display(Name = "Gía gói theo tháng")]
         public Nullable<double> NewPrice
         {
             get { return _MainObj.NewPrice; }
             set { _MainObj.NewPrice = value; }
+        }
+
+        [Required]
+        [Display(Name = "Gía gói theo quý")]
+        public Nullable<double> NewPrice3M
+        {
+            get { return _MainObj.NewPrice3M; }
+            set { _MainObj.NewPrice3M = value; }
+        }
+
+        [Required]
+        [Display(Name = "Gía gói theo năm")]
+        public Nullable<double> NewPrice1Y
+        {
+            get { return _MainObj.NewPrice1Y; }
+            set { _MainObj.NewPrice1Y = value; }
+        }
+
+        [Required]
+        [Display(Name = "Gía gói vĩnh viễn")]
+        public Nullable<double> ForeverPrice
+        {
+            get { return _MainObj.ForeverPrice; }
+            set { _MainObj.ForeverPrice = value; }
         }
 
         [Required]

@@ -30,11 +30,19 @@
                                 @Html.TextBoxFor(m => m.NewPrice, new { @class = "form-control" })
 
                             </div>
+
                             <div class="form-group">
-                                @Html.LabelFor(m => m.NumDay, new { @class = "col-md-4 control-label" })
-                                @Html.TextBoxFor(m => m.NumDay, new { @class = "form-control" })
+                                @Html.LabelFor(m => m.NewPrice3M, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.NewPrice3M, new { @class = "form-control" })
 
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ForeverPrice, new { @class = "col-md-4 control-label" })
+                                @Html.TextBoxFor(m => m.ForeverPrice, new { @class = "form-control" })
+
+                            </div>
+
+                           
                             @Html.HiddenFor(m => m.PackageId)
                             @Html.HiddenFor(m => m.CrtdDT)
                             @Html.HiddenFor(m => m.CrtdUserId)

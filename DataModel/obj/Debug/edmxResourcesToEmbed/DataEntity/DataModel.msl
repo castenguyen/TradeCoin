@@ -950,6 +950,8 @@
     <EntitySetMapping Name="Packages">
       <EntityTypeMapping TypeName="alluneedbModel.Package">
         <MappingFragment StoreEntitySet="Package">
+          <ScalarProperty Name="NewPrice1Y" ColumnName="NewPrice1Y" />
+          <ScalarProperty Name="NewPrice3M" ColumnName="NewPrice3M" />
           <ScalarProperty Name="ForeverPrice" ColumnName="ForeverPrice" />
           <ScalarProperty Name="StateId" ColumnName="StateId" />
           <ScalarProperty Name="StateName" ColumnName="StateName" />

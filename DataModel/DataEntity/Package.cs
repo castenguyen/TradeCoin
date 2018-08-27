@@ -25,5 +25,7 @@ namespace DataModel.DataEntity
         public string StateName { get; set; }
         public Nullable<int> StateId { get; set; }
         public Nullable<double> ForeverPrice { get; set; }
+        public Nullable<double> NewPrice3M { get; set; }
+        public Nullable<double> NewPrice1Y { get; set; }
     }
 }

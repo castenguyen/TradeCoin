@@ -1269,6 +1269,8 @@
     <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StateId" Type="Int32" />
     <Property Name="ForeverPrice" Type="Double" />
+    <Property Name="NewPrice3M" Type="Double" />
+    <Property Name="NewPrice1Y" Type="Double" />
   </EntityType>
   <EntityType Name="RoleGroup">
     <Key>
