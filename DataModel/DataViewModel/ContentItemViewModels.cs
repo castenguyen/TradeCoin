@@ -289,10 +289,16 @@ namespace DataModel.DataViewModel
         public int pageNum { get; set; }
         public int ContentState { get; set; }
         public int ContentCatalogry { get; set; }
-
+        public int TickerPackage { get; set; }
         public string FriendlyUrlShop { get; set; }
         public long Idshop { get; set; }
-
+        public SelectList lstPackage { get; set; }
+        public string FillterContenName { get; set; }
+        public SelectList lstFillterContentState { get; set; }
+        public SelectList lstFillterContentCatalogry { get; set; }
+        public string Datetime { get; set; }
+        public Nullable<System.DateTime> StartDT { get; set; }
+        public Nullable<System.DateTime> EndDT { get; set; }
     }
 
 
