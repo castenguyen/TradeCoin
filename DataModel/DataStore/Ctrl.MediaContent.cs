@@ -590,17 +590,16 @@ namespace DataModel.DataStore
             }
            
 
-            long[] lstpackageid = (from pa in db.Packages where pa.PackageId < packageiduser select pa.PackageId).ToArray();
+            long[] lstpackageid = (from pa in db.Packages where pa.PackageId <= packageiduser select pa.PackageId).ToArray();
 
 
-            long[] lstMediaid = (from me in db.MediaContents
+            long[] lstMediaid = (from cp in db.ContentPackages 
 
-                                 join cp in db.ContentPackages on me.MediaContentId equals cp.ContentId
+                                 where cp.ContentType == (int)EnumCore.ObjTypeId.video && lstpackageid.Contains(cp.PackageId)
 
-                                 where cp.ContentType == (int)EnumCore.ObjTypeId.video && me.MediaTypeId == (int)EnumCore.ObjTypeId.video
-                                           && me.StatusId != (int)EnumCore.StateType.da_xoa && lstpackageid.Contains(cp.PackageId)
+                                 select cp.ContentId).Distinct().ToArray();
 
-                                 select me.MediaContentId).ToArray();
+
 
             IQueryable<MiniMediaViewModel> rs = from me in db.MediaContents
                                                 join cv in db.ContentViews on me.MediaContentId equals cv.ContentId into all
@@ -633,7 +632,7 @@ namespace DataModel.DataStore
                                                     LinkHref = me.LinkHref,
                                                     StatusId = me.StatusId,
                                                     StatusName = me.StatusName,
-                                                    tmp = (l.ContentId > 0) ? 1 : 0
+                                                    tmp = (l.UserId > 0) ? 1 : 0
 
                                                 });
             return rs.Distinct();

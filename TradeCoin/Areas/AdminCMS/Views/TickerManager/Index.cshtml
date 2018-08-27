@@ -70,7 +70,7 @@
                                 foreach (var _val in Model.lstMainTickerViewModel)
                                 {
                                     <tr>
-                                        <td><a href="#">@_val.TickerName</a></td>
+                                        <td><a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">@_val.TickerName</a></td>
                                         <td>@_val.CrtdDT</td>
                                         <td>@_val.CrtdUserName</td>
                                         <td>
