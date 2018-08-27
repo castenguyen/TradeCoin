@@ -21,6 +21,7 @@
 
         $(".main_state_name").html(statename);
         $(".main_cata_name").html(catename);
+        $('#reservation3').daterangepicker();
 
     });
 </script>
@@ -35,8 +36,30 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Quản Lý Bài Viết</h3>
+                    <div id="example1_filter" class="dataTables_filter">
+                        @using (Html.BeginForm("Index", "ContentItem", FormMethod.Post, new { id = "filterForm", role = "form" }))
+                        {
+                            <label>Tên kèo:@Html.TextBoxFor(s => s.FillterContenName, new { @class = "form-control input-sm", placeholder = "" })</label>
+                            <div class="btn-group">
+                                @Html.TextBoxFor(m => m.Datetime, new { @class = "form-control pull-right", id = "reservation3" })
+                            </div>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.TickerPackage, Model.lstPackage as SelectList, "Gói cước...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.ContentState, Model.lstFillterContentState as SelectList, "Tất cả trạng thái...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.ContentCatalogry, Model.lstFillterContentCatalogry as SelectList, "Loại bài viết...", new { @class = "form-control" })
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary margin">Tìm</button>
+                            </div>
+                        }
+                    </div>
                     <div class="box-tools">
-                        <div class="btn-group">
+                        @*<div class="btn-group">
                             <button type="button" class="btn btn-danger main_state_name">Trạng thái</button>
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
@@ -58,8 +81,8 @@
 
 
                             </ul>
-                        </div>
-                        <div class="btn-group">
+                        </div>*@
+                        @*<div class="btn-group">
                             <button type="button" class="btn btn-danger main_cata_name">Loại bài viết</button>
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
@@ -79,7 +102,7 @@
                                 </li>
                             }
                             </ul>
-                        </div>
+                        </div>*@
                         <a href="@Url.Action("Create", "ContentItem")" class="btn btn-primary">Thêm mới Bài viết</a>
                     </div>
                 </div><!-- /.box-header -->
@@ -142,7 +165,9 @@
 </section>
 <script>
 
-
+    $('#datepicker').datepicker({
+        autoclose: true
+    })
 
 
 </script>
