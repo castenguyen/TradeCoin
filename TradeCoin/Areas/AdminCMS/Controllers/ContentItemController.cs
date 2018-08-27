@@ -66,10 +66,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             if (!String.IsNullOrEmpty(Datetime))
             {
+                model.Datetime = Datetime;
                 model.StartDT = this.SpritDateTime(model.Datetime)[0];
                 model.EndDT = this.SpritDateTime(model.Datetime)[1];
-                tmp = tmp.Where(s => s.ContentTitle.ToLower().Contains(FillterContenName.ToLower()));
-                model.Datetime = Datetime;
+                tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
             }
 
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
