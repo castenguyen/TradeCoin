@@ -27,26 +27,43 @@
                     <div class="form-group col-md-4">
                         <div class="box-tools">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-danger main_state_name">DANH SÁCH ROLE</button>
+                                <button type="button" class="btn btn-danger main_state_name">Danh sách gói cước</button>
                                 <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="divider"></li>
-                                    @foreach (Role _val in Model.LstRole)
+                                    <li>
+                                        <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = Model.letter, page = Model.Page ,packageid=0  })">Tất cả</a>
+                                    </li>
+                                    @foreach (Package _val in Model.LstPackage)
                                     {
                                         <li>
-                                            <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = Model.letter, RoleName = _val.Name, page = Model.Page })">@_val.Name</a>
+                                            <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = Model.letter, page = Model.Page ,packageid=_val.PackageId })">@_val.PackageName</a>
                                         </li>
                                     }
-
-
                                 </ul>
                             </div>
 
                         </div>
                     </div>
+                    <div class="form-group col-md-4">
+                        <div class="box-tools">
+                            <div class="form-group ">
+                                @using (Html.BeginForm("ListUser", "AccountAdmin", FormMethod.Get, new { @class = "", role = "form", id = "CreateForm" }))
+                                {
+                                    <input type="text" class="form-control-static input-sm col-md-8" placeholder="Email" name="email">
+
+                                    <button type="submit" class=" btn btn-danger col-md-4">Tìm theo email</button>
+                                }
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div class="form-group col-md-4">
                         <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "a", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">A</a> |
                         <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "b", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">B</a> |
@@ -75,6 +92,8 @@
                         <a href="@Url.Action("ListUser", "AccountAdmin", new { letter = "z", RoleName = Model.RoleName, page = Model.Page })" class="label label-primary">Z</a>
                     </div>
 
+
+
                     <table class="table table-hover">
                         <tbody>
                             <tr>
@@ -88,34 +107,34 @@
                             </tr>
                             @foreach (User item in Model.LstAllUser)
                             {
-                            <tr>
-                                <td>@item.Login</td>
-                                <td>@item.EMail</td>
-                                <td>
+                                <tr>
+                                    <td>@item.Login</td>
+                                    <td>@item.EMail</td>
+                                    <td>
 
-                                    @foreach (Role _val in item.LstRole)
-        {
-            if (_val.Name == "Mod" || _val.Name == "AdminUser" || _val.Name == "Member")
-            {
-                            <span class="label label-success">@_val.Name</span>
-}
-}
-                                </td>
+                                        @foreach (Role _val in item.LstRole)
+                                        {
+                                            if (_val.Name == "Mod" || _val.Name == "AdminUser" || _val.Name == "Member")
+                                            {
+                                                <span class="label label-success">@_val.Name</span>
+                                            }
+                                        }
+                                    </td>
 
 
-                                <td>@item.PackageName</td>
-                                <td><a href="@Url.Action("DetailUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
-                                @if (@item.LockoutEnabled == true)
-    {
-                            <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = false })" class="btn btn-block btn-success btn-xs">Kích hoat</a></td>
-}
-else
-{
-                            <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = true })" class="btn btn-block btn-danger btn-xs">Tạm khoá</a></td>
-}
-                                <td><a href="@Url.Action("DetailUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
+                                    <td>@item.PackageName</td>
+                                    <td><a href="@Url.Action("DetailUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Nâng cấp</a></td>
+                                    @if (@item.LockoutEnabled == true)
+                                    {
+                                        <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = false })" class="btn btn-block btn-success btn-xs">Kích hoat</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="@Url.Action("ChangeState", "AccountAdmin", new { id = item.Id, state = true })" class="btn btn-block btn-danger btn-xs">Tạm khoá</a></td>
+                                    }
+                                    <td><a href="@Url.Action("DetailUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Chi Tiết</a></td>
 
-                            </tr>
+                                </tr>
                             }
                         </tbody>
                     </table>

@@ -945,14 +945,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         #region ListUser-DetailUser-ManagerUser-ListUserUpgrade-DetailUpgradeUser-UpgradePackage
 
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-        public ActionResult ListUser(string letter, string RoleName, int? page = 1)
+        [AdminAuthorize(Roles = "supperadmin,devuser,MarnageUser")]
+        public ActionResult ListUser(string letter, string RoleName,  string email, int? page = 1 , int ? packageid = 0)
         {
             try
             {
                 int pageNum = (page ?? 1);
                 UserRoleViewModel model = new UserRoleViewModel();
-                model.LstRole = cms_db.GetRoleList2();
+
+
+                model.LstPackage = cms_db.GetlstPackage().ToList();
+
+
                 var CurrentUser = UserManager.FindById(long.Parse(User.Identity.GetUserId()));
                 IQueryable<User> tmp = null;
                 if (User.IsInRole("devuser"))
@@ -974,13 +978,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     letter = letter.ToLower();
                     tmp = tmp.Where(c => c.Login.StartsWith(letter) || c.EMail.StartsWith(letter));
                 }
-                if (!String.IsNullOrEmpty(RoleName))
+                if (!String.IsNullOrEmpty(email))
                 {
-                    tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
+                   
+                    tmp = tmp.Where(c => c.EMail== email );
                 }
+                if (packageid.Value > 0)
+                {
+                    tmp = tmp.Where(c => c.PackageId == packageid);
+
+                }
+                //if (!String.IsNullOrEmpty(RoleName))
+                //{
+                //    tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
+                //}
                 model.LstAllUser = tmp.OrderBy(c => c.EMail).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
                 model.Page = pageNum;
                 model.letter = letter;
+                model.packageid = packageid.Value;
+                model.email = email;
                 return View(model);
             }
             catch (Exception e)
@@ -1122,6 +1138,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.LstPackages = new SelectList(cms_db.GetlstPackage(), "PackageId", "PackageName");
             model.LstHistoryUpgrade = cms_db.GetlstUserPackage(id);
 
+
+            if (!String.IsNullOrEmpty(alertMessage))
+            {
+                model.AlertMessage = alertMessage;
+            }
+
+            if (_ObjUser.AwaitPackageId == 0)
+            {
+
+                return View(model);
+
+            }
             UserPackage objAwaitUserPackage = cms_db.GetlastAwaitUserPackage(id);
             if (objAwaitUserPackage != null)
             {
@@ -1155,10 +1183,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
 
-            if (!String.IsNullOrEmpty(alertMessage))
-            {
-                model.AlertMessage = alertMessage;
-            }
             return View(model);
         }
 
@@ -1202,7 +1226,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 //thì co nghi a la nâng cấp tháng-quý
                 if (!String.IsNullOrEmpty(model.Datetime))
                 {
-                    _ObjUser.ExpiredDay = this.SpritDateTime(model.Datetime)[1];
+                   
+                        _ObjUser.ExpiredDay = this.SpritDateTimeUpdate(model.Datetime)[1];
+                  
+                  
                 }
                 else
                 {
@@ -1248,6 +1275,22 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 cms_db.AddToExceptionLog("DetailUpgradeUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return RedirectToAction("DetailUpgradeUser", "AccountAdmin", new { id = model.ObjUser.Id, alertMessage = "Nâng cấp gói cước không thành công" });
             }
+        }
+
+        private DateTime[] SpritDateTimeUpdate(string datetime)
+        {
+            try {
+
+                string[] words = datetime.Split('-');
+                DateTime[] model = new DateTime[] { Convert.ToDateTime(words[0]), Convert.ToDateTime(words[1]) };
+                return model;
+            }
+            catch {
+
+                DateTime[] model = new DateTime[] { Convert.ToDateTime(datetime), Convert.ToDateTime(datetime) };
+                return model;
+            }
+          
         }
         private DateTime[] SpritDateTime(string datetime)
         {

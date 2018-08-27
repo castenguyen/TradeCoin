@@ -216,10 +216,15 @@ namespace DataModel.DataViewModel
 
         [Display(Name = "Danh sách Role")]
         public List<Role> LstRole { get; set; }
+        public List<Package> LstPackage { get; set; }
 
         [Display(Name = "Danh sách Role")]
         public string RoleName { get; set; }
         public int Page { get; set; }
+        public string email { get; set; }
+
+        public int packageid { get; set; }
+
         public string letter { get; set; }
         [Display(Name = "Danh sách User")]
         public long UserId { get; set; }
