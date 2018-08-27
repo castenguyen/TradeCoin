@@ -23,22 +23,55 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
     public class ContentItemController : CoreBackEnd
     {
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateNews")]
-        public ActionResult Index(int? page, int? catalogry, int? state)
+        public ActionResult Index(int? page, int? ContentCatalogry, int? ContentState, 
+            int? TickerPackage, string FillterContenName, string Datetime)
         {
             int pageNum = (page ?? 1);
             ContentItemIndexViewModel model = new ContentItemIndexViewModel();
             IQueryable<ContentItem> tmp = cms_db.GetlstContentItem().Where(s => (s.MicrositeID == null || s.MicrositeID == 0) && s.StateId != (int)EnumCore.StateType.da_xoa && s.ObjTypeId == (int)EnumCore.ObjTypeId.tin_tuc);
-            if (catalogry.HasValue && catalogry.Value != 0)
+            if (ContentCatalogry.HasValue && ContentCatalogry.Value != 0)
             {
-                tmp = tmp.Where(s => s.CategoryId == catalogry);
-                model.ContentCatalogry = catalogry.Value;
+                tmp = tmp.Where(s => s.CategoryId == ContentCatalogry);
+                model.ContentCatalogry = ContentCatalogry.Value;
             }
 
-            if (state.HasValue && state.Value != 0)
+            if (ContentState.HasValue && ContentState.Value != 0)
             {
-                tmp = tmp.Where(s => s.StateId == state);
-                model.ContentState = state.Value;
+                tmp = tmp.Where(s => s.StateId == ContentState);
+                model.ContentState = ContentState.Value;
             }
+
+            if (TickerPackage.HasValue && TickerPackage.Value != 0)
+            {
+                foreach (ContentItem _val in tmp)
+                {
+
+                    List<ContentPackage> lstpackageofticker = cms_db.GetlstObjContentPackage(_val.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
+                    if (!lstpackageofticker.Select(s => s.PackageId).Contains(TickerPackage.Value))
+                    {
+                        tmp = tmp.Where(s => s.ContentItemId != _val.ContentItemId);
+                    }
+
+
+                }
+
+                model.TickerPackage = TickerPackage.Value;
+            }
+
+            if (!String.IsNullOrEmpty(FillterContenName))
+            {
+                tmp = tmp.Where(s => s.ContentTitle.ToLower().Contains(FillterContenName.ToLower()));
+                model.FillterContenName = FillterContenName;
+            }
+
+            if (!String.IsNullOrEmpty(Datetime))
+            {
+                model.StartDT = this.SpritDateTime(model.Datetime)[0];
+                model.EndDT = this.SpritDateTime(model.Datetime)[1];
+                tmp = tmp.Where(s => s.ContentTitle.ToLower().Contains(FillterContenName.ToLower()));
+                model.Datetime = Datetime;
+            }
+
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
@@ -54,9 +87,17 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
              }
 
 
-            model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
-            model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);
+            model.lstFillterContentState = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type), "value", "text");
+            model.lstFillterContentCatalogry = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet), "value", "text");
+            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
             return View(model);
+        }
+
+        private DateTime[] SpritDateTime(string datetime)
+        {
+            string[] words = datetime.Split('-');
+            DateTime[] model = new DateTime[] { Convert.ToDateTime(words[0]), Convert.ToDateTime(words[1]) };
+            return model;
         }
 
         public ActionResult ListNotificationNewPost()
