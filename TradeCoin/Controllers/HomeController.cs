@@ -23,7 +23,7 @@ namespace Alluneecms.Controllers
                 IndexViewModel model = new IndexViewModel();
 
                 long[] lstContentid = cms_db.GetlstContentPackageIquery().Where(s => s.ContentType 
-                            == (int)EnumCore.ObjTypeId.tin_tuc && s.PackageId==1).Select(s=>s.ContentId).Take(3).ToArray();
+                            == (int)EnumCore.ObjTypeId.tin_tuc && s.PackageId==1).OrderByDescending(s=>s.ContentId).Select(s=>s.ContentId).Take(30).ToArray();
 
                 model.lstNews = cms_db.GetlstContentItem().Where(s => lstContentid.Contains(s.ContentItemId)
                                                     && s.StateId!=(int)EnumCore.StateType.da_xoa).Take(3).ToList();
