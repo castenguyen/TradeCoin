@@ -59,7 +59,7 @@ namespace DataModel.DataStore
             return ObjUserPackage ;
         }
 
-        public int CreateUpdateUserPackage(User ObjUser, long PackageID,int StateId,string StateName, string code)
+        public int CreateUpdateUserPackage(User ObjUser, long PackageID,int StateId,string StateName, string code, long OldPackageID, string OldPackageName)
         {
             try
             {
@@ -70,6 +70,10 @@ namespace DataModel.DataStore
                 objUserPackage.CrtdDT = DateTime.Now;
                 objUserPackage.PackageId = ObjNewPackage.PackageId;
                 objUserPackage.PackageName = ObjNewPackage.PackageName;
+
+                objUserPackage.OldPackageID = OldPackageID;
+                objUserPackage.OldPackageName = OldPackageName;
+
                 objUserPackage.UpgradeUID = ObjUser.Id;
                 objUserPackage.UpgradeUserName = ObjUser.EMail;
                 objUserPackage.StateId = StateId;

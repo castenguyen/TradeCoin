@@ -610,14 +610,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 await SignInAsync(user, false);
                 User _ObjUser = await cms_db.GetObjUserById(userId);
                 _ObjUser.IsLogin = true;
-                ///kiểm tra ngày hết hạn của user
-                if (_ObjUser.ExpiredDay.HasValue)
+                ///kiểm tra ngày hết hạn của .i
+                if (_ObjUser.PackageId !=1 && _ObjUser.ExpiredDay.HasValue)
                 {
                     if (_ObjUser.ExpiredDay.Value < DateTime.Now)
                     {
+                        Package OldPackage = cms_db.GetObjPackage(_ObjUser.PackageId.Value);
                         _ObjUser.PackageId = 1;
                         _ObjUser.PackageName = "Free";
-                        int CreateUpdateUserPackage = cms_db.CreateUpdateUserPackage(_ObjUser, 1, (int)EnumCore.UpgradeStatus.het_han, "Hết hạn", "");
+                        int CreateUpdateUserPackage = cms_db.CreateUpdateUserPackage(_ObjUser, 1, (int)EnumCore.UpgradeStatus.het_han, "Hết hạn", "", OldPackage.PackageId, OldPackage.PackageName);
                     }
                 }
                 Session["ListPackageOfUser"] = cms_db.GetlstPackage().Where(s => s.PackageId == _ObjUser.PackageId).ToList();

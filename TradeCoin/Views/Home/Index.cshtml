@@ -215,11 +215,11 @@
         </div>
         <div class="row news-v1">
             @foreach (ContentItem _item in Model.lstNews)
-            {
+            { 
                 <div class="col-md-4 md-margin-bottom-40">
                     <div class="news-v1-in">
                         <img class="img-responsive" src="~/@_item.MediaThumb" alt="">
-                        <h3><a href="@Url.Action("DetailNews", "Member",new { id =_val.ContentItemId })">@_item.ContentTitle</a></h3>
+                        <h3><a href="@Url.Action("DetailNews", "Member",new { id =_item.ContentItemId,area = "AdminCMS" })">@_item.ContentTitle</a></h3>
                         <p>@Html.Raw(_item.ContentExcerpt)</p>
                         <ul class="list-inline news-v1-info">
                             <li><span>Được gửi bởi </span> @_item.CrtdUserName</li>
