@@ -758,6 +758,36 @@
   background-position: center bottom;
 }
 
+.parallax-twitter2 {
+    color: #fff;
+    padding: 100px 0;
+    position: relative;
+    text-align: center;
+    background: #333 url(../../img/bg/7.jpg) 50% 0 fixed;
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.parallax-twitter3 {
+    color: #fff;
+    padding: 100px 0;
+    position: relative;
+    text-align: center;
+    background: #333 url(../../img/bg/3.jpg) 50% 0 fixed;
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.parallax-twitter4 {
+    color: #fff;
+    padding: 100px 0;
+    position: relative;
+    text-align: center;
+    background: #333 url(../../img/bg/packages_bg.jpg) 50% 0 fixed;
+    background-size: cover;
+    background-position: center bottom;
+}
+
 .parallax-twitter:after {
   top: 0;
   right: 0;
