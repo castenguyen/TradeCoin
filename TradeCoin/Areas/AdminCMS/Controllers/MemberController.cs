@@ -89,7 +89,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult ListTicker(int? page)
+        public ActionResult ListTicker(int? page, int ? TickerStatus, string FillterTickerName, string Datetime)
         {
             long packageID = 0;
             List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
@@ -111,7 +111,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-           
+
+            if (TickerStatus.HasValue)
+            {
+                tmp = tmp.Where(s => s.TickerId == TickerStatus.Value);
+                model.TickerStatus = TickerStatus.Value;
+            }
+
+            if ( !String.IsNullOrEmpty(FillterTickerName))
+            {
+                tmp = tmp.Where(s => s.TickerName == FillterTickerName);
+                model.FillterTickerName = FillterTickerName;
+            }
+            if (!String.IsNullOrEmpty(Datetime))
+            {
+                model.Datetime = Datetime;
+                model.StartDT = this.SpritDateTime(model.Datetime)[0];
+                model.EndDT = this.SpritDateTime(model.Datetime)[1];
+                tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
+            }
+
             model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             foreach (MiniTickerViewModel _item in model.lstMainTicker)
             {
@@ -122,6 +141,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
             return View(model);
         }
+
+
+
+
+        private DateTime[] SpritDateTime(string datetime)
+        {
+            string[] words = datetime.Split('-');
+            DateTime[] model = new DateTime[] { Convert.ToDateTime(words[0]), Convert.ToDateTime(words[1]) };
+            return model;
+        }
+
+
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
 
         public ActionResult DetailTicker(long tickerId)
@@ -192,7 +223,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult ListNews(int? page, int? catalogry)
+        public ActionResult ListNews(int? page, int? ContentCatalogry, string FillterContenName, string Datetime)
         {
             long packageID = 0;
             List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
@@ -211,11 +242,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             int pageNum = (page ?? 1);
             ContentItemMemberViewModel model = new ContentItemMemberViewModel();
             IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
-            if (catalogry.HasValue && catalogry.Value != 0)
-            {
-                tmp = tmp.Where(s => s.CategoryId == catalogry);
-                model.ContentCatalogry = catalogry.Value;
-            }
+        
 
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
@@ -232,8 +259,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
 
             }
+            if (ContentCatalogry.HasValue && ContentCatalogry.Value != 0)
+            {
+                tmp = tmp.Where(s => s.CategoryId == ContentCatalogry);
+                model.ContentCatalogry = ContentCatalogry.Value;
+            }
+            if (!String.IsNullOrEmpty(FillterContenName))
+            {
+                tmp = tmp.Where(s => s.ContentTitle.ToLower().Contains(FillterContenName.ToLower()));
+                model.FillterContenName = FillterContenName;
+            }
 
-          
+            if (!String.IsNullOrEmpty(Datetime))
+            {
+                model.Datetime = Datetime;
+                model.StartDT = this.SpritDateTime(model.Datetime)[0];
+                model.EndDT = this.SpritDateTime(model.Datetime)[1];
+                tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
+            }
+
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             foreach (MiniContentItemViewModel _val in model.lstMainContent)
             {

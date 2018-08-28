@@ -23,7 +23,57 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
+
         <div class="col-md-12">
+
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tìm kiếm</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        @using (Html.BeginForm("ListTicker", "Member", FormMethod.Get, new { id = "filterForm", role = "form" }))
+                        {
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Trạng thái kèo</label>
+                                    @Html.DropDownList("TickerStatus", Model.lstTickerStatus as SelectList, "Tất cả...", new { @class = "form-control select2" })
+                                </div><!-- /.form-group -->
+
+                            </div><!-- /.col -->
+
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tên kèo</label>
+                                    <input type="text" class="form-control" name="FillterTickerName" placeholder="Tên kèo">
+                                </div>
+                            </div><!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Ngày tạo:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
+                                    </div><!-- /.input group -->
+                                </div><!-- /.form group -->
+
+                            </div><!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </div><!-- /.col -->
+
+                        }
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.box-body -->
+
             <div class="box box-widget">
                 <div class="box-header with-border">
                     <h3 class="box-title">Danh sách Kèo</h3>
@@ -42,7 +92,10 @@
                                     {
                                         <span class="badge bg-yellow">@_item.PackageName</span>
                                     }
-
+                                    @if (_val.tmp > 0)
+                                    {
+                                        <span class='badge bg-green pull-right'> Đã xem</span>
+                                    }
                                 </h4>
                                 <div class="attachment-text">
                                     @Html.Raw(_val.Description)...
@@ -52,11 +105,7 @@
                                 <div class='user-block pull-right'>
                                     @*<span class='username'><a href="#">Jonathan Burke Jr.</a></span>*@
                                     <span class='description'>@_val.CrtdUserName - @_val.CrtdDT</span>
-                                    @if (_val.tmp > 0)
-                                    {
-                                        <span class='badge bg-green'> Đã xem</span>
-                                    }
-
+                                    <br>
                                 </div><!-- /.user-block -->
                             </div><!-- /.attachment-pushed -->
                         </div><!-- /.attachment-block -->
@@ -71,8 +120,13 @@
                 </div>
             </div><!-- /.user-block -->
         </div>
-
-
     </div><!-- /.tab-content -->
 
 </section><!-- /.content -->
+<script>
+    $(function () {
+        //Date range picker
+        $('#reservation').daterangepicker();
+
+    });
+</script>

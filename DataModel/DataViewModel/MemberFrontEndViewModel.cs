@@ -28,8 +28,10 @@ namespace DataModel.DataViewModel
         public int TickerStatus { get; set; }
         public int TickerPackage { get; set; }
         public string FillterTickerName { get; set; }
-
+        public string Datetime { get; set; }
         public List<ContentPackage> lstContentPackage { get; set; }
+        public Nullable<System.DateTime> StartDT { get; set; }
+        public Nullable<System.DateTime> EndDT { get; set; }
 
     }
 
