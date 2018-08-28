@@ -201,24 +201,37 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         {
                             if (model.Flag.Value == 1)
                             {
-                                MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone1.Value,MainModel.BTCInput.Value);
+                                MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.BTCInput.Value);
                                 MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                                MainModel.StateName = "Lời";
                             }
                             else if (model.Flag.Value == 2)
                             {
                                 MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.BTCInput.Value);
                                 MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                                MainModel.StateName = "Lời";
                             }
                             else if (model.Flag.Value == 3)
                             {
                                 MainModel.Profit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.BTCInput.Value);
                                 MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                                MainModel.StateName = "Lời";
                             }
                             else if (model.Flag.Value == 4)
                             {
                                 MainModel.Deficit = this.SumTicker(model.Flag.Value, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
-                                MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                                MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
+                                MainModel.StateName = "Lỗ";
                             }
+                            else if (model.Flag.Value == 0)
+                            {
+
+                                MainModel.Profit = 0;
+                                MainModel.Deficit = 0;
+                                MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
+                                MainModel.StateName = "Đang chạy";
+                            }
+
                         }
                         int rs = await cms_db.UpdateTicker(MainModel);
                         if (Default_files != null)

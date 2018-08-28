@@ -452,5 +452,66 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
            
         }
 
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
+        public ActionResult TrackingTicker(int? page,int ? package, string FillterTickerName, string Datetime)
+        {
+            int pageNum = (page ?? 1);
+            TickerMemberViewModel model = new TickerMemberViewModel();
+            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerLinq();
+
+            tmp = tmp.Where(s => s.StateId != (int)EnumCore.TickerStatusType.dang_chay  && s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
+            if (package.HasValue)
+            {
+               tmp = cms_db.GetTickerLinqByPackage(package.Value);
+            }
+
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
+
+            
+            if (!String.IsNullOrEmpty(Datetime))
+            {
+                model.Datetime = Datetime;
+                model.StartDT = this.SpritDateTime(model.Datetime)[0];
+                model.EndDT = this.SpritDateTime(model.Datetime)[1];
+                tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
+            }
+
+            model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
+            model.TotalDeficit = 0;
+            model.TotalProfit = 0;
+            model.TotalNumberBTC = 0;
+            foreach (MiniTickerViewModel _item in model.lstMainTicker)
+            {
+                _item.lstTickerContentPackage = cms_db.GetlstObjContentPackage(_item.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                if (_item.BTCInput.HasValue && _item.Deficit.HasValue && _item.Profit.HasValue)
+                {
+                   
+                    if (_item.Flag == 1 || _item.Flag == 2 || _item.Flag == 3)
+                    {
+                        double tmpProfit = (_item.Profit.Value) * _item.BTCInput.Value;
+                        model.TotalProfit = model.TotalProfit + tmpProfit;
+                    }
+                    else if (_item.Flag == 4)
+                    {
+
+                        double tmpDeficit = (_item.Deficit.Value) * _item.BTCInput.Value;
+                        model.TotalDeficit = model.TotalDeficit + tmpDeficit;
+                    }
+
+                    model.TotalNumberBTC = model.TotalNumberBTC + _item.BTCInput.Value;
+                }
+            }
+            model.Total = model.TotalProfit - model.TotalDeficit;
+            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
+            return View(model);
+        }
+        
+
+
+
     }
 }

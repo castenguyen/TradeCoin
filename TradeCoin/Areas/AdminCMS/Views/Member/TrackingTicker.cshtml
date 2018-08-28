@@ -1,0 +1,172 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model TickerMemberViewModel
+@{
+    ViewBag.Title = "ListTicker";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Theo dõi kèo
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"> Theo dõi kèo</li>
+
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="box box-default">
+
+                <div class="box-body">
+                    <div class="row">
+                        @using (Html.BeginForm("ListTicker", "Member", FormMethod.Get, new { id = "filterForm", role = "form" }))
+                        {
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Gói</label>
+                                    @Html.DropDownList("package", Model.lstPackage as SelectList, new { @class = "form-control select2" })
+                                </div><!-- /.form-group -->
+                            </div><!-- /.col -->
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Ngày tạo:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
+                                    </div><!-- /.input group -->
+                                </div><!-- /.form group -->
+                            </div><!-- /.col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <p>Vui lòng chọn gói cước hoặc thời gian để xem cụ thể và tối đa 50 kèo cho 1 lần xem</p>
+                                    <button type="submit" class="btn btn-primary">Xem chi tiết</button>
+                                </div>
+                            </div><!-- /.col -->
+
+                        }
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+
+            <div class="box box-default">
+                <div class="box-body">
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Tổng vốn đả bỏ</span>
+                                    <span class="info-box-number">@Model.TotalNumberBTC</span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- /.info-box -->
+                        </div><!-- /.col -->
+
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Tổng lãi/lỗ</span>
+                                    <span class="info-box-number">@Model.Total</span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- /.info-box -->
+                        </div><!-- /.col -->
+
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Tổng kèo</span>
+                                    <span class="info-box-number">@Model.lstMainTicker.Count()</span>
+                                </div><!-- /.info-box-content -->
+                            </div><!-- /.info-box -->
+                        </div><!-- /.col -->
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Các kèo mới nhất</h3>
+
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Tên</th>
+                            <th>Ngày tạo</th>
+                            <th>Gói</th>
+                            <th>Tình trạng</th>
+                        </tr>
+
+                        @foreach (MiniTickerViewModel _val in Model.lstMainTicker)
+                        {
+                            <tr>
+
+                                <td>
+                                    <a href="@Url.Action("DetailTicker", "Member", new { tickerId =_val.TickerId })"> @_val.TickerName</a>
+                                </td>
+                                <td>@_val.CrtdDT</td>
+                                <td>
+                                    @foreach (ContentPackage _item in _val.lstTickerContentPackage)
+                                    {
+                                        <span class="label label-success">@_item.PackageName</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (_val.Flag == 1 || _val.Flag == 2 || _val.Flag == 3)
+                                    {
+                                        <span class="label label-success">Lãi @_val.Profit %</span>
+
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-success">Lỗ @_val.Deficit %</span>
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainTicker.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainTicker, page => Url.Action("ListTicker", new { page }))
+                    }
+                </div>
+            </div><!-- /.box -->
+        </div>
+    </div><!-- /.tab-content -->
+
+</section><!-- /.content -->
+<script>
+    $(function () {
+        //Date range picker
+        $('#reservation').daterangepicker();
+
+    });
+</script>

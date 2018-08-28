@@ -20,7 +20,10 @@ namespace DataModel.DataViewModel
 
     public class TickerMemberViewModel
     {
+
         public IPagedList<MiniTickerViewModel> lstMainTicker { get; set; }
+
+   
         public SelectList lstTickerStatus { get; set; }
         public SelectList lstPackage { get; set; }
 
@@ -32,6 +35,14 @@ namespace DataModel.DataViewModel
         public List<ContentPackage> lstContentPackage { get; set; }
         public Nullable<System.DateTime> StartDT { get; set; }
         public Nullable<System.DateTime> EndDT { get; set; }
+
+        public long TotalTicker { get; set; }
+        public double TotalProfit { get; set; }
+        public double TotalDeficit { get; set; }
+        public double TotalNumberBTC{ get; set; }
+
+        public double Total { get; set; }
+
 
     }
 

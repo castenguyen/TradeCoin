@@ -126,7 +126,7 @@
                         </ul>
                     </li>
                 }
-       
+
 
             }
 
@@ -160,7 +160,7 @@
                         </a>
                         <ul class="treeview-menu">
                             @*<li><a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Hình Ảnh</a></li>
-                            <li><a href="@Url.Action("BannerManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Banner</a></li>*@
+                                <li><a href="@Url.Action("BannerManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Banner</a></li>*@
                             <li><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Video</a></li>
                         </ul>
                     </li>
@@ -347,11 +347,20 @@
                 else
                 {
 
+
+
                     <li>
                         <a href="@Url.Action("ListTicker", "Member", new { area = "AdminCMS" })">
                             <i class="fa fa-lock"></i> <span>Tất cả Kèo</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("TrackingTicker", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-lock"></i> <span>Theo dõi lãi - lỗ</span>
+                        </a>
+                    </li>
+
+
                 }
 
 

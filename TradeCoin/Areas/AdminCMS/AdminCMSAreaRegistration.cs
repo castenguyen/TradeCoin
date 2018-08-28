@@ -1055,6 +1055,10 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
                new { controller = "TickerManager", action = "Delete", id = UrlParameter.Optional }
                  );
 
+
+        
+            
+
             #endregion
 
             #region EmailManager
@@ -1162,9 +1166,14 @@ new { controller = "PackageManager", action = "UpgradePackageUser" }
      "thanh-vien/chi-tiet-video",
      new { controller = "Member", action = "DetailVideo" }
      );
+            context.MapRoute(
+          "AdminCMS_Ticker_TrackingTicker",
+          "thanh-vien/theo-doi-lai-lo",
+          new { controller = "Member", action = "TrackingTicker" }
+            );
 
 
-            
+
 
             #endregion
 

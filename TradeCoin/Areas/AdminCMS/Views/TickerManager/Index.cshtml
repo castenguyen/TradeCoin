@@ -81,12 +81,12 @@
                                             }
                                         </td>
                                         <td>
-                                            @if (_val.Profit.HasValue)
+                                            @if (_val.StateId==(int)EnumCore.TickerStatusType.loi )
                                             {
                                                 <span>Lời - @_val.Profit.Value % </span>
 
                                             }
-                                            @if (_val.Deficit.HasValue)
+                                            @if (_val.StateId == (int)EnumCore.TickerStatusType.lo)
                                             {
                                                 <span>Lỗ - @_val.Profit.Value % </span>
 

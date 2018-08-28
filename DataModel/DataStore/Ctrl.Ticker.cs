@@ -162,7 +162,90 @@ namespace DataModel.DataStore
             return rs.Distinct();
         }
 
+        public IQueryable<MiniTickerViewModel> GetTickerLinqByPackage(long packageID)
+        {
 
+            
+
+            //lấy danh sách id của ticker thuoc gói cước bên trên
+            long[] lstTickerid = (from tk in db.Tickers
+
+                                  join cp in db.ContentPackages on tk.TickerId equals cp.ContentId
+
+                                  where cp.ContentType == (int)EnumCore.ObjTypeId.ticker
+
+                                  && cp.PackageId== packageID
+                                  //tránh trùng lặp
+                                  select tk.TickerId).Distinct().ToArray();
+
+
+           
+
+
+            IQueryable<MiniTickerViewModel> rs = from tk in db.Tickers
+
+
+                                                 where lstTickerid.Contains(tk.TickerId)
+
+
+                                                 select (new MiniTickerViewModel
+                                                 {
+                                                     TickerId = tk.TickerId,
+                                                     TickerName = tk.TickerName,
+                                                     BuyZone1 = tk.BuyZone1,
+                                                     SellZone1 = tk.SellZone1,
+                                                     SellZone2 = tk.SellZone2,
+                                                     SellZone3 = tk.SellZone3,
+                                                     BTCInput = tk.BTCInput,
+                                                     DeficitControl = tk.DeficitControl,
+                                                     Description = tk.Description,
+                                                     CrtdUserName = tk.CrtdUserName,
+                                                     CrtdUserId = tk.CrtdUserId,
+                                                     CrtdDT = tk.CrtdDT,
+                                                     AprvdUserName = tk.AprvdUserName,
+                                                     AprvdUID = tk.AprvdUID,
+                                                     AprvdDT = tk.AprvdDT,
+                                                     StateName = tk.StateName,
+                                                     StateId = tk.StateId,
+                                                     MediaUrl = tk.MediaUrl,
+                                                     MediaThumb = tk.MediaThumb,
+                                                     Flag = tk.Flag,
+                                                     Profit = tk.Profit,
+                                                     Deficit = tk.Profit,
+                                                 });
+            return rs.Distinct();
+        }
+
+        public IQueryable<MiniTickerViewModel> GetTickerLinq()
+        {
+            IQueryable<MiniTickerViewModel> rs = from tk in db.Tickers
+                                                 select (new MiniTickerViewModel
+                                                 {
+                                                     TickerId = tk.TickerId,
+                                                     TickerName = tk.TickerName,
+                                                     BuyZone1 = tk.BuyZone1,
+                                                     SellZone1 = tk.SellZone1,
+                                                     SellZone2 = tk.SellZone2,
+                                                     SellZone3 = tk.SellZone3,
+                                                     BTCInput = tk.BTCInput,
+                                                     DeficitControl = tk.DeficitControl,
+                                                     Description = tk.Description,
+                                                     CrtdUserName = tk.CrtdUserName,
+                                                     CrtdUserId = tk.CrtdUserId,
+                                                     CrtdDT = tk.CrtdDT,
+                                                     AprvdUserName = tk.AprvdUserName,
+                                                     AprvdUID = tk.AprvdUID,
+                                                     AprvdDT = tk.AprvdDT,
+                                                     StateName = tk.StateName,
+                                                     StateId = tk.StateId,
+                                                     MediaUrl = tk.MediaUrl,
+                                                     MediaThumb = tk.MediaThumb,
+                                                     Flag = tk.Flag,
+                                                     Profit = tk.Profit,
+                                                     Deficit = tk.Profit,
+                                                 });
+            return rs;
+        }
 
         public bool CheckTickerUserPackage(long TickerId, long UserId, long packageID)
         {
