@@ -38,19 +38,27 @@ namespace Alluneecms.Controllers
                 {
                     if (item.PackageId == 2)
                     {
-                        ViewBag.Night = item.NewPrice;
+                        ViewBag.Night1M = item.NewPrice;
+                        ViewBag.Night3M = item.NewPrice3M;
+                        ViewBag.NightForever = item.ForeverPrice;
                     }
                     if (item.PackageId == 3)
                     {
-                        ViewBag.Silver = item.NewPrice;
+                        ViewBag.Silver1M = item.NewPrice;
+                        ViewBag.Silver3M = item.NewPrice3M;
+                        ViewBag.SilverForever = item.ForeverPrice;
                     }
                     if (item.PackageId == 4)
                     {
-                        ViewBag.Gold = item.NewPrice;
+                        ViewBag.Gold1M = item.NewPrice;
+                        ViewBag.Gold3M = item.NewPrice3M;
+                        ViewBag.GoldForever = item.ForeverPrice;
                     }
                     if (item.PackageId == 5)
                     {
-                        ViewBag.Diamond = item.NewPrice;
+                        ViewBag.Diamond1M = item.NewPrice;
+                        ViewBag.Diamond3M = item.NewPrice3M;
+                        ViewBag.DiamondForever = item.ForeverPrice;
                     }
                 }
                 return View(model);
