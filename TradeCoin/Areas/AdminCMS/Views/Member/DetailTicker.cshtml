@@ -8,7 +8,7 @@
 }
 <section class="content-header">
     <h1>
-        Member Dashboard
+        Chi tiết kèo
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -69,7 +69,7 @@
                         </row>
 
                         <row>
-                            <div class="col-md-12">
+                            <div class="col-md-12" id="bodycontent">
 
                                 <strong><i class="fa fa-file-text-o margin-r-5"></i> Đánh giá</strong>
                                 @*<img class="img-responsive" src="~/Areas/AdminCMS/dist/img/newimg.jpg" alt="attachment image">*@
@@ -78,7 +78,7 @@
                                 <!-- Attachment -->
                                 <!-- Social sharing buttons -->
                                 @*<button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>*@
-                                <span class='pull-right text-muted'> 200 Lượt xem</span>
+                                @*<span class='pull-right text-muted'> 200 Lượt xem</span>*@
                             </div>
 
                         </row>
@@ -111,22 +111,30 @@
                                 </span>
                                 <span class='description'>@_item.CrtdUserName-@_item.CrtdDT</span>
                                 @if (_item.tmp > 0)
-    {
-                            <span class='badge bg-green'> Đã xem</span>
-}
+                                {
+                                    <span class='badge bg-green'> Đã xem</span>
+                                }
                             </div><!-- /.user-block -->
                         </div><!-- /.post -->
-                        }
+                    }
 
-
-                    </div><!-- /.user-block -->
 
                 </div><!-- /.user-block -->
-            </div>
+
+            </div><!-- /.user-block -->
+        </div>
 
 
 
 
-        </div><!-- /.tab-content -->
+    </div><!-- /.tab-content -->
 
-    </section><!-- /.content -->
+</section><!-- /.content -->
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#bodycontent").find("img").removeAttr('style').addClass('img-responsive');
+    });
+</script>
