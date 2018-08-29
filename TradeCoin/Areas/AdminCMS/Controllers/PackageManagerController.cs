@@ -12,13 +12,14 @@ using PagedList;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-
+using ClosedXML.Excel;
+using System.Data;
+using System.IO;
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
 
     public class PackageManagerController : CoreBackEnd
     {
-       
         public ActionResult Index(int? page)
         {
             int pageNum = (page ?? 1);
@@ -34,14 +35,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View(_lstPackage);
         }
 
-      
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
         public ActionResult Create()
         {
             return View();
         }
-
-      
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(PackageViewModel model)
@@ -58,9 +57,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return RedirectToAction("Index");
         }
 
-
         [AllowAnonymous]
-        public ActionResult ConfirmUpgrade(long UserId, long PackageId,int PackageTimeType)
+        public ActionResult ConfirmUpgrade(long UserId, long PackageId, int PackageTimeType)
         {
             try
             {
@@ -69,7 +67,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 //hoặc user không phải là member thì không nâng cấp
                 if (CurrentUserId != UserId || !User.IsInRole("Member"))
                 {
-                    return RedirectToAction("AlertPage", "Extension", 
+                    return RedirectToAction("AlertPage", "Extension",
                         new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
                 User ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
@@ -111,16 +109,16 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     if (PackageTimeType == (int)EnumCore.PackageTimeType.vinhvien)
                     {
                         model.TotalPrice = ObjNewPackage.ForeverPrice.Value;
-                      
+
                     }
-                       
+
                     string coderandom = DateTime.UtcNow.Ticks.ToString();
                     model.UpgradeToken = coderandom;
                     return View(model);
                 }
                 else
                 {
-                    return RedirectToAction("AlertPage", "Extension", 
+                    return RedirectToAction("AlertPage", "Extension",
                         new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
 
@@ -133,12 +131,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpgradePackageUser(UserPackageViewModel model)
         {
-            try {
+            try
+            {
                 //Nếu user đang online ko phải là user nâng cấp=>failse
                 //hoặc user không phải là member thì không nâng cấp
                 long CurrentUserId = long.Parse(User.Identity.GetUserId());
@@ -184,15 +182,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     ObjUser.AwaitPackageId = ObjNewPackage.PackageId;
                     ObjUser.AwaitPackageName = ObjNewPackage.PackageName;
-                 
-                    int rs=  await cms_db.UpdateUser(ObjUser);
 
-                    return RedirectToAction("AlertPage", "Extension", 
+                    int rs = await cms_db.UpdateUser(ObjUser);
+
+                    return RedirectToAction("AlertPage", "Extension",
                         new { AlertString = "Đã thực hiện nâng cấp vui lòng chờ xét duyệt", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
                 else
                 {
-                    return RedirectToAction("AlertPage", "Extension", 
+                    return RedirectToAction("AlertPage", "Extension",
                         new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
             }
@@ -202,7 +200,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
             }
         }
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
         public ActionResult Update(int? id)
         {
             if (id == null)
@@ -211,7 +209,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             PackageViewModel model = new PackageViewModel(_obj);
             return View(model);
         }
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update(PackageViewModel model)
@@ -231,5 +229,114 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View();
         }
 
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]
+        public ActionResult TrackingFinance(int? page, int? Packageid, string FillterName, string Datetime)
+        {
+            int pageNum = (page ?? 1);
+            TrackingFinanceViewModel model = new TrackingFinanceViewModel();
+            IQueryable<UserPackage> tmp = cms_db.GetlstUserPackageIquery().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep);
+            if (!String.IsNullOrEmpty(FillterName))
+            {
+                tmp = tmp.Where(s => s.UpgradeUserName == FillterName);
+                model.FillterName = FillterName;
+            }
+            if (Packageid.HasValue)
+            {
+                tmp = tmp.Where(s => s.PackageId == Packageid);
+                model.Packageid = Packageid.Value;
+
+            }
+            if (!String.IsNullOrEmpty(Datetime))
+            {
+                model.Datetime = Datetime;
+                model.StartDT = this.SpritDateTime(model.Datetime)[0];
+                model.EndDT = this.SpritDateTime(model.Datetime)[1];
+                tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
+            }
+
+            model.lstMainUserPackage = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
+            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
+            return View(model);
+
+        }
+
+
+        [HttpGet]
+        public FileResult Export(int? page, int? Packageid, string FillterName, string Datetime)
+        {
+
+            try
+            {
+                int pageNum = (page ?? 1);
+                TrackingFinanceViewModel model = new TrackingFinanceViewModel();
+                IQueryable<UserPackage> tmp = cms_db.GetlstUserPackageIquery().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep);
+                if (!String.IsNullOrEmpty(FillterName))
+                {
+                    tmp = tmp.Where(s => s.UpgradeUserName == FillterName);
+                }
+                if (Packageid.HasValue)
+                {
+                    if (Packageid.Value > 0)
+                    {
+                        tmp = tmp.Where(s => s.PackageId == Packageid);
+                    }
+                }
+                if (!String.IsNullOrEmpty(Datetime))
+                {
+                    model.Datetime = Datetime;
+                    model.StartDT = this.SpritDateTime(model.Datetime)[0];
+                    model.EndDT = this.SpritDateTime(model.Datetime)[1];
+                    tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
+                }
+                List<UserPackage> dataexport = new List<UserPackage>();
+                dataexport = tmp.OrderByDescending(c => c.CrtdDT).Skip((pageNum - 1) * 50).Take(50).ToList();
+                DataTable dt = new DataTable("Grid");
+                dt.Columns.AddRange(new DataColumn[5] { new DataColumn("Tên"),
+                                            new DataColumn("Ngày nâng cấp"),
+                                            new DataColumn("Gói nâng cấp"),
+                                            new DataColumn("Tiền"),
+                                             new DataColumn("Lịch sử")});
+
+                double sum = 0;
+                foreach (UserPackage item in dataexport)
+                {
+                    dt.Rows.Add(item.UpgradeUserName, item.CrtdDT, item.PackageName, item.Price, item.OldPackageName + "->" + item.PackageName);
+                    sum = sum + item.Price.Value;
+                }
+                dt.Rows.Add("", "", "Tổng tiền", sum, "");
+
+
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt);
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        wb.SaveAs(stream);
+                        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ncoin_history.xlsx");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("Export", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return null;
+            }
+
+
+        }
+
+
+
+
+        private DateTime[] SpritDateTime(string datetime)
+        {
+            string[] words = datetime.Split('-');
+            DateTime[] model = new DateTime[] { Convert.ToDateTime(words[0]), Convert.ToDateTime(words[1]) };
+            return model;
+        }
     }
 }

@@ -96,6 +96,14 @@ namespace DataModel.DataStore
 
         }
 
+        public  IQueryable<UserPackage> GetlstUserPackageIquery()
+        {
+            IQueryable<UserPackage> lstResult = lstResult = db.UserPackages;
+
+            return lstResult;
+
+        }
+
 
         //public int DeleteUserPackage(long ContentId)
         //{

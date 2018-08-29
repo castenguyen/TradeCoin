@@ -120,12 +120,17 @@ namespace DataModel.DataViewModel
         [Required(ErrorMessage = "Chọn giới tính")]
         public int Gender { get; set; }
 
+        [Display(Name = "Loại Tài khoản")]
+        public int UserType { get; set; }
         public bool RegisterSendEmail { get; set; } //dang ky nhan ban tin Allunee
 
         public bool AcceptPolicyAllunee { get; set; } // dong y voi chinh sach cua allunee
 
         [RegularExpression("(^[0]{1}[1]{1}[0-9]{9}$)|(^[0]{1}[2-9]{1}[0-9]{8}$)", ErrorMessage = "Phải là số điện thoại Việt Nam")]
         public string Phone { get; set; }
+
+
+        public SelectList lstUserType { get; set; }
     }
 
     public class ResetPasswordViewModel

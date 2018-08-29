@@ -126,6 +126,13 @@ namespace CMSPROJECT.Areas.AdminCMS
               "administrator/Register",
               new { controller = "AccountAdmin", action = "Register" }
           );
+            context.MapRoute(
+             "AdminCMS_ManualRegister",
+             "administrator/ManualRegister",
+             new { controller = "AccountAdmin", action = "ManualRegister" }
+         );
+
+            
 
             context.MapRoute(
              "AdminCMS_ResetPassword",
@@ -1016,8 +1023,20 @@ new { controller = "PackageManager", action = "ConfirmUpgrade" }
 "administrator/PackageManager/UpgradePackageUser",
 new { controller = "PackageManager", action = "UpgradePackageUser" }
 );
-            
 
+            context.MapRoute(
+"AdminCMS_TrackingFinance",
+"administrator/TrackingFinance",
+new { controller = "PackageManager", action = "TrackingFinance" }
+);
+
+            context.MapRoute(
+"AdminCMS_Export",
+"administrator/Export",
+new { controller = "PackageManager", action = "Export" }
+);
+
+            
             #endregion
 
             #region Ticker

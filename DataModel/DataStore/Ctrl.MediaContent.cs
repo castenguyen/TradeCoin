@@ -247,7 +247,7 @@ namespace DataModel.DataStore
             if (!System.IO.Directory.Exists(_ServerPath))
                 System.IO.Directory.CreateDirectory(_ServerPath);
             desimg.SaveAs(path);
-            FileHelper.SaveResizedImage(_ServerPath, _NameRandom, "thumb" + _NameRandom, 200, 200);
+            FileHelper.SaveResizedImage(_ServerPath, _NameRandom, "thumb" + _NameRandom, ConstantSystem.ResizeWidth, ConstantSystem.ResizeHeight);
             imgUpload.ImageName = _NameRandom;
             imgUpload.ImageThumbUrl = ConstantSystem.FolderImage + "/thumb" + _NameRandom;
             imgUpload.ImageUrl = ConstantSystem.FolderImage + "/" + _NameRandom;
@@ -520,7 +520,7 @@ namespace DataModel.DataStore
             if (!System.IO.Directory.Exists(_ServerPath))
                 System.IO.Directory.CreateDirectory(_ServerPath);
             desimg.SaveAs(path);
-            FileHelper.SaveResizedImage(_ServerPath, _NameRandom, "thumb" + _NameRandom, 200, 200);
+            FileHelper.SaveResizedImage(_ServerPath, _NameRandom, "thumb" + _NameRandom, ConstantSystem.ResizeWidth, ConstantSystem.ResizeHeight);
             imgUpload.ImageName = _NameRandom;
             imgUpload.ImageThumbUrl = ConstantSystem.FolderFrontEnd + "/thumb" + _NameRandom;
             imgUpload.ImageUrl = ConstantSystem.FolderFrontEnd + "/" + _NameRandom;

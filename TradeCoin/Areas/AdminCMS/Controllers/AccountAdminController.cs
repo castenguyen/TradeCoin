@@ -274,6 +274,78 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// ==>khi hệ thống đăng nhập bằng mã token thì trang Register ko có trường nhập passwordd 
         /// view của trang register là RegisterWithCode
         /// </summary>
+        /// 
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,ManagerUser")]
+        public ActionResult ManualRegister()
+        {
+            RegisterViewModel model = new RegisterViewModel();
+
+            model.lstUserType = new SelectList(cms_db.GetlstRole().Where(s => s.Id == 8
+                    || s.Id == 66 || s.Id == 67).ToList(), "Id", "Name");
+                 Config tmp2 = ExtFunction.Config();
+                ViewBag.SiteName = tmp2.site_name;
+                return View(model);
+
+        }
+
+
+        [HttpPost]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,ManagerUser")]
+        [ValidateAntiForgeryToken]
+    
+        public async Task<ActionResult> ManualRegister(RegisterViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var user = new MyUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        FullName = model.FullName,
+
+                    };
+                    var result = UserManager.Create(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        Role objRole = cms_db.GetObjRoleById(model.UserType);
+                        await this.AddRoleForUser(user.Id, objRole.Name);
+                        if (model.UserType == 67)
+                        {
+                            user.PackageId = 1;
+                            user.PackageName = "Free";
+                        }
+
+                        UserManager.Update(user);
+                        string AlertString = "Đăng ký tài khoản thành công";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+                    }
+                    else
+                    {
+                        string AlertString = "Đăng ký tài khoản không thành công vui lòng kiểm tra nhập liệu";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+
+                    }
+                  
+                }
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("function Register", "AccountAdmin", e.ToString());
+                return null;
+            }
+
+        }
+
+
+
+
+
+
+
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -373,7 +445,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View();
         }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,ManagerUser")]
 
         public ActionResult ManualConfirmMail(long userId)
         {
@@ -1226,10 +1298,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 //thì co nghi a la nâng cấp tháng-quý
                 if (!String.IsNullOrEmpty(model.Datetime))
                 {
-                   
-                        _ObjUser.ExpiredDay = this.SpritDateTimeUpdate(model.Datetime)[1];
-                  
-                  
+                      _ObjUser.ExpiredDay = this.SpritDateTimeUpdate(model.Datetime)[1];
+
                 }
                 else
                 {
@@ -1316,8 +1386,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// <param name="Id"></param>
         /// <param name="RoleName"></param>
         /// <returns></returns>
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,ManagerUser")]
         public async Task<ActionResult> AddUserRole(long Id, string RoleName)
         {
             try
@@ -1365,7 +1434,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// <param name="RoleName"></param>
         /// <returns></returns>
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
+        /// <returns></returns>
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,ManagerUser")]
         public async Task<ActionResult> RemoveUserRole(long id, string RoleName)
         {
 

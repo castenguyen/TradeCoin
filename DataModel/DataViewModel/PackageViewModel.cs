@@ -37,7 +37,7 @@ namespace DataModel.DataViewModel
             get { return _MainObj.PackageName; }
             set { _MainObj.PackageName = value; }
         }
-      
+
         public Nullable<double> OldPrice
         {
             get { return _MainObj.OldPrice; }
@@ -130,5 +130,19 @@ namespace DataModel.DataViewModel
 
     }
 
+
+    public class TrackingFinanceViewModel
+        {
+        public IPagedList<UserPackage> lstMainUserPackage { get; set; }
+        public int pageNum { get; set; }
+        public string FillterName { get; set; }
+        public string Datetime { get; set; }
+        public Nullable<System.DateTime> StartDT { get; set; }
+        public Nullable<System.DateTime> EndDT { get; set; }
+
+        public SelectList lstPackage { get; set; }
+        public int Packageid { get; set; }
+
+    }
 
 }

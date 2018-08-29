@@ -108,10 +108,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
             IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
-            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
-                pageNum = 1;
-            model.pageNum = pageNum;
-
             if (TickerStatus.HasValue)
             {
                 tmp = tmp.Where(s => s.TickerId == TickerStatus.Value);
@@ -130,6 +126,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.EndDT = this.SpritDateTime(model.Datetime)[1];
                 tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
             }
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
 
             model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             foreach (MiniTickerViewModel _item in model.lstMainTicker)
@@ -466,9 +465,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                tmp = cms_db.GetTickerLinqByPackage(package.Value);
             }
 
-            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
-                pageNum = 1;
-            model.pageNum = pageNum;
+         
 
             
             if (!String.IsNullOrEmpty(Datetime))
@@ -478,6 +475,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.EndDT = this.SpritDateTime(model.Datetime)[1];
                 tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
             }
+
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
 
             model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
 

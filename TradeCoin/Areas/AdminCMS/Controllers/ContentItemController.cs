@@ -216,6 +216,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     context.Clients.All.notificationNewPost();
                     return RedirectToAction("Index");
                 }
+                model.lstPackage = cms_db.GetObjSelectListPackage();
                 model.CatalogryList = new SelectList(cms_db.Getnewcatagory(), "ClassificationId", "ClassificationNM");
                 return View(model);
             }
@@ -266,6 +267,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     return RedirectToAction("Index");
                 }
+                model.lstPackage = cms_db.GetObjSelectListPackage();
                 model.CatalogryList = new SelectList(cms_db.Getnewcatagory(), "ClassificationId", "ClassificationNM");
                 return View(model);
             

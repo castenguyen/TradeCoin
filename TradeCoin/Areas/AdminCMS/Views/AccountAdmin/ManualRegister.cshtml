@@ -1,0 +1,76 @@
+﻿@model DataModel.DataViewModel.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="register-box">
+                <div class="register-logo">
+                    <a href="#"><b>@ViewBag.SiteName</b></a>
+                </div>
+                <div class="register-box-body">
+                    <p class="login-box-msg">Thêm mới tài khoản</p>
+                    @using (Html.BeginForm("ManualRegister", "AccountAdmin", FormMethod.Post, new { @class = "" }))
+    {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Tên dầy đủ" })
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserType, new { @class = "control-label" })
+                        @Html.DropDownListFor(c => c.UserType, Model.lstUserType as SelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.Password, new { Value = "123456" })
+                @Html.HiddenFor(m => m.ConfirmPassword, new { Value = "123456" })
+
+                @*<div class="form-group has-feedback">
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+    </div>
+
+    <div class="form-group has-feedback">
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Xác nhận Password" })
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+    </div>*@
+
+
+                <div class="row">
+                    <div class="col-xs-4">
+
+                        <input type="submit" class="btn btn-primary btn-block btn-flat" value="Thêm mới" />
+                    </div><!-- /.col -->
+                </div>
+}
+
+
+                </div><!-- /.form-box -->
+            </div><!-- /.register-box -->
+            <!-- jQuery 2.1.4 -->
+            <script src="~/Areas/AdminCMS/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+            <!-- Bootstrap 3.3.5 -->
+            <script src="~/Areas/AdminCMS/bootstrap/js/bootstrap.min.js"></script>
+            <!-- iCheck -->
+            <script src="~/Areas/AdminCMS/plugins/iCheck/icheck.min.js"></script>
+
+
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section>

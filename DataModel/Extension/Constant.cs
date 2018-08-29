@@ -19,7 +19,8 @@ namespace DataModel.Extension
 
         #endregion
         #region Media
-
+        public static int ResizeWidth =500;
+        public static int ResizeHeight = 400;
         public static string PrefixImageName = "ncoinclub";
         public static string PrefixImageContentURL = "ncoinclub";
         public static string DefaulMediaContentURL = "";

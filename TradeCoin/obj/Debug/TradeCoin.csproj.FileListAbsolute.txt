@@ -83,3 +83,10 @@ D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.Core.dll
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.Core.xml
 D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\ClosedXML.dll
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\DocumentFormat.OpenXml.dll
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\ExcelNumberFormat.dll
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\FastMember.Signed.dll
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\ClosedXML.xml
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\DocumentFormat.OpenXml.xml
+D:\WEB\ASP\TradeCoinv1\trunk\TradeCoin\bin\ExcelNumberFormat.xml
