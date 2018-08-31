@@ -118,7 +118,7 @@ namespace DataModel.DataStore
 
                                   join cp in db.ContentPackages on tk.TickerId equals cp.ContentId
 
-                                  where cp.ContentType == (int)EnumCore.ObjTypeId.ticker && tk.StateId == (int)EnumCore.TickerStatusType.dang_chay
+                                  where cp.ContentType == (int)EnumCore.ObjTypeId.ticker /*&& tk.StateId == (int)EnumCore.TickerStatusType.dang_chay*/
 
                                   && lstpackageid.Contains(cp.PackageId)
                                   //tránh trùng lặp
