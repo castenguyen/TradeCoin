@@ -37,5 +37,6 @@ namespace DataModel.DataEntity
         public Nullable<double> Profit { get; set; }
         public Nullable<double> Deficit { get; set; }
         public Nullable<int> tmp { get; set; }
+        public string Excerpt { get; set; }
     }
 }

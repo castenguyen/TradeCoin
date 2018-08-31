@@ -629,6 +629,7 @@
           <Property Name="Profit" Type="float" />
           <Property Name="Deficit" Type="float" />
           <Property Name="tmp" Type="int" />
+          <Property Name="Excerpt" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="TransactionHis">
           <Key>
@@ -2169,6 +2170,7 @@
           <Property Name="Profit" Type="Double" />
           <Property Name="Deficit" Type="Double" />
           <Property Name="tmp" Type="Int32" />
+          <Property Name="Excerpt" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="ContentItemPagination_Result">
           <Property Type="Int64" Name="ContentItemId" Nullable="false" />
@@ -3116,6 +3118,7 @@
           <EntitySetMapping Name="Tickers">
             <EntityTypeMapping TypeName="alluneedbModel.Ticker">
               <MappingFragment StoreEntitySet="Ticker">
+                <ScalarProperty Name="Excerpt" ColumnName="Excerpt" />
                 <ScalarProperty Name="tmp" ColumnName="tmp" />
                 <ScalarProperty Name="Deficit" ColumnName="Deficit" />
                 <ScalarProperty Name="Profit" ColumnName="Profit" />

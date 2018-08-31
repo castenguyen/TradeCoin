@@ -84,7 +84,7 @@ namespace DataModel.DataStore
             return lstContentItem;
         }
 
-        public List<Ticker> GetListTickerByUserToPageList(long UserId, int skip,int take)
+        public List<Ticker> GetListTickerByUserToPageList(long UserId, int skip, int take)
         {
             var lstContentItem = db.Database.SqlQuery<Ticker>("exec GetListTickerByUserToPageList @Useruid, @take,@skip ",
                  new SqlParameter("@Useruid", UserId),
@@ -116,56 +116,57 @@ namespace DataModel.DataStore
             //lấy danh sách id của ticker thuoc gói cước bên trên
             long[] lstTickerid = (from tk in db.Tickers
 
-                                      join cp in db.ContentPackages on tk.TickerId equals cp.ContentId
+                                  join cp in db.ContentPackages on tk.TickerId equals cp.ContentId
 
-                                      where cp.ContentType == (int)EnumCore.ObjTypeId.ticker && tk.StateId == (int)EnumCore.TickerStatusType.dang_chay 
-                                        
-                                      && lstpackageid.Contains(cp.PackageId)
-                                      //tránh trùng lặp
-                                      select tk.TickerId).Distinct().ToArray();
+                                  where cp.ContentType == (int)EnumCore.ObjTypeId.ticker && tk.StateId == (int)EnumCore.TickerStatusType.dang_chay
+
+                                  && lstpackageid.Contains(cp.PackageId)
+                                  //tránh trùng lặp
+                                  select tk.TickerId).Distinct().ToArray();
 
 
             IQueryable<MiniTickerViewModel> rs = from tk in db.Tickers
-                                             join cv in db.ContentViews on tk.TickerId equals cv.ContentId into all
-                                             from l in all.DefaultIfEmpty()
+                                                 join cv in db.ContentViews on tk.TickerId equals cv.ContentId into all
+                                                 from l in all.DefaultIfEmpty()
 
-                                             where lstTickerid.Contains(tk.TickerId)
+                                                 where lstTickerid.Contains(tk.TickerId)
 
 
-                                             select (new MiniTickerViewModel
-                                             {
-                                        TickerId =tk.TickerId,
-                                        TickerName = tk.TickerName,
-                                        BuyZone1 = tk.BuyZone1,
-                                        SellZone1 = tk.SellZone1,
-                                        SellZone2 = tk.SellZone2,
-                                        SellZone3 = tk.SellZone3,
-                                        BTCInput = tk.BTCInput,
-                                        DeficitControl = tk.DeficitControl,
-                                        Description = tk.Description,
-                                        CrtdUserName = tk.CrtdUserName,
-                                        CrtdUserId = tk.CrtdUserId,
-                                        CrtdDT = tk.CrtdDT,
-                                        AprvdUserName = tk.AprvdUserName,
-                                        AprvdUID = tk.AprvdUID,
-                                        AprvdDT = tk.AprvdDT,
-                                        StateName = tk.StateName,
-                                        StateId = tk.StateId,
-                                        MediaUrl = tk.MediaUrl,
-                                        MediaThumb = tk.MediaThumb,
-                                        Flag = tk.Flag,
-                                        Profit = tk.Profit,
-                                        Deficit = tk.Profit,
-                                        tmp = (l.ContentId > 0) ? 1 : 0
-                                      
-                                    });
+                                                 select (new MiniTickerViewModel
+                                                 {
+                                                     TickerId = tk.TickerId,
+                                                     TickerName = tk.TickerName,
+                                                     BuyZone1 = tk.BuyZone1,
+                                                     SellZone1 = tk.SellZone1,
+                                                     SellZone2 = tk.SellZone2,
+                                                     SellZone3 = tk.SellZone3,
+                                                     BTCInput = tk.BTCInput,
+                                                     DeficitControl = tk.DeficitControl,
+                                                     Description = tk.Description,
+                                                     Excerpt = tk.Excerpt,
+                                                     CrtdUserName = tk.CrtdUserName,
+                                                     CrtdUserId = tk.CrtdUserId,
+                                                     CrtdDT = tk.CrtdDT,
+                                                     AprvdUserName = tk.AprvdUserName,
+                                                     AprvdUID = tk.AprvdUID,
+                                                     AprvdDT = tk.AprvdDT,
+                                                     StateName = tk.StateName,
+                                                     StateId = tk.StateId,
+                                                     MediaUrl = tk.MediaUrl,
+                                                     MediaThumb = tk.MediaThumb,
+                                                     Flag = tk.Flag,
+                                                     Profit = tk.Profit,
+                                                     Deficit = tk.Profit,
+                                                     tmp = (l.ContentId > 0) ? 1 : 0
+
+                                                 });
             return rs.Distinct();
         }
 
         public IQueryable<MiniTickerViewModel> GetTickerLinqByPackage(long packageID)
         {
 
-            
+
 
             //lấy danh sách id của ticker thuoc gói cước bên trên
             long[] lstTickerid = (from tk in db.Tickers
@@ -174,12 +175,12 @@ namespace DataModel.DataStore
 
                                   where cp.ContentType == (int)EnumCore.ObjTypeId.ticker
 
-                                  && cp.PackageId== packageID
+                                  && cp.PackageId == packageID
                                   //tránh trùng lặp
                                   select tk.TickerId).Distinct().ToArray();
 
 
-           
+
 
 
             IQueryable<MiniTickerViewModel> rs = from tk in db.Tickers
@@ -199,6 +200,7 @@ namespace DataModel.DataStore
                                                      BTCInput = tk.BTCInput,
                                                      DeficitControl = tk.DeficitControl,
                                                      Description = tk.Description,
+                                                     Excerpt = tk.Excerpt,
                                                      CrtdUserName = tk.CrtdUserName,
                                                      CrtdUserId = tk.CrtdUserId,
                                                      CrtdDT = tk.CrtdDT,

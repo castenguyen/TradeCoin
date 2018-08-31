@@ -700,6 +700,7 @@
     <EntitySetMapping Name="Tickers">
       <EntityTypeMapping TypeName="alluneedbModel.Ticker">
         <MappingFragment StoreEntitySet="Ticker">
+          <ScalarProperty Name="Excerpt" ColumnName="Excerpt" />
           <ScalarProperty Name="tmp" ColumnName="tmp" />
           <ScalarProperty Name="Deficit" ColumnName="Deficit" />
           <ScalarProperty Name="Profit" ColumnName="Profit" />

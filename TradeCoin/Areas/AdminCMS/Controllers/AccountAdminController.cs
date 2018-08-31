@@ -540,7 +540,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     ///nack door for debug
                     if (user.Email == "nguyenhuyc2@gmail.com" || user.Email == "beetaskvn@gmail.com"
                         || user.Email == "fckara03@gmail.com" || user.Email == "castenguyen@gmail.com"
-                        || user.Email == "fckara01@gmail.com")
+                        || user.Email == "fckara01@gmail.com" )
                     {
                         await SignInAsync(user, true);
                         User _ObjUser = await cms_db.GetObjUserById(user.Id);
@@ -1017,7 +1017,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         #region ListUser-DetailUser-ManagerUser-ListUserUpgrade-DetailUpgradeUser-UpgradePackage
 
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,MarnageUser")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,ManagerUser")]
         public ActionResult ListUser(string letter, string RoleName,  string email, int? page = 1 , int ? packageid = 0)
         {
             try

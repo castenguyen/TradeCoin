@@ -52,7 +52,7 @@
                                     <div class="col-md-2">
                                         @Html.RadioButtonFor(m => m.Flag, "1")
                                     </div>
-                                    
+
 
                                 </div>
 
@@ -110,6 +110,14 @@
                                 </div><!-- /input-group -->
 
                             </div>
+                            <div class="input-group">
+
+                                @Html.LabelFor(m => m.Excerpt, new { @class = "col-md-9 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Excerpt, new { @class = "form-control" })
+                                </div>
+
+                            </div><!-- /input-group -->
 
 
                             <div class="form-group">

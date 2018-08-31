@@ -94,6 +94,15 @@ namespace DataModel.DataViewModel
             get { return _MainObj.Description; }
             set { _MainObj.Description = value; }
         }
+
+
+   
+        [Display(Name = "Mô tả")]
+        public string Excerpt
+        {
+            get { return _MainObj.Excerpt; }
+            set { _MainObj.Excerpt = value; }
+        }
         public string CrtdUserName
         {
             get { return _MainObj.CrtdUserName; }
@@ -213,7 +222,9 @@ namespace DataModel.DataViewModel
         public Nullable<double> BTCInput { get; set; }
         public Nullable<double> DeficitControl { get; set; }
         public string Description { get; set; }
+
         public string CrtdUserName { get; set; }
+        public string Excerpt { get; set; }
         public Nullable<long> CrtdUserId { get; set; }
         public Nullable<System.DateTime> CrtdDT { get; set; }
         public string AprvdUserName { get; set; }

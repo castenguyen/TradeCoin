@@ -273,6 +273,7 @@
     <Compile Include="Controllers\CoreFronEndController.cs" />
     <Compile Include="Controllers\ErrorMessageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NcoinAPIController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\NotifiRequestController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -2140,6 +2141,7 @@
     <Content Include="Areas\AdminCMS\Views\Member\TrackingTicker.cshtml" />
     <Content Include="Areas\AdminCMS\Views\PackageManager\TrackingFinance.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ManualRegister.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\Member\iframeVideo.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\core.app.js" />

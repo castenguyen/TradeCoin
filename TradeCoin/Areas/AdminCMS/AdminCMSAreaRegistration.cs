@@ -1191,6 +1191,12 @@ new { controller = "PackageManager", action = "Export" }
           new { controller = "Member", action = "TrackingTicker" }
             );
 
+            context.MapRoute(
+         "AdminCMS_Ticker_iframeVideo",
+         "thanh-vien/video.html",
+         new { controller = "Member", action = "iframeVideo" }
+           );
+
 
 
 

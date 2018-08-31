@@ -624,6 +624,7 @@
     <Property Name="Profit" Type="float" />
     <Property Name="Deficit" Type="float" />
     <Property Name="tmp" Type="int" />
+    <Property Name="Excerpt" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="TransactionHis">
     <Key>

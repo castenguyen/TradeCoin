@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using DataModel.Extension;
 using System.Threading.Tasks;
 using PagedList;
+using System.Text;
+
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -395,6 +397,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             try
             {
+
+
+             
+
                 long packageID = 0;
                 List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
                 if (lstPackageOfUser == null)
@@ -430,6 +436,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         tmp.ContentName = mainObj.AlternativeText;
                         cms_db.CreateContentView(tmp);
                     }
+                    
+                    model.objMediaContent.MediaContentGuidId = Guid.NewGuid();
+
+                    Response.Cookies["ncoincookie"].Expires = DateTime.Now.AddMinutes(20);
+                        Response.Cookies["ncoincookie"].Value = "nguyenhuyvanguoidep";
                     return View(model);
 
                 }
@@ -449,6 +460,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
             }
            
+        }
+        public ActionResult iframeVideo()
+        {
+           
+        
+            return View();
+
         }
 
 
