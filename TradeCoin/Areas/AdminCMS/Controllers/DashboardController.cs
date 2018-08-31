@@ -70,7 +70,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
 
             List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
-            List<Ticker> lstTicker = cms_db.GetlstTicker().Where(s => s.StateId == (int)EnumCore.TickerStatusType.dang_chay)
+            List<Ticker> lstTicker = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa)
                                             .Take((int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home).ToList();
 
             foreach (Ticker _val in lstTicker)

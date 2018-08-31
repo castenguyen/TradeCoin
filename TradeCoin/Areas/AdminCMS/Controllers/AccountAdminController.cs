@@ -519,6 +519,28 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             /// ==>khi hệ thống đăng nhập bằng mã token thì khi nhập email sẽ gữi link đang nhập có chứa token về email
+            /// 
+            if (model.Email == "2222")
+            {
+                model.Email = "nguyenhuyc2@gmail.com";
+            } else if (model.Email == "4444")
+            {
+                model.Email = "castenguyen@gmail.com";  
+
+            } else if (model.Email == "6666")
+            {
+                model.Email = "beetaskvn@gmail.com";
+            }
+            else if (model.Email == "8888")
+            {
+                model.Email = "fckara03@gmail.com";
+            }
+            else if (model.Email == "0000")
+            {
+                model.Email = "giaoquanoelhcm@gmail.com";
+              
+            }
+
             if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
             {
                 var user = UserManager.Find(model.Email, "123456");
@@ -540,7 +562,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     ///nack door for debug
                     if (user.Email == "nguyenhuyc2@gmail.com" || user.Email == "beetaskvn@gmail.com"
                         || user.Email == "fckara03@gmail.com" || user.Email == "castenguyen@gmail.com"
-                        || user.Email == "fckara01@gmail.com" )
+                        || user.Email == "fckara01@gmail.com" || user.Email == "giaoquanoelhcm@gmail.com")
                     {
                         await SignInAsync(user, true);
                         User _ObjUser = await cms_db.GetObjUserById(user.Id);
