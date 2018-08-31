@@ -112,7 +112,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
             if (TickerStatus.HasValue)
             {
-                tmp = tmp.Where(s => s.TickerId == TickerStatus.Value);
+                tmp = tmp.Where(s => s.StateId == TickerStatus.Value);
                 model.TickerStatus = TickerStatus.Value;
             }
 
