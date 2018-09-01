@@ -239,7 +239,9 @@
         ListNewVideo();
 
     });
-
+    //<div class="pull-left">
+    //    <img src="" class="img-circle" alt="User Image">
+    //                                        </div>
     function ListNewEmail() {
         coreApp.callAjaxGateway({
             url: 'AdminCMS/EmailManager/GridListBalancesStatement',
@@ -249,9 +251,7 @@
                 $.each(data, function (val, text) {
                     $('#NewEmail').append(`<li>
                                         <a href="/chi-tiet-thu?emailId=`+ text.EmailId +`">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
+                                           
                                             <h4>
                                                 `+ text.CrtdUserName + `
                                                 <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -277,9 +277,7 @@
                     }
                     $('#NewPost').append(`<li>
                                         <a href="/thanh-vien/chi-tiet-bai-viet?id=`+ text.ContentItemId+`">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
+                                           
                                             <h4>
                                                 `+ text.CrtdUserName + `
                                                 <small><i class="fa fa-clock-o"></i>`+ newpost +`</small>
@@ -307,9 +305,7 @@
                     }
                     $('#NewKeo').append(`<li>
                                         <a href="/thanh-vien/chi-tiet-keo?tickerId=`+ text.TickerId+`">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
+                                            
                                             <h4>
                                                 `+ text.CrtdUserName + `
                                                 <small><i class="fa fa-clock-o"></i>`+ newpost +`</small>
@@ -337,9 +333,7 @@
                     }
                     $('#NewVideo').append(`<li>
                                         <a href="/thanh-vien/chi-tiet-video?id=`+ text.MediaContentId+`">
-                                            <div class="pull-left">
-                                                <img src="" class="img-circle" alt="User Image">
-                                            </div>
+                                           
                                             <h4>
                                                 `+ text.Filename + `
                                                 <small><i class="fa fa-clock-o"></i>`+ newpost +`</small>
