@@ -60,10 +60,9 @@
                                 <span class='username'><a href="@Url.Action("DetailNews", "Member", new { id = Model.ContentItemId })">@_item.ContentTitle</a></span>
                                 <span class='description'>@_item.CrtdUserId - @_item.CrtdDT</span>
 
-                                @if (_item.MicrositeID!=null)
+                                @if (_item.MicrositeID > 0)
     {
-                            <span class='description'>Đã Xem </span>
-
+                            <span class='badge bg-green pull-right'> Đã xem</span>
 }
 
                             </div><!-- /.user-block -->

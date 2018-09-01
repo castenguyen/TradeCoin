@@ -309,7 +309,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     };
                     var findrs = UserManager.Find(model.Email,"123456");
 
-                    if (findrs == null)
+                    if (findrs != null)
                     {
                         int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                       (int)EnumCore.ActionType.Create, "ManualRegister", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
@@ -343,6 +343,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     else
                     {
                         string AlertString = "Đăng ký tài khoản không thành công vui lòng kiểm tra nhập liệu";
+                        foreach (string error in result.Errors)
+                        {
+                            AlertString= AlertString+ "---" + error;
+                        }
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
 
                     }
@@ -352,8 +356,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             catch (Exception e)
             {
+                string AlertString = "Đăng ký tài khoản không thành công vui lòng kiểm tra nhập liệu";
                 cms_db.AddToExceptionLog("function Register", "AccountAdmin", e.ToString());
-                return null;
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
             }
 
         }
@@ -1142,6 +1147,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.LstCurPermission = await UserManager.GetRolesAsync(id);
             model.ObjUser = _ObjUser;
             model.LstAllPermission = new SelectList(cms_db.GetRoleListReturnList(), "Id", "Name");
+            model.LstHistoryUpgrade = cms_db.GetlstUserPackage(id);
             return View(model);
         }
 
