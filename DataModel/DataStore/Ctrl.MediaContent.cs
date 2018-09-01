@@ -310,7 +310,8 @@ namespace DataModel.DataStore
         {
             HttpPostedFileBase desimg = Request;
             ImageUploadViewModel imgUpload = new ImageUploadViewModel();
-            string coderandom = ConstantSystem.PrefixImageName;
+            string coderandom = DateTime.UtcNow.Ticks.ToString();
+            coderandom = ConstantSystem.PrefixImageName + coderandom;
             var _Filename = Path.GetFileName(desimg.FileName);
             string _ServerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstantSystem.FolderImage);
             string _NameRandom = coderandom + _Filename;

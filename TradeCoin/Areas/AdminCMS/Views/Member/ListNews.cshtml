@@ -39,9 +39,9 @@
                                     <select class="form-control select2" name="ContentCatalogry" style="width: 100%;">
                                         <option value="0">Tất cả </option>
                                         @foreach (SelectListObj _val in Model.lstContentCatalogry)
-    {
-                                    <option value="@_val.value">@_val.text </option>
-}
+                                        {
+                                            <option value="@_val.value">@_val.text </option>
+                                        }
                                     </select>
                                 </div><!-- /.form-group -->
                                 <div class="form-group">
@@ -86,14 +86,14 @@
                             <div class="attachment-pushed">
                                 <h4 class="attachment-heading"><a href="@Url.Action("DetailNews", "Member", new { id = _val.ContentItemId })">@_val.ContentTitle</a></h4>
                                 @foreach (ContentPackage _item in _val.lstContentPackage)
-    {
+                                {
 
-                            <span class="badge bg-yellow">@_item.PackageName</span>
-}
-                                @if (_val.MicrositeID > 0)
-    {
-                            <span class='badge bg-green pull-right'> Đã xem</span>
-}
+                                    <span class="badge bg-yellow">@_item.PackageName</span>
+                                }
+                                @if (Model.lstViewUserContent.Contains(_val.ContentItemId))
+                                {
+                                    <span class='badge bg-green pull-right'> Đã xem</span>
+                                }
                                 <div class="attachment-text">
                                     @_val.ContentExcerpt ...<a href="@Url.Action("DetailNews", "Member",new { id =_val.ContentItemId })">Chi tiết</a>
                                 </div><!-- /.attachment-text -->

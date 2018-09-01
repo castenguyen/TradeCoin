@@ -28,7 +28,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public async Task<ActionResult> MemberDashBoard()
         {
-
+            long UserId = long.Parse(User.Identity.GetUserId());
             List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
             if (lstPackageOfUser == null)
             {
@@ -39,12 +39,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             List<ContentItem> lstNews = new List<ContentItem>();
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()),
+                lstNews = cms_db.GetListContentItemByUser(UserId,
                     (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
             }
             else
             {
-                lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()),
+                lstNews = cms_db.GetListContentItemByUser(UserId,
                     (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
             }
             foreach (ContentItem _val in lstNews)
@@ -61,12 +61,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             List<Ticker> lstTicker = new List<Ticker>();
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-               lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+               lstTicker = cms_db.GetListTickerByUser(UserId,
                                 (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
             }
             else
             {
-                lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                lstTicker = cms_db.GetListTickerByUser(UserId,
                         (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
 
             }
@@ -94,6 +94,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult ListTicker(int? page, int ? TickerStatus, string FillterTickerName, string Datetime)
         {
             long packageID = 0;
+            long UserId = long.Parse(User.Identity.GetUserId());
             List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
             if (lstPackageOfUser == null)
             {
@@ -109,7 +110,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
-            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
+            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(UserId, packageID);
             if (TickerStatus.HasValue)
             {
                 tmp = tmp.Where(s => s.StateId == TickerStatus.Value);
@@ -131,7 +132,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
                 pageNum = 1;
             model.pageNum = pageNum;
-
+            model.lstViewUserContent = cms_db.GetlstContentView().Where(s => s.ContentType
+                          == (int)EnumCore.ObjTypeId.ticker && s.UserId == UserId).Select(s => s.ContentId).ToArray();
             model.lstMainTicker = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
             foreach (MiniTickerViewModel _item in model.lstMainTicker)
             {
@@ -227,7 +229,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult ListNews(int? page, int? ContentCatalogry, string FillterContenName, string Datetime)
         {
             long packageID = 0;
-            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
+            long UserId = long.Parse(User.Identity.GetUserId());
+            List <Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
             if (lstPackageOfUser == null)
             {
                 return RedirectToAction("Login", "AccountAdmin");
@@ -242,21 +245,17 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             int pageNum = (page ?? 1);
             ContentItemMemberViewModel model = new ContentItemMemberViewModel();
-            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
+            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(UserId, packageID);
         
-
-            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
-                pageNum = 1;
-            model.pageNum = pageNum;
 
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-                model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                model.lstTicker = cms_db.GetListTickerByUser(UserId,
                                  (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
             }
             else
             {
-                model.lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
+                model.lstTicker = cms_db.GetListTickerByUser(UserId,
                         (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
 
             }
@@ -278,8 +277,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.EndDT = this.SpritDateTime(model.Datetime)[1];
                 tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
             }
-
+            model.lstViewUserContent = cms_db.GetlstContentView().Where(s => s.ContentType 
+                            == (int)EnumCore.ObjTypeId.tin_tuc && s.UserId == UserId).Select(s => s.ContentId).ToArray();
             model.lstMainContent = tmp.OrderByDescending(c => c.ContentItemId).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+
+            if (tmp.Count() < (int)EnumCore.BackendConst.page_size)
+                pageNum = 1;
+            model.pageNum = pageNum;
+
             foreach (MiniContentItemViewModel _val in model.lstMainContent)
             {
                 _val.lstContentPackage = cms_db.GetlstObjContentPackage(_val.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
@@ -299,7 +304,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                if (cms_db.CheckContentItemUerPackage(id, long.Parse(User.Identity.GetUserId())) || User.IsInRole("AdminUser") 
+
+                long UserId = long.Parse(User.Identity.GetUserId());
+                if (cms_db.CheckContentItemUerPackage(id, UserId) || User.IsInRole("AdminUser") 
                     || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     long packageID = 0;
@@ -320,7 +327,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     ContentItemViewModels model = new ContentItemViewModels(); 
                     ContentItem mainObj = cms_db.GetObjContentItemById(id);
                     model._MainObj = mainObj;
+
                     model.lstSameNews = cms_db.GetContentItemByUserLinq(UID, packageID).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
+                    model.lstViewUserContent = cms_db.GetlstContentView().Where(s => s.ContentType
+                        == (int)EnumCore.ObjTypeId.tin_tuc && s.UserId == UserId).Select(s => s.ContentId).ToArray();
+
                     ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UID);
                     if (ck == null)
                     {

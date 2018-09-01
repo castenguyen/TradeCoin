@@ -261,23 +261,24 @@ namespace DataModel.DataStore
             }
             else
             {
+                ///lay package của user
                 packageiduser = (from user in db.Users where user.Id == UserId select user.PackageId.Value).ToList().FirstOrDefault();
             }
-
+            //lấy list package mà user xem được
             long[] lstpackageid = (from pa in db.Packages where pa.PackageId <= packageiduser select pa.PackageId).ToArray();
 
+
+            //lay list content thuoc package
            long[] lstContentItems = (from ci in db.ContentItems
-
                                    join cp in db.ContentPackages on ci.ContentItemId equals cp.ContentId
-
-                                   where cp.ContentType== 6011 && ci.StateId != 6148 && lstpackageid.Contains(cp.PackageId)
-
+                                   where cp.ContentType == (int)EnumCore.ObjTypeId.tin_tuc && ci.StateId != (int)EnumCore.StateType.da_xoa 
+                                   && lstpackageid.Contains(cp.PackageId)
+                                   ///distin cho này để tránh trùng lắp
                                   select ci.ContentItemId).Distinct().ToArray();
 
-            IQueryable<MiniContentItemViewModel> rs =       from ci in db.ContentItems
-                                                            join cv in db.ContentViews on ci.ContentItemId equals cv.ContentId into all
-                                                            from l in all.DefaultIfEmpty()
 
+            ///LẤY TẤT CA TIN TỨC USER CO THỂ XEM ĐƯỢC
+            IQueryable<MiniContentItemViewModel> rs =       from ci in db.ContentItems
                                                             where lstContentItems.Contains(ci.ContentItemId)
 
                 select (new MiniContentItemViewModel
@@ -297,8 +298,8 @@ namespace DataModel.DataStore
                                                           CrtdUserId = ci.ContentItemId,
                                                           CrtdDT = ci.CrtdDT,
                                                           StateId = ci.StateId,
-                                                          StateName = ci.StateName,
-                                                          MicrositeID = (l.ContentId>0) ?  1: 0
+                                                          StateName = ci.StateName
+                                                         
                                                       });
 
 

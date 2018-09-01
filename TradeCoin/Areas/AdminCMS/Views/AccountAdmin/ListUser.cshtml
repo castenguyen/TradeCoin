@@ -19,7 +19,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Danh sách tài khoản</h3>
                     <div class="box-tools">
-       
+
                         <a href="@Url.Action("ManualRegister", "AccountAdmin")" class="btn btn-primary">Thêm mới tài khoản</a>
                     </div>
 
@@ -103,6 +103,7 @@
                             <tr>
                                 <th>User Name</th>
                                 <th>Email</th>
+                                <th>Trạng thái</th>
                                 <th>Loại tài khoản</th>
                                 <th>Gói cước</th>
                                 <th>Quản lý nâng cấp</th>
@@ -114,6 +115,14 @@
                                 <tr>
                                     <td>@item.Login</td>
                                     <td>@item.EMail</td>
+                                    <th>
+                                        @if (item.EmailConfirmed)
+    {<span>Đang hoạt động</span>}
+else
+{
+                                    <span>Chờ kích hoạt email</span>
+}
+                                    </th>
                                     <td>
 
                                         @foreach (Role _val in item.LstRole)

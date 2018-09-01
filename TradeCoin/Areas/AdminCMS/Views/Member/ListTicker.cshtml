@@ -92,7 +92,8 @@
                                     {
                                         <span class="badge bg-yellow">@_item.PackageName</span>
                                     }
-                                    @if (_val.tmp > 0)
+
+                                    @if (Model.lstViewUserContent.Contains(_val.TickerId))
                                     {
                                         <span class='badge bg-green pull-right'> Đã xem</span>
                                     }

@@ -126,9 +126,6 @@ namespace DataModel.DataStore
 
 
             IQueryable<MiniTickerViewModel> rs = from tk in db.Tickers
-                                                 join cv in db.ContentViews on tk.TickerId equals cv.ContentId into all
-                                                 from l in all.DefaultIfEmpty()
-
                                                  where lstTickerid.Contains(tk.TickerId)
 
 
@@ -156,9 +153,8 @@ namespace DataModel.DataStore
                                                      MediaThumb = tk.MediaThumb,
                                                      Flag = tk.Flag,
                                                      Profit = tk.Profit,
-                                                     Deficit = tk.Profit,
-                                                     tmp = (l.ContentId > 0) ? 1 : 0
-
+                                                     Deficit = tk.Profit
+                                                    
                                                  });
             return rs.Distinct();
         }

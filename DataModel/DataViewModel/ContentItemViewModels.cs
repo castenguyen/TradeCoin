@@ -245,6 +245,8 @@ namespace DataModel.DataViewModel
         public List<ContentPackage> lstNewsContentPackage { get; set; }
         public List<MiniContentItemViewModel> lstSameNews { get; set; }
 
+        public long[] lstViewUserContent { get; set; }
+
     }
 
     public class ContentRelatedViewModels
@@ -318,6 +320,8 @@ namespace DataModel.DataViewModel
         public string Datetime { get; set; }
         public Nullable<System.DateTime> StartDT { get; set; }
         public Nullable<System.DateTime> EndDT { get; set; }
+
+        public long[] lstViewUserContent { get; set; }
 
     }
 

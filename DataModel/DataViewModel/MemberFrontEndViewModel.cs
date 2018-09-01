@@ -43,7 +43,7 @@ namespace DataModel.DataViewModel
 
         public double Total { get; set; }
 
-
+        public long[] lstViewUserContent { get; set; }
     }
 
 

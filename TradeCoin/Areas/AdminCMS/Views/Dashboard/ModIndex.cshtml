@@ -48,7 +48,7 @@
     </div><!-- /.row -->
     <div class="row">
 
-      
+
 
 
         <div class="col-md-9">
@@ -65,32 +65,33 @@
 
                             <div class='box-body'>
                                 @foreach (TickerViewModel _val in Model.lstTicker)
-    {
-                            <div class="attachment-block clearfix">
-                                <img class="attachment-img" src="~/@_val.MediaThumb" alt="attachment image">
-                                <div class="attachment-pushed">
-                                    <h4 class="attachment-heading">
-                                        <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">@_val.TickerName</a>
+                                {
+                                    <div class="attachment-block clearfix">
+                                        <img class="attachment-img" src="~/@_val.MediaThumb" alt="attachment image">
+                                        <div class="attachment-pushed">
+                                            <h4 class="attachment-heading">
+                                                <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">@_val.TickerName</a>
 
-                                        @foreach (ContentPackage _item in _val.lstTickerContentPackage)
-            {
+                                                @foreach (ContentPackage _item in _val.lstTickerContentPackage)
+                                                {
 
-                            <span class="badge bg-yellow">@_item.PackageName</span>
-}
+                                                    <span class="badge bg-yellow">@_item.PackageName</span>
+                                                }
 
 
-                                    </h4>
-                                    <div class="attachment-text">
-                                        @Html.Raw(_val.Excerpt)   <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">Chi tiết</a>
-                                    </div><!-- /.attachment-text -->
-                                    <div class='user-block pull-right'>
+                                            </h4>
+                                            <div class="attachment-text">
+                                                @Html.Raw(_val.Excerpt)   
+                                            <a href="@Url.Action("DetailTicker", "Member",new { tickerId =_val.TickerId })">Chi tiết</a>
+                                            </div><!-- /.attachment-text -->
+                                            <div class='user-block pull-right'>
 
-                                        <span class='description'> @_val.CrtdUserName - @_val.CrtdDT</span>
-                                    </div><!-- /.user-block -->
-                                </div><!-- /.attachment-pushed -->
-                            </div><!-- /.attachment-block -->
+                                                <span class='description'> @_val.CrtdUserName - @_val.CrtdDT</span>
+                                            </div><!-- /.user-block -->
+                                        </div><!-- /.attachment-pushed -->
+                                    </div><!-- /.attachment-block -->
 
-}
+                                }
                             </div><!-- /.post -->
                         </div><!-- /.post -->
 
@@ -99,13 +100,13 @@
                     </div><!-- /.tab-pane -->
 
 
-                            <div class="tab-pane" id="timeline">
-                                <div class="box box-widget">
+                    <div class="tab-pane" id="timeline">
+                        <div class="box box-widget">
 
-                                    <div class='box-body'>
-                                        @foreach (ContentItemViewModels _val in Model.lstNews)
-    {
-                                 
+                            <div class='box-body'>
+                                @foreach (ContentItemViewModels _val in Model.lstNews)
+                                {
+
 
 
                                     <div class="attachment-block clearfix">
@@ -115,10 +116,10 @@
                                                 <a href="@Url.Action("DetailNews", "Member", new { id = _val.ContentItemId })">@_val.ContentTitle</a>
 
                                                 @foreach (ContentPackage _item in _val.lstNewsContentPackage)
-            {
+                                                {
 
-                                    <span class="badge bg-yellow">@_item.PackageName</span>
-}
+                                                    <span class="badge bg-yellow">@_item.PackageName</span>
+                                                }
                                             </h4>
                                             <div class="attachment-text">
                                                 @_val.ContentExcerpt <a href="@Url.Action("DetailNews", "Member", new { id = _val.ContentItemId })">Chi tiết</a>
@@ -130,16 +131,16 @@
                                         </div><!-- /.attachment-pushed -->
                                     </div><!-- /.attachment-block -->
 
-}
+                                }
 
 
-                                    </div><!-- /.box-body -->
+                            </div><!-- /.box-body -->
 
-                                </div><!-- /.box -->
-                            </div><!-- /.tab-pane -->
+                        </div><!-- /.box -->
+                    </div><!-- /.tab-pane -->
 
-                        </div><!-- /.tab-content -->
-                    </div><!-- /.nav-tabs-custom -->
+                </div><!-- /.tab-content -->
+            </div><!-- /.nav-tabs-custom -->
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->

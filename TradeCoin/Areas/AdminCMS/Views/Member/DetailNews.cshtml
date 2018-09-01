@@ -60,7 +60,7 @@
                                 <span class='username'><a href="@Url.Action("DetailNews", "Member", new { id = Model.ContentItemId })">@_item.ContentTitle</a></span>
                                 <span class='description'>Được gửi bởi Admin - @_item.CrtdDT</span>
 
-                                @if (_item.MicrositeID > 0)
+                                @if (Model.lstViewUserContent.Contains(_item.ContentItemId))
     {
                             <span class='badge bg-green pull-right'> Đã xem</span>
 }

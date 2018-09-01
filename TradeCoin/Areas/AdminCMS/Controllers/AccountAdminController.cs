@@ -331,6 +331,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             user.PackageId = 1;
                             user.PackageName = "Free";
                         }
+                        user.EmailConfirmed = true;
 
                         UserManager.Update(user);
                         int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
@@ -1239,6 +1240,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 tmp = cms_db.GetUsersInRoleByLinkq(RoleName);
             }
             model.LstAllUser = tmp.Where(s => s.AwaitPackageId.Value > 0).OrderBy(c => c.FullName).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            foreach (User item in model.LstAllUser)
+            {
+                UserPackage objUserpackage = cms_db.GetlstUserPackageIquery().Where(s => s.PackageId 
+                    == item.AwaitPackageId.Value && s.UpgradeUID == item.Id).OrderByDescending(s => s.Id).FirstOrDefault();
+                item.ExpiredDay = objUserpackage.CrtdDT.Value.AddDays(objUserpackage.NumDay.Value);
+            }
+
             model.Page = pageNum;
             model.letter = letter;
             return View(model);

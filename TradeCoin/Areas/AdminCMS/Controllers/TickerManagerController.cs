@@ -138,7 +138,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.CrtdUserId = long.Parse(User.Identity.GetUserId());
                     MainModel.CrtdUserName = User.Identity.Name;
                     MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
-                    MainModel.StateName = "Enable";
+                    MainModel.StateName = "Đang chạy";
                     MainModel.Flag = model.Flag;
                     int rs = await cms_db.CreateTickerAsync(MainModel);
                     if (Default_files != null)
