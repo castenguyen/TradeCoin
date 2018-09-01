@@ -474,8 +474,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 var result = UserManager.Update(user);
                 if (result.Succeeded)
                 {
-                     string AlertMessage = "Xác nhận email thành công";
-                    return View("ManagerUser",new { id = userId , alertMessage = AlertMessage });
+                     //string AlertMessage = "Xác nhận email thành công";
+                    return RedirectToAction("ManagerUser", "AccountAdmin", new { id = userId });
                 }
                 AddErrors(result);
                 return View();
