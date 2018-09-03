@@ -1355,7 +1355,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                 //cập nhat lai ngay hết hạn cho user
                 //nếu thời gian của gói cước lớn hơn 0
-                //thì co nghi a la nâng cấp tháng-quý
+                //thì co nghi a la nâng cấp tháng-quý-vinh vien
                 if (!String.IsNullOrEmpty(model.Datetime))
                 {
                       _ObjUser.ExpiredDay = this.SpritDateTimeUpdate(model.Datetime)[1];

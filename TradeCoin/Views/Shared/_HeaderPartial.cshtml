@@ -5,15 +5,21 @@
     <div class="container">
 
         <div class="menu-container page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse" style="margin-left:50%">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#intro">
-                <!--<span>U</span>nify-->
-                @*<img src="~/Content/assets/img/logoncoin.png" alt="Logo">*@
+
+
+                @if (ExtFunction.fBrowserIsMobile())
+    {
+          
+            <img src="~/Content/assets/img/logoncoin.png" alt="Logo">
+}
+
             </a>
         </div>
 
@@ -85,7 +91,15 @@ else
 
         <div class="menu-container page-scroll" style="float:left">
             <a class="navbar-brand" style="padding:0" href="#intro">
-                <img src="~/Content/assets/img/logoncoin.png" alt="Logo">
+
+                @if (!ExtFunction.fBrowserIsMobile())
+    {
+
+            <img src="~/Content/assets/img/logoncoin.png" alt="Logo">
+}
+
+
+             
             </a>
         </div>
         <!-- /.navbar-collapse -->

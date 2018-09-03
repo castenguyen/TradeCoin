@@ -77,9 +77,34 @@ namespace DataModel.DataStore
             }
         }
 
+        public async Task<int> ClearEmailSupport(EmailSupport EmailSupportObj,int clearType)
+        {
+            try
+            {
+                if (clearType == (int)EnumCore.EmailClearType.xoa_mail_mod)
+                {
+                    EmailSupportObj.StateName = "Đã xoá";
+                    EmailSupportObj.StateId = (int)EnumCore.EmailStatus.da_xoa;
+                    db.Entry(EmailSupportObj).State = EntityState.Modified;
+                    return await db.SaveChangesAsync();
+                }
+                else
+                {
+                    EmailSupportObj.StateName2 = "Đã xoá";
+                    EmailSupportObj.StateId2 = (int)EnumCore.EmailStatus.da_xoa;
+                    db.Entry(EmailSupportObj).State = EntityState.Modified;
+                    return await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                return (int)EnumCore.Result.action_false;
+            }
+        }
+
         //public IQueryable<MiniEmailSupportViewModel> GetEmailSupportByLinq(int isUserAdmin,long UserId)
         //{
-          
+
 
         //    IQueryable<MiniEmailSupportViewModel> rs = 
         //                                         from em in db.EmailSupports

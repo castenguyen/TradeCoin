@@ -28,14 +28,11 @@
                         <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.da_xem })"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
                     </ul>
                 </div><!-- /.box-body -->
-                @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-                {
+                @if (User.IsInRole("Member"))
+    {
+            <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
+}
 
-                }
-                else
-                {
-                    @*<a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>*@
-                }
             </div><!-- /.box-body -->
 
 
@@ -53,7 +50,7 @@
                             <div class='user-block'>
                                 <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
                                 <span class='username'><a href="#">@Model.CrtdUserName</a></span>
-                                <span class='description'>Shared publicly - @Model.CrtdDT</span>
+                                <span class='description'> @Model.CrtdDT</span>
                             </div><!-- /.user-block -->
 
                         </div><!-- /.box-header -->
@@ -71,7 +68,7 @@
                                     <div class='user-block'>
                                         <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
                                         <span class='username'><a href="#">@_var.CrtdUserName</a></span>
-                                        <span class='description'>Shared publicly - @_var.CrtdDT</span>
+                                        <span class='description'> @_var.CrtdDT</span>
                                     </div><!-- /.user-block -->
 
                                 </div><!-- /.box-header -->
@@ -88,7 +85,7 @@
                                     <div class='user-block pull-right'>
                                         <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image' style="float:right">
                                         <span class='username'><a href="#">@_var.CrtdUserName</a></span>
-                                        <span class='description'>Shared publicly - @_var.CrtdDT</span>
+                                        <span class='description'> @_var.CrtdDT</span>
                                     </div><!-- /.user-block -->
 
                                 </div><!-- /.box-header -->
@@ -99,7 +96,7 @@
                         }
                     }
 
-                    @if (Model.DestinationId == null &&( User.IsInRole("Mod") || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin")))
+                    @if (Model.DestinationId == -1 && ( User.IsInRole("Mod") || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin")))
                     {
 
                         <div class="box box-widget">
@@ -118,7 +115,7 @@
                                     <textarea name="Content" id="Content" class="form-control" style="height: 300px"></textarea>
                                 </div><!-- /.box-body -->
                                 <div class='box-footer'>
-                                    @*<button type="submit" class="btn btn-primary  pull-right"><i class="fa fa-envelope-o"></i> Trả lời</button>*@
+                                    <button type="submit" class="btn btn-primary  pull-right"><i class="fa fa-envelope-o"></i> Trả lời</button>
                                 </div>
                             }
                         </div>

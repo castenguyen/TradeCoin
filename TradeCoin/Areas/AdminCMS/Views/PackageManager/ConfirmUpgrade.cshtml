@@ -94,24 +94,26 @@
             <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                 Xin chào @Model.UpgradeUserName , Bạn muốn nâng cứ từ
                 @if (String.IsNullOrEmpty(Model.ObjUser.PackageName))
-    {
-            <span>FREE</span>
-}
-else
-{
-            @Model.ObjUser.PackageName
-}
-                @Model.ObjUser.ExpiredDay lên gói cước @Model.PackageName thời gian hết hạn gói cước mới là
+                {
+                    <span>FREE</span>
+                }
+                else
+                {
+                    @Model.ObjUser.PackageName
+                }
+                @Model.ObjUser.ExpiredDay lên gói cước @Model.PackageName 
+                
+                <BR>Thời gian hết hạn gói cước mới là
                 @if (@Model.TotalDay.HasValue)
-    {
-            <span>@Model.TotalDay Ngày</span>
-}
-else
-{
+                {
+                    <span>@Model.TotalDay Ngày</span>
+                }
+                else
+                {
 
-            <span>Vĩnh Viễn</span>
-}
-                giá là : @Model.TotalPrice USD  . Tỉ giá là 23.000 vnd / 1 USD . Bạn vui lòng chuyển khoản theo nội dung sau : @Model.UpgradeToken
+                    <span>Vĩnh Viễn</span>
+                }
+                số tiền là : @Model.TotalPrice USD  . Tỉ giá là 23.000 vnd / 1 USD .<BR> Bạn vui lòng chuyển khoản theo nội dung sau : @Model.UpgradeToken
                 vào tài khoản VietComBank  :
                 STK :0031000339004
                 Chủ TK : Đàm Thị Quỳnh
@@ -124,7 +126,9 @@ else
     <!-- this row will not appear when printing -->
     <div class="row no-print">
         <div class="col-xs-12">
-            <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> In</a>
+            @*<a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> In</a>*@
+
+            <a class="btn btn-default" href="@Url.Action("FrontEndIndex", "PackageManager")" class="btn btn-primary">Huỷ nâng cấp</a>
 
             @using (Html.BeginForm("UpgradePackageUser", "PackageManager", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
@@ -138,12 +142,12 @@ else
         <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Xác nhận nâng cấp</button>
 }
 
-            
-            
 
-            <a class="btn btn-primary pull-right" href="@Url.Action("FrontEndIndex", "PackageManager")" class="btn btn-primary">Huỷ nâng cấp</a>
 
-            <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Lưu</button>
+
+
+
+            @*<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Lưu</button>*@
         </div>
     </div>
 </section><!-- /.content -->

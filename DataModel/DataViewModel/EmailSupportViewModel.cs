@@ -143,6 +143,12 @@ namespace DataModel.DataViewModel
         public int EmailStatus { get; set; }
         public int pageNum { get; set; }
         public long[]  lstViewed { get; set; }
+
+        public string EmailName { get; set; }
+
+        public string Datetime { get; set; }
+        public Nullable<System.DateTime> StartDT { get; set; }
+        public Nullable<System.DateTime> EndDT { get; set; }
     }
 
     public class MiniEmailSupportViewModel

@@ -19,14 +19,37 @@ namespace CMSPROJECT.Hubs
         private Ctrl cms_db = new Ctrl();
         static List<UserInfo> UsersList = new List<UserInfo>();
         static List<MessageInfo> MessageList = new List<MessageInfo>();
-
+        static List<ChatMessInfo> ChatList = new List<ChatMessInfo>();
 
         public void Send(string name, string message)
         {
             DateTime date = DateTime.Now;
+
+            ChatMessInfo tmpobj = new ChatMessInfo { UserName = name, Message = message, MsgTime = date, MsgDate = date.ToString("MM/dd/yyyy HH:mm")};
+            ChatList.Add(tmpobj);
+
             Clients.All.addNewMessageToPage(name, message, date.ToString("MM/dd/yyyy HH:mm"));
         }
-        
+
+        public void Getlistchat()
+        {
+            Clients.All.clearScreen();
+            foreach (ChatMessInfo item in ChatList)
+            {
+                Clients.All.addNewMessageToPage(item.UserName, item.Message, item.MsgTime.ToString("MM/dd/yyyy HH:mm"));
+            }
+        }
+
+        public void ClearListChat()
+        {
+            ChatList.Clear();
+            Clients.All.clearScreen();
+        }
+
+            
+
+
+
         /// <summary>
         /// hàm này dc gọi khi trang view chat dc render ra
         /// hàm này xác định user đang chat(thong tin user dc lấy từ user nhập vào từ trang ColectInforChat===>xem thêm từ đó nha)

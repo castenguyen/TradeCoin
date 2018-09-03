@@ -196,8 +196,18 @@ namespace DataModel.Extension
         public enum EmailStatus : int
         {
             chua_xem = 11921,
-            da_xem = 11920,
+            cho_ho_tro = 11924,
+            da_ho_tro = 11925,
             da_xoa = 11922,
+
+            da_xem = 11920,
+        }
+
+        public enum EmailClearType : int
+        {
+            xoa_mail_mod = 0,
+            xoa_mail_member = 1,
+
         }
 
 

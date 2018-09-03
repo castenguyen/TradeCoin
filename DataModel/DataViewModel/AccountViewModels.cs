@@ -455,6 +455,17 @@ namespace DataModel.DataViewModel
         public string MsgDate { get; set; }
     }
 
+
+    public class ChatMessInfo
+    {
+        public string UserName { get; set; }
+        public string Message { get; set; }
+        public string MsgDate { get; set; }
+
+         public DateTime MsgTime { get; set; }
+    }
+
+
     #endregion End frontend
 
 }

@@ -13,7 +13,7 @@
 
 <section class="content">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
 
             <div class="box box-solid">
                 <div class="box-header with-border">
@@ -25,105 +25,101 @@
                 <div class="box-body no-padding">
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="@Url.Action("Index", "EmailManager", new {page=Model.pageNum })"><i class="fa fa-inbox"></i> Hộp thư tổng</a></li>
-                        <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.chua_xem,page=Model.pageNum  })"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
-                        <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.da_xem,page=Model.pageNum  })"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
+                        <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.cho_ho_tro,page=Model.pageNum  })"><i class="fa fa-envelope-o"></i> Thư chờ hỗ trợ</a></li>
+                        <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.da_ho_tro,page=Model.pageNum  })"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
                     </ul>
                 </div><!-- /.box-body -->
-                @if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                @if (User.IsInRole("Member"))
                 {
+                    <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
+                }
 
-                }
-                else
-                {
-                    @*<a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>*@
-                }
 
             </div><!-- /.box-body -->
 
 
         </div><!-- /.col -->
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Inbox</h3>
-                    <div class="box-tools pull-right">
-                        @using (Html.BeginForm("Index", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
-                        {
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" placeholder="Tìm kiếm thư">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                @*<button type="submit" class="form-control btn btn-primary">Tìm kiếm</button>*@
 
+                    @using (Html.BeginForm("Index", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+    {
+                <div class="box-tools pull-right">
+                    <button type="submit" class="form-control btn btn-primary">Tìm kiếm</button>
+                </div><!-- /.box-tools -->
+                <div class="box-tools pull-right col-md-3">
+                    <input type="text" class="form-control" name="EmailName" placeholder="Nhập tên">
+                </div>
+                <div class="box-tools pull-right col-md-3">
+                   
+                        <input type="text" class="form-control" name="Datetime" id="reservation"  placeholder="Chọn ngày">
+                </div>
+}
 
-                            </div>
-                        }
-                    </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <div class="mailbox-controls">
-                        <!-- Check all button -->
-                        <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                        <div class="btn-group">
-                            <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                        </div><!-- /.btn-group -->
-                        <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
 
+                @using (Html.BeginForm("ClearEmail", "EmailManager", FormMethod.Post, new { id = "clearForm", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="box-body no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button class="btn btn-default btn-sm checkbox-toggle" type="button" id="checkall"><i class="fa fa-square-o"></i></button>
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" type="submit" id="clearEmail"><i class="fa fa-trash-o"></i></button>
+                            </div><!-- /.btn-group -->
+                            @*<a class="btn btn-default btn-sm"><i class="fa fa-refresh"></i>Thu</a>*@
+                        </div>
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td class="mailbox-name"><b>Tình trạng thư</b> </td>
+                                        <td class="mailbox-name"><b>Người nhận</b></td>
+                                        <td class="mailbox-name"><b>Chủ đề</b></td>
+                                        <td class="mailbox-name"><b>Người gửi</b></td>
+                                        <td class="mailbox-date"><b>Ngày tạo</b></td>
+                                        <td class="mailbox-date"><b> Trạng thái</b> </td>
+                                    </tr>
 
-                    </div>
-                    <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped">
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td class="mailbox-name"><b>Tình trạng thư</b> </td>
-                                    <td class="mailbox-name"><b>Người nhận</b></td>
-                                    <td class="mailbox-name"><b>Chủ đề</b></td>
-                                    <td class="mailbox-name"><b>Người gửi</b></td>
-                                    <td class="mailbox-date"><b>Ngày tạo</b></td>
-                                    <td class="mailbox-date"><b> Trạng thái</b> </td>
-                                </tr>
+                                    @{
+                                        foreach (EmailSupport _val in Model.lstEmailSupport)
+                                        {
+                                            <tr>
+                                                <td><input type="checkbox" value="@_val.EmailId" name="lstClear"></td>
+                                                <td class="mailbox-star">
+                                                    @if (_val.DestinationId == -1)
+                                                    {
+                                                        <span class='badge bg-red'> Chờ trả lời</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class='badge bg-green'> Đã trả lời</span>
+                                                    }
 
-                                @{
-                                    foreach (EmailSupport _val in Model.lstEmailSupport)
-                                    {
-
-
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td class="mailbox-star">
-                                                @if (_val.DestinationId == null || _val.DestinationId == 0)
-                                                {
-
-                                                    <span class='badge bg-red'> Chờ trả lời</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class='badge bg-green'> Đã trả lời</span>
-
-                                                }
-
-
-
-                                            </td>
-                                            <td class="mailbox-name"><b>@_val.DestinationName</b></td>
-                                            <td class="mailbox-subject"><a href="@Url.Action("DetailEmail", "EmailManager", new {emailId=_val.EmailId })">@_val.EmailName</a></td>
-                                            <td class="mailbox-attachment">@_val.CrtdUserName</td>
-                                            <td class="mailbox-date">@_val.CrtdDT</td>
-                                            <td class="mailbox-date">
-                                                @if (Model.lstViewed.Contains(_val.EmailId))
-                                                {
-                                                    <span class='badge bg-green'> Đã xem</span>
-                                                }
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="mailbox-name"><b>@_val.DestinationName</b></td>
+                                                <td class="mailbox-subject"><a href="@Url.Action("DetailEmail", "EmailManager", new { emailId = _val.EmailId })">@_val.EmailName</a></td>
+                                                <td class="mailbox-attachment">@_val.CrtdUserName</td>
+                                                <td class="mailbox-date">@_val.CrtdDT</td>
+                                                <td class="mailbox-date">
+                                                    @if (Model.lstViewed.Contains(_val.EmailId))
+                                                    {
+                                                        <span class='badge bg-green'> Đã xem</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
                                     }
-                                }
+                                </tbody>
+                            </table><!-- /.table -->
+                        </div><!-- /.mail-box-messages -->
+                    </div><!-- /.box-body -->
+                }
 
-
-                            </tbody>
-                        </table><!-- /.table -->
-                    </div><!-- /.mail-box-messages -->
-                </div><!-- /.box-body -->
                 <div class="box-footer no-padding">
 
                     @if (Model.lstEmailSupport.PageCount > 1)
@@ -140,3 +136,64 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+
+<script>
+    $(function () {
+        //Enable check and uncheck all functionality
+        $(".checkbox-toggle").click(function () {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+                $('.mailbox-messages').find('input[type="checkbox"]').iCheck('uncheck');
+                $('.mailbox-messages').find('input[type="checkbox"]').attr('checked', false);
+                $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+
+
+            } else {
+                $('.mailbox-messages').find('input[type="checkbox"]').attr('checked', true);
+                $('.mailbox-messages').find('input[type="checkbox"]').iCheck('check');
+                $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+            }
+            $(this).data("clicks", !clicks);
+        });
+
+
+
+
+        $(".mailbox-messages").find('input[type="checkbox"]').click(function () {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+
+            } else {
+
+
+            }
+            $(this).data("clicks", !clicks);
+        });
+
+        $('#clearForm').bind('submit', function () {
+
+            var form = document.getElementById('clearForm');
+            var inputs = form.getElementsByTagName('input');
+            var is_checked = false;
+            for (var x = 0; x < inputs.length; x++) {
+                if (inputs[x].type == 'checkbox' && inputs[x].name == 'lstClear') {
+                    is_checked = inputs[x].checked;
+                    if (is_checked) break;
+                }
+            }
+            if (!is_checked) {
+                alert("Vui lòng chọn email muốn xoá");
+                return false;
+            }
+
+            return true;
+        });
+
+        //Date range picker
+        $('#reservation').daterangepicker();
+
+
+
+    });
+</script>
+

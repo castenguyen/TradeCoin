@@ -1106,6 +1106,12 @@ new { controller = "PackageManager", action = "Export" }
           new { controller = "EmailManager", action = "ReplyEmail" }
        );
 
+            context.MapRoute(
+        "AdminCMS_ClearEmail",
+        "xoa-thu",
+        new { controller = "EmailManager", action = "ClearEmail" }
+     );
+
             
 
             context.MapRoute(

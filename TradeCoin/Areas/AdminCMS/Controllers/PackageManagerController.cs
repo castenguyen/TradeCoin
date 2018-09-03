@@ -68,7 +68,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (CurrentUserId != UserId || !User.IsInRole("Member"))
                 {
                     return RedirectToAction("AlertPage", "Extension",
-                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
+                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này bạn " +
+                        "không phải là thành viên hoặc gói cước mới không hợp lệ", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
                 User ObjUser = cms_db.GetObjUserByIdNoAsync(UserId);
 
@@ -86,7 +87,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                 UserPackageViewModel model = new UserPackageViewModel();
                 Package ObjNewPackage = cms_db.GetObjPackage(PackageId);
-                if (ObjNewPackage.NumDay > ObjOldPackage.NumDay)
+
+                //nếu gói cước mới lớn hơn hoặc bằng thì cho nâng cấp
+                if (ObjNewPackage.PackageId > ObjOldPackage.PackageId || ObjNewPackage.PackageId == ObjOldPackage.PackageId)
                 {
                     model.ObjPackage = ObjNewPackage;
                     model.ObjUser = ObjUser;
@@ -119,7 +122,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 else
                 {
                     return RedirectToAction("AlertPage", "Extension",
-                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
+                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này do gói cước mới không hợp lệ", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
 
             }
@@ -127,7 +130,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 cms_db.AddToExceptionLog("ConfirmUpdate", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return RedirectToAction("AlertPage", "Extension",
-                    new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
+                    new { AlertString = "Không thể thực hiện nâng cấp với gói cước này do có" +
+                    " lỗi xảy ra trong quá trình nâng cấp", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
             }
         }
 
@@ -142,7 +146,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 long CurrentUserId = long.Parse(User.Identity.GetUserId());
                 if (CurrentUserId != model.UpgradeUID.Value || !User.IsInRole("Member"))
                 {
-                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "" });
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này bạn " +
+                        "không phải là thành viên hoặc gói cước mới không hợp lệ", link = "" });
                 }
                 User ObjUser = cms_db.GetObjUserByIdNoAsync(model.UpgradeUID.Value);
                 Package ObjNewPackage = cms_db.GetObjPackage(model.PackageId.Value);
@@ -158,7 +163,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 }
 
 
-                if (ObjNewPackage.NumDay > ObjOldPackage.NumDay)
+                if (ObjNewPackage.PackageId > ObjOldPackage.PackageId || ObjNewPackage.PackageId == ObjOldPackage.PackageId)
                 {
                     UserPackage objUserPackage = new UserPackage();
 
@@ -191,13 +196,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 else
                 {
                     return RedirectToAction("AlertPage", "Extension",
-                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
+                        new { AlertString = "Không thể thực hiện nâng cấp với gói cước này do gói " +
+                        "cước mới không hợp lệ", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
                 }
             }
             catch (Exception e)
             {
                 cms_db.AddToExceptionLog("UpgradePackageUser", "PackageManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
-                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước này", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = "Không thể thực hiện nâng cấp với gói cước" +
+                    " này do có lỗi xảy ra trong quá trình nâng cấp", link = "", type = (int)EnumCore.AlertPageType.FullScrenn });
             }
         }
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser")]

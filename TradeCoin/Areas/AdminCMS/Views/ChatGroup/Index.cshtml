@@ -26,9 +26,17 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Chat Nhóm</h3>
 
+
+
+                    @if (User.IsInRole("Mod") || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                    {
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default btn-sm" type="submit" id="clearListChat"><i class="fa fa-trash-o"></i></button>
+                        </div>
+                    }
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <!-- Conversations are loaded here -->
+
                     <div class="direct-chat-messages" id="discussion">
 
                     </div><!--/.direct-chat-messages-->
@@ -36,12 +44,12 @@
 
                 </div><!-- /.box-body -->
                 <div class="box-footer">
-                        <div class="input-group">
-                            <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary btn-flat" id="sendmessage">Send</button>
-                            </span>
-                        </div>
+                    <div class="input-group">
+                        <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary btn-flat" id="sendmessage">Send</button>
+                        </span>
+                    </div>
                 </div><!-- /.box-footer-->
             </div><!--/.direct-chat -->
 
@@ -62,16 +70,16 @@
 <!--SignalR script to update the chat page and send messages.-->
 
 <script>
-        $(function () {
-            var image = window.location.origin + "Areas/AdminCMS/dist/img/user1-128x128.jpg";
-            // Reference the auto-generated proxy for the hub.
-            var chat = $.connection.chatHub;
-            // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (name, message, date) {
-                // Add the message to the page.
-                // Message. Default to the left.
-                if (name == $('#displayname').val()) {
-                    $('#discussion').append(`<div class="direct-chat-msg right">
+    $(function () {
+        var image = window.location.origin + "/Areas/AdminCMS/dist/img/user1-128x128.jpg";
+        // Reference the auto-generated proxy for the hub.
+        var chat = $.connection.chatHub;
+        // Create a function that the hub can call back to display messages.
+        chat.client.addNewMessageToPage = function (name, message, date) {
+            // Add the message to the page.
+            // Message. Default to the left.
+            if (name == $('#displayname').val()) {
+                $('#discussion').append(`<div class="direct-chat-msg right">
                                     <div class="direct-chat-info clearfix">
                                         <span class="direct-chat-name pull-right">`+ name + `</span>
                                         <span class="direct-chat-timestamp pull-left">`+ date + `</span>
@@ -81,10 +89,10 @@
                                         `+ message + `
                                     </div>
                                 </div>`);
-                }
-                // Message to the right.
-                else {
-                    $('#discussion').append(`<div class="direct-chat-msg">
+            }
+            // Message to the right.
+            else {
+                $('#discussion').append(`<div class="direct-chat-msg">
                                     <div class="direct-chat-info clearfix">
                                         <span class="direct-chat-name pull-left">`+ name + `</span>
                                         <span class="direct-chat-timestamp pull-right">`+ date + `</span>
@@ -94,33 +102,50 @@
                                         `+ message + `
                                     </div>
                                 </div>`);
-                }
+            }
 
-                $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
+            $('#discussion').scrollTop($('#discussion')[0].scrollHeight);
 
-            };
-     
-            // Start the connection.
-            $.connection.hub.start().done(function () {
-                $('#sendmessage').click(function () {
-                    sendmessage();
-                });
+        };
+
+
+        chat.client.clearScreen = function () {
+            $('#discussion').empty()
+
+        };
+
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+
+            chat.server.getlistchat();
+            $('#sendmessage').click(function () {
+                sendmessage();
+            });
+            $('#clearListChat').click(function () {
+                chat.server.clearListChat();
             });
 
-            // focus enter keyboar
-            $('#message').keypress(function (event) {
-                if (event.keyCode == 13) {
-                    sendmessage();
-                }
-            });
+            
 
-            function sendmessage() {
-                if ($('#message').val() != "") {
-                    // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment.
-                    $('#message').val('').focus();
-                }
+        });
+
+        // focus enter keyboar
+        $('#message').keypress(function (event) {
+            if (event.keyCode == 13) {
+                sendmessage();
             }
         });
+
+
+
+
+        function sendmessage() {
+            if ($('#message').val() != "") {
+                // Call the Send method on the hub.
+                chat.server.send($('#displayname').val(), $('#message').val());
+                // Clear text box and reset focus for next comment.
+                $('#message').val('').focus();
+            }
+        }
+    });
 </script>
