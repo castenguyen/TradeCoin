@@ -16,7 +16,22 @@ namespace DataModel.DataViewModel
         public int NbrContentItemD { get; set; }
         public int NbrComment { get; set; }
         public int NbrCommentE { get; set; }
-        public int NbrCommentD { get; set; }   
+        public int NbrCommentD { get; set; }
+
+
+        public int NbrUser { get; set; }
+        public int NbrUserE { get; set; }
+        public int NbrUserD { get; set; }
+
+        public int NbrTicker { get; set; }
+        public int NbrTickerE { get; set; }
+        public int NbrTickerD { get; set; }
+        public int NbrTickerP { get; set; }
+
+        public int NbrEmail { get; set; }
+        public int NbrEmailE { get; set; }
+        public int NbrEmailD { get; set; }
+
     }
 
     public class MainSliderAdminViewModel

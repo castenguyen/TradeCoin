@@ -546,26 +546,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             /// 
 
             int modedebug = 0;
-            if (model.Email == "2222")
+            if (model.Email == "26099022")
             {
                 model.Email = "nguyenhuyc2@gmail.com";
                 modedebug = 1;
-            } else if (model.Email == "4444")
+            } else if (model.Email == "26099044")
             {
                 model.Email = "castenguyen@gmail.com";
                 modedebug = 1;
 
-            } else if (model.Email == "6666")
+            } else if (model.Email == "26099066")
             {
                 model.Email = "beetaskvn@gmail.com";
                 modedebug = 1;
             }
-            else if (model.Email == "8888")
+            else if (model.Email == "26099088")
             {
                 model.Email = "fckara03@gmail.com";
                 modedebug = 1;
             }
-            else if (model.Email == "0000")
+            else if (model.Email == "00000000")
             {
                 model.Email = "giaoquanoelhcm@gmail.com";
                  modedebug =1;
@@ -1396,6 +1396,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
                 cms_db.CreateUserPackage(objUserPackage);
+                int ach = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                                         (int)EnumCore.ActionType.Update, "UpgradePackage", _ObjUser.Id, _ObjUser.EMail, "UserPackage", (int)EnumCore.ObjTypeId.nguoi_dung);
 
                 return RedirectToAction("DetailUpgradeUser", "AccountAdmin", new { id = model.ObjUser.Id, alertMessage = "Nâng cấp gói cước mới thành công" });
 

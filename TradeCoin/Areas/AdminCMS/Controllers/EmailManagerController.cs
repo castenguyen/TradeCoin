@@ -99,7 +99,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("CreateNewEmail", "EmailManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                cms_db.AddToExceptionLog("Index", "EmailManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 string AlertString = "Nội dung xem không khả dụng";
                 return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
 
@@ -173,7 +173,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,Member")]
-        public ActionResult CreateNewEmail(EmailSupportViewModel model)
+        public async Task<ActionResult> CreateNewEmail(EmailSupportViewModel model)
         {
 
             try
@@ -197,6 +197,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 //member tạo ra chắc chắn là member đã xems
                 //tạo d8ã xem cho email mới tạo
                 int rsv = this.CreateEmailView(newObject, UID);
+                int ach = await cms_db.CreateUserHistory(UID, Request.ServerVariables["REMOTE_ADDR"],
+                             (int)EnumCore.ActionType.Update, "CreateNewEmail", newObject.EmailId, newObject.Subject, "EmailSupport", (int)EnumCore.ObjTypeId.emailsupport);
 
                 var context = GlobalHost.ConnectionManager.GetHubContext<NotifiHub>();
                 context.Clients.All.notificationNewEmail();
@@ -313,6 +315,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 int rs = cms_db.CreateEmailSupport(ReplyEmailSuport);
                 //mod tạo ra mail này chắc nchan moad dã xem mình trả lời
                 int rsv = this.CreateEmailView(ReplyEmailSuport, ModUserId);
+                int ach = await cms_db.CreateUserHistory(ModUserId, Request.ServerVariables["REMOTE_ADDR"],
+                            (int)EnumCore.ActionType.Update, "ReplyEmail", ReplyEmailSuport.EmailId, ReplyEmailSuport.Subject, "EmailSupport", (int)EnumCore.ObjTypeId.emailsupport);
+
+
+
+
                 AlertString = "Tạo mới thư trả lời thư thành công";
                 return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
             }

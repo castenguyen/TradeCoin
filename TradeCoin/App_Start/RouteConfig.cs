@@ -108,9 +108,11 @@ namespace Alluneecms
 
             #region san pham
 
+
+            /*
             routes.MapRoute(
                  name: "AllProduct",
-             url: "san-pham",
+             url: "disable/san-pham",
              defaults: new
              {
                  controller = "Product",
@@ -121,7 +123,7 @@ namespace Alluneecms
 
             routes.MapRoute(
             name: "ProductList",
-             url: "{FriendlyUrl}",
+             url: "disable/{FriendlyUrl}",
              defaults: new
              {
                  controller = "Product",
@@ -141,7 +143,7 @@ namespace Alluneecms
 
             routes.MapRoute(
                   name: "ProductDetail2",
-                  url: "{string1}/{string2}/{FriendlyUrl}",
+                  url: "disable/{string1}/{string2}/{FriendlyUrl}",
                   defaults: new
                   {
                       controller = "Product",
@@ -150,7 +152,7 @@ namespace Alluneecms
                       string1 = UrlParameter.Optional,
                       string2 = UrlParameter.Optional
                   });
-
+*/
 
             #endregion san pham
 

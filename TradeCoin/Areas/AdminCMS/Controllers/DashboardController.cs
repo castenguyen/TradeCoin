@@ -33,20 +33,51 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult Index()
         {
 
-
-
             DashboardViewModel model = new DashboardViewModel();
-            model.NbrComment = cms_db.GetlstComment().Count();
-            model.NbrCommentE = cms_db.GetlstComment().Where(s=>s.StateId==(int)EnumCore.StateType.cho_phep).Count();
-            model.NbrCommentD = cms_db.GetlstComment().Where(s => s.StateId == (int)EnumCore.StateType.khong_cho_phep).Count();
+          
 
             model.NbrContentItem = cms_db.GetlstContentItem().Count();
             model.NbrContentItemE = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep).Count();
             model.NbrContentItemD = cms_db.GetlstContentItem().Where(s => s.StateId == (int)EnumCore.StateType.khong_cho_phep).Count();
 
+            /*
             model.NbrProduct = cms_db.GetlstProduct().Count();
             model.NbrProductE = cms_db.GetlstProduct().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep).Count();
             model.NbrProductD = cms_db.GetlstProduct().Where(s => s.StateId == (int)EnumCore.StateType.khong_cho_phep).Count();
+
+            model.NbrComment = cms_db.GetlstComment().Count();
+            model.NbrCommentE = cms_db.GetlstComment().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep).Count();
+            model.NbrCommentD = cms_db.GetlstComment().Where(s => s.StateId == (int)EnumCore.StateType.khong_cho_phep).Count();
+            */
+
+
+            model.NbrTicker = cms_db.GetlstTicker().Count();
+            model.NbrTickerE = cms_db.GetlstTicker().Where(s => s.StateId == (int)EnumCore.TickerStatusType.dang_chay).Count();
+            model.NbrTickerD = cms_db.GetlstTicker().Where(s => s.StateId == (int)EnumCore.TickerStatusType.lo).Count();
+            model.NbrTickerP = cms_db.GetlstTicker().Where(s => s.StateId == (int)EnumCore.TickerStatusType.loi).Count();
+
+            model.NbrUser = cms_db.GetlstUser().Count();
+            model.NbrUserE = cms_db.GetlstUser().Where(s => s.PackageId == 1 ).Count();
+            model.NbrUserD = cms_db.GetlstUser().Where(s => s.EmailConfirmed != true).Count();
+
+
+            model.NbrEmail= cms_db.GetlstEmailSupport().Count();
+            model.NbrEmailE = cms_db.GetlstEmailSupport().Where(s => s.DestinationId > 0).Count();
+            model.NbrEmailD = cms_db.GetlstEmailSupport().Where(s => s.DestinationId == -1).Count();
+
+            /*
+
+                 model.NbrUser = cms_db.G().Count();
+              model.NbrUserE = cms_db.GetlstProduct().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep).Count();
+              model.NbrUserD = cms_db.GetlstProduct().Where(s => s.StateId == (int)EnumCore.StateType.khong_cho_phep).Count();
+
+              model.NbrEmail cms_db.GetlstProduct().Count();
+              model.NbrEmailE = cms_db.GetlstProduct().Where(s => s.StateId == (int)EnumCore.StateType.cho_phep).Count();
+              model.NbrEmailD = cms_db.GetlstProduct().Where(s => s.StateId == (int)EnumCore.StateType.khong_cho_phep).Count();
+
+               */
+
+
 
             return View(model);
         }

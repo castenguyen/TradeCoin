@@ -39,7 +39,7 @@ namespace Alluneecms.Controllers
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("function ProductDetails", "ProductController(Public)", e.ToString());
+                cms_db.AddToExceptionLog("ProductDetail", "ProductController(Public)", e.ToString());
                 return RedirectToAction("ErrorExeption", "ErrorMessage");
             }
         }
@@ -83,7 +83,7 @@ namespace Alluneecms.Controllers
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("function ListProduct", "ProductController(Public)", e.ToString());
+                cms_db.AddToExceptionLog("ProductList", "ProductController(Public)", e.ToString());
                 return RedirectToAction("ErrorExeption", "ErrorMessage");
             }
 
@@ -119,7 +119,7 @@ namespace Alluneecms.Controllers
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("function ListProduct", "ProductController(Public)", e.ToString());
+                cms_db.AddToExceptionLog("AllProduct", "ProductController(Public)", e.ToString());
                 return RedirectToAction("ErrorExeption", "ErrorMessage");
             }
 
