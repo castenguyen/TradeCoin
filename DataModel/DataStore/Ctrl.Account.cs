@@ -207,12 +207,11 @@ namespace DataModel.DataStore
         public IQueryable<User> GetUsersInRoleByLinkq(string roleName)
         {
             Role data = db.Roles.Where(s => s.Name == roleName).FirstOrDefault();
-            List<long> lstUinRole = data.Users.Select(s => s.Id).ToList();
+            long[] lstUinRole = data.Users.Select(s => s.Id).ToArray();
             IQueryable<User> model = db.Users.Where(x => lstUinRole.Contains(x.Id));
             return model;
         }
-      
-      
+
 
         public List<Role> GetRoleListReturnList()
         {

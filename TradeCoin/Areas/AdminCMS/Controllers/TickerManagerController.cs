@@ -195,7 +195,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         Ticker MainModel = model._MainObj;
                         MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
-                        MainModel.StateName = "Enable";
+                        MainModel.StateName = "Đang chạy";
                         MainModel.Flag = model.Flag;
                         if (model.Flag.HasValue)
                         {
@@ -248,7 +248,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             catch (Exception e)
             {
-                cms_db.AddToExceptionLog("Create", "TickerManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                cms_db.AddToExceptionLog("Update", "TickerManager", e.ToString(), long.Parse(User.Identity.GetUserId()));
                 return RedirectToAction("Index");
             }
         }
@@ -261,16 +261,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// <param name="numbuy"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        private double SumTicker(int FlagZone, double numbuy ,double input,double btc)
+        private double SumTicker(int FlagZone, double zonebuy ,double zonesell,double inputbtc)
         {
+            ///cong thức là (vung bán - vùng mua) /vung mua * 100
             double result = 0;
             if (FlagZone == 1 || FlagZone == 2 || FlagZone == 3)
             {
-                result = input / numbuy * 100 * btc;
+                double minus = zonesell - zonebuy;
+                result = minus / zonebuy * 100;
+
             }
             else if (FlagZone == 4)
             {
-                result = input / numbuy * 100 * btc;
+                double minus = zonesell - zonebuy;
+                result = minus / zonebuy * 100 *-1;
             }
             return result;
         }

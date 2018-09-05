@@ -13,7 +13,7 @@
 
 <section class="content">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
 
             <div class="box box-solid">
                 <div class="box-header with-border">
@@ -29,35 +29,58 @@
                         <li><a href="@Url.Action("Index", "EmailManager", new {EmailStatus=(int)EnumCore.EmailStatus.da_ho_tro,page=Model.pageNum  })"><i class="fa fa-envelope-o"></i> Thư đã trả lời</a></li>
                     </ul>
                 </div><!-- /.box-body -->
+
                 @if (User.IsInRole("Member"))
                 {
                     <a href="@Url.Action("CreateNewEmail", "EmailManager", null)" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</a>
                 }
-
-
             </div><!-- /.box-body -->
+
+            @if (!User.IsInRole("Member"))
+            {
+                using (Html.BeginForm("CreateNewEmail", "EmailManager", FormMethod.Get, new { id = "CreateForm",  role = "form" }))
+                {
+                    <div class="box box-primary">
+
+                        <div class="box-header">
+                            <h2 class="box-title">Danh sách thành viên</h2>
+                        </div><!-- /.box-header -->
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.lstMember, new { @class = "control-label" })
+                                @Html.DropDownListFor(c => c.MemberId, Model.lstMember as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block margin-bottom">Tạo mới một support</button>
+                    </div>
+                }
+            }
+
+
+
+
 
 
         </div><!-- /.col -->
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Inbox</h3>
 
                     @using (Html.BeginForm("Index", "EmailManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
-    {
-                <div class="box-tools pull-right">
-                    <button type="submit" class="form-control btn btn-primary">Tìm kiếm</button>
-                </div><!-- /.box-tools -->
-                <div class="box-tools pull-right col-md-3">
-                    <input type="text" class="form-control" name="EmailName" placeholder="Nhập tên">
-                </div>
-                <div class="box-tools pull-right col-md-3">
-                   
-                        <input type="text" class="form-control" name="Datetime" id="reservation"  placeholder="Chọn ngày">
-                </div>
-}
+                    {
+                        <div class="box-tools pull-right">
+                            <button type="submit" class="form-control btn btn-primary">Tìm kiếm</button>
+                        </div><!-- /.box-tools -->
+                        <div class="box-tools pull-right col-md-3">
+                            <input type="text" class="form-control" name="EmailName" placeholder="Nhập tên">
+                        </div>
+                        <div class="box-tools pull-right col-md-3">
 
+                            <input type="text" class="form-control" name="Datetime" id="reservation" placeholder="Chọn ngày">
+                        </div>
+                    }
                 </div><!-- /.box-header -->
 
                 @using (Html.BeginForm("ClearEmail", "EmailManager", FormMethod.Post, new { id = "clearForm", role = "form" }))

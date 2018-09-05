@@ -149,6 +149,9 @@ namespace DataModel.DataViewModel
         public string Datetime { get; set; }
         public Nullable<System.DateTime> StartDT { get; set; }
         public Nullable<System.DateTime> EndDT { get; set; }
+        [Display(Name = "Danh sách thành viên")]
+        public SelectList lstMember { get; set; }
+        public long MemberId { get; set; }
     }
 
     public class MiniEmailSupportViewModel
