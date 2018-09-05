@@ -316,12 +316,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
+                long UserId = long.Parse(User.Identity.GetUserId());
                 long PackageId = 0;
                 List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                if (lstPackageOfUser == null)
-                {
-                    return RedirectToAction("Login", "AccountAdmin");
-                }
                 MediaContentViewModels model = new MediaContentViewModels();
 
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
@@ -332,8 +329,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     PackageId = lstPackageOfUser[0].PackageId;
                 }
-                model.lstSameVideo = cms_db.GetListVideoByUser(long.Parse(User.Identity.GetUserId()),
-                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, PackageId);
+                
+
+                model.lstSameVideo = cms_db.GetListVideoByUser(UserId,100, PackageId).Where(s=>s.tmp==0).ToList();
                 var result = new
                 {
                     Rows = model.lstSameVideo.Select(x => new

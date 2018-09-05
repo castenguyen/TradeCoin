@@ -76,32 +76,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
-                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                List<TickerViewModel> lstmpTickers = new List<TickerViewModel>();
 
+                long IdUser = long.Parse(User.Identity.GetUserId());
+                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
                 List<Ticker> lstTicker = new List<Ticker>();
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
-                                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
+
+                    lstTicker = cms_db.GetListTickerByUser(IdUser,100, long.Parse("5")).Where(s => s.tmp ==0).ToList();
                 }
                 else
                 {
-                    lstTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
-                            (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
 
-                }
+                    lstTicker = cms_db.GetListTickerByUser(IdUser,100, lstPackageOfUser[0].PackageId).Where(s=>s.tmp==0).ToList();
 
-                foreach (Ticker _val in lstTicker)
-                {
-                    TickerViewModel tmp = new TickerViewModel(_val);
-                    tmp.lstTickerContentPackage = cms_db.GetlstObjContentPackage(tmp.TickerId, (int)EnumCore.ObjTypeId.ticker);
-                    lstmpTickers.Add(tmp);
                 }
                 var result = new
                 {
-                    TotalRows = lstmpTickers.Count(),
-                    Rows = lstmpTickers.Select(x => new
+                    TotalRows = lstTicker.Count(),
+                    Rows = lstTicker.Select(x => new
                     {
                         tmp = x.tmp,
                         TickerId = x.TickerId,

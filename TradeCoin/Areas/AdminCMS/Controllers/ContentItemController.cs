@@ -104,15 +104,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
+
+                long CurrenUserId = long.Parse(User.Identity.GetUserId());
                 long PackageId = 0;
                 List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
                 if (lstPackageOfUser == null)
                 {
                     return RedirectToAction("Login", "AccountAdmin");
                 }
-                MemberFrontEndViewModel model = new MemberFrontEndViewModel();
-                List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
-
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     PackageId = 5;
@@ -121,13 +120,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     PackageId = lstPackageOfUser[0].PackageId;
                 }
-                List<ContentItem> lstNews = cms_db.GetListContentItemByUser(long.Parse(User.Identity.GetUserId()), (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, PackageId);
-                foreach (ContentItem _val in lstNews)
-                {
-                    ContentItemViewModels tmp = new ContentItemViewModels(_val);
-                    tmp.lstNewsContentPackage = cms_db.GetlstObjContentPackage(tmp.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-                    lstmpNews.Add(tmp);
-                }
+
+                List<ContentItem> lstNews = cms_db.GetListContentItemByUser(CurrenUserId, 100,PackageId).Where(s=>s.MicrositeID==0).ToList();
                 var result = new
                 {
                     TotalRows = lstNews.Count(),
