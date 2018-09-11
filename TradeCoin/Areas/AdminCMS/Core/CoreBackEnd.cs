@@ -17,6 +17,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Core
 
         protected readonly string StateName_Enable="Enable";
         protected readonly string StateName_Disable="Disable";
+        
+
+
+
         protected Ctrl cms_db = new Ctrl();
         public class AdminAuthorize : AuthorizeAttribute
         {

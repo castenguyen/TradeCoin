@@ -73,7 +73,7 @@
                                         @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.RadioButtonFor(m => m.Flag, "1")
+                                        @Html.RadioButtonFor(m => m.Flag, "3")
                                     </div>
                                 </div>
                             </div>
@@ -105,6 +105,15 @@
                                     @Html.LabelFor(m => m.BTCInput, new { @class = "col-md-9 control-label" })
                                     <div class="col-md-10">
                                         @Html.TextBoxFor(m => m.BTCInput, new { @class = "form-control" })
+                                    </div>
+
+                                </div><!-- /input-group -->
+
+                                <div class="input-group col-md-12">
+
+                                    @Html.LabelFor(m => m.USDInput, new { @class = "col-md-9 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.USDInput, new { @class = "form-control" })
                                     </div>
 
                                 </div><!-- /input-group -->
@@ -145,6 +154,37 @@
 
             </div>
             <div class="col-md-3">
+
+                <div class="box box-primary">
+
+                    <div class="box-header">
+                        <h2 class="box-title">Sàn</h2>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.lstMarketItem, new { @class = "control-label" })
+                            @Html.DropDownListFor(c => c.MarketID, Model.lstMarketItem as SelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="box box-primary">
+
+                    <div class="box-header">
+                        <h2 class="box-title">Loại Coin</h2>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.lstCyptoItem, new { @class = "control-label" })
+                            @Html.DropDownListFor(c => c.CyptoID, Model.lstCyptoItem as SelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="box box-primary">
 
                     <div class="box-header">
@@ -154,11 +194,11 @@
                     <div class="box-body">
                         <div class="form-group">
                             @foreach (SelectListObj _val in Model.lstPackage)
-                            {
-                                <label>
-                                    <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
-                                </label><br />
-                            }
+                {
+                    <label>
+                        <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
+                    </label><br />
+    }
                         </div>
                     </div>
                 </div>
@@ -200,38 +240,7 @@
         });
 
 
-        var rules = {
-            FriendlyURL: "required"
-          , CategoryId: "required"
-          , ProductName: "required"
-          , ProductDes: "required"
-          , ProductDetail: "required"
-          , MetadataKeyword: "required"
-          , MetadataDesc: "required"
-          , ImgdefaultId: {
-              required: true,
-              min: 1,
-              number: true
-          },
-
-        };
-        var messages = {
-            FriendlyURL: "Vui lòng kiểm tra đường dẩn thân thiện "
-            , CategoryId: "Vui lòng kiểm tra danh mục"
-            , ProductName: "Vui lòng kiểm tra tên sản phẩm"
-            , ProductDes: "Vui lòng kiểm tra mô tả sản phẩm"
-            , ProductDetail: "Vui lòng kiểm tra mô tả chi tiết sản phẩm"
-            , MetadataKeyword: "Vui lòng kiểm tra từ khoá SEO"
-            , MetadataDesc: "Vui lòng kiểm tra mô tả SEO"
-
-
-        };
-
-        ValidationForm({
-            ctrID: "CreateForm"
-            , rules: rules
-            , messages: messages
-        })
+    
 
     });
 

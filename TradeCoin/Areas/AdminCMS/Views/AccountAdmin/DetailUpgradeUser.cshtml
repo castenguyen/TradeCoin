@@ -41,14 +41,14 @@
                         </li>
                         <li class="list-group-item">
                             @if (Model.ObjUser.ExpiredDay != null)
-    {
-                        <b>Ngày hết hạn</b> <span class="pull-right">@Model.ObjUser.ExpiredDay</span>
+                            {
+                                <b>Ngày hết hạn</b> <span class="pull-right">@Model.ObjUser.ExpiredDay</span>
 
-}
-else
-{
-                        <b>Ngày hết hạn</b> <span class="pull-right">Vĩnh Viễn</span>
-}
+                            }
+                            else
+                            {
+                                <b>Ngày hết hạn</b> <span class="pull-right">Vĩnh Viễn</span>
+                            }
 
                         </li>
                         @if (Model.ObjUser.AwaitPackageId.HasValue)
@@ -145,7 +145,7 @@ else
                             </div>
 
                         </div><!-- /.box-body -->
-                        </div><!-- /.box -->
+                    </div><!-- /.box -->
 
                 }
             </div>
@@ -153,10 +153,10 @@ else
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Lịch Sử Nâng cấp gói cước</h3>
-                     
+
                     </div><!-- /.box-header -->
                     <div class="nav-tabs-custom">
-                      
+
                         <div class="tab-content">
 
                             <div class="active tab-pane" id="timeline">
@@ -175,11 +175,15 @@ else
                                                     <div class="timeline-body">
                                                         Đã gửi yêu cầu nâng cấp từ  @Item.OldPackageName thành  @Item.PackageName
                                                         <br>
-                                                        Thời gian @Item.CrtdDT
+                                                        Thời gian yêu cầu nâng cấp @Item.NumDay
+                                                        <br>
+                                                        Số tiền @Item.Price
+                                                        <br>
+                                                        Mã số nâng cấp @Item.UpgradeToken
                                                         <br>
                                                         Số tiền @Item.Price
                                                     </div>
-                                                   
+
                                                 </div>
                                             </li>
                                         }
@@ -196,11 +200,13 @@ else
                                                         <br>
                                                         Duyệt Bởi @Item.AprvdUserName
                                                         <br>
-                                                        Thời gian @Item.CrtdDT
+                                                        Thời hết hạn  @Item.AprvdDT
                                                         <br>
                                                         Số tiền @Item.Price VNĐ
+                                                        <br>
+                                                        Mã số nâng cấp @Item.UpgradeToken
                                                     </div>
-                                                  
+
                                                 </div>
                                             </li>
 

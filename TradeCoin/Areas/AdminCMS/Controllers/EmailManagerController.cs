@@ -75,7 +75,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 else
                 {
 
-                    IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.StateId2 != (int)EnumCore.EmailStatus.da_xoa && s.ParentId == null);
+                    IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().Where(s => s.StateId2
+                            != (int)EnumCore.EmailStatus.da_xoa && s.ParentId == null && ( s.DestinationId.Value== IdUser || s.CrtdUserId== IdUser));
                     if (EmailStatus.HasValue)
                     {
                         if (EmailStatus.Value == (int)EnumCore.EmailStatus.cho_ho_tro)

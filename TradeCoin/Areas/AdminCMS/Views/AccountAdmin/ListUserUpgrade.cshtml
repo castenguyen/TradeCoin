@@ -80,8 +80,9 @@
                                 <th>Email</th>
                                 <th>Gói cước hiện tại</th>
                                 <th>Thời gian hết hạn</th>
-                                
+
                                 <th>Gói cước chờ nâng cấp</th>
+                                <th>Huỷ nâng cấp</th>
                                 <th>Quản lý Chi Tiết</th>
 
                             </tr>
@@ -92,8 +93,9 @@
                                 <td>@item.EMail</td>
                                 <td>@item.PackageName</td>
                                 <td>@item.ExpiredDay.Value</td>
-                           
+
                                 <td>@item.AwaitPackageName</td>
+                                <td><a href="@Url.Action("CancelUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Huỷ nâng cấp</a></td>
                                 <td><a href="@Url.Action("DetailUpgradeUser", "AccountAdmin", new { id = item.Id })" class="btn btn-block btn-danger btn-xs">Duyệt nâng cấp</a></td>
 
                             </tr>

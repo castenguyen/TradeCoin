@@ -41,19 +41,27 @@
                 <div class="box-body">
                     <div id="example1_filter" class="dataTables_filter">
                         @using (Html.BeginForm("Index", "TickerManager", FormMethod.Post, new { id = "filterForm", role = "form" }))
-                        {
-                            <label>Tên kèo:@Html.TextBoxFor(s => s.FillterTickerName, new { @class = "form-control input-sm", placeholder = "" })</label>
+    {
+                    <label>Tên kèo:@Html.TextBoxFor(s => s.FillterTickerName, new { @class = "form-control input-sm", placeholder = "" })</label>
 
-                            <div class="btn-group">
-                                @Html.DropDownListFor(c => c.TickerStatus, Model.lstTickerStatus as SelectList, "Trạng thái...", new { @class = "form-control" })
-                            </div>
-                            <div class="btn-group">
-                                @Html.DropDownListFor(c => c.TickerPackage, Model.lstPackage as SelectList, "Gói cước...", new { @class = "form-control" })
-                            </div>
-                            <div class="btn-group">
-                                <button type="submit" class="btn btn-primary margin">Tìm</button>
-                            </div>
-                        }
+                    <div class="btn-group">
+                        @Html.DropDownListFor(c => c.TickerStatus, Model.lstTickerStatus as SelectList, "Trạng thái...", new { @class = "form-control" })
+                    </div>
+                    <div class="btn-group">
+                        @Html.DropDownListFor(c => c.TickerPackage, Model.lstPackage as SelectList, "Gói cước...", new { @class = "form-control" })
+                    </div>
+                    <div class="btn-group">
+                        @Html.DropDownListFor(c => c.CyptoItemID, Model.lstCyptoItem as SelectList, "Loại Coin...", new { @class = "form-control" })
+                    </div>
+                    <div class="btn-group">
+                        @Html.DropDownListFor(c => c.MarketItemID, Model.lstMarketItem as SelectList, "Loại sàn...", new { @class = "form-control" })
+                    </div>
+
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary margin">Tìm</button>
+                    </div>
+}
                     </div>
                     <table class="table table-hover">
                         <tbody>
@@ -110,12 +118,14 @@
                     @if (Model.lstMainTickerViewModel.PageCount > 1)
                     {
                         @Html.PagedListPager(Model.lstMainTickerViewModel, page => Url.Action("Index", new
-                        {
-                            page,
-                            TickerStatus = Model.TickerStatus,
-                            TickerPackage = Model.TickerPackage,
-                            FillterTickerName = Model.FillterTickerName,
-                        }))
+                   {
+                       page,
+                       TickerStatus = Model.TickerStatus,
+                       TickerPackage = Model.TickerPackage,
+                       FillterTickerName = Model.FillterTickerName,
+                       CyptoItemID = Model.CyptoItemID,
+                       MarketItemID = Model.MarketItemID
+                   }))
                     }
                 </div>
 

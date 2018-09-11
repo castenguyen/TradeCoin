@@ -246,6 +246,7 @@
     <Compile Include="Areas\AdminCMS\Controllers\ChatGroupController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ClassificationController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ClassificationSchemeController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\CoinMarketManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\CommentManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ConfigController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\ContentItemController.cs" />
@@ -2142,6 +2143,8 @@
     <Content Include="Areas\AdminCMS\Views\PackageManager\TrackingFinance.cshtml" />
     <Content Include="Areas\AdminCMS\Views\AccountAdmin\ManualRegister.cshtml" />
     <Content Include="Areas\AdminCMS\Views\Member\iframeVideo.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\CoinMarketManager\GetAndUpcateTableCyptoItem.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\CoinMarketManager\GetPriceOfCyptoItem.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\core.app.js" />

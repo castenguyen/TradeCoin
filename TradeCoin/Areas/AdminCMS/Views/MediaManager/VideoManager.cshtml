@@ -41,7 +41,7 @@
                             {
                                 <tr>
                                     <td><img class="img-responsive" src="~/@item.ThumbURL" alt="Photo" width="100%"></td>
-                                    <td>@item.AlternativeText</td>
+                                    <td><a href="@Url.Action("DetailVideo", "Member",new { id =item.MediaContentId })">@item.AlternativeText</a></td>
                                     <td>@item.Caption</td>
                                     <td>@Html.Raw(item.MediaDesc)</td>
                                     <td>@item.CrtdDT</td>

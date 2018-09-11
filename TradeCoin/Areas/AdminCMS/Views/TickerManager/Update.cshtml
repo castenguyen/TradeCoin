@@ -71,7 +71,7 @@
                                         @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
                                     </div>
                                     <div class="col-md-2">
-                                        @Html.RadioButtonFor(m => m.Flag, "1")
+                                        @Html.RadioButtonFor(m => m.Flag, "3")
                                     </div>
                                 </div>
                             </div>
@@ -108,6 +108,15 @@
                                 </div><!-- /input-group -->
                                 <div class="input-group col-md-12">
 
+                                    @Html.LabelFor(m => m.USDInput, new { @class = "col-md-9 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.USDInput, new { @class = "form-control" })
+                                    </div>
+
+                                </div><!-- /input-group -->
+
+                                <div class="input-group col-md-12">
+
                                     <label class="control-label col-md-12" for="ContentText">Tiếp tục chạy</label>
                                     <div class="col-md-2">
                                         @Html.RadioButtonFor(m => m.Flag, "0")
@@ -118,7 +127,8 @@
                             </div>
 
 
-                            <div class="input-group">
+
+                            <div class="input-group col-md-12">
 
                                 @Html.LabelFor(m => m.Excerpt, new { @class = "col-md-9 control-label" })
                                 <div class="col-md-10">
@@ -157,6 +167,36 @@
 
             </div>
             <div class="col-md-3">
+
+                <div class="box box-primary">
+
+                    <div class="box-header">
+                        <h2 class="box-title">Sàn</h2>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.lstMarketItem, new { @class = "control-label" })
+                            @Html.DropDownListFor(c => c.MarketID, Model.lstMarketItem as SelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="box box-primary">
+
+                    <div class="box-header">
+                        <h2 class="box-title">Loại Coin</h2>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.lstCyptoItem, new { @class = "control-label" })
+                            @Html.DropDownListFor(c => c.CyptoID, Model.lstCyptoItem as SelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
                 <div class="box box-primary">
 
                     <div class="box-header">
@@ -165,20 +205,20 @@
                     <div class="box-body">
                         <div class="form-group">
                             @foreach (SelectListObj _val in Model.lstPackage)
-                            {
-                                if (Model.lstTickerPackage.Contains(int.Parse(_val.value.ToString())))
-                                {
-                                    <label>
-                                        <input type="checkbox" name="lstTickerPackage" value="@_val.value" checked> @_val.text
-                                    </label><br />
-                                }
-                                else
-                                {
-                                    <label>
-                                        <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
-                                    </label><br />
-                                }
-                            }
+                {
+                    if (Model.lstTickerPackage.Contains(int.Parse(_val.value.ToString())))
+                    {
+                        <label>
+                            <input type="checkbox" name="lstTickerPackage" value="@_val.value" checked> @_val.text
+                        </label><br />
+        }
+        else
+        {
+            <label>
+                <input type="checkbox" name="lstTickerPackage" value="@_val.value"> @_val.text
+            </label><br />
+}
+}
                         </div>
                     </div>
                 </div>

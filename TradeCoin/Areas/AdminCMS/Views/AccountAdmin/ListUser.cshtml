@@ -155,7 +155,7 @@ else
                     <div class="box-footer clearfix">
                         @if (Model.LstAllUser.PageCount > 1)
                         {
-                            @Html.PagedListPager(Model.LstAllUser, page => Url.Action("ListUser", new { page, RoleName = Model.RoleName, letter = Model.letter }))
+                            @Html.PagedListPager(Model.LstAllUser, page => Url.Action("ListUser", new { page, RoleName = Model.RoleName, letter = Model.letter, packageid = Model.packageid }))
                         }
                     </div>
 

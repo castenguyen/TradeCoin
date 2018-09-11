@@ -252,7 +252,13 @@ new { controller = "AccountAdmin", action = "ManualConfirmMail" }
            new { controller = "AccountAdmin", action = "DetailUpgradeUser" }
             );
 
+            context.MapRoute(
+        "AdminCMS_CancelUpgradeUser",
+        "administrator/Account/CancelUpgradeUser",
+        new { controller = "AccountAdmin", action = "CancelUpgradeUser" }
+         );
 
+            
 
             #endregion
 
@@ -1208,6 +1214,32 @@ new { controller = "PackageManager", action = "Export" }
 
             #endregion
 
+
+
+            #region coinmarket
+
+
+            context.MapRoute(
+          "AdminCMS_CoinMarketManager_GetTickerList_NoParams_Success",
+          "CoinMarketManager/GetTickerList",
+          new { controller = "CoinMarketManager", action = "GetTickerList_NoParams_Success" }
+          );
+
+            context.MapRoute(
+       "AdminCMS_CoinMarketManager_GetAndUpcateTableCyptoItem",
+       "CoinMarketManager/UpcateCyptoItem",
+       new { controller = "CoinMarketManager", action = "GetAndUpcateTableCyptoItem" }
+       );
+            context.MapRoute(
+    "AdminCMS_CoinMarketManager_GetPriceOfCyptoItem",
+    "CoinMarketManager/GetPriceOfCyptoItem",
+    new { controller = "CoinMarketManager", action = "GetPriceOfCyptoItem" }
+    );
+
+
+
+
+            #endregion
 
             #region ShopCartManager
             context.MapRoute(

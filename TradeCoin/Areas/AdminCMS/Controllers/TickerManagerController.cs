@@ -21,7 +21,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
     public class TickerManagerController : CoreBackEnd
     {
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
-        public ActionResult Index(int? page, int? TickerStatus, int? TickerPackage,  string FillterTickerName)
+        public ActionResult Index(int? page, int? TickerStatus, int? TickerPackage,long? CyptoItemID,int? MarketItemID,  string FillterTickerName)
         {
             int pageNum = (page ?? 1);
             TickerAdminViewModel model = new TickerAdminViewModel();
@@ -31,6 +31,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 tmp = tmp.Where(s => s.StateId == TickerStatus);
                 model.TickerStatus = TickerStatus.Value;
             }
+
+            if (CyptoItemID.HasValue)
+            {
+                tmp = tmp.Where(s => s.CyptoID == CyptoItemID.Value);
+                model.CyptoItemID = CyptoItemID.Value;
+            }
+
+
+            if (MarketItemID.HasValue)
+            {
+                tmp = tmp.Where(s => s.MarketID == MarketItemID.Value);
+                model.MarketItemID = MarketItemID.Value;
+            }
+
 
             if (TickerPackage.HasValue && TickerPackage.Value != 0)
             {
@@ -42,8 +56,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         tmp = tmp.Where(s=>s.TickerId!= _val.TickerId);
                     }
-                  
-
                 }
 
                 model.TickerPackage = TickerPackage.Value;
@@ -66,7 +78,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             }
             model.lstMainTickerViewModel = prelistmain.ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-
+            model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+            model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text"); 
             return View(model);
@@ -115,6 +128,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             TickerViewModel model = new TickerViewModel();
             model.lstPackage = cms_db.GetObjSelectListPackage();
+           model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+           model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
             return View(model);
         }
         [HttpPost]
@@ -132,6 +147,14 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     MainModel.CrtdUserName = User.Identity.Name;
                     MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
                     MainModel.StateName = "Đang chạy";
+                    if(model.MarketID.HasValue)
+                    MainModel.MarketName = cms_db.GetMarketName(model.MarketID.Value);
+                    if (model.CyptoID.HasValue)
+                        MainModel.CyptoName = cms_db.GetCyptoName(model.CyptoID.Value);
+
+
+
+
                     MainModel.Flag = model.Flag;
                     int rs = await cms_db.CreateTickerAsync(MainModel);
                     if (Default_files != null)
@@ -166,6 +189,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 model.lstPackage = cms_db.GetObjSelectListPackage();
                 model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+                model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
                 return View(model);
             }
             else
@@ -188,6 +213,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         Ticker MainModel = model._MainObj;
                         MainModel.StateId = (int)EnumCore.TickerStatusType.dang_chay;
+
+                        if (model.MarketID.HasValue)
+                            MainModel.MarketName = cms_db.GetMarketName(model.MarketID.Value);
+                        if (model.CyptoID.HasValue)
+                            MainModel.CyptoName = cms_db.GetCyptoName(model.CyptoID.Value);
+
                         MainModel.StateName = "Đang chạy";
                         MainModel.Flag = model.Flag;
                         if (model.Flag.HasValue)

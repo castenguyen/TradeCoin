@@ -2,16 +2,18 @@
 using DataModel.DataEntity;
 using DataModel.DataViewModel;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-
 using Microsoft.AspNet.Identity;
 using DataModel.Extension;
 using System.Threading.Tasks;
 using PagedList;
 using System.Text;
-
+using DataModel.CoinMaket;
+using DataModel.CoinmaketEntity;
+using DataModel.CoinmaketEnum;
 
 namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
@@ -85,8 +87,116 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             Config cf = new Config();
             cf = cms_db.GetConfig();
             this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
+            await this.CheckPriceUpdate();
+
 
             return View(model);
+        }
+
+        private async Task<bool> CheckPriceUpdate()
+        {
+            try {
+                string StringLastTimeUpdate = "";
+                if (HttpContext.Application["LastTimePriceUpdate"] != null)
+                {
+                    StringLastTimeUpdate = HttpContext.Application["LastTimePriceUpdate"] as string;
+                }
+                else
+                {
+                    HttpContext.Application["LastTimePriceUpdate"] = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+                    StringLastTimeUpdate = HttpContext.Application["LastTimePriceUpdate"] as string;
+                }
+                DateTime lasttime = DateTime.Parse(StringLastTimeUpdate);
+                int minute = DateTime.Now.Subtract(lasttime).Minutes;
+                if (minute > 1)
+                {
+                    long[] listCyptoNeedUpdatePrice = cms_db.GetlstTicker().Where(s=>s.StateId 
+                                !=(int)EnumCore.TickerStatusType.da_xoa).Select(s=>s.CyptoID.Value).Distinct().ToArray();
+                    string query = this.MakeQueryListCyptoId(listCyptoNeedUpdatePrice);
+                    if (String.IsNullOrEmpty(query))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                    bool a= await this.DoUpdatePriceCypto(query);
+
+                    }
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("DetailNews", "MemberDashBoard", e.ToString());
+                return false;
+            }
+        }
+        private string MakeQueryListCyptoId(long[] Cyptoid)
+        {
+            string result = "";
+            foreach (long id in Cyptoid)
+            {
+                result = result + id.ToString() + ",";
+            }
+            return result;
+        }
+
+        private async  Task<bool>  DoUpdatePriceCypto(string ListCyptoIdQuery)
+        {
+            CoinMarketCapClient _client = new CoinMarketCapClient();
+            IDictionary<string, CyproPriceEntity> coinmaketresult = await _client.GetListPriceCyptoItemAsync(ListCyptoIdQuery);
+            foreach (CyproPriceEntity Item in coinmaketresult.Values)
+            {
+                CyptoItemPrice objCyptoItemPrice = new CyptoItemPrice();
+                objCyptoItemPrice.id = Item.id;
+                objCyptoItemPrice.name = Item.name;
+                objCyptoItemPrice.symbol = Item.symbol;
+                objCyptoItemPrice.slug = Item.slug;
+                objCyptoItemPrice.CyptoItemPriceUpdate = DateTime.Now;
+                objCyptoItemPrice.is_active = true;
+                objCyptoItemPrice.cmc_rank = Item.cmc_rank;
+                objCyptoItemPrice.num_market_pairs = Item.num_market_pairs;
+                objCyptoItemPrice.circulating_supply = Item.circulating_supply;
+                objCyptoItemPrice.total_supply = Item.total_supply;
+                objCyptoItemPrice.max_supply = Item.max_supply ?? 0;
+                try
+                {
+                    objCyptoItemPrice.last_updated = DateTime.Parse(Item.last_updated);
+                }
+                catch
+                {
+                    objCyptoItemPrice.last_updated = DateTime.Now;
+                }
+
+                PriceEntity USD = Item.quote.Values.First();
+                objCyptoItemPrice.USD_price = USD.price;
+                objCyptoItemPrice.USD_volume_24h = USD.volume_24h;
+                objCyptoItemPrice.USD_percent_change_1h = USD.percent_change_1h;
+                objCyptoItemPrice.USD_percent_change_7d = USD.percent_change_7d;
+                objCyptoItemPrice.USD_market_cap = USD.market_cap;
+                await cms_db.CreateCyptoItemPrice(objCyptoItemPrice);
+            }
+            HttpContext.Application["LastTimePriceUpdate"] = DateTime.Now.ToString();
+            return true;
+
+        }
+
+
+
+
+
+        private bool UpdatePriceForTicker()
+        {
+
+            long[] lstCyptoId = cms_db.GetlstTicker().Where(s => s.StateId !=
+                    (int)EnumCore.TickerStatusType.da_xoa).Select(s => s.CyptoID.Value).Distinct().ToArray();
+
+
+
+
+            return true;
+
         }
 
 
@@ -144,9 +254,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
             return View(model);
         }
-
-
-
 
         private DateTime[] SpritDateTime(string datetime)
         {
@@ -544,4 +651,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
     }
+
+
 }
