@@ -38,5 +38,10 @@ namespace DataModel.DataEntity
         public Nullable<double> Deficit { get; set; }
         public Nullable<int> tmp { get; set; }
         public string Excerpt { get; set; }
+        public Nullable<double> USDInput { get; set; }
+        public Nullable<int> MarketID { get; set; }
+        public string MarketName { get; set; }
+        public Nullable<long> CyptoID { get; set; }
+        public string CyptoName { get; set; }
     }
 }

@@ -149,6 +149,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoinMaket\CoinmaketEnum\ConvertEnum.cs" />
+    <Compile Include="CoinMaket\CoinMarketCapClient.cs" />
+    <Compile Include="CoinMaket\CoinmaketEntity\GlobalDataEntity.cs" />
+    <Compile Include="CoinMaket\ICoinMarketCapClient.cs" />
+    <Compile Include="CoinMaket\CoinmaketEntity\TickerEntity.cs" />
     <Compile Include="DataEntity\ApplicationDbContext.cs" />
     <Compile Include="DataEntity\Classification.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -178,6 +183,12 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\CountLike.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\CyptoItem.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\CyptoItemPrice.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\DataModel.Context.cs">
@@ -215,6 +226,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\GetProductHome_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataEntity\MarketItem.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataEntity\MediaContent.cs">
@@ -298,8 +312,11 @@
     <Compile Include="DataStore\Ctrl.ContentPackage.cs" />
     <Compile Include="DataStore\Ctrl.ContentView.cs" />
     <Compile Include="DataStore\Ctrl.CountLike.cs" />
+    <Compile Include="DataStore\Ctrl.CyptoItem.cs" />
+    <Compile Include="DataStore\Ctrl.CyptoItemPrice.cs" />
     <Compile Include="DataStore\Ctrl.EmailSupport.cs" />
     <Compile Include="DataStore\Ctrl.ImageHelper.cs" />
+    <Compile Include="DataStore\Ctrl.MarketItem.cs" />
     <Compile Include="DataStore\Ctrl.NotifiRequest.cs" />
     <Compile Include="DataStore\Ctrl.Package.cs" />
     <Compile Include="DataStore\Ctrl.Promotion.cs" />

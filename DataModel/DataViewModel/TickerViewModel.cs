@@ -70,7 +70,7 @@ namespace DataModel.DataViewModel
             set { _MainObj.SellZone3 = value; }
         }
 
-        [Required]
+      
         [Display(Name = "Số BTC tối đa vào lệnh")]
         public Nullable<double> BTCInput
         {
@@ -177,6 +177,13 @@ namespace DataModel.DataViewModel
             get { return _MainObj.tmp; }
             set { _MainObj.tmp = value; }
         }
+        [Display(Name = "Số USD tối đa vào lệnh")]
+        public Nullable<double> USDInput
+        {
+            get { return _MainObj.USDInput; }
+            set { _MainObj.USDInput = value; }
+        }
+
         public List<SelectListObj> lstPackage { get; set; }
         [Display(Name = "Hình đại diện")]
         public long ImgdefaultId { get; set; }
@@ -186,6 +193,25 @@ namespace DataModel.DataViewModel
         /// danh cho frontend
         /// </summary>
         /// 
+        [Display(Name = "Loại sàn")]
+        public SelectList lstMarketItem { get; set; }
+      
+        public Nullable<int> MarketID
+        {
+            get { return _MainObj.MarketID; }
+            set { _MainObj.MarketID = value; }
+        }
+
+        [Display(Name = "Loại Coin")]
+        public SelectList lstCyptoItem { get; set; }
+
+        public Nullable<long> CyptoID
+        {
+            get { return _MainObj.CyptoID; }
+            set { _MainObj.CyptoID = value; }
+        }
+
+     
         public List<TickerViewModel> lstsameTickers { get; set; }
         public List<ContentPackage> lstTickerContentPackage { get; set; }
     }
@@ -206,6 +232,15 @@ namespace DataModel.DataViewModel
         public string FillterTickerName { get; set; }
 
         public List<ContentPackage> lstContentPackage  { get; set; }
+
+        [Display(Name = "Loại sàn")]
+        public SelectList lstMarketItem { get; set; }
+        public int MarketItemID { get; set; }
+
+
+        [Display(Name = "Loại Coin")]
+        public SelectList lstCyptoItem { get; set; }
+        public long CyptoItemID { get; set; }
 
     }
 

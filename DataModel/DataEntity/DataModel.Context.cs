@@ -63,6 +63,9 @@ namespace DataModel.DataEntity
         public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<RoleGroup> RoleGroups { get; set; }
         public virtual DbSet<UserPackage> UserPackages { get; set; }
+        public virtual DbSet<CyptoItem> CyptoItems { get; set; }
+        public virtual DbSet<CyptoItemPrice> CyptoItemPrices { get; set; }
+        public virtual DbSet<MarketItem> MarketItems { get; set; }
     
         public virtual int GetDataUserInfor(string username)
         {

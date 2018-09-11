@@ -190,6 +190,48 @@
           <Property Name="DateLike" Type="datetime" />
           <Property Name="TypeId" Type="int" />
         </EntityType>
+        <EntityType Name="CyptoItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="symbol" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="slug" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="first_historical_data" Type="datetime" Nullable="false" />
+          <Property Name="last_historical_data" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CyptoItemPrice">
+          <Key>
+            <PropertyRef Name="CyptoItemPriceId" />
+          </Key>
+          <Property Name="CyptoItemPriceId" Type="bigint" Nullable="false" />
+          <Property Name="CyptoItemPriceUpdate" Type="datetime" Nullable="false" />
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="symbol" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="slug" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="first_historical_data" Type="datetime" />
+          <Property Name="last_historical_data" Type="datetime" />
+          <Property Name="cmc_rank" Type="int" Nullable="false" />
+          <Property Name="num_market_pairs" Type="int" Nullable="false" />
+          <Property Name="circulating_supply" Type="bigint" Nullable="false" />
+          <Property Name="total_supply" Type="bigint" Nullable="false" />
+          <Property Name="max_supply" Type="bigint" Nullable="false" />
+          <Property Name="last_updated" Type="datetime" Nullable="false" />
+          <Property Name="USD_price" Type="float" Nullable="false" />
+          <Property Name="USD_volume_24h" Type="float" Nullable="false" />
+          <Property Name="USD_percent_change_1h" Type="float" Nullable="false" />
+          <Property Name="USD_percent_change_7d" Type="float" Nullable="false" />
+          <Property Name="USD_market_cap" Type="float" Nullable="false" />
+          <Property Name="BTC_price" Type="float" />
+          <Property Name="BTC_volume_24h" Type="float" />
+          <Property Name="BTC_percent_change_1h" Type="float" />
+          <Property Name="BTC_percent_change_7d" Type="float" />
+          <Property Name="BTC_market_cap" Type="float" />
+        </EntityType>
         <EntityType Name="DisplayContent">
           <Key>
             <PropertyRef Name="Id" />
@@ -257,6 +299,13 @@
           <Property Name="lng" Type="nvarchar" MaxLength="50" />
           <Property Name="lat" Type="nvarchar" MaxLength="50" />
           <Property Name="AreaWardId" Type="int" />
+        </EntityType>
+        <EntityType Name="MarketItem">
+          <Key>
+            <PropertyRef Name="Marketid" />
+          </Key>
+          <Property Name="Marketid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarketName" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="MediaContent">
           <Key>
@@ -630,6 +679,11 @@
           <Property Name="Deficit" Type="float" />
           <Property Name="tmp" Type="int" />
           <Property Name="Excerpt" Type="nvarchar" MaxLength="500" />
+          <Property Name="USDInput" Type="float" />
+          <Property Name="MarketID" Type="int" />
+          <Property Name="MarketName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CyptoID" Type="bigint" />
+          <Property Name="CyptoName" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="TransactionHis">
           <Key>
@@ -1019,10 +1073,13 @@
           <EntitySet Name="ContentTag" EntityType="Self.ContentTag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContentView" EntityType="Self.ContentView" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CountLike" EntityType="Self.CountLike" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CyptoItem" EntityType="Self.CyptoItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CyptoItemPrice" EntityType="Self.CyptoItemPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DisplayContent" EntityType="Self.DisplayContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmailSupport" EntityType="Self.EmailSupport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketItem" EntityType="Self.MarketItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
@@ -1802,6 +1859,9 @@
           <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
           <EntitySet Name="RoleGroups" EntityType="alluneedbModel.RoleGroup" />
           <EntitySet Name="UserPackages" EntityType="alluneedbModel.UserPackage" />
+          <EntitySet Name="CyptoItems" EntityType="alluneedbModel.CyptoItem" />
+          <EntitySet Name="CyptoItemPrices" EntityType="alluneedbModel.CyptoItemPrice" />
+          <EntitySet Name="MarketItems" EntityType="alluneedbModel.MarketItem" />
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -2171,6 +2231,11 @@
           <Property Name="Deficit" Type="Double" />
           <Property Name="tmp" Type="Int32" />
           <Property Name="Excerpt" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="USDInput" Type="Double" />
+          <Property Name="MarketID" Type="Int32" />
+          <Property Name="MarketName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CyptoID" Type="Int64" />
+          <Property Name="CyptoName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="ContentItemPagination_Result">
           <Property Type="Int64" Name="ContentItemId" Nullable="false" />
@@ -2412,6 +2477,55 @@
           <Property Name="OldPackageID" Type="Int64" />
           <Property Name="OldPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="NumDay" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CyptoItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="symbol" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="slug" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="first_historical_data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_historical_data" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="CyptoItemPrice">
+          <Key>
+            <PropertyRef Name="CyptoItemPriceId" />
+          </Key>
+          <Property Name="CyptoItemPriceId" Type="Int64" Nullable="false" />
+          <Property Name="CyptoItemPriceUpdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="symbol" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="slug" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="first_historical_data" Type="DateTime" Precision="3" />
+          <Property Name="last_historical_data" Type="DateTime" Precision="3" />
+          <Property Name="cmc_rank" Type="Int32" Nullable="false" />
+          <Property Name="num_market_pairs" Type="Int32" Nullable="false" />
+          <Property Name="circulating_supply" Type="Int64" Nullable="false" />
+          <Property Name="total_supply" Type="Int64" Nullable="false" />
+          <Property Name="max_supply" Type="Int64" Nullable="false" />
+          <Property Name="last_updated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="USD_price" Type="Double" Nullable="false" />
+          <Property Name="USD_volume_24h" Type="Double" Nullable="false" />
+          <Property Name="USD_percent_change_1h" Type="Double" Nullable="false" />
+          <Property Name="USD_percent_change_7d" Type="Double" Nullable="false" />
+          <Property Name="USD_market_cap" Type="Double" Nullable="false" />
+          <Property Name="BTC_price" Type="Double" />
+          <Property Name="BTC_volume_24h" Type="Double" />
+          <Property Name="BTC_percent_change_1h" Type="Double" />
+          <Property Name="BTC_percent_change_7d" Type="Double" />
+          <Property Name="BTC_market_cap" Type="Double" />
+        </EntityType>
+        <EntityType Name="MarketItem">
+          <Key>
+            <PropertyRef Name="Marketid" />
+          </Key>
+          <Property Name="Marketid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarketName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3118,6 +3232,11 @@
           <EntitySetMapping Name="Tickers">
             <EntityTypeMapping TypeName="alluneedbModel.Ticker">
               <MappingFragment StoreEntitySet="Ticker">
+                <ScalarProperty Name="CyptoName" ColumnName="CyptoName" />
+                <ScalarProperty Name="CyptoID" ColumnName="CyptoID" />
+                <ScalarProperty Name="MarketName" ColumnName="MarketName" />
+                <ScalarProperty Name="MarketID" ColumnName="MarketID" />
+                <ScalarProperty Name="USDInput" ColumnName="USDInput" />
                 <ScalarProperty Name="Excerpt" ColumnName="Excerpt" />
                 <ScalarProperty Name="tmp" ColumnName="tmp" />
                 <ScalarProperty Name="Deficit" ColumnName="Deficit" />
@@ -3415,6 +3534,58 @@
                 <ScalarProperty Name="UpgradeUID" ColumnName="UpgradeUID" />
                 <ScalarProperty Name="UpgradeUserName" ColumnName="UpgradeUserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CyptoItems">
+            <EntityTypeMapping TypeName="alluneedbModel.CyptoItem">
+              <MappingFragment StoreEntitySet="CyptoItem">
+                <ScalarProperty Name="last_historical_data" ColumnName="last_historical_data" />
+                <ScalarProperty Name="first_historical_data" ColumnName="first_historical_data" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="symbol" ColumnName="symbol" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CyptoItemPrices">
+            <EntityTypeMapping TypeName="alluneedbModel.CyptoItemPrice">
+              <MappingFragment StoreEntitySet="CyptoItemPrice">
+                <ScalarProperty Name="BTC_market_cap" ColumnName="BTC_market_cap" />
+                <ScalarProperty Name="BTC_percent_change_7d" ColumnName="BTC_percent_change_7d" />
+                <ScalarProperty Name="BTC_percent_change_1h" ColumnName="BTC_percent_change_1h" />
+                <ScalarProperty Name="BTC_volume_24h" ColumnName="BTC_volume_24h" />
+                <ScalarProperty Name="BTC_price" ColumnName="BTC_price" />
+                <ScalarProperty Name="USD_market_cap" ColumnName="USD_market_cap" />
+                <ScalarProperty Name="USD_percent_change_7d" ColumnName="USD_percent_change_7d" />
+                <ScalarProperty Name="USD_percent_change_1h" ColumnName="USD_percent_change_1h" />
+                <ScalarProperty Name="USD_volume_24h" ColumnName="USD_volume_24h" />
+                <ScalarProperty Name="USD_price" ColumnName="USD_price" />
+                <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+                <ScalarProperty Name="max_supply" ColumnName="max_supply" />
+                <ScalarProperty Name="total_supply" ColumnName="total_supply" />
+                <ScalarProperty Name="circulating_supply" ColumnName="circulating_supply" />
+                <ScalarProperty Name="num_market_pairs" ColumnName="num_market_pairs" />
+                <ScalarProperty Name="cmc_rank" ColumnName="cmc_rank" />
+                <ScalarProperty Name="last_historical_data" ColumnName="last_historical_data" />
+                <ScalarProperty Name="first_historical_data" ColumnName="first_historical_data" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="symbol" ColumnName="symbol" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CyptoItemPriceUpdate" ColumnName="CyptoItemPriceUpdate" />
+                <ScalarProperty Name="CyptoItemPriceId" ColumnName="CyptoItemPriceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarketItems">
+            <EntityTypeMapping TypeName="alluneedbModel.MarketItem">
+              <MappingFragment StoreEntitySet="MarketItem">
+                <ScalarProperty Name="MarketName" ColumnName="MarketName" />
+                <ScalarProperty Name="Marketid" ColumnName="Marketid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

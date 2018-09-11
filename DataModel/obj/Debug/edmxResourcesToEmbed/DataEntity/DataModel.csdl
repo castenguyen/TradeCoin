@@ -694,6 +694,9 @@
     <EntitySet Name="Packages" EntityType="alluneedbModel.Package" />
     <EntitySet Name="RoleGroups" EntityType="alluneedbModel.RoleGroup" />
     <EntitySet Name="UserPackages" EntityType="alluneedbModel.UserPackage" />
+    <EntitySet Name="CyptoItems" EntityType="alluneedbModel.CyptoItem" />
+    <EntitySet Name="CyptoItemPrices" EntityType="alluneedbModel.CyptoItemPrice" />
+    <EntitySet Name="MarketItems" EntityType="alluneedbModel.MarketItem" />
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -1063,6 +1066,11 @@
     <Property Name="Deficit" Type="Double" />
     <Property Name="tmp" Type="Int32" />
     <Property Name="Excerpt" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="USDInput" Type="Double" />
+    <Property Name="MarketID" Type="Int32" />
+    <Property Name="MarketName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CyptoID" Type="Int64" />
+    <Property Name="CyptoName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <ComplexType Name="ContentItemPagination_Result">
     <Property Type="Int64" Name="ContentItemId" Nullable="false" />
@@ -1304,5 +1312,54 @@
     <Property Name="OldPackageID" Type="Int64" />
     <Property Name="OldPackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="NumDay" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CyptoItem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="symbol" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="slug" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="is_active" Type="Boolean" Nullable="false" />
+    <Property Name="first_historical_data" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="last_historical_data" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="CyptoItemPrice">
+    <Key>
+      <PropertyRef Name="CyptoItemPriceId" />
+    </Key>
+    <Property Name="CyptoItemPriceId" Type="Int64" Nullable="false" />
+    <Property Name="CyptoItemPriceUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id" Type="Int64" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="symbol" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="slug" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="is_active" Type="Boolean" Nullable="false" />
+    <Property Name="first_historical_data" Type="DateTime" Precision="3" />
+    <Property Name="last_historical_data" Type="DateTime" Precision="3" />
+    <Property Name="cmc_rank" Type="Int32" Nullable="false" />
+    <Property Name="num_market_pairs" Type="Int32" Nullable="false" />
+    <Property Name="circulating_supply" Type="Int64" Nullable="false" />
+    <Property Name="total_supply" Type="Int64" Nullable="false" />
+    <Property Name="max_supply" Type="Int64" Nullable="false" />
+    <Property Name="last_updated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="USD_price" Type="Double" Nullable="false" />
+    <Property Name="USD_volume_24h" Type="Double" Nullable="false" />
+    <Property Name="USD_percent_change_1h" Type="Double" Nullable="false" />
+    <Property Name="USD_percent_change_7d" Type="Double" Nullable="false" />
+    <Property Name="USD_market_cap" Type="Double" Nullable="false" />
+    <Property Name="BTC_price" Type="Double" />
+    <Property Name="BTC_volume_24h" Type="Double" />
+    <Property Name="BTC_percent_change_1h" Type="Double" />
+    <Property Name="BTC_percent_change_7d" Type="Double" />
+    <Property Name="BTC_market_cap" Type="Double" />
+  </EntityType>
+  <EntityType Name="MarketItem">
+    <Key>
+      <PropertyRef Name="Marketid" />
+    </Key>
+    <Property Name="Marketid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MarketName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

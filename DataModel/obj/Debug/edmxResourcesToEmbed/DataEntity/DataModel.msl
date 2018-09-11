@@ -700,6 +700,11 @@
     <EntitySetMapping Name="Tickers">
       <EntityTypeMapping TypeName="alluneedbModel.Ticker">
         <MappingFragment StoreEntitySet="Ticker">
+          <ScalarProperty Name="CyptoName" ColumnName="CyptoName" />
+          <ScalarProperty Name="CyptoID" ColumnName="CyptoID" />
+          <ScalarProperty Name="MarketName" ColumnName="MarketName" />
+          <ScalarProperty Name="MarketID" ColumnName="MarketID" />
+          <ScalarProperty Name="USDInput" ColumnName="USDInput" />
           <ScalarProperty Name="Excerpt" ColumnName="Excerpt" />
           <ScalarProperty Name="tmp" ColumnName="tmp" />
           <ScalarProperty Name="Deficit" ColumnName="Deficit" />
@@ -997,6 +1002,58 @@
           <ScalarProperty Name="UpgradeUID" ColumnName="UpgradeUID" />
           <ScalarProperty Name="UpgradeUserName" ColumnName="UpgradeUserName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CyptoItems">
+      <EntityTypeMapping TypeName="alluneedbModel.CyptoItem">
+        <MappingFragment StoreEntitySet="CyptoItem">
+          <ScalarProperty Name="last_historical_data" ColumnName="last_historical_data" />
+          <ScalarProperty Name="first_historical_data" ColumnName="first_historical_data" />
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="slug" ColumnName="slug" />
+          <ScalarProperty Name="symbol" ColumnName="symbol" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CyptoItemPrices">
+      <EntityTypeMapping TypeName="alluneedbModel.CyptoItemPrice">
+        <MappingFragment StoreEntitySet="CyptoItemPrice">
+          <ScalarProperty Name="BTC_market_cap" ColumnName="BTC_market_cap" />
+          <ScalarProperty Name="BTC_percent_change_7d" ColumnName="BTC_percent_change_7d" />
+          <ScalarProperty Name="BTC_percent_change_1h" ColumnName="BTC_percent_change_1h" />
+          <ScalarProperty Name="BTC_volume_24h" ColumnName="BTC_volume_24h" />
+          <ScalarProperty Name="BTC_price" ColumnName="BTC_price" />
+          <ScalarProperty Name="USD_market_cap" ColumnName="USD_market_cap" />
+          <ScalarProperty Name="USD_percent_change_7d" ColumnName="USD_percent_change_7d" />
+          <ScalarProperty Name="USD_percent_change_1h" ColumnName="USD_percent_change_1h" />
+          <ScalarProperty Name="USD_volume_24h" ColumnName="USD_volume_24h" />
+          <ScalarProperty Name="USD_price" ColumnName="USD_price" />
+          <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+          <ScalarProperty Name="max_supply" ColumnName="max_supply" />
+          <ScalarProperty Name="total_supply" ColumnName="total_supply" />
+          <ScalarProperty Name="circulating_supply" ColumnName="circulating_supply" />
+          <ScalarProperty Name="num_market_pairs" ColumnName="num_market_pairs" />
+          <ScalarProperty Name="cmc_rank" ColumnName="cmc_rank" />
+          <ScalarProperty Name="last_historical_data" ColumnName="last_historical_data" />
+          <ScalarProperty Name="first_historical_data" ColumnName="first_historical_data" />
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="slug" ColumnName="slug" />
+          <ScalarProperty Name="symbol" ColumnName="symbol" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CyptoItemPriceUpdate" ColumnName="CyptoItemPriceUpdate" />
+          <ScalarProperty Name="CyptoItemPriceId" ColumnName="CyptoItemPriceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MarketItems">
+      <EntityTypeMapping TypeName="alluneedbModel.MarketItem">
+        <MappingFragment StoreEntitySet="MarketItem">
+          <ScalarProperty Name="MarketName" ColumnName="MarketName" />
+          <ScalarProperty Name="Marketid" ColumnName="Marketid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

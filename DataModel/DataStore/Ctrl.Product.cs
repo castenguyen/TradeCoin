@@ -49,8 +49,6 @@ namespace DataModel.DataStore
             {
                 return (int)EnumCore.Result.action_false;
             }
-
-
         }
 
         /// <summary>
