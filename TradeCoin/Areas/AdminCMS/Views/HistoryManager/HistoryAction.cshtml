@@ -1,0 +1,121 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model IndexHistoryAction
+@{
+    ViewBag.Title = "LỊCH SỬ HỆ THỐNG";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h2 class="box-title">LỊCH SỬ HỆ THỐNG</h2>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+
+                    <div id="example1_filter" class="dataTables_filter">
+                        @using (Html.BeginForm("HistoryAction", "HistoryManager", FormMethod.Get, new { id = "filterForm", role = "form" }))
+    {
+
+                    <div class="col-md-3">
+                        <div class="btn-group">
+                            @Html.DropDownListFor(c => c.ActionTypeid, Model.lstActionType as SelectList, "Loại thao tác...", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-group">
+                            @Html.DropDownListFor(c => c.ObjectTypeid, Model.lstObjectType as SelectList, "Loại đối tượng...", new { @class = "form-control" })
+                        </div>
+                    </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                             
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
+                                </div><!-- /.input group -->
+                            </div><!-- /.form group -->
+
+                        </div><!-- /.col -->
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary margin">Tìm</button>
+                        </div>
+                        }
+                    </div>
+
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên đối tượng</th>
+                                <th>Table</th>
+                                <th>Loại thao tác</th>
+                                <th>IP</th>
+                                <th>Ngày</th>
+                                <th>Gía trị cũ</th>
+                                <th>Gía trị mới</th>
+                                <th>ID User</th>
+
+                            </tr>
+                            @foreach (Userhist _item in Model.lstMainUserHist)
+        {
+                    <tr>
+                        <td>@_item.Id</td>
+                        <td>@_item.ActionObjName </td>
+                        <td>@_item.Tablename </td>
+                        <td>@_item.ActionTypeName </td>
+                        <td>@_item.IPadress </td>
+                        <td>@_item.CrtdDT</td>
+                        <td> @_item.Oldvalue </td>
+                        <td> @_item.Newvalue </td>
+                        <td> @_item.CrtdUID </td>
+                    </tr>
+}
+
+                        </tbody>
+                    </table>
+
+                    </div><!-- /box-body -->
+
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainUserHist.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainUserHist, page => Url.Action("HistoryAction", new
+                   {
+                       page,
+                       ActionTypeid = Model.ActionTypeid,
+                       ObjectTypeid = Model.ObjectTypeid
+                   }))
+                    }
+                </div>
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+
+        </div><!--/.col (left) -->
+        <!-- right column -->
+
+    </div>   <!-- /.row -->
+</section>
+
+<script>
+    $(function () {
+        //Date range picker
+        $('#reservation').daterangepicker();
+
+    });
+</script>
+
+

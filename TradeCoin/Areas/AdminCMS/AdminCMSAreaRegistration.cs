@@ -775,6 +775,13 @@ new { controller = "AccountAdmin", action = "ManualConfirmMail" }
              "administrator/HistoryManager/Delete",
              new { controller = "HistoryManager", action = "Delete" }
              );
+            context.MapRoute(
+          "AdminCMS_HistoryManager_HistoryAction",
+          "administrator/HistoryManager/HistoryAction",
+          new { controller = "HistoryManager", action = "HistoryAction" }
+          );
+
+            
 
             #endregion
 
@@ -1206,8 +1213,12 @@ new { controller = "PackageManager", action = "Export" }
             context.MapRoute(
          "AdminCMS_Ticker_iframeVideo",
          "thanh-vien/video.html",
-         new { controller = "Member", action = "iframeVideo" }
-           );
+         new { controller = "Member", action = "iframeVideo" });
+
+          context.MapRoute(
+         "AdminCMS_Ticker_ApiUpdatePriceForTicker",
+         "Member/ApiUpdatePriceForTicker",
+         new { controller = "Member", action = "ApiUpdatePriceForTicker" } );
 
 
 
@@ -1226,18 +1237,41 @@ new { controller = "PackageManager", action = "Export" }
           );
 
             context.MapRoute(
-       "AdminCMS_CoinMarketManager_GetAndUpcateTableCyptoItem",
-       "CoinMarketManager/UpcateCyptoItem",
-       new { controller = "CoinMarketManager", action = "GetAndUpcateTableCyptoItem" }
-       );
+           "AdminCMS_CoinMarketManager_GetAndUpcateTableCyptoItem",
+           "CoinMarketManager/UpcateCyptoItem",
+           new { controller = "CoinMarketManager", action = "GetAndUpcateTableCyptoItem" }
+           );
+                context.MapRoute(
+            "AdminCMS_CoinMarketManager_GetPriceOfCyptoItem",
+            "CoinMarketManager/GetPriceOfCyptoItem",
+            new { controller = "CoinMarketManager", action = "GetPriceOfCyptoItem" }
+            );
+
+
+
+
+            #endregion
+
+
+            #region  CyptoItemManager
             context.MapRoute(
-    "AdminCMS_CoinMarketManager_GetPriceOfCyptoItem",
-    "CoinMarketManager/GetPriceOfCyptoItem",
-    new { controller = "CoinMarketManager", action = "GetPriceOfCyptoItem" }
-    );
+             "AdminCMS_CyptoItemManager_Index",
+             "CyptoItemManager/Index",
+             new { controller = "CyptoItemManager", action = "Index" }
+             );
+            context.MapRoute(
+          "AdminCMS_CyptoItemManager_EditCypto",
+          "CyptoItemManager/EditCypto",
+          new { controller = "CyptoItemManager", action = "EditCypto" }
+          );
 
+            context.MapRoute(
+     "AdminCMS_CyptoItemManager_IndexCyptoPrice",
+     "CyptoItemManager/IndexCyptoPrice",
+     new { controller = "CyptoItemManager", action = "IndexCyptoPrice" }
+     );
 
-
+            
 
             #endregion
 

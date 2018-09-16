@@ -71,6 +71,7 @@ namespace DataModel.Extension
             kich_thuoc = 5021,
             don_vi_hanh_chinh = 4009,
             status_ticker=5022,
+           ObjectType= 1002
         
         }
 
@@ -178,6 +179,7 @@ namespace DataModel.Extension
             mail=1,
             chatgroup = 1,
             changepass =0,
+            cyptoitem =1,
         }
         public enum ProjectConfig_System : int
         {

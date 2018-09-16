@@ -582,7 +582,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             if ((int)EnumCore.ProjectConfig_System.LoginWithCode == 1)
             {
-                var user = UserManager.Find(model.Email, "123456");
+                var user = UserManager.FindByEmail(model.Email);
                 //if (user.IsLogin == true)
                 //{
                 //    return RedirectToAction("AlertPage", "Extension", new { AlertString = "User đã login ở một  nợi khác vui lòng đăng xuất tất cả cả thiết bị trước khi đăng nhập lại",type= (int)EnumCore.AlertPageType.lockscreen});
@@ -1398,11 +1398,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
                 ////CẬP NHẬT LỊCH SỬ NÂNG CẤP
-                UserPackage objUserPackage = new UserPackage();
+                UserPackagesViewModel objUserPackage = new UserPackagesViewModel();
                 objUserPackage.CrtdDT = DateTime.Now;
               
                 objUserPackage.AprvdUID = long.Parse(User.Identity.GetUserId());
                 objUserPackage.AprvdUserName = User.Identity.GetUserName();
+               
 
                 objUserPackage.PackageId = ObjNewPackage.PackageId;
                 objUserPackage.PackageName = ObjNewPackage.PackageName;
@@ -1423,9 +1424,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                 }
                 objUserPackage.UpgradeToken = model.UpgradeToken;
-                objUserPackage.AprvdDT = model.ExpiryDay;
+                objUserPackage.AprvdDT = _ObjUser.ExpiredDay;
 
-                cms_db.CreateUserPackage(objUserPackage);
+                cms_db.CreateUserPackage(objUserPackage._MainObj);
+
                 int ach = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                                          (int)EnumCore.ActionType.Update, "UpgradePackage", _ObjUser.Id, _ObjUser.EMail, "UserPackage", (int)EnumCore.ObjTypeId.nguoi_dung);
 

@@ -50,6 +50,37 @@ namespace DataModel.DataEntity
             }
         }
 
+
+        public async Task SendMultiAsync(IdentityMessage message, string CredentialUserName,
+          string SentFrom, string Password, string SMTPServer, int Port, bool SSLEnable,List<string> lstEmail)
+        {
+            // Plug in your email service here to send an email.
+            var result = Task.FromResult(0);
+            try
+            {
+                SmtpClient client = new SmtpClient(SMTPServer);
+                client.Port = Port;
+                client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                NetworkCredential credentials = new NetworkCredential(CredentialUserName, Password);
+                client.EnableSsl = SSLEnable;
+                client.Credentials = credentials;
+                var mail = new System.Net.Mail.MailMessage(SentFrom, message.Destination);
+                foreach (string email in lstEmail)
+                {
+                    mail.To.Add(email);
+                }
+                mail.Subject = message.Subject;
+                mail.Body = message.Body;
+                mail.IsBodyHtml = true;
+                await client.SendMailAsync(mail);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
     }
 

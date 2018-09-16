@@ -1338,17 +1338,17 @@
     <Property Name="is_active" Type="Boolean" Nullable="false" />
     <Property Name="first_historical_data" Type="DateTime" Precision="3" />
     <Property Name="last_historical_data" Type="DateTime" Precision="3" />
-    <Property Name="cmc_rank" Type="Int32" Nullable="false" />
-    <Property Name="num_market_pairs" Type="Int32" Nullable="false" />
-    <Property Name="circulating_supply" Type="Int64" Nullable="false" />
-    <Property Name="total_supply" Type="Int64" Nullable="false" />
-    <Property Name="max_supply" Type="Int64" Nullable="false" />
+    <Property Name="cmc_rank" Type="Int32" />
+    <Property Name="num_market_pairs" Type="Int32" />
+    <Property Name="circulating_supply" Type="Int64" />
+    <Property Name="total_supply" Type="Int64" />
+    <Property Name="max_supply" Type="Int64" />
     <Property Name="last_updated" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="USD_price" Type="Double" Nullable="false" />
-    <Property Name="USD_volume_24h" Type="Double" Nullable="false" />
-    <Property Name="USD_percent_change_1h" Type="Double" Nullable="false" />
-    <Property Name="USD_percent_change_7d" Type="Double" Nullable="false" />
-    <Property Name="USD_market_cap" Type="Double" Nullable="false" />
+    <Property Name="USD_volume_24h" Type="Double" />
+    <Property Name="USD_percent_change_1h" Type="Double" />
+    <Property Name="USD_percent_change_7d" Type="Double" />
+    <Property Name="USD_market_cap" Type="Double" />
     <Property Name="BTC_price" Type="Double" />
     <Property Name="BTC_volume_24h" Type="Double" />
     <Property Name="BTC_percent_change_1h" Type="Double" />

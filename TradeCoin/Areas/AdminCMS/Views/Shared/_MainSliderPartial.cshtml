@@ -269,7 +269,23 @@
                     </a>
                 </li>
             }
+            @if ((int)EnumCore.SystemConfig_MenuLeft.cyptoitem == 1 && (User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("AdminUser")))
+            {
+                <li>
+                    <a href="@Url.Action("Index", "CyptoItemManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Quản lý Coin</span>
+                    </a>
+                </li>
+            }
 
+            @if ((int)EnumCore.SystemConfig_MenuLeft.cyptoitem == 1 && (User.IsInRole("devuser") || User.IsInRole("supperadmin")))
+            {
+                <li>
+                    <a href="@Url.Action("IndexCyptoPrice", "CyptoItemManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Xem giá Coin</span>
+                    </a>
+                </li>
+            }
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.history == 1 && User.IsInRole("devuser"))
@@ -280,7 +296,9 @@
                         <span>Quản lý lịch sử</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả lịch sử lỗi</a></li>
+                        <li><a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Lịch sử lỗi</a></li>
+                        <li><a href="@Url.Action("HistoryAction", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Lịch sử hệ thống</a></li>
+                        
                     </ul>
                 </li>
             }
@@ -342,7 +360,7 @@
                             <li><a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Kèo</a></li>
                             <li><a href="@Url.Action("Create", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Kèo</a></li>
                             <li><a href="@Url.Action("TrackingTicker", "Member", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi lãi - lỗ</a></li>
-                       
+
                         </ul>
                     </li>
                 }

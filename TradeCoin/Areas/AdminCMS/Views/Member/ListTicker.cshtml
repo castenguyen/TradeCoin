@@ -33,43 +33,62 @@
                 <div class="box-body">
                     <div class="row">
                         @using (Html.BeginForm("ListTicker", "Member", FormMethod.Get, new { id = "filterForm", role = "form" }))
-                        {
+    {
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Trạng thái kèo</label>
-                                    @Html.DropDownList("TickerStatus", Model.lstTickerStatus as SelectList, "Tất cả...", new { @class = "form-control select2" })
-                                </div><!-- /.form-group -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Trạng thái kèo</label>
+                            @Html.DropDownListFor(m=>m.TickerStatus , Model.lstTickerStatus as SelectList, "Tất cả...", new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
 
-                            </div><!-- /.col -->
+                    </div><!-- /.col -->
 
-                            <div class="col-md-3">
 
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Tên kèo</label>
-                                    <input type="text" class="form-control" name="FillterTickerName" placeholder="Tên kèo">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Sàn</label>
+                            @Html.DropDownListFor(m=>m.MarketItemID, Model.lstMarketItem as SelectList, "Tất cả...", new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
+
+                    </div><!-- /.col -->
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Loại Coin</label>
+                            @Html.DropDownListFor(m=>m.CyptoItemID, Model.lstCyptoItem as SelectList, "Tất cả...", new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
+
+                    </div><!-- /.col -->
+
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên kèo</label>
+                            <input type="text" class="form-control" name="FillterTickerName" placeholder="Tên kèo">
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Ngày tạo:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
                                 </div>
-                            </div><!-- /.col -->
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Ngày tạo:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
-                                    </div><!-- /.input group -->
-                                </div><!-- /.form group -->
+                                <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
 
-                            </div><!-- /.col -->
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <br>
-                                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                                </div>
-                            </div><!-- /.col -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <br>
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                        </div>
+                    </div><!-- /.col -->
 
-                        }
+}
                     </div>
                 </div><!-- /.col -->
             </div><!-- /.box-body -->
@@ -116,7 +135,14 @@
                 <div class="box-footer clearfix">
                     @if (Model.lstMainTicker.PageCount > 1)
                     {
-                        @Html.PagedListPager(Model.lstMainTicker, page => Url.Action("ListTicker", new { page }))
+                        @Html.PagedListPager(Model.lstMainTicker, page => Url.Action("ListTicker", new {
+                        page,
+                       TickerStatus = Model.TickerStatus,
+                       TickerPackage = Model.TickerPackage,
+                       FillterTickerName = Model.FillterTickerName,
+                       CyptoItemID = Model.CyptoItemID,
+                       MarketItemID = Model.MarketItemID
+                   }))
                     }
                 </div>
             </div><!-- /.user-block -->

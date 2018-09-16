@@ -206,7 +206,7 @@
           <Key>
             <PropertyRef Name="CyptoItemPriceId" />
           </Key>
-          <Property Name="CyptoItemPriceId" Type="bigint" Nullable="false" />
+          <Property Name="CyptoItemPriceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CyptoItemPriceUpdate" Type="datetime" Nullable="false" />
           <Property Name="id" Type="bigint" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="250" Nullable="false" />
@@ -215,17 +215,17 @@
           <Property Name="is_active" Type="bit" Nullable="false" />
           <Property Name="first_historical_data" Type="datetime" />
           <Property Name="last_historical_data" Type="datetime" />
-          <Property Name="cmc_rank" Type="int" Nullable="false" />
-          <Property Name="num_market_pairs" Type="int" Nullable="false" />
-          <Property Name="circulating_supply" Type="bigint" Nullable="false" />
-          <Property Name="total_supply" Type="bigint" Nullable="false" />
-          <Property Name="max_supply" Type="bigint" Nullable="false" />
+          <Property Name="cmc_rank" Type="int" />
+          <Property Name="num_market_pairs" Type="int" />
+          <Property Name="circulating_supply" Type="bigint" />
+          <Property Name="total_supply" Type="bigint" />
+          <Property Name="max_supply" Type="bigint" />
           <Property Name="last_updated" Type="datetime" Nullable="false" />
           <Property Name="USD_price" Type="float" Nullable="false" />
-          <Property Name="USD_volume_24h" Type="float" Nullable="false" />
-          <Property Name="USD_percent_change_1h" Type="float" Nullable="false" />
-          <Property Name="USD_percent_change_7d" Type="float" Nullable="false" />
-          <Property Name="USD_market_cap" Type="float" Nullable="false" />
+          <Property Name="USD_volume_24h" Type="float" />
+          <Property Name="USD_percent_change_1h" Type="float" />
+          <Property Name="USD_percent_change_7d" Type="float" />
+          <Property Name="USD_market_cap" Type="float" />
           <Property Name="BTC_price" Type="float" />
           <Property Name="BTC_volume_24h" Type="float" />
           <Property Name="BTC_percent_change_1h" Type="float" />
@@ -300,9 +300,12 @@
           <Property Name="lat" Type="nvarchar" MaxLength="50" />
           <Property Name="AreaWardId" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MarketItem">
           <Key>
             <PropertyRef Name="Marketid" />
+            
           </Key>
           <Property Name="Marketid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MarketName" Type="nvarchar" MaxLength="250" Nullable="false" />
@@ -1079,7 +1082,6 @@
           <EntitySet Name="EmailSupport" EntityType="Self.EmailSupport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MarketItem" EntityType="Self.MarketItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
@@ -1104,6 +1106,12 @@
           <EntitySet Name="UserPackage" EntityType="Self.UserPackage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarketItem" EntityType="Self.MarketItem" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MarketItem].[Marketid] AS [Marketid], 
+    [MarketItem].[MarketName] AS [MarketName]
+    FROM [dbo].[MarketItem] AS [MarketItem]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Classification_Classification" Association="Self.FK_Classification_Classification">
             <End Role="Classification" EntitySet="Classification" />
             <End Role="Classification1" EntitySet="Classification" />
@@ -2503,17 +2511,17 @@
           <Property Name="is_active" Type="Boolean" Nullable="false" />
           <Property Name="first_historical_data" Type="DateTime" Precision="3" />
           <Property Name="last_historical_data" Type="DateTime" Precision="3" />
-          <Property Name="cmc_rank" Type="Int32" Nullable="false" />
-          <Property Name="num_market_pairs" Type="Int32" Nullable="false" />
-          <Property Name="circulating_supply" Type="Int64" Nullable="false" />
-          <Property Name="total_supply" Type="Int64" Nullable="false" />
-          <Property Name="max_supply" Type="Int64" Nullable="false" />
+          <Property Name="cmc_rank" Type="Int32" />
+          <Property Name="num_market_pairs" Type="Int32" />
+          <Property Name="circulating_supply" Type="Int64" />
+          <Property Name="total_supply" Type="Int64" />
+          <Property Name="max_supply" Type="Int64" />
           <Property Name="last_updated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="USD_price" Type="Double" Nullable="false" />
-          <Property Name="USD_volume_24h" Type="Double" Nullable="false" />
-          <Property Name="USD_percent_change_1h" Type="Double" Nullable="false" />
-          <Property Name="USD_percent_change_7d" Type="Double" Nullable="false" />
-          <Property Name="USD_market_cap" Type="Double" Nullable="false" />
+          <Property Name="USD_volume_24h" Type="Double" />
+          <Property Name="USD_percent_change_1h" Type="Double" />
+          <Property Name="USD_percent_change_7d" Type="Double" />
+          <Property Name="USD_market_cap" Type="Double" />
           <Property Name="BTC_price" Type="Double" />
           <Property Name="BTC_volume_24h" Type="Double" />
           <Property Name="BTC_percent_change_1h" Type="Double" />

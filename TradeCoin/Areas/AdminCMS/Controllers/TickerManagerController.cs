@@ -152,9 +152,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     if (model.CyptoID.HasValue)
                         MainModel.CyptoName = cms_db.GetCyptoName(model.CyptoID.Value);
 
-
-
-
                     MainModel.Flag = model.Flag;
                     int rs = await cms_db.CreateTickerAsync(MainModel);
                     if (Default_files != null)
@@ -163,6 +160,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int rsup = await this.UpdateImageUrlForTicker(rsdf, MainModel);
                     }
                     int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel);
+
+                    bool rssendMail = await this.SendMail(model.TickerId, model.TickerName, model.lstTickerPackage.Max());
+
+
+
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                         (int)EnumCore.ActionType.Create, "Create", MainModel.TickerId, MainModel.TickerName, "TickerManager", (int)EnumCore.ObjTypeId.ticker);
 
@@ -351,6 +353,32 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 cms_db.AddToExceptionLog("Delete", "TickerManager", e.ToString());
                 return RedirectToAction("Index");
+            }
+        }
+
+
+        private async Task<bool> SendMail(long tickerid,string tickername,long packageid)
+        {
+
+            try
+            {
+                List<string> lstEmail = cms_db.GetlstUser().Where(s => s.PackageId >= packageid && s.ExpiredDay <= DateTime.Now).Select(s => s.EMail).ToList();
+                var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
+                EmailService email = new EmailService();
+
+                IdentityMessage message = new IdentityMessage();
+                message.Body = string.Format("Đã có kèo mới tên {0} vui lòng click <a href='{1}'>Tại đây</a> để xem chi tiết", tickername, callbackUrl);
+                message.Subject = "Ncoinclub thông báo kèo mới";
+                message.Destination ="nguyenhuyc2@gmail.com";
+                await email.SendMultiAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
+                    ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true, lstEmail);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
             }
         }
 

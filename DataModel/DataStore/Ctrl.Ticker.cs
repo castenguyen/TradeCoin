@@ -56,6 +56,18 @@ namespace DataModel.DataStore
                 return 0;
             }
         }
+        public int UpdateTickerNoasync(Ticker ObjTicker)
+        {
+            try
+            {
+                db.Entry(ObjTicker).State = EntityState.Modified;
+                return  db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
 
         public async Task<int> DeleteTicker(Ticker TickerObj)
         {
@@ -153,8 +165,13 @@ namespace DataModel.DataStore
                                                      MediaThumb = tk.MediaThumb,
                                                      Flag = tk.Flag,
                                                      Profit = tk.Profit,
-                                                     Deficit = tk.Profit
-                                                    
+                                                     Deficit = tk.Profit,
+                                                     USDInput = tk.USDInput,
+                                                     CyptoID = tk.CyptoID,
+                                                     CyptoName = tk.CyptoName,
+                                                     MarketID = tk.MarketID,
+                                                     MarketName = tk.MarketName
+
                                                  });
             return rs.Distinct();
         }
@@ -210,6 +227,11 @@ namespace DataModel.DataStore
                                                      Flag = tk.Flag,
                                                      Profit = tk.Profit,
                                                      Deficit = tk.Profit,
+                                                     USDInput = tk.USDInput,
+                                                     CyptoID = tk.CyptoID,
+                                                     CyptoName = tk.CyptoName,
+                                                     MarketID = tk.MarketID,
+                                                     MarketName = tk.MarketName
                                                  });
             return rs.Distinct();
         }
@@ -241,6 +263,11 @@ namespace DataModel.DataStore
                                                      Flag = tk.Flag,
                                                      Profit = tk.Profit,
                                                      Deficit = tk.Profit,
+                                                     USDInput = tk.USDInput,
+                                                     CyptoID = tk.CyptoID,
+                                                     CyptoName = tk.CyptoName,
+                                                     MarketID = tk.MarketID,
+                                                     MarketName = tk.MarketName
                                                  });
             return rs;
         }

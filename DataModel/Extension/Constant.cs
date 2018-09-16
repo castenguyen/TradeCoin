@@ -37,5 +37,13 @@ namespace DataModel.Extension
         #endregion
 
 
+        #region Table name in db
+
+        public static string Table_ticker = "Ticker";
+        public static string Table_ContentItem = "ContentItem";
+
+        #endregion
+
+
     }
 }

@@ -69,7 +69,7 @@
                     <div class='box-header with-border'>
                         <div class='user-block'>
                             <img class='img-circle' src='~/@_item.ThumbURL' alt='user image'>
-                            <span class='username'><a href="#">@_item.Filename</a></span>
+                            <span class='username'><a href="@Url.Action("DetailVideo", "Member",new { id =_item.MediaContentId })">@_item.Filename</a></span>
                             <span class='description'> Được gửi bởi Admin</span>
                             @if (_item.tmp > 0)
                             {

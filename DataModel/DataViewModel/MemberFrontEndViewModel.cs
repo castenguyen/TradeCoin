@@ -44,6 +44,17 @@ namespace DataModel.DataViewModel
         public double Total { get; set; }
 
         public long[] lstViewUserContent { get; set; }
+
+
+        [Display(Name = "Loại sàn")]
+        public SelectList lstMarketItem { get; set; }
+        public int MarketItemID { get; set; }
+
+
+        [Display(Name = "Loại Coin")]
+        public SelectList lstCyptoItem { get; set; }
+        public long CyptoItemID { get; set; }
+
     }
 
 
