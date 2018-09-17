@@ -1008,6 +1008,7 @@
     <EntitySetMapping Name="CyptoItems">
       <EntityTypeMapping TypeName="alluneedbModel.CyptoItem">
         <MappingFragment StoreEntitySet="CyptoItem">
+          <ScalarProperty Name="allow_update" ColumnName="allow_update" />
           <ScalarProperty Name="last_historical_data" ColumnName="last_historical_data" />
           <ScalarProperty Name="first_historical_data" ColumnName="first_historical_data" />
           <ScalarProperty Name="is_active" ColumnName="is_active" />

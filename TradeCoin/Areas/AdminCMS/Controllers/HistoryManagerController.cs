@@ -40,15 +40,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             IndexHistoryAction model = new IndexHistoryAction();
             IQueryable<Userhist> tmp = cms_db.GetlstActionHistory();
 
-            if (ActionTypeid.HasValue)
+            if (ActionTypeid.HasValue  )
             {
-                tmp = tmp.Where(s => s.ActionTypeId == ActionTypeid.Value);
-                model.ActionTypeid = ActionTypeid.Value;
+                if (ActionTypeid.Value > 0)
+                {
+                    tmp = tmp.Where(s => s.ActionTypeId == ActionTypeid.Value);
+                    model.ActionTypeid = ActionTypeid.Value;
+                }
+              
             }
             if (ObjectTypeid.HasValue)
             {
-                tmp = tmp.Where(s => s.ObjTypeId == ObjectTypeid.Value);
-                model.ObjectTypeid = ObjectTypeid.Value;
+                if (ObjectTypeid.Value > 0)
+                {
+                    tmp = tmp.Where(s => s.ObjTypeId == ObjectTypeid.Value);
+                    model.ObjectTypeid = ObjectTypeid.Value;
+                }
+            
             }
 
             if (!String.IsNullOrEmpty(Datetime))

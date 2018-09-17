@@ -77,7 +77,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 CyptoItem ObjCyptoItem = cms_db.GetObjCyptoItem(model.id);
                 ObjCyptoItem.is_active = model.is_active;
-            
+                ObjCyptoItem.allow_update = model.allow_update;
+
                 int rs = await cms_db.UpdateCypto(ObjCyptoItem);
                 return RedirectToAction("EditCypto", new { id = model.id});
             }

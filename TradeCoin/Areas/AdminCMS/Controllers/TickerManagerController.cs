@@ -161,7 +161,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     }
                     int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel);
 
-                    bool rssendMail = await this.SendMail(model.TickerId, model.TickerName, model.lstTickerPackage.Max());
+                    bool rssendMail = await this.SendMail(model.TickerId, model.TickerName, model.lstTickerPackage);
 
 
 
@@ -268,6 +268,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int SaveTickerPackage = this.SaveTickerPackage(model.lstTickerPackage, MainModel);
                         int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
                             (int)EnumCore.ActionType.Update, "Update", MainModel.TickerId, MainModel.TickerName, "TickerManager", (int)EnumCore.ObjTypeId.ticker);
+
+                      //  bool rssendMail = await this.SendMail(model.TickerId, model.TickerName, model.lstTickerPackage);
                     }
                 }
                 return RedirectToAction("Index");
@@ -357,12 +359,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-        private async Task<bool> SendMail(long tickerid,string tickername,long packageid)
+        private async Task<bool> SendMail(long tickerid,string tickername,long[] lstpackageid)
         {
 
             try
             {
-                List<string> lstEmail = cms_db.GetlstUser().Where(s => s.PackageId >= packageid && s.ExpiredDay <= DateTime.Now).Select(s => s.EMail).ToList();
+                List<string> lstEmail = cms_db.GetlstUser().Where(s => lstpackageid.Contains(s.PackageId.Value) && s.ExpiredDay >= DateTime.Now).Select(s => s.EMail).ToList();
+
                 var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
                 EmailService email = new EmailService();
 
@@ -372,6 +375,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 message.Destination ="nguyenhuyc2@gmail.com";
                 await email.SendMultiAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
                     ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true, lstEmail);
+
 
                 return true;
             }

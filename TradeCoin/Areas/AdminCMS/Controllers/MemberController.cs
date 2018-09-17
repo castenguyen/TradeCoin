@@ -32,24 +32,24 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             try
             {
+                long Package = 0;
                 long UserId = long.Parse(User.Identity.GetUserId());
-                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                if (lstPackageOfUser == null)
-                {
-                    return RedirectToAction("Login", "AccountAdmin");
-                }
+                User ObjectCurentUser = await cms_db.GetObjUserById(UserId);
+
                 MemberFrontEndViewModel model = new MemberFrontEndViewModel();
                 List<ContentItemViewModels> lstmpNews = new List<ContentItemViewModels>();
                 List<ContentItem> lstNews = new List<ContentItem>();
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
+                    Package = 5;
                     lstNews = cms_db.GetListContentItemByUser(UserId,
-                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, long.Parse("5"));
+                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, Package);
                 }
                 else
                 {
+                    Package = ObjectCurentUser.PackageId.Value;
                     lstNews = cms_db.GetListContentItemByUser(UserId,
-                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, lstPackageOfUser[0].PackageId);
+                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_News_In_Home, Package);
                 }
                 foreach (ContentItem _val in lstNews)
                 {
@@ -66,12 +66,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     lstTicker = cms_db.GetListTickerByUser(UserId,
-                                     (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
+                                     (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Package);
                 }
                 else
                 {
                     lstTicker = cms_db.GetListTickerByUser(UserId,
-                            (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
+                            (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Package);
 
                 }
 
@@ -85,11 +85,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                 model.lstNews = lstmpNews;
                 model.lstTicker = lstmpTickers;
-                model.ObjectUser = await cms_db.GetObjUserById(long.Parse(User.Identity.GetUserId()));
+                model.ObjectUser = ObjectCurentUser;
                 Config cf = new Config();
                 cf = cms_db.GetConfig();
                 this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
-                await this.CheckPriceUpdate();
+               await this.CheckPriceUpdate();
                 return View(model);
             }
             catch (Exception e)
@@ -120,10 +120,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 DateTime lasttime = DateTime.Parse(StringLastTimeUpdate);
                 int minute = DateTime.Now.Subtract(lasttime).Minutes;
                 ///nếu lớn hơn 1 phút thì lấy tất cả các dong tiền ở kèo
-                if (minute > 1)
+                if (minute >1)
                 {
-                    long[] listCyptoNeedUpdatePrice = cms_db.GetlstTicker().Where(s=>s.StateId 
-                                !=(int)EnumCore.TickerStatusType.da_xoa).Select(s=>s.CyptoID.Value).Distinct().ToArray();
+                    long[] listCyptoNeedUpdatePrice = cms_db.GetlstCyptoItem()
+                            .Where(s=>s.allow_update==true).Select(s=>s.id).ToArray();
 
                     string query = this.MakeQueryListCyptoId(listCyptoNeedUpdatePrice);
                     if (String.IsNullOrEmpty(query))
@@ -135,8 +135,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         ///xoá cac giá cũ trước khi update
                         List<CyptoItemPrice> tmp = cms_db.GetLstCyptoItemPrice().Where(s => listCyptoNeedUpdatePrice.Contains(s.id)).ToList();
                         cms_db.RemoveListCyptoItemPrice(tmp);
-
-
 
 
                         //lấy giá của cá đồng tiền có trong hệ thống
@@ -383,29 +381,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             DateTime lasttime = DateTime.Parse(StringLastTimeUpdate);
             int minute = DateTime.Now.Subtract(lasttime).Minutes;
             ///nếu lớn hơn 1 phút thì lấy tất cả các dong tiền ở kèo
-            if (minute >2)
+            if (minute >60)
             {
-                this.UpdatePriceForTickerUSDT();
+              //  this.UpdatePriceForTickerUSDT();
             }
 
-                long packageID = 0;
+            long Packageid = 0;
             long UserId = long.Parse(User.Identity.GetUserId());
-            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-            if (lstPackageOfUser == null)
-            {
-                return RedirectToAction("Login", "AccountAdmin");
-            }
+            User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
+
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-                packageID = 5;
+                Packageid = 5;
             }
             else
             {
-                packageID = lstPackageOfUser[0].PackageId;
+                Packageid = ObjectCurentUser.PackageId.Value;
             }
             int pageNum = (page ?? 1);
             TickerMemberViewModel model = new TickerMemberViewModel();
-            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(UserId, packageID);
+            IQueryable<MiniTickerViewModel> tmp = cms_db.GetTickerByUserLinq(UserId, Packageid);
             if (TickerStatus.HasValue)
             {
                 tmp = tmp.Where(s => s.StateId == TickerStatus.Value);
@@ -466,21 +461,22 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         public ActionResult DetailTicker(long tickerId)
         {
             try {
-                long packageID = 0;
-                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                if (lstPackageOfUser == null)
-                {
-                    return RedirectToAction("Login", "AccountAdmin");
-                }
+
+
+                long Packageid = 0;
+                long UserId = long.Parse(User.Identity.GetUserId());
+                User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
+
+
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    packageID = 5;
+                    Packageid = 5;
                 }
                 else
                 {
-                    packageID = lstPackageOfUser[0].PackageId;
+                    Packageid = ObjectCurentUser.PackageId.Value;
                 }
-                if (cms_db.CheckTickerUserPackage(tickerId, long.Parse(User.Identity.GetUserId()), packageID))
+                if (cms_db.CheckTickerUserPackage(tickerId, UserId, Packageid))
                 {
                     long UID = long.Parse(User.Identity.GetUserId());
                     TickerViewModel model = new TickerViewModel();
@@ -490,8 +486,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     List<Ticker> lsttmpSameTicker = new List<Ticker>();
                     model.lstsameTickers = new List<TickerViewModel>();
 
-                        lsttmpSameTicker = cms_db.GetListTickerByUser(long.Parse(User.Identity.GetUserId()),
-                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, packageID);
+                        lsttmpSameTicker = cms_db.GetListTickerByUser(UserId,
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid);
 
                    
                     foreach (Ticker _val in lsttmpSameTicker)
@@ -529,35 +525,34 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult ListNews(int? page, int? ContentCatalogry, string FillterContenName, string Datetime)
         {
-            long packageID = 0;
+            long Packageid = 0;
             long UserId = long.Parse(User.Identity.GetUserId());
-            List <Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-            if (lstPackageOfUser == null)
-            {
-                return RedirectToAction("Login", "AccountAdmin");
-            }
+            User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
+
+
+       
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-                packageID = 5;
+                Packageid = 5;
             }
             else
             {
-                packageID = lstPackageOfUser[0].PackageId;
+                Packageid = ObjectCurentUser.PackageId.Value;
             }
             int pageNum = (page ?? 1);
             ContentItemMemberViewModel model = new ContentItemMemberViewModel();
-            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(UserId, packageID);
+            IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(UserId, Packageid);
         
 
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
                 model.lstTicker = cms_db.GetListTickerByUser(UserId,
-                                 (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, long.Parse("5"));
+                                 (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid);
             }
             else
             {
                 model.lstTicker = cms_db.GetListTickerByUser(UserId,
-                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, lstPackageOfUser[0].PackageId);
+                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid);
 
             }
             if (ContentCatalogry.HasValue && ContentCatalogry.Value != 0)
@@ -606,38 +601,39 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             try
             {
 
+
+                long Packageid = 0;
                 long UserId = long.Parse(User.Identity.GetUserId());
+                User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
+
+
                 if (cms_db.CheckContentItemUerPackage(id, UserId) || User.IsInRole("AdminUser") 
                     || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    long packageID = 0;
-                    List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                    if (lstPackageOfUser == null)
-                    {
-                        return RedirectToAction("Login", "AccountAdmin");
-                    }
+                  
+               
                     if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                     {
-                        packageID = 5;
+                        Packageid = 5;
                     }
                     else
                     {
-                        packageID = lstPackageOfUser[0].PackageId;
+                        Packageid = ObjectCurentUser.PackageId.Value;
                     }
-                    long UID = long.Parse(User.Identity.GetUserId());
+                
                     ContentItemViewModels model = new ContentItemViewModels(); 
                     ContentItem mainObj = cms_db.GetObjContentItemById(id);
                     model._MainObj = mainObj;
 
-                    model.lstSameNews = cms_db.GetContentItemByUserLinq(UID, packageID).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
+                    model.lstSameNews = cms_db.GetContentItemByUserLinq(UserId, Packageid).Where(s => s.CategoryId == mainObj.CategoryId).Take(10).ToList();
                     model.lstViewUserContent = cms_db.GetlstContentView().Where(s => s.ContentType
                         == (int)EnumCore.ObjTypeId.tin_tuc && s.UserId == UserId).Select(s => s.ContentId).ToArray();
 
-                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UID);
+                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.tin_tuc, UserId);
                     if (ck == null)
                     {
                         ContentView tmp = new ContentView();
-                        tmp.UserId = UID;
+                        tmp.UserId = UserId;
                         tmp.UserName = User.Identity.GetUserName();
                         tmp.ContentId = id;
                         tmp.ContentType = (int)EnumCore.ObjTypeId.tin_tuc;
@@ -665,26 +661,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
         public ActionResult ListVideo(int? page, int? MediaPackage)
         {
-            long packageID = 0;
-            List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-            if (lstPackageOfUser == null)
-            {
-                return RedirectToAction("Login", "AccountAdmin");
-            }
+            long Packageid = 0;
+            long UserId = long.Parse(User.Identity.GetUserId());
+            User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
+         
+          
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
-                packageID = 5;
+                Packageid = 5;
             }
             else
             {
-                packageID = lstPackageOfUser[0].PackageId;
+                Packageid = ObjectCurentUser.PackageId.Value;
             }
             int pageNum = (page ?? 1);
             MediaMemberViewModel model = new MediaMemberViewModel();
 
 
 
-            IQueryable<MiniMediaViewModel> tmp = cms_db.GetMediaByUserLinq(long.Parse(User.Identity.GetUserId()), packageID);
+            IQueryable<MiniMediaViewModel> tmp = cms_db.GetMediaByUserLinq(long.Parse(User.Identity.GetUserId()), Packageid);
             if (MediaPackage.HasValue && MediaPackage.Value != 0)
             {
                 // tmp = tmp.Where(s => s.StateId == Pakage);
@@ -709,39 +704,36 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             try
             {
+                long Packageid = 0;
+                long UserId = long.Parse(User.Identity.GetUserId());
+                User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
 
 
-             
 
-                long packageID = 0;
-                List<Package> lstPackageOfUser = Session["ListPackageOfUser"] as List<Package>;
-                if (lstPackageOfUser == null)
-                {
-                    return RedirectToAction("Login", "AccountAdmin");
-                }
+               
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    packageID = 5;
+                    Packageid = 5;
                 }
                 else
                 {
-                    packageID = lstPackageOfUser[0].PackageId;
+                    Packageid = ObjectCurentUser.PackageId.Value;
                 }
-                if (cms_db.CheckVideoUserPackage(id, long.Parse(User.Identity.GetUserId()), packageID) || User.IsInRole("AdminUser")
+                if (cms_db.CheckVideoUserPackage(id, UserId, Packageid) || User.IsInRole("AdminUser")
                     || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                    long UID = long.Parse(User.Identity.GetUserId());
+                  
                     MediaContentViewModels model = new MediaContentViewModels();
                     MediaContent mainObj = cms_db.GetObjMediaContent(id);
                     model.objMediaContent = mainObj;
-                    model.lstSameVideo = cms_db.GetListVideoByUser(long.Parse(User.Identity.GetUserId()),
-                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, packageID);
+                    model.lstSameVideo = cms_db.GetListVideoByUser(UserId,
+                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid);
 
-                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.video, UID);
+                    ContentView ck = cms_db.GetObjContentView(id, (int)EnumCore.ObjTypeId.video, UserId);
                     if (ck == null)
                     {
                         ContentView tmp = new ContentView();
-                        tmp.UserId = UID;
+                        tmp.UserId = UserId;
                         tmp.UserName = User.Identity.GetUserName();
                         tmp.ContentId = id;
                         tmp.ContentType = (int)EnumCore.ObjTypeId.video;

@@ -22,29 +22,34 @@
                 @using (Html.BeginForm("EditCypto", "CyptoItemManager", FormMethod.Post, new { @class = "", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="box-body">
+                <div class="box-body">
 
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                        <div class="form-group col-md-9">
-                            @Html.LabelFor(m => m.name, new { @class = "col-md-4 control-label" })
-                            @Html.TextBoxFor(m => m.name, new { @class = "form-control", @readonly = "readonly" })
-                        </div>
-                        <div class="form-group col-md-9">
-                            @Html.LabelFor(m => m.symbol, new { @class = "col-md-4 control-label" })
-                            @Html.TextAreaFor(m => m.symbol, new { @class = "form-control", @readonly = "readonly" })
-                        </div>
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.name, new { @class = "col-md-4 control-label" })
+                        @Html.TextBoxFor(m => m.name, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.symbol, new { @class = "col-md-4 control-label" })
+                        @Html.TextAreaFor(m => m.symbol, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
 
-                        <div class="form-group col-md-9">
-                            @Html.LabelFor(m => m.is_active, new { @class = "col-md-4 control-label" })
-                            @Html.CheckBoxFor(m => m.is_active)
-                        </div>
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.is_active, new { @class = "col-md-4 control-label" })
+                        @Html.CheckBoxFor(m => m.is_active)
+                    </div>
 
-                        <div class="form-group col-md-9">
-                            @Html.HiddenFor(m => m.id)
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div><!-- /.box-body -->
+                    <div class="form-group col-md-9">
+                        @Html.LabelFor(m => m.allow_update, new { @class = "col-md-4 control-label" })
+                        @Html.CheckBoxFor(m => m.allow_update)
+                    </div>
+
+                    <div class="form-group col-md-9">
+                        @Html.HiddenFor(m => m.id)
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div><!-- /.box-body -->
                 
                 }
 

@@ -51,6 +51,12 @@ namespace DataModel.DataViewModel
             get { return _MainObj.is_active; }
             set { _MainObj.is_active = value; }
         }
+        [Display(Name = "Cho phép cập nhật giá")]
+        public bool allow_update
+        {
+            get { return _MainObj.allow_update; }
+            set { _MainObj.allow_update = value; }
+        }
         public System.DateTime first_historical_data
         {
             get { return _MainObj.first_historical_data; }

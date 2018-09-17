@@ -196,6 +196,7 @@
     <Property Name="is_active" Type="bit" Nullable="false" />
     <Property Name="first_historical_data" Type="datetime" Nullable="false" />
     <Property Name="last_historical_data" Type="datetime" Nullable="false" />
+    <Property Name="allow_update" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="CyptoItemPrice">
     <Key>

@@ -201,6 +201,7 @@
           <Property Name="is_active" Type="bit" Nullable="false" />
           <Property Name="first_historical_data" Type="datetime" Nullable="false" />
           <Property Name="last_historical_data" Type="datetime" Nullable="false" />
+          <Property Name="allow_update" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CyptoItemPrice">
           <Key>
@@ -2497,6 +2498,7 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
           <Property Name="is_active" Type="Boolean" Nullable="false" />
           <Property Name="first_historical_data" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="last_historical_data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="allow_update" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CyptoItemPrice">
           <Key>
@@ -3548,6 +3550,7 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
           <EntitySetMapping Name="CyptoItems">
             <EntityTypeMapping TypeName="alluneedbModel.CyptoItem">
               <MappingFragment StoreEntitySet="CyptoItem">
+                <ScalarProperty Name="allow_update" ColumnName="allow_update" />
                 <ScalarProperty Name="last_historical_data" ColumnName="last_historical_data" />
                 <ScalarProperty Name="first_historical_data" ColumnName="first_historical_data" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />

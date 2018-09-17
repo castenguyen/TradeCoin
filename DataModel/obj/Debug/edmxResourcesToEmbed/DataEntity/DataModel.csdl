@@ -1324,6 +1324,7 @@
     <Property Name="is_active" Type="Boolean" Nullable="false" />
     <Property Name="first_historical_data" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="last_historical_data" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="allow_update" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="CyptoItemPrice">
     <Key>

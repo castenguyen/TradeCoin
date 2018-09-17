@@ -21,5 +21,6 @@ namespace DataModel.DataEntity
         public bool is_active { get; set; }
         public System.DateTime first_historical_data { get; set; }
         public System.DateTime last_historical_data { get; set; }
+        public bool allow_update { get; set; }
     }
 }
