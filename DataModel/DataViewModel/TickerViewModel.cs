@@ -242,6 +242,10 @@ namespace DataModel.DataViewModel
         public SelectList lstCyptoItem { get; set; }
         public long CyptoItemID { get; set; }
 
+        [Display(Name = "Đơn vị")]
+        public SelectList lstUnit { get; set; }
+        public int unit { get; set; }
+
     }
 
 

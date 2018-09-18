@@ -30,7 +30,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         public ActionResult FrontEndIndex()
         {
-            IPagedList<Package> _lstPackage = cms_db.GetlstPackage()
+            //// trừ gói bạc
+            IPagedList<Package> _lstPackage = cms_db.GetlstPackage().Where(s=>s.PackageId!=3)
                     .OrderBy(c => c.PackageId).ToPagedList(1, (int)EnumCore.BackendConst.page_size);
             return View(_lstPackage);
         }

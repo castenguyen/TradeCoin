@@ -151,7 +151,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     long[] listView = cms_db.GetlstContentView().Where(s => s.UserId == IdUser
                            && s.ContentType == (int)EnumCore.ObjTypeId.emailsupport).Select(s => s.ContentId).ToArray();
                     IQueryable<EmailSupport> tmp = cms_db.GetlstEmailSupport().
-                         Where(s => s.StateId2 != (int)EnumCore.EmailStatus.da_xoa && !listView.Contains(s.EmailId));
+                         Where(s => s.StateId2 != (int)EnumCore.EmailStatus.da_xoa && (s.DestinationId== IdUser || s.CrtdUserId== IdUser) && !listView.Contains(s.EmailId));
                     pageNum = 1;
                     model.lstEmailSupport = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
                     return Json(model.lstEmailSupport, JsonRequestBehavior.AllowGet);
@@ -267,8 +267,20 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             try
             {
                 long UID = long.Parse(User.Identity.GetUserId());
+              
+
                 EmailSupportViewModel model = new EmailSupportViewModel();
                 model._MainObj = cms_db.GetObjEmailSupport(emailId.Value);
+                if (User.IsInRole("Member"))
+                {
+                    if (model._MainObj.CrtdUserId != UID && model._MainObj.DestinationId == UID)
+                    {
+                        string AlertString = "Nội dung xem không khả dụng";
+                        return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+                    }
+
+                }
+
                 model.lstChild = cms_db.GetlstEmailSupport().Where(s => s.ParentId == emailId
                         && s.StateId != (int)EnumCore.EmailStatus.da_xoa).OrderByDescending(s => s.CrtdDT).ToList();
 
@@ -280,7 +292,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     int rsc = this.CreateEmailView(_item, UID);
                 }
-
 
                 return View(model);
             }

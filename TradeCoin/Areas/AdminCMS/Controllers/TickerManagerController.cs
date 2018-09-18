@@ -21,7 +21,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
     public class TickerManagerController : CoreBackEnd
     {
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
-        public ActionResult Index(int? page, int? TickerStatus, int? TickerPackage,long? CyptoItemID,int? MarketItemID,  string FillterTickerName)
+        public ActionResult Index(int? page, int? TickerStatus, int? TickerPackage,long? CyptoItemID,int? MarketItemID,  string FillterTickerName,int? unit)
         {
             int pageNum = (page ?? 1);
             TickerAdminViewModel model = new TickerAdminViewModel();
@@ -45,6 +45,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.MarketItemID = MarketItemID.Value;
             }
 
+            if (unit.HasValue)
+            {
+                if (unit.Value == 1)
+                {
+                    tmp = tmp.Where(s => s.BTCInput.Value > 0);
+                }
+                else
+                {
+                    tmp = tmp.Where(s => s.USDInput.Value > 0);
+                }
+
+                model.unit = unit.Value;
+            }
 
             if (TickerPackage.HasValue && TickerPackage.Value != 0)
             {
@@ -81,7 +94,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
             model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
-            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text"); 
+            model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
+            model.lstUnit = new SelectList(cms_db.GetObjSelectListUnit(), "value", "text");
             return View(model);
         }
 
@@ -364,7 +378,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             try
             {
-                List<string> lstEmail = cms_db.GetlstUser().Where(s => lstpackageid.Contains(s.PackageId.Value) && s.ExpiredDay >= DateTime.Now).Select(s => s.EMail).ToList();
+                List<long> newarr=new List<long>();
+                newarr.Clear();
+                foreach (long item in lstpackageid)
+                {
+
+                    if (item == 4 || item == 5)
+                        newarr.Add(item);
+                }
+                List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value)).Select(s => s.EMail).ToList();
 
                 var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
                 EmailService email = new EmailService();

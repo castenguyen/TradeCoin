@@ -64,6 +64,24 @@ namespace DataModel.DataStore
             return lstobj;
         }
 
+        public List<SelectListObj> GetObjSelectListUnit()
+        {
+            List<SelectListObj> tmp =new List<SelectListObj>();
+            tmp.Clear();
+            SelectListObj btc = new SelectListObj();
+            btc.text = "BTC";
+            btc.value = 1;
+
+            SelectListObj usdt = new SelectListObj();
+            usdt.text = "USDT";
+            usdt.value =2;
+            tmp.Add(btc);
+            tmp.Add(usdt);
+
+            return tmp;
+        }
+
+
 
     }
 }

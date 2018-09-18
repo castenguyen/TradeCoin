@@ -5,7 +5,7 @@
 @using PagedList;
 @using PagedList.Mvc;
 @using DataModel.DataViewModel;
-@model TickerMemberViewModel
+@model TrackingTickerViewModel
 @{
     ViewBag.Title = "ListTicker";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
@@ -31,36 +31,41 @@
 
                 <div class="box-body">
                     <div class="row">
-                        @using (Html.BeginForm("ListTicker", "Member", FormMethod.Get, new { id = "filterForm", role = "form" }))
-                        {
+                        @using (Html.BeginForm("TrackingTicker", "Member", FormMethod.Get, new { id = "filterForm", role = "form" }))
+    {
 
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Gói</label>
-                                    @Html.DropDownList("package", Model.lstPackage as SelectList, new { @class = "form-control select2" })
-                                </div><!-- /.form-group -->
-                            </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Gói</label>
+                            @Html.DropDownList("package", Model.lstPackage as SelectList, new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Đơn vị</label>
+                            @Html.DropDownListFor(m=>m.unit, Model.lstUnit as SelectList, new { @class = "form-control select2" })
+                        </div><!-- /.form-group -->
+                    </div>
 
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Ngày tạo:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
-                                    </div><!-- /.input group -->
-                                </div><!-- /.form group -->
-                            </div><!-- /.col -->
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <p>Vui lòng chọn gói cước hoặc thời gian để xem cụ thể và tối đa 50 kèo cho 1 lần xem</p>
-                                    <button type="submit" class="btn btn-primary">Xem chi tiết</button>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Ngày tạo:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
                                 </div>
-                            </div><!-- /.col -->
+                                <input type="text" class="form-control pull-right" name="Datetime" id="reservation">
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <p>Vui lòng chọn gói cước hoặc thời gian để xem cụ thể và tối đa 50 kèo cho 1 lần xem</p>
+                            <button type="submit" class="btn btn-primary">Xem chi tiết</button>
+                        </div>
+                    </div><!-- /.col -->
 
-                        }
+}
                     </div>
                 </div><!-- /.col -->
             </div>
@@ -121,7 +126,7 @@
                             <th>Tình trạng</th>
                         </tr>
 
-                        @foreach (MiniTickerViewModel _val in Model.lstMainTicker)
+                        @foreach (TickerViewModel _val in Model.lstMainTicker)
                         {
                             <tr>
 

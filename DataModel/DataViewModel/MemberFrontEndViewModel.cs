@@ -18,6 +18,54 @@ namespace DataModel.DataViewModel
 
     }
 
+
+    
+
+
+ public class TrackingTickerViewModel
+    {
+
+        public IPagedList<Ticker>  lsttmpMainTicker { get; set; }
+        public IPagedList<TickerViewModel> lstMainTicker { get; set; }
+
+        public SelectList lstTickerStatus { get; set; }
+        public SelectList lstPackage { get; set; }
+
+        public int pageNum { get; set; }
+        public int TickerStatus { get; set; }
+        public int TickerPackage { get; set; }
+        public string FillterTickerName { get; set; }
+        public string Datetime { get; set; }
+        public List<ContentPackage> lstContentPackage { get; set; }
+        public Nullable<System.DateTime> StartDT { get; set; }
+        public Nullable<System.DateTime> EndDT { get; set; }
+
+        public long TotalTicker { get; set; }
+        public double TotalProfit { get; set; }
+        public double TotalDeficit { get; set; }
+        public double TotalNumberBTC { get; set; }
+
+        public double Total { get; set; }
+
+        public long[] lstViewUserContent { get; set; }
+
+
+        [Display(Name = "Loại sàn")]
+        public SelectList lstMarketItem { get; set; }
+        public int MarketItemID { get; set; }
+
+
+        [Display(Name = "Loại Coin")]
+        public SelectList lstCyptoItem { get; set; }
+        public long CyptoItemID { get; set; }
+
+        [Display(Name = "Đơn vị")]
+        public SelectList lstUnit { get; set; }
+        public int unit { get; set; }
+    }
+
+
+
     public class TickerMemberViewModel
     {
 
@@ -54,6 +102,11 @@ namespace DataModel.DataViewModel
         [Display(Name = "Loại Coin")]
         public SelectList lstCyptoItem { get; set; }
         public long CyptoItemID { get; set; }
+
+        [Display(Name = "Đơn Vị")]
+        public SelectList lstUnit { get; set; }
+        public int unit { get; set; }
+        
 
     }
 
