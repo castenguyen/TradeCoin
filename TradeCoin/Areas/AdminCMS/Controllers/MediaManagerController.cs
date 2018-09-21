@@ -500,7 +500,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,UpdateVideo")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateVideo")]
         public ActionResult EditVideo(long id)
         {
             VideoViewModels model = new VideoViewModels(cms_db.GetObjMediaContent(id));
@@ -508,7 +508,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstTickerPackage = cms_db.GetlstContentPackage(model.MediaContentId, (int)EnumCore.ObjTypeId.video);
             return View(model);
         }
-        [AdminAuthorize(Roles = "supperadmin,devuser,UpdateVideo")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateVideo")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditVideo(VideoViewModels model, HttpPostedFileBase Default_files)
@@ -544,7 +544,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
             return RedirectToAction("VideoManager");
         }
-        [AdminAuthorize(Roles = "supperadmin,devuser,DeleteVideo")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,DeleteVideo")]
         public async Task<ActionResult> DeleteVideo(long id)
         {
             try

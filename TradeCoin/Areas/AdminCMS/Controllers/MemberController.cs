@@ -722,9 +722,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 long UserId = long.Parse(User.Identity.GetUserId());
                 User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
 
-
-
-               
                 if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
                     Packageid = 5;
@@ -756,9 +753,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     }
                     
                     model.objMediaContent.MediaContentGuidId = Guid.NewGuid();
-
-                    Response.Cookies["ncoincookie"].Expires = DateTime.Now.AddMinutes(20);
-                        Response.Cookies["ncoincookie"].Value = "nguyenhuyvanguoidep";
                     return View(model);
 
                 }

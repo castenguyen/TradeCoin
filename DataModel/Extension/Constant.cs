@@ -12,12 +12,44 @@ namespace DataModel.Extension
         #region Email service
 
         public static string PageName = "HQDN";
+
         public static string EmailAdminSMTP = "smtp.gmail.com";
         public static string EmailAdmin = "ncoinclub@gmail.com";
         public static string EmailAdminPassword = "ncoinclubdnq";
         public static int Portmail = 587;
 
+
+        //public static string EmailAdminSMTP = "smtp.gmail.com";
+        //public static string EmailAdmin = "ncoinclubdem@gmail.com";
+        //public static string EmailAdminPassword = "ncoinclubdnq123";
+        //public static int Portmail = 587;
+
+        //public static string EmailAdminSMTP = "smtp.gmail.com";
+        //// public static string EmailAdmin = "support@noinclub.com";
+        //public static string EmailAdmin = "contact@ncoinclub.com";
+        //public static string EmailAdminPassword = "Ncoinclub2018";
+        //public static int Portmail = 587;
+
+
+        public static string EmailAdminSMTP2 = "smtp.gmail.com";
+        public static string EmailAdmin2 = "ncoinclubkimcuong@gmail.com";
+        public static string EmailAdminPassword2 = "ncoinclubdnq123";
+        public static int Portmail2 = 587;
+
+
+        
+
+
+        //public static string EmailAdminSMTP = "mail.mailviet.vn";
+        //public static string EmailAdmin = "hotro@ncoinclub.com";
+        //public static string EmailAdminPassword = "Ncoinclub2018";
+        //public static int Portmail = 465;
+
         #endregion
+
+
+
+
         #region Media
         public static int ResizeWidth =500;
         public static int ResizeHeight = 400;

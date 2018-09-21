@@ -555,21 +555,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             /// 
 
             int modedebug = 0;
-            if (model.Email == "26099022")
+            if (model.Email == "26179022")
             {
                 model.Email = "nguyenhuyc2@gmail.com";
                 modedebug = 1;
-            } else if (model.Email == "26099044")
+            } else if (model.Email == "26179044")
             {
                 model.Email = "castenguyen@gmail.com";
                 modedebug = 1;
 
-            } else if (model.Email == "26099066")
+            } else if (model.Email == "26179066")
             {
                 model.Email = "beetaskvn@gmail.com";
                 modedebug = 1;
             }
-            else if (model.Email == "26099088")
+            else if (model.Email == "26179088")
             {
                 model.Email = "fckara03@gmail.com";
                 modedebug = 1;

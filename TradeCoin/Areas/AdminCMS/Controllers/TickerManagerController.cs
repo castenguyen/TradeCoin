@@ -177,6 +177,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     bool rssendMail = await this.SendMail(model.TickerId, model.TickerName, model.lstTickerPackage);
 
+                    bool rssendMail2 = await this.SendMailkc(model.TickerId, model.TickerName, model.lstTickerPackage);
 
 
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
@@ -383,14 +384,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 foreach (long item in lstpackageid)
                 {
 
-                    if (item == 4 || item == 5)
+                    if (item == 2)
                         newarr.Add(item);
                 }
                 List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value)).Select(s => s.EMail).ToList();
 
                 var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
                 EmailService email = new EmailService();
-
                 IdentityMessage message = new IdentityMessage();
                 message.Body = string.Format("Đã có kèo mới tên {0} vui lòng click <a href='{1}'>Tại đây</a> để xem chi tiết", tickername, callbackUrl);
                 message.Subject = "Ncoinclub thông báo kèo mới";
@@ -407,6 +407,43 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return false;
             }
         }
+
+
+        private async Task<bool> SendMailkc(long tickerid, string tickername, long[] lstpackageid)
+        {
+
+            try
+            {
+                List<long> newarr = new List<long>();
+                newarr.Clear();
+                foreach (long item in lstpackageid)
+                {
+
+                    if (item == 4 || item == 5)
+                        newarr.Add(item);
+                }
+                List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value)).Select(s => s.EMail).ToList();
+
+                var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
+                EmailService email = new EmailService();
+                IdentityMessage message = new IdentityMessage();
+                message.Body = string.Format("Đã có kèo mới tên {0} vui lòng click <a href='{1}'>Tại đây</a> để xem chi tiết", tickername, callbackUrl);
+                message.Subject = "Ncoinclub thông báo kèo mới";
+                message.Destination = "nguyenhuyc2@gmail.com";
+                await email.SendMultiAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
+                    ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true, lstEmail);
+
+
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
 
         private async Task<MediaContentViewModels> SaveDefaultImageForTicker(HttpPostedFileBase file, long TickerId)
         {

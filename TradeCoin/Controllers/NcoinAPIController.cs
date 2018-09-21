@@ -49,18 +49,7 @@ namespace Alluneecms.Controllers
         public HttpResponseMessage GetVideo(long VideoId )
         {
 
-            string sessionId = "";
 
-            CookieHeaderValue cookie = Request.Headers.GetCookies("ncoincookie").FirstOrDefault();
-            if (cookie != null)
-            {
-                sessionId = cookie["ncoincookie"].Value;
-            }
-            if (sessionId != "nguyenhuyvanguoidep")
-            {
-                return null;
-
-            }
             string fileName = "";
             MediaContent objVideo = new MediaContent();
             objVideo = db.MediaContents.Find(VideoId);
@@ -98,7 +87,7 @@ namespace Alluneecms.Controllers
             try
             {
                 var buffer = new byte[20000000];
-                using (var video = File.Open(_filename, FileMode.Open, FileAccess.Read))
+                using (FileStream video = File.Open(_filename, FileMode.Open, FileAccess.Read,FileShare.Read))
                 {
                     var length = (int)video.Length;
                     var bytesRead = 1;
@@ -117,13 +106,23 @@ namespace Alluneecms.Controllers
             }
             catch (System.Web.HttpException httpEx)
             {
+                Ctrl cms_db = new Ctrl();
                 System.Diagnostics.Debug.WriteLine(httpEx.GetBaseException().Message);
+
+                cms_db.AddToExceptionLog("WriteToStream--> System.Web.HttpException", "NcoinAPIController", httpEx.GetBaseException().Message.ToString());
+
                 if (httpEx.ErrorCode == -2147023667) // The remote host closed the connection. 
+                {
+                   // cms_db.AddToExceptionLog("WriteToStream--> System.Web.HttpException -> The remote host closed the connection.", "NcoinAPIController", httpEx.GetBaseException().Message.ToString());
                     return;
+                }
+                    
             }
             catch (Exception ex)
             {
+                Ctrl cms_db = new Ctrl();
                 System.Diagnostics.Debug.WriteLine(ex.GetBaseException().Message);
+                cms_db.AddToExceptionLog("WriteToStream", "NcoinAPIController", ex.ToString());
                 return;
             }
             finally
