@@ -5,6 +5,10 @@
 @{
     ViewBag.Title = "DetailTicker";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+
+ 
+
+    //  string tmpp =value.ToString("N0");
 }
 <section class="content-header">
     <h1>
@@ -37,26 +41,28 @@
                             <div class="col-md-6">
                                 <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 1</strong>
                                 <p>
-                                    <span class="label label-danger">@Model.SellZone1</span>
+                                    <span class="label label-danger">@Model.DecimaSellZone1</span>
 
                                 </p>
                                 <hr>
                                 <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 2</strong>
                                 <p>
-                                    <span class="label label-danger">@Model.SellZone2</span>
+                                    <span class="label label-danger">@Model.DecimaSellZone2</span>
 
                                 </p>
                                 <hr>
                                 <strong><i class="fa fa-pencil margin-r-5"></i> Vùng bán 3</strong>
                                 <p>
-                                    <span class="label label-danger">@Model.SellZone3</span>
+                                    <span class="label label-danger">@Model.DecimaSellZone3</span>
 
                                 </p>
                             </div>
+
+
                             <div class="col-md-6">
                                 <strong><i class="fa fa-pencil margin-r-5"></i> Vùng mua</strong>
                                 <p>
-                                    <span class="label label-danger">@Model.BuyZone1</span>
+                                    <span class="label label-danger">@Model.DecimaBuyZone1</span>
 
                                 </p>
                                 <hr>

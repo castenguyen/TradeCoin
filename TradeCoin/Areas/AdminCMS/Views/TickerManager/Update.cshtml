@@ -45,7 +45,7 @@
 
                                     @Html.LabelFor(m => m.SellZone1, new { @class = "col-md-12 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.SellZone1, new { @class = "form-control", @Value = (Model.DecimaSellZone1 == null) ? "0" : Model.DecimaSellZone1.ToString() })
                                     </div>
                                     <div class="col-md-2">
                                         @Html.RadioButtonFor(m => m.Flag, "1")
@@ -57,7 +57,7 @@
                                 <div class="input-group col-md-12">
                                     @Html.LabelFor(m => m.SellZone2, new { @class = "col-md-9 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.SellZone2, new { @class = "form-control", @Value = (Model.DecimaSellZone2 == null) ? "0" : Model.DecimaSellZone2.ToString() })
                                     </div>
                                     <div class="col-md-2">
                                         @Html.RadioButtonFor(m => m.Flag, "2")
@@ -68,7 +68,7 @@
                                 <div class="input-group col-md-12">
                                     @Html.LabelFor(m => m.SellZone3, new { @class = "col-md-9 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.SellZone3, new { @class = "form-control", @Value = (Model.DecimaSellZone3 == null) ? "0" : Model.DecimaSellZone3.ToString()    })
                                     </div>
                                     <div class="col-md-2">
                                         @Html.RadioButtonFor(m => m.Flag, "3")
@@ -82,7 +82,7 @@
 
                                     @Html.LabelFor(m => m.BuyZone1, new { @class = "col-md-9 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.BuyZone1, new { @class = "form-control", @Value = (Model.DecimaBuyZone1 == null) ? "0" : Model.DecimaBuyZone1.ToString() })
                                     </div>
 
                                 </div><!-- /input-group -->
@@ -90,7 +90,7 @@
                                 <div class="input-group col-md-12">
                                     @Html.LabelFor(m => m.DeficitControl, new { @class = "col-md-9 control-label" })
                                     <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.DeficitControl, new { @class = "form-control", @Value = (Model.DecimaDeficitControl == null) ? "0" : Model.DecimaDeficitControl.ToString() })
                                     </div>
                                     <div class="col-md-2">
                                         @Html.RadioButtonFor(m => m.Flag, "4")
