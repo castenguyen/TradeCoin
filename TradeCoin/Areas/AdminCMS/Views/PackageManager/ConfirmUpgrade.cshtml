@@ -24,7 +24,7 @@
             <address>
                 <strong>Thông tin tài khoản</strong><br>
                 @Model.UpgradeUserName<br>
-                Phone: (804) 123-5432<br>
+             
                 Email: @Model.UpgradeUserName<br>
                 Mã nâng cấp: @Model.UpgradeToken
             </address>
@@ -75,7 +75,7 @@
                             <td>Vĩnh Viễn</td>
                         }
 
-                        <td>@Model.TotalPrice USD</td>
+                            <td> @String.Format("{0:N0}", Model.TotalPrice) VND</td>
                     </tr>
 
 
@@ -94,26 +94,26 @@
             <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                 Xin chào @Model.UpgradeUserName , Bạn muốn nâng cứ từ
                 @if (String.IsNullOrEmpty(Model.ObjUser.PackageName))
-                {
-                    <span>FREE</span>
-                }
-                else
-                {
-                    @Model.ObjUser.PackageName
-                }
-                @Model.ObjUser.ExpiredDay lên gói cước @Model.PackageName 
-                
+    {
+            <span>FREE</span>
+}
+else
+{
+            @Model.ObjUser.PackageName
+}
+                @Model.ObjUser.ExpiredDay lên gói cước @Model.PackageName
+
                 <BR>Thời gian hết hạn gói cước mới là
                 @if (@Model.TotalDay.HasValue)
-                {
-                    <span>@Model.TotalDay Ngày</span>
-                }
-                else
-                {
+    {
+            <span>@Model.TotalDay Ngày</span>
+}
+else
+{
 
-                    <span>Vĩnh Viễn</span>
-                }
-                số tiền là : @Model.TotalPrice USD  . Tỉ giá là 23.000 vnd / 1 USD .<BR> Bạn vui lòng chuyển khoản theo nội dung sau : @Model.UpgradeToken
+            <span>Vĩnh Viễn</span>
+}
+                số tiền là : @String.Format("{0:N0}", Model.TotalPrice) vnd  . Tỉ giá là 23.000 vnd / 1 USD .<BR> Bạn vui lòng chuyển khoản theo nội dung sau : @Model.UpgradeToken
                 vào tài khoản VietComBank  :
                 STK :0031000339004
                 Chủ TK : Đàm Thị Quỳnh

@@ -429,8 +429,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         message.Body = string.Format("Để xác thực email vui lòng nhấp vào liên kết: <a href='{0}'>Tại đây</a>", callbackUrl);
                         message.Subject = "Xác thực tài khoản";
                         message.Destination = user.Email;
-                        await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
-                            ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
+
+                        int stt = this.GetNumberSTTForSendMail();
+                        await email.SendMailRandom(message, stt, null);
 
                         string AlertString = "Đăng ký tài khoản thành công vui lòng kiểm tra mail để xác nhận tài khoản";
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
@@ -452,7 +453,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     }
                 }
-                return View(model);
+                else {
+                    string AlertString = "Đăng ký tài khoản không thành công vui lòng kiểm tra nhập liệu";
+                    return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
+                }
+             
             }
             catch (Exception e)
             {
@@ -525,6 +530,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 ViewBag.ReturnUrl = returnUrl;
                 Config tmp2 = ExtFunction.Config();
                 ViewBag.SiteName = tmp2.site_name;
+
+              
                 return View("LoginWithCode");
             }
             else
@@ -647,8 +654,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     message.Body = string.Format("Để đăng nhập vui lòng nhấp vào liên kết: <a href='{0}'>Tại đây</a>", callbackUrl);
                     message.Subject = "Đăng nhập";
                     message.Destination = user.Email;
-                    await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
-                        ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
+
+                    int stt = this.GetNumberSTTForSendMail();
+                    await email.SendMailRandom(message, stt,null);
 
                     int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
                                             (int)EnumCore.ActionType.Login, "Login", 0, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
@@ -823,8 +831,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     message.Body = string.Format("Vui lòng nhấp vào đường link: <a href='{0}'>Tại đây</a> để lấy lại mật khẩu", callbackUrl);
                     message.Subject = "Lấy lại mật khẩu";
                     message.Destination = user.Email;
-                    await email.SendAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
-                        ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true);
+
+                    int stt = this.GetNumberSTTForSendMail();
+                    await email.SendMailRandom(message, stt, null);
 
                     return RedirectToAction("ForgotPassword", "AccountAdmin");
                 }
@@ -1140,6 +1149,95 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
 
         }
+
+        [AdminAuthorize(Roles = "supperadmin,devuser")]
+        public ActionResult ListUserInvalid(int? page = 1)
+        {
+            try
+            {
+                int pageNum = (page ?? 1);
+                UserRoleViewModel model = new UserRoleViewModel();
+                IQueryable<User> tmp = null;
+                if (User.IsInRole("devuser"))
+                {
+                    tmp = cms_db.GetUsersNotInRoleByLinkq("devuser");
+                }
+                if (User.IsInRole("supperadmin"))
+                {
+
+                    tmp = cms_db.GetUsersNotInRoleByLinkq("supperadmin");
+                }
+                if (User.IsInRole("AdminUser"))
+                {
+                    tmp = cms_db.GetUsersForAdminByLinkq();
+                }
+
+                tmp = tmp.Where(c =>!c.EMail.Contains("com"));
+
+                // tmp = tmp.Where(c => c.EMail.Any(char.IsUpper) );
+                //|| !c.EMail.Contains("com")
+
+
+                model.LstAllUser = tmp.OrderBy(c => c.EMail).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+                model.Page = pageNum;
+            
+                return View(model);
+            }
+            catch (Exception e)
+            {
+
+                cms_db.AddToExceptionLog("ListUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+        }
+
+        [AdminAuthorize(Roles = "supperadmin,devuser")]
+        public async Task<ActionResult> DeleteAccountByUserId(long id)
+        {
+            try {
+
+
+                User user =await cms_db.GetObjUserById(id);
+                IList<string> lstRole = UserManager.GetRoles(id);
+                foreach (string role in lstRole)
+                {
+                    UserManager.RemoveFromRole(id, role);
+
+                }
+
+                List<UserPackage> lstUserpackage = cms_db.GetlstUserPackageIquery().Where(s => s.UpgradeUID == id).ToList();
+                foreach (UserPackage userpavkage in lstUserpackage)
+                {
+                    cms_db.DeleteUserPackage(userpavkage);
+
+                }
+
+                List<ContentView> lstCTV = cms_db.GetlstContentView().Where(s => s.UserId == id).ToList() ;
+                foreach (ContentView userpavkage in lstCTV)
+                {
+                    cms_db.DeleteContentView(userpavkage);
+
+                }
+
+              await cms_db.DeleteUser(user);
+
+
+
+                string AlertString = "Xoá tài khoản thành công";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+            }  
+            catch (Exception e)
+            {
+
+                cms_db.AddToExceptionLog("ListUser", "AccountAdmin", e.ToString(), long.Parse(User.Identity.GetUserId()));
+                string AlertString = "Không thể xoá tài khoản này";
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
+            }
+
+   
+        }
+
 
         /// <summary>
         /// HIỂN THỊ THÔNG TIN CHI TIẾT USER
@@ -1523,6 +1621,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         #endregion
 
         #region =================================== AddUserRole-AddRoleForUser-RemoveUserRole ===================================================================
+
 
         /// <summary>
         /// THÊM ROLE MỚI CHO USER

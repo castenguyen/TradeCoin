@@ -134,5 +134,37 @@ namespace CMSPROJECT.Areas.AdminCMS.Core
             return (int)EnumCore.Result.action_true;
         }
 
+        public int GetNumberSTTForSendMail()
+        {
+            try {
+                int stt = 0;
+                string num = "";
+                if (HttpContext.Application["NumberSTT"] != null)
+                {
+                    num = HttpContext.Application["NumberSTT"] as string;
+                    stt = int.Parse(num);
+                    int tmp = 0;
+                    if (stt >=11)
+                    {
+                         tmp = 0;
+                    }
+                    else {
+                         tmp = stt + 1;
+                    }
+                    HttpContext.Application["NumberSTT"] = tmp.ToString() ;
+                }
+                else
+                {
+                    HttpContext.Application["NumberSTT"] = "0";
+                    stt = 0;
+                }
+                return stt;
+            }
+            catch {
+                return 0;
+            }
+
+        }
+
     }
 }

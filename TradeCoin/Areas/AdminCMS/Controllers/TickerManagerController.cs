@@ -28,21 +28,34 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             IQueryable<Ticker> tmp = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
             if (TickerStatus.HasValue)
             {
-                tmp = tmp.Where(s => s.StateId == TickerStatus);
-                model.TickerStatus = TickerStatus.Value;
+                if (TickerStatus != 0)
+                {
+                    tmp = tmp.Where(s => s.StateId == TickerStatus);
+                    model.TickerStatus = TickerStatus.Value;
+                }
+               
             }
 
             if (CyptoItemID.HasValue)
             {
-                tmp = tmp.Where(s => s.CyptoID == CyptoItemID.Value);
-                model.CyptoItemID = CyptoItemID.Value;
+                if (CyptoItemID != 0)
+                {
+                    tmp = tmp.Where(s => s.CyptoID == CyptoItemID.Value);
+                    model.CyptoItemID = CyptoItemID.Value;
+
+                }
+               
             }
 
 
             if (MarketItemID.HasValue)
             {
-                tmp = tmp.Where(s => s.MarketID == MarketItemID.Value);
-                model.MarketItemID = MarketItemID.Value;
+                if (MarketItemID != 0)
+                {
+                    tmp = tmp.Where(s => s.MarketID == MarketItemID.Value);
+                    model.MarketItemID = MarketItemID.Value;
+                }
+                
             }
 
             if (unit.HasValue)
@@ -61,17 +74,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             if (TickerPackage.HasValue && TickerPackage.Value != 0)
             {
-                foreach (Ticker _val in tmp)
+                if (TickerPackage != 0)
                 {
-                  
-                    List<ContentPackage> lstpackageofticker= cms_db.GetlstObjContentPackage(_val.TickerId, (int)EnumCore.ObjTypeId.ticker);
-                    if (!lstpackageofticker.Select(s => s.PackageId).Contains(TickerPackage.Value))
+                    foreach (Ticker _val in tmp)
                     {
-                        tmp = tmp.Where(s=>s.TickerId!= _val.TickerId);
-                    }
-                }
 
-                model.TickerPackage = TickerPackage.Value;
+                        List<ContentPackage> lstpackageofticker = cms_db.GetlstObjContentPackage(_val.TickerId, (int)EnumCore.ObjTypeId.ticker);
+                        if (!lstpackageofticker.Select(s => s.PackageId).Contains(TickerPackage.Value))
+                        {
+                            tmp = tmp.Where(s => s.TickerId != _val.TickerId);
+                        }
+                    }
+
+                    model.TickerPackage = TickerPackage.Value;
+                }
+            
             }
 
             if (!String.IsNullOrEmpty(FillterTickerName))
@@ -177,7 +194,6 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     bool rssendMail = await this.SendMail(model.TickerId, model.TickerName, model.lstTickerPackage);
 
-                    bool rssendMail2 = await this.SendMailkc(model.TickerId, model.TickerName, model.lstTickerPackage);
 
 
                     int rs2 = await cms_db.CreateUserHistory(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
@@ -383,11 +399,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 newarr.Clear();
                 foreach (long item in lstpackageid)
                 {
-
-                    if (item == 2)
+                    if (item == 2 || item == 4 || item == 5)
                         newarr.Add(item);
                 }
-                List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value)).Select(s => s.EMail).ToList();
+                List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value) 
+                            && s.EmailConfirmed==true && s.IsLocked==false).Select(s => s.EMail).ToList();
+
 
                 var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
                 EmailService email = new EmailService();
@@ -395,45 +412,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 message.Body = string.Format("Đã có kèo mới tên {0} vui lòng click <a href='{1}'>Tại đây</a> để xem chi tiết", tickername, callbackUrl);
                 message.Subject = "Ncoinclub thông báo kèo mới";
                 message.Destination ="nguyenhuyc2@gmail.com";
-                await email.SendMultiAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
-                    ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true, lstEmail);
 
-
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
-
-
-        private async Task<bool> SendMailkc(long tickerid, string tickername, long[] lstpackageid)
-        {
-
-            try
-            {
-                List<long> newarr = new List<long>();
-                newarr.Clear();
-                foreach (long item in lstpackageid)
+                int countEmail = lstEmail.Count / 12;
+                for (int i = 0; i < 11; i++)
                 {
-
-                    if (item == 4 || item == 5)
-                        newarr.Add(item);
+                    if (i == 0)
+                    {
+                        List<string> lstmp = lstEmail.Skip(0).Take(countEmail).ToList();
+                        await email.SendMailRandom(message, i, lstmp);
+                    }
+                    else
+                    {
+                        List<string> lstmp = lstEmail.Skip((i * countEmail) - 1).Take(countEmail).ToList();
+                        await email.SendMailRandom(message, i, lstmp);
+                    }
                 }
-                List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value)).Select(s => s.EMail).ToList();
-
-                var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
-                EmailService email = new EmailService();
-                IdentityMessage message = new IdentityMessage();
-                message.Body = string.Format("Đã có kèo mới tên {0} vui lòng click <a href='{1}'>Tại đây</a> để xem chi tiết", tickername, callbackUrl);
-                message.Subject = "Ncoinclub thông báo kèo mới";
-                message.Destination = "nguyenhuyc2@gmail.com";
-                await email.SendMultiAsync(message, ConstantSystem.EmailAdmin, ConstantSystem.EmailAdmin,
-                    ConstantSystem.EmailAdminPassword, ConstantSystem.EmailAdminSMTP, ConstantSystem.Portmail, true, lstEmail);
-
-
 
                 return true;
             }
@@ -444,6 +437,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
+
+     
 
         private async Task<MediaContentViewModels> SaveDefaultImageForTicker(HttpPostedFileBase file, long TickerId)
         {

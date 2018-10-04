@@ -2,7 +2,7 @@
 @{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 
 @using DataModel.Extension;
@@ -367,26 +367,26 @@
             <tr>
                 <td>Giá 1 tháng</td>
                 <td></td>
-                <td>@ViewBag.Night1M Vnd</td>
+                <td>   @String.Format( "{0:N0}", ViewBag.Night1M) Vnd</td>
                 @*<td>@ViewBag.Silver1M Usd</td>*@
-                <td>@ViewBag.Gold1M Usd</td>
-                <td>@ViewBag.Diamond1M Usd</td>
+                <td> @String.Format("{0:N0}", ViewBag.Gold1M) Vnd</td>
+                <td>@String.Format("{0:N0}", ViewBag.Diamond1M) Vnd</td>
             </tr>
             <tr>
                 <td>Giá 1 quý</td>
                 <td></td>
-                <td>@ViewBag.Night3M Usd</td>
+                <td>@String.Format("{0:N0}", ViewBag.Night3M) Vnd</td>
                 @*<td>@ViewBag.Silver3M Usd</td>*@
-                <td>@ViewBag.Gold3M Usd</td>
-                <td>@ViewBag.Diamond3M Usd</td>
+                <td>@String.Format("{0:N0}", ViewBag.Gold3M) Vnd</td>
+                <td>@String.Format("{0:N0}", ViewBag.Diamond3M) Vnd</td>
             </tr>
             <tr>
                 <td>Giá vĩnh viễn</td>
                 <td></td>
-                <td>@ViewBag.NightForever Usd</td>
+                <td>@String.Format("{0:N0}", ViewBag.NightForever) Vnd</td>
                 @*<td>@ViewBag.SilverForever Usd</td>*@
-                <td>@ViewBag.GoldForever Usd</td>
-                <td>@ViewBag.DiamondForever Usd</td>
+                <td>@String.Format("{0:N0}", ViewBag.GoldForever) Vnd</td>
+                <td>@String.Format("{0:N0}", ViewBag.DiamondForever) Vnd</td>
             </tr>
         </table>
     </div>

@@ -44,15 +44,24 @@
 
                             </div><!-- /.box-header -->
                             <div class="box-body text-center">
-                                <a href="@Url.Action("ConfirmUpgrade", "PackageManager",new { UserId = User.Identity.GetUserId(), PackageId = _val.PackageId,PackageTimeType=(int)EnumCore.PackageTimeType.thang })" class="label label-success"><b>30 ngày - @_val.NewPrice vnđ</b></a>
+                                <a href="@Url.Action("ConfirmUpgrade", "PackageManager",new { UserId = User.Identity.GetUserId(),
+                                        PackageId = _val.PackageId,PackageTimeType=(int)EnumCore.PackageTimeType.thang })" class="label label-success"><b>
+    30 ngày -
+     @String.Format("{0:N0}", _val.NewPrice) vnđ
+</b></a>
                                 <br>
 
                                 @{ double val = _val.NewPrice.Value * 3; }
-                                <a href="@Url.Action("ConfirmUpgrade", "PackageManager", new { UserId = User.Identity.GetUserId(), PackageId = _val.PackageId,PackageTimeType=(int)EnumCore.PackageTimeType.quy })" class="label label-success"><b>90 ngày - @_val.NewPrice3M   vnđ</b></a>
+                                <a href="@Url.Action("ConfirmUpgrade", "PackageManager", new { UserId = User.Identity.GetUserId(),
+                                        PackageId = _val.PackageId,PackageTimeType=(int)EnumCore.PackageTimeType.quy })" class="label label-success"><b>
+    90 ngày - @String.Format("{0:N0}", _val.NewPrice3M)   vnđ
+</b></a>
                                 <br>
 
                                 <a href="@Url.Action("ConfirmUpgrade", "PackageManager",
-                                    new { UserId = User.Identity.GetUserId(), PackageId = _val.PackageId ,PackageTimeType=(int)EnumCore.PackageTimeType.vinhvien})" class="label label-success"><b>  Vĩnh viễn - @_val.ForeverPrice.Value vnđ</b></a>
+                                    new { UserId = User.Identity.GetUserId(), PackageId = _val.PackageId ,
+                                        PackageTimeType =(int)EnumCore.PackageTimeType.vinhvien})" class="label label-success"><b>  Vĩnh viễn - 
+                                    @String.Format("{0:N0}", _val.ForeverPrice.Value) vnđ</b></a>
 
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
@@ -69,7 +78,8 @@
                             </div><!-- /.box-header -->
                             <div class="box-body text-center">
                                 <a href="@Url.Action("ConfirmUpgrade", "PackageManager",
-                                    new { UserId = User.Identity.GetUserId(), PackageId = _val.PackageId ,PackageTimeType=(int)EnumCore.PackageTimeType.thang})" class="label label-success"><b>30 ngày - @_val.NewPrice vnđ</b></a>
+                                    new { UserId = User.Identity.GetUserId(), PackageId = _val.PackageId ,
+                                        PackageTimeType =(int)EnumCore.PackageTimeType.thang})" class="label label-success"><b>30 ngày - @String.Format("{0:N0}", _val.NewPrice) vnđ</b></a>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                         </div><!-- /.col -->

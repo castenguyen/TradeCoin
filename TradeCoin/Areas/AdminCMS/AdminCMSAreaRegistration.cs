@@ -148,6 +148,14 @@ namespace CMSPROJECT.Areas.AdminCMS
                 new { controller = "AccountAdmin", action = "ListUser" }
                  );
 
+
+            context.MapRoute(
+              "AdminCMS_ListUserInvalid",
+              "administrator/Account/ListUserInvalid",
+              new { controller = "AccountAdmin", action = "ListUserInvalid" }
+               );
+            
+
             context.MapRoute(
               "AdminCMS_DetailUser",
               "administrator/Account/DetailUser",
@@ -224,7 +232,13 @@ new { controller = "AccountAdmin", action = "ManualConfirmMail" }
   new { controller = "AccountAdmin", action = "Profile" }
    );
 
+            context.MapRoute(
+"AdminCMS_DeleteAccountByUserId",
+"administrator/Account/DeleteAccountByUserId",
+new { controller = "AccountAdmin", action = "DeleteAccountByUserId" }
+);
 
+            
 
 
             #endregion  END AccountAdmin
