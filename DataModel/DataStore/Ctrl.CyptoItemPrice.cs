@@ -71,5 +71,20 @@ namespace DataModel.DataStore
             }
         }
 
+        public bool TruncatableCyptoItemPrice()
+        {
+            try
+            {
+                db.Database.ExecuteSqlCommand("TRUNCATE TABLE [CyptoItemPrice]");
+                int rs = db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
     }
 }

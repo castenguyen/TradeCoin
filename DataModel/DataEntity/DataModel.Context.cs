@@ -66,6 +66,7 @@ namespace DataModel.DataEntity
         public virtual DbSet<CyptoItem> CyptoItems { get; set; }
         public virtual DbSet<CyptoItemPrice> CyptoItemPrices { get; set; }
         public virtual DbSet<MarketItem> MarketItems { get; set; }
+        public virtual DbSet<Margin> Margins { get; set; }
     
         public virtual int GetDataUserInfor(string username)
         {

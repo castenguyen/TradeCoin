@@ -134,6 +134,48 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return PartialView("_MainSliderPartial", MainModel);
         }
 
+        public async Task<ActionResult> ControlSidebarPartial()
+        {
+            BoxMargin MainModel = new BoxMargin();
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Mod") || User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                {
+                    MainModel.packageId = 5;
+                }
+                else
+                {
+                    long UserId = long.Parse(User.Identity.GetUserId());
+                    User ObjectCurentUser = await cms_db.GetObjUserById(UserId);
+                    MainModel.packageId = ObjectCurentUser.PackageId.Value;
+                }
+             
+            }
+            else
+            {
+                MainModel.packageId = 0;
+            }
+
+            try {
+
+
+                MainModel.FreeObject = cms_db.GetMarginByPackageLinq((int)EnumCore.Package.free);
+                MainModel.DemObject = cms_db.GetMarginByPackageLinq((int)EnumCore.Package.dem);
+                MainModel.VangObject = cms_db.GetMarginByPackageLinq((int)EnumCore.Package.vang);
+                MainModel.KCObject = cms_db.GetMarginByPackageLinq((int)EnumCore.Package.kimcuong);
+            }
+            catch {
+
+
+
+            }
+          
+            return PartialView("_ControlSidebarPartial", MainModel);
+
+        }
+
+            
+
 
         public ActionResult MainHeaderPartial()
         {

@@ -166,7 +166,9 @@ namespace DataModel.DataStore
             try
             {
                 List<SelectListObj> lstobjUser = this.db.Database.SqlQuery<SelectListObj>("exec GetLstUserNotIsRole @RoleID,@PageNum,@RecorNum", 
-                            new SqlParameter("@RoleID", RoleId), new SqlParameter("@PageNum", PageNum), new SqlParameter("@RecorNum", RecordNum)).ToList();
+                            new SqlParameter("@RoleID", RoleId), 
+                            new SqlParameter("@PageNum", PageNum), 
+                            new SqlParameter("@RecorNum", RecordNum)).ToList();
                 return lstobjUser;
             }
             catch (Exception ex)
@@ -175,6 +177,9 @@ namespace DataModel.DataStore
                 return null;
             }
         }
+
+       
+        
 
         public IQueryable<User> GetUsersNotInRoleByLinkq(string roleName)
         {
@@ -260,6 +265,22 @@ namespace DataModel.DataStore
             try
             {
                 db.Entry(_Role).State = EntityState.Modified;
+                return await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                this.AddToExceptionLog("function UpdateRole", "BackEndCode", ex.ToString());
+                return 0;
+            }
+        }
+
+
+
+        public async Task<int> DeleteUser(User user)
+        {
+            try
+            {
+                db.Users.Remove(user);
                 return await db.SaveChangesAsync();
             }
             catch (Exception ex)

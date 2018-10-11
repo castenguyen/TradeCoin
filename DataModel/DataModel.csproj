@@ -228,6 +228,9 @@
     <Compile Include="DataEntity\GetProductHome_Result.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataEntity\Margin.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataEntity\MarketItem.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -316,6 +319,7 @@
     <Compile Include="DataStore\Ctrl.CyptoItemPrice.cs" />
     <Compile Include="DataStore\Ctrl.EmailSupport.cs" />
     <Compile Include="DataStore\Ctrl.ImageHelper.cs" />
+    <Compile Include="DataStore\Ctrl.Margin.cs" />
     <Compile Include="DataStore\Ctrl.MarketItem.cs" />
     <Compile Include="DataStore\Ctrl.NotifiRequest.cs" />
     <Compile Include="DataStore\Ctrl.Package.cs" />
@@ -355,6 +359,7 @@
     <Compile Include="DataViewModel\DisplayTypeViewModels.cs" />
     <Compile Include="DataViewModel\InformationOrderViewModel.cs" />
     <Compile Include="DataViewModel\ItemCartViewModel.cs" />
+    <Compile Include="DataViewModel\MarginViewModel.cs" />
     <Compile Include="DataViewModel\MediaContentViewModels.cs" />
     <Compile Include="DataViewModel\MemberFrontEndViewModel.cs" />
     <Compile Include="DataViewModel\MicroClassifiViewModels.cs" />

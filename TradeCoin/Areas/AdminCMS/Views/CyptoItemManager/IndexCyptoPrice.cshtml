@@ -57,7 +57,8 @@
                                     <th>Tên</th>
                                     <th>Mã</th>
                                     <th>Ngày cập nhật</th>
-                                    <th>Gía</th>
+                                    <th>Gía USD</th>
+                                    <th>Gía BTC</th>
 
                                 </tr>
                                 @foreach (CyptoItemPrice _item in Model.lstMainCypto)
@@ -68,6 +69,7 @@
                                     <td>@_item.symbol</td>
                                     <td>@_item.CyptoItemPriceUpdate</td>
                                     <td> @_item.USD_price </td>
+                                    <td> @_item.BTC_price </td>
                                 </tr>
                                 }
 

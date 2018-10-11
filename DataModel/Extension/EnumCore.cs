@@ -34,6 +34,7 @@ namespace DataModel.Extension
             package= 11914,
             ticker= 11915,
             emailsupport= 11923,
+            margin = 11926,
 
         }
         public enum IsEvent : int
@@ -180,6 +181,7 @@ namespace DataModel.Extension
             chatgroup = 1,
             changepass =0,
             cyptoitem =1,
+            margin = 1,
         }
         public enum ProjectConfig_System : int
         {

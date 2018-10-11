@@ -54,15 +54,24 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @RenderBody()
+
         </div>
         <!-- /.content-wrapper -->
         @Html.Partial("_FooterPartial")
         <!-- Control Sidebar -->
-        @Html.Partial("_ControlSidebarPartial")
+
+        @Html.Action("ControlSidebarPartial", "Dashboard")
+
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
+     immediately after the control sidebar -->
+        <div class="control-sidebar-bg">
+
+
+        </div>
+
+
+
     </div><!-- ./wrapper -->
     <!-- jQuery 2.1.4 -->
     <!-- jQuery UI 1.11.4 -->

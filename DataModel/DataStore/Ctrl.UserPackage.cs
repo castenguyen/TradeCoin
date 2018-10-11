@@ -105,16 +105,21 @@ namespace DataModel.DataStore
         }
 
 
-        //public int DeleteUserPackage(long ContentId)
-        //{
-        //    List<UserPackage> lstUserPackage = db.UserPackages.Where(s => s.ContentId == ContentId && s.ContentType == Type).ToList();
-        //    foreach (UserPackage item in lstUserPackage)
-        //    {
-        //        db.UserPackages.Remove(item);
-        //        db.SaveChanges();
-        //    }
-        //    return (int)EnumCore.Result.action_true;
-        //}
+        public int DeleteUserPackage(UserPackage item)
+        {
+            try
+            {
+                db.UserPackages.Remove(item);
+                db.SaveChanges();
+
+                return (int)EnumCore.Result.action_true;
+            }
+            catch (Exception e)
+            {
+                return (int)EnumCore.Result.action_false;
+            }
+          
+        }
 
     }
 }

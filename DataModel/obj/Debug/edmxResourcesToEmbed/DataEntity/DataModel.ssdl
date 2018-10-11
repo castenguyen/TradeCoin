@@ -296,6 +296,30 @@
     <Property Name="lat" Type="nvarchar" MaxLength="50" />
     <Property Name="AreaWardId" Type="int" />
   </EntityType>
+  <EntityType Name="Margin">
+    <Key>
+      <PropertyRef Name="MarginId" />
+    </Key>
+    <Property Name="MarginId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MarginName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Long" Type="float" />
+    <Property Name="LongStop" Type="float" />
+    <Property Name="LongRate" Type="float" />
+    <Property Name="LongNote" Type="nvarchar(max)" />
+    <Property Name="Short" Type="float" />
+    <Property Name="ShortStop" Type="float" />
+    <Property Name="ShortRate" Type="float" />
+    <Property Name="ShortNote" Type="nvarchar(max)" />
+    <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+    <Property Name="CrtdUserId" Type="bigint" />
+    <Property Name="CrtdDT" Type="datetime" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
+    <Property Name="PackageId" Type="bigint" />
+    <Property Name="Flag" Type="int" />
+    <Property Name="ExContent" Type="nvarchar(max)" />
+  </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="MarketItem">
@@ -1077,6 +1101,7 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
     <EntitySet Name="EmailSupport" EntityType="Self.EmailSupport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Margin" EntityType="Self.Margin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />

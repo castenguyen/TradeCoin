@@ -827,7 +827,15 @@ new { controller = "AccountAdmin", action = "DeleteAccountByUserId" }
         new { controller = "Dashboard", action = "MainHeaderPartial" }
         );
 
+
+            context.MapRoute(
+        "AdminCMS_Dashboard_ControlSidebarPartial",
+        "administrator/Dashboard/ControlSidebarPartial",
+        new { controller = "Dashboard", action = "ControlSidebarPartial" }
+        );
+
             
+
 
             #endregion dashboad
 
@@ -1285,9 +1293,47 @@ new { controller = "PackageManager", action = "Export" }
      new { controller = "CyptoItemManager", action = "IndexCyptoPrice" }
      );
 
+
+
+            #endregion
+
+
+            #region --------------------------------- margin ----------------------------
+
+              context.MapRoute(
+                "AdminCMS_MarginManager_Index",
+                "MarginManager/Index",
+                new { controller = "MarginManager", action = "Index" }
+                );
+
+            context.MapRoute(
+              "AdminCMS_MarginManager_Create",
+              "MarginManager/Create",
+              new { controller = "MarginManager", action = "Create" }
+              );
+
+            context.MapRoute(
+               "AdminCMS_MarginManager_Update",
+               "MarginManager/Update",
+               new { controller = "MarginManager", action = "Update" }
+               );
+
+            context.MapRoute(
+            "AdminCMS_MarginManager_Delete",
+            "MarginManager/Delete",
+            new { controller = "MarginManager", action = "Delete" }
+            );
+
+            context.MapRoute(
+            "AdminCMS_MarginManager_ObjectNotificationMargin",
+            "MarginManager/ObjectNotificationMargin",
+            new { controller = "MarginManager", action = "ObjectNotificationMargin" }
+            );
+
             
 
             #endregion
+
 
             #region ShopCartManager
             context.MapRoute(

@@ -32,7 +32,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             if (!String.IsNullOrEmpty(letter))
             {
                 letter = letter.ToLower();
-                tmp = tmp.Where(c => c.name.StartsWith(letter) || c.name.StartsWith(letter));
+                tmp = tmp.Where(c => c.symbol.StartsWith(letter) || c.symbol.StartsWith(letter));
                 model.letter = letter;
             }
             if (status.HasValue)

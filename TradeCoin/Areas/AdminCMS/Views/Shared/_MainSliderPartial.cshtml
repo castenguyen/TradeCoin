@@ -26,423 +26,439 @@
             <li class="header">Danh mục</li>
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.dashboard == 1)
-    {
+            {
 
-        if (User.IsInRole("Mod") || User.IsInRole("AdminUser"))
-        {
-            <li class="treeview">
-                <a href="@Url.Action("ModIndex", "Dashboard", new { area = "AdminCMS" })">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
+                if (User.IsInRole("Mod") || User.IsInRole("AdminUser"))
+                {
+                    <li class="treeview">
+                        <a href="@Url.Action("ModIndex", "Dashboard", new { area = "AdminCMS" })">
+                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
 
-}
-else if (User.IsInRole("devuser") || User.IsInRole("supperadmin"))
-{
-        <li class="treeview">
-            <a href="@Url.Action("Index", "Dashboard", new { area = "AdminCMS" })">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
-        </li>
+                }
+                else if (User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                {
+                    <li class="treeview">
+                        <a href="@Url.Action("Index", "Dashboard", new { area = "AdminCMS" })">
+                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
 
-}
-else
-{
+                }
+                else
+                {
 
-        <li class="treeview">
-            <a href="@Url.Action("MemberDashBoard", "Member", new { area = "AdminCMS" })">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            </a>
-        </li>
+                    <li class="treeview">
+                        <a href="@Url.Action("MemberDashBoard", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
 
-}
+                }
 
 
-}
+            }
             @if ((int)EnumCore.SystemConfig_MenuLeft.classification == 1)
-    {
-        if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
-        {
-            <li class="treeview">
-                <a href="@Url.Action("Index", "ClassificationScheme", new { area= "AdminCMS" })">
-                    <i class="fa fa-files-o"></i>
-                    <span>Quản Lý Danh Mục</span>
-                </a>
-            </li>
+            {
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                {
+                    <li class="treeview">
+                        <a href="@Url.Action("Index", "ClassificationScheme", new { area= "AdminCMS" })">
+                            <i class="fa fa-files-o"></i>
+                            <span>Quản Lý Danh Mục</span>
+                        </a>
+                    </li>
 
-}
-}
+                }
+            }
             @if ((int)EnumCore.SystemConfig_MenuLeft.comment == 1)
-    {
-        <li>
-            <a href="@Url.Action("Index", "CommentManager", new { area = "AdminCMS" })">
-                <i class="fa fa-comments"></i> <span>Quản lý Comment</span>
-            </a>
-        </li>
-}
+            {
+                <li>
+                    <a href="@Url.Action("Index", "CommentManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-comments"></i> <span>Quản lý Comment</span>
+                    </a>
+                </li>
+            }
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.news == 1)
-    {
-        if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-        {
+            {
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
 
-            <li class="treeview">
-                <a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })">
-                    <i class="fa fa-list-alt"></i>
-                    <span>Quản lý Tin Tức</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Bài Viết</a></li>
-                    <li><a href="@Url.Action("Create", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Bài Viết</a></li>
-                </ul>
-            </li>
-}
-else
-{
+                    <li class="treeview">
+                        <a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Quản lý Tin Tức</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Bài Viết</a></li>
+                            <li><a href="@Url.Action("Create", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Bài Viết</a></li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
 
-        <li>
-            <a href="@Url.Action("ListNews", "Member", new { area = "AdminCMS" })">
-                <i class="fa fa-comments"></i> <span>Tất cả tin tức</span>
-            </a>
-        </li>
-}
+                    <li>
+                        <a href="@Url.Action("ListNews", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-comments"></i> <span>Tất cả tin tức</span>
+                        </a>
+                    </li>
+                }
 
-}
+            }
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.pageinfo == 1)
-    {
-        if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-        {
+            {
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
 
-            <li class="treeview">
-                <a href="@Url.Action("PageInforIndex", "ContentItem", new { area = "AdminCMS" })">
-                    <i class="fa fa-list-alt"></i>
-                    <span>Quản lý trang thông tin</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="@Url.Action("PageInforIndex", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả </a></li>
-                    <li><a href="@Url.Action("CreatePageInfor", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm </a></li>
-                </ul>
-            </li>
-}
+                    <li class="treeview">
+                        <a href="@Url.Action("PageInforIndex", "ContentItem", new { area = "AdminCMS" })">
+                            <i class="fa fa-list-alt"></i>
+                            <span>Quản lý trang thông tin</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("PageInforIndex", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả </a></li>
+                            <li><a href="@Url.Action("CreatePageInfor", "ContentItem", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm </a></li>
+                        </ul>
+                    </li>
+                }
 
-
-}
-
-
-
-
-            @if ((int)EnumCore.SystemConfig_MenuLeft.product == 1)
-    {
-        <li class="treeview">
-            <a href="@Url.Action("Index", "ProductManager", new { area = "AdminCMS" })">
-                <i class="fa fa-list-alt"></i>
-                <span>Quản lý Sản Phẩm</span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="@Url.Action("Index", "ProductManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất Cả Sản Phẩm</a></li>
-                <li><a href="@Url.Action("Create", "ProductManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Sản Phẩm</a></li>
-            </ul>
-        </li>
-}
-
-
-            @if ((int)EnumCore.SystemConfig_MenuLeft.media == 1)
-    {
-        if (User.IsInRole("devuser") || User.IsInRole("supperadmin"))
-        {
-
-            <li class="treeview">
-                <a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })">
-                    <i class="fa fa-user"></i>
-                    <span>Quản lý Media</span>
-                </a>
-                <ul class="treeview-menu">
-                    @*<li><a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Hình Ảnh</a></li>
-                <li><a href="@Url.Action("BannerManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Banner</a></li>*@
-                    <li><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Video</a></li>
-                </ul>
-            </li>
-}
-else if (User.IsInRole("Mod") || User.IsInRole("AdminUser"))
-{
-        <li>
-            <a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })">
-                <i class="fa fa-comments"></i> <span>Quản lý Video</span>
-            </a>
-        </li>
-}
-else if (User.IsInRole("Member"))
-{
-        <li>
-            <a href="@Url.Action("ListVideo", "Member", new { area = "AdminCMS" })">
-                <i class="fa fa-comments"></i> <span>Video</span>
-            </a>
-        </li>
-
-
-}
-
-}
-
-
-            @if ((int)EnumCore.SystemConfig_MenuLeft.display == 1)
-    {
-        <li>
-            <a href="@Url.Action("Create", "DisplayManager", new { area = "AdminCMS" })">
-                <i class="fa fa-comments"></i> <span>Quản lý Nội Dung Hiển Thị</span>
-            </a>
-        </li>
-}
-
-
-
-            @if ((int)EnumCore.SystemConfig_MenuLeft.tag == 1)
-    {
-        <li>
-            <a href="@Url.Action("Index", "ContentTag", new { area = "AdminCMS" })">
-                <i class="fa fa-tags"></i> <span>Quản lý Tag</span>
-            </a>
-        </li>
-}
-
-
-            @if ((int)EnumCore.SystemConfig_MenuLeft.user == 1)
-    {
-        if (User.IsInRole("devuser") || User.IsInRole("supperadmin"))
-        {
-
-            <li class="treeview">
-                <a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })">
-                    <i class="fa fa-user"></i>
-                    <span>Quản lý Tài Khoản</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Profile</a></li>
-                    <li><a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Danh sách tài khoản</a></li>
-                    <li><a href="@Url.Action("ListUserInvalid", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Danh sách tài khoản spam</a></li>
-                    <li><a href="@Url.Action("ListUserUpgrade", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Duyệt nâng cấp</a></li>
-                    <li><a href="@Url.Action("TrackingFinance", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi tài chính</a></li>
-                </ul>
-            </li>
-    
 
             }
 
 
 
 
+            @if ((int)EnumCore.SystemConfig_MenuLeft.product == 1)
+            {
+                <li class="treeview">
+                    <a href="@Url.Action("Index", "ProductManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-list-alt"></i>
+                        <span>Quản lý Sản Phẩm</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "ProductManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất Cả Sản Phẩm</a></li>
+                        <li><a href="@Url.Action("Create", "ProductManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm Sản Phẩm</a></li>
+                    </ul>
+                </li>
+            }
+
+
+            @if ((int)EnumCore.SystemConfig_MenuLeft.media == 1)
+            {
+                if (User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                {
+
+                    <li class="treeview">
+                        <a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })">
+                            <i class="fa fa-user"></i>
+                            <span>Quản lý Media</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @*<li><a href="@Url.Action("Index", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Hình Ảnh</a></li>
+                                <li><a href="@Url.Action("BannerManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Banner</a></li>*@
+                            <li><a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Quản lý Video</a></li>
+                        </ul>
+                    </li>
+                }
+                else if (User.IsInRole("Mod") || User.IsInRole("AdminUser"))
+                {
+                    <li>
+                        <a href="@Url.Action("VideoManager", "MediaManager", new { area = "AdminCMS" })">
+                            <i class="fa fa-comments"></i> <span>Quản lý Video</span>
+                        </a>
+                    </li>
+                }
+                else if (User.IsInRole("Member"))
+                {
+                    <li>
+                        <a href="@Url.Action("ListVideo", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-comments"></i> <span>Video</span>
+                        </a>
+                    </li>
+
+
+                }
+
+            }
+
+
+            @if ((int)EnumCore.SystemConfig_MenuLeft.display == 1)
+            {
+                <li>
+                    <a href="@Url.Action("Create", "DisplayManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-comments"></i> <span>Quản lý Nội Dung Hiển Thị</span>
+                    </a>
+                </li>
+            }
+
+
+
+            @if ((int)EnumCore.SystemConfig_MenuLeft.tag == 1)
+            {
+                <li>
+                    <a href="@Url.Action("Index", "ContentTag", new { area = "AdminCMS" })">
+                        <i class="fa fa-tags"></i> <span>Quản lý Tag</span>
+                    </a>
+                </li>
+            }
+
+
+            @if ((int)EnumCore.SystemConfig_MenuLeft.user == 1)
+            {
+                if (User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                {
+
+                    <li class="treeview">
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })">
+                            <i class="fa fa-user"></i>
+                            <span>Quản lý Tài Khoản</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Profile</a></li>
+                            <li><a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Danh sách tài khoản</a></li>
+                            <li><a href="@Url.Action("ListUserInvalid", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Danh sách tài khoản spam</a></li>
+                            <li><a href="@Url.Action("ListUserUpgrade", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Duyệt nâng cấp</a></li>
+                            <li><a href="@Url.Action("TrackingFinance", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi tài chính</a></li>
+                        </ul>
+                    </li>
+
+
+                }
 
 
 
 
-if (User.IsInRole("AdminUser"))
-{
-
-        <li class="treeview">
-            <a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })">
-                <i class="fa fa-user"></i>
-                <span>Quản lý Tài Khoản</span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Profile</a></li>
-                <li><a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Danh sách tài khoản</a></li>
-                <li><a href="@Url.Action("ListUserUpgrade", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Duyệt nâng cấp</a></li>
-                <li><a href="@Url.Action("TrackingFinance", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi tài chính</a></li>
-            </ul>
-        </li>
-}
-else
-{
-
-        <li>
-            <a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })">
-                <i class="fa fa-tags"></i> <span>Hồ Sơ cá nhân</span>
-            </a>
-        </li>
 
 
 
 
-}
+                if (User.IsInRole("AdminUser"))
+                {
+
+                    <li class="treeview">
+                        <a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })">
+                            <i class="fa fa-user"></i>
+                            <span>Quản lý Tài Khoản</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Profile</a></li>
+                            <li><a href="@Url.Action("ListUser", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i> Danh sách tài khoản</a></li>
+                            <li><a href="@Url.Action("ListUserUpgrade", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Duyệt nâng cấp</a></li>
+                            <li><a href="@Url.Action("TrackingFinance", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi tài chính</a></li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+
+                    <li>
+                        <a href="@Url.Action("Profile", "AccountAdmin", new { area = "AdminCMS" })">
+                            <i class="fa fa-tags"></i> <span>Hồ Sơ cá nhân</span>
+                        </a>
+                    </li>
 
 
-}
+
+
+                }
+
+
+            }
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.role == 1 && User.IsInRole("devuser"))
-    {
-        <li class="treeview">
-            <a href="@Url.Action("Index", "RoleManager", new { area = "AdminCMS" })">
-                <i class="fa fa-user"></i>
-                <span>Quản lý Role</span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="@Url.Action("Index", "RoleManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Role</a></li>
-                <li><a href="@Url.Action("AddNewRole", "RoleManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Role</a></li>
-            </ul>
-        </li>
-}
+            {
+                <li class="treeview">
+                    <a href="@Url.Action("Index", "RoleManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-user"></i>
+                        <span>Quản lý Role</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "RoleManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Role</a></li>
+                        <li><a href="@Url.Action("AddNewRole", "RoleManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Role</a></li>
+                    </ul>
+                </li>
+            }
 
 
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.config == 1 && (User.IsInRole("devuser") || User.IsInRole("supperadmin")))
-    {
-        <li>
-            <a href="@Url.Action("Index", "Config", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Cấu Hình</span>
-            </a>
-        </li>
-}
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Config", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Cấu Hình</span>
+                    </a>
+                </li>
+            }
             @if ((int)EnumCore.SystemConfig_MenuLeft.cyptoitem == 1 && (User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("AdminUser")))
-    {
-        <li>
-            <a href="@Url.Action("Index", "CyptoItemManager", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Quản lý Coin</span>
-            </a>
-        </li>
-}
+            {
+                <li>
+                    <a href="@Url.Action("Index", "CyptoItemManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Quản lý Coin</span>
+                    </a>
+                </li>
+            }
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.cyptoitem == 1 && (User.IsInRole("devuser") || User.IsInRole("supperadmin")))
-    {
-        <li>
-            <a href="@Url.Action("IndexCyptoPrice", "CyptoItemManager", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Xem giá Coin</span>
-            </a>
-        </li>
-}
+            {
+                <li>
+                    <a href="@Url.Action("IndexCyptoPrice", "CyptoItemManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Xem giá Coin</span>
+                    </a>
+                </li>
+            }
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.history == 1 && User.IsInRole("devuser"))
-    {
-        <li class="treeview">
-            <a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })">
-                <i class="fa fa-list-alt"></i>
-                <span>Quản lý lịch sử</span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Lịch sử lỗi</a></li>
-                <li><a href="@Url.Action("HistoryAction", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Lịch sử hệ thống</a></li>
+            {
+                <li class="treeview">
+                    <a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-list-alt"></i>
+                        <span>Quản lý lịch sử</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Lịch sử lỗi</a></li>
+                        <li><a href="@Url.Action("HistoryAction", "HistoryManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Lịch sử hệ thống</a></li>
 
-            </ul>
-        </li>
-}
+                    </ul>
+                </li>
+            }
 
 
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.order == 1)
-    {
-        <li class="treeview">
-            <a href="@Url.Action("Index", "ShopCartManager", new { area = "AdminCMS" })">
-                <i class="fa fa-list-alt"></i>
-                <span>Quản lý Đơn hàng</span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="@Url.Action("Index", "ShopCartManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Đơn hàng</a></li>
-            </ul>
-        </li>
-}
+            {
+                <li class="treeview">
+                    <a href="@Url.Action("Index", "ShopCartManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-list-alt"></i>
+                        <span>Quản lý Đơn hàng</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "ShopCartManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Tất cả Đơn hàng</a></li>
+                    </ul>
+                </li>
+            }
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.promotion == 1)
-    {
-        <li>
-            <a href="@Url.Action("Index", "Promotion", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Khuyến mãi</span>
-            </a>
-        </li>
-}
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Promotion", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Khuyến mãi</span>
+                    </a>
+                </li>
+            }
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.package == 1)
-    {
-        if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
-        {
-            <li class="treeview">
-                <a href="@Url.Action("index", "PackageManager", new { area = "AdminCMS" })">
-                    <i class="fa fa-user"></i>
-                    <span>Quản lý gói cước</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="@Url.Action("index", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách gói cước</a></li>
-                    @*<li><a href="@Url.Action("Create", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới gói cước</a></li>*@
-                </ul>
-            </li>
-}
+            {
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin"))
+                {
+                    <li class="treeview">
+                        <a href="@Url.Action("index", "PackageManager", new { area = "AdminCMS" })">
+                            <i class="fa fa-user"></i>
+                            <span>Quản lý gói cước</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("index", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách gói cước</a></li>
+                            @*<li><a href="@Url.Action("Create", "PackageManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới gói cước</a></li>*@
+                        </ul>
+                    </li>
+                }
 
 
-}
+            }
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.ticker == 1)
-    {
-        if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
-        {
-            <li class="treeview">
-                <a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })">
-                    <i class="fa fa-user"></i>
-                    <span>Quản lý Kèo</span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Kèo</a></li>
-                    <li><a href="@Url.Action("Create", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Kèo</a></li>
-                    <li><a href="@Url.Action("TrackingTicker", "Member", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi lãi - lỗ</a></li>
+            {
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+                    <li class="treeview">
+                        <a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })">
+                            <i class="fa fa-user"></i>
+                            <span>Quản lý Kèo</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("index", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Danh sách Kèo</a></li>
+                            <li><a href="@Url.Action("Create", "TickerManager", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Thêm mới Kèo</a></li>
+                            <li><a href="@Url.Action("TrackingTicker", "Member", new { area = "AdminCMS" })"><i class="fa fa-circle-o"></i>Theo dõi lãi - lỗ</a></li>
 
-                </ul>
-            </li>
-}
-else
-{
-
-
-
-        <li>
-            <a href="@Url.Action("ListTicker", "Member", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Tất cả Kèo</span>
-            </a>
-        </li>
-        <li>
-            <a href="@Url.Action("TrackingTicker", "Member", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Theo dõi lãi - lỗ</span>
-            </a>
-        </li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
 
 
-}
+
+                    <li>
+                        <a href="@Url.Action("ListTicker", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-lock"></i> <span>Tất cả Kèo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("TrackingTicker", "Member", new { area = "AdminCMS" })">
+                            <i class="fa fa-lock"></i> <span>Theo dõi lãi - lỗ</span>
+                        </a>
+                    </li>
 
 
-}
+                }
+
+
+            }
             @if ((int)EnumCore.SystemConfig_MenuLeft.mail == 1)
-    {
-        <li>
-            <a href="@Url.Action("Index", "EmailManager", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Hộp Thư</span>
-            </a>
-        </li>
-}
+            {
+                <li>
+                    <a href="@Url.Action("Index", "EmailManager", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Hộp Thư</span>
+                    </a>
+                </li>
+            }
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.chatgroup == 1)
-    {
+            {
 
-        <li>
-            <a href="@Url.Action("Index", "ChatGroup", new { area = "AdminCMS" })">
-                <i class="fa fa-lock"></i> <span>Chat Nhóm</span>
-            </a>
-        </li>
+                <li>
+                    <a href="@Url.Action("Index", "ChatGroup", new { area = "AdminCMS" })">
+                        <i class="fa fa-lock"></i> <span>Chat Nhóm</span>
+                    </a>
+                </li>
 
-}
+            }
+            @if ((int)EnumCore.SystemConfig_MenuLeft.margin == 1)
+            {
 
+
+                if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "MarginManager", new { area = "AdminCMS" })">
+                            <i class="fa fa-lock"></i> <span>Quản lý Margin</span>
+                        </a>
+                    </li>
+
+
+                }
+
+
+            }
 
 
 
 
             @if ((int)EnumCore.SystemConfig_MenuLeft.changepass == 1)
-    {
+            {
 
-        <li><a href="@Url.Action("ChangePassword", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o text-aqua"></i> <span>Đổi password</span></a></li>
+                <li><a href="@Url.Action("ChangePassword", "AccountAdmin", new { area = "AdminCMS" })"><i class="fa fa-circle-o text-aqua"></i> <span>Đổi password</span></a></li>
 
 
-}
+            }
 
 
 

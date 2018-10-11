@@ -96,9 +96,15 @@ namespace DataModel.DataViewModel
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Không được bỏ trống email")]
-        [EmailAddress(ErrorMessage = "Phải đúng định dãng email")]
+        [EmailAddress(ErrorMessage = "Phải đúng định dạng email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Không được bỏ trống email")]
+        [EmailAddress(ErrorMessage = "Phải đúng định dạng email")]
+        [Display(Name = "ConfirmEmail")]
+        [System.ComponentModel.DataAnnotations.Compare("Email", ErrorMessage = "Email không trùng khớp.")]
+        public string ConfirmEmail { get; set; }
 
         [Required(ErrorMessage = "Không được bỏ trống ô họ tên người đăng ký")]
         [Display(Name = "FullName")]

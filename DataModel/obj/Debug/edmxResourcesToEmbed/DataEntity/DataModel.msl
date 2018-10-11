@@ -1058,5 +1058,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Margins">
+      <EntityTypeMapping TypeName="alluneedbModel.Margin">
+        <MappingFragment StoreEntitySet="Margin">
+          <ScalarProperty Name="ExContent" ColumnName="ExContent" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+          <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+          <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+          <ScalarProperty Name="ShortNote" ColumnName="ShortNote" />
+          <ScalarProperty Name="ShortRate" ColumnName="ShortRate" />
+          <ScalarProperty Name="ShortStop" ColumnName="ShortStop" />
+          <ScalarProperty Name="Short" ColumnName="Short" />
+          <ScalarProperty Name="LongNote" ColumnName="LongNote" />
+          <ScalarProperty Name="LongRate" ColumnName="LongRate" />
+          <ScalarProperty Name="LongStop" ColumnName="LongStop" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="MarginName" ColumnName="MarginName" />
+          <ScalarProperty Name="MarginId" ColumnName="MarginId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

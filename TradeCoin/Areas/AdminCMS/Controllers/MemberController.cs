@@ -84,12 +84,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
                 model.lstNews = lstmpNews.OrderByDescending(s => s.CrtdDT).ToList(); ;
-                model.lstTicker = lstmpTickers.OrderByDescending(s => s.CrtdDT).ToList() ;
+                model.lstTicker = lstmpTickers.OrderByDescending(s => s.CrtdDT).ToList();
                 model.ObjectUser = ObjectCurentUser;
                 Config cf = new Config();
                 cf = cms_db.GetConfig();
                 this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
-               await this.CheckPriceUpdate();
+                await this.CheckPriceUpdate();
                 return View(model);
             }
             catch (Exception e)
@@ -103,7 +103,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         private async Task<bool> CheckPriceUpdate()
         {
-            try {
+            try
+            {
 
                 string StringLastTimeUpdate = "";
                 ///lấy ngày tháng update sau cùng tu bien application
@@ -120,27 +121,36 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 DateTime lasttime = DateTime.Parse(StringLastTimeUpdate);
                 int minute = DateTime.Now.Subtract(lasttime).Minutes;
                 ///nếu lớn hơn 1 phút thì lấy tất cả các dong tiền ở kèo
-                if (minute >60)
+                if (minute > 5)
                 {
-                    long[] listCyptoNeedUpdatePrice = cms_db.GetlstCyptoItem()
-                            .Where(s=>s.allow_update==true).Select(s=>s.id).ToArray();
+                    long[] listCyptoNeedUpdatePrice1 = cms_db.GetlstTicker().Where(s => s.StateId !=
+                                        (int)EnumCore.TickerStatusType.da_xoa).Select(s => s.CyptoID.Value).Distinct().ToArray();
 
-                    string query = this.MakeQueryListCyptoId(listCyptoNeedUpdatePrice);
-                    if (String.IsNullOrEmpty(query))
+                    long[] listCyptoNeedUpdatePrice = cms_db.GetlstCyptoItem()
+                            .Where(s => s.allow_update == true && s.is_active == true && listCyptoNeedUpdatePrice1.Contains(s.id)).Select(s => s.id).ToArray();
+
+                    if (listCyptoNeedUpdatePrice.Count() == 0)
+                    {
+                        return true;
+                    }
+                    List<string> query = this.MakeQueryListCyptoId(listCyptoNeedUpdatePrice);
+                    if (query.Count() == 0)
                     {
                         return true;
                     }
                     else
                     {
                         ///xoá cac giá cũ trước khi update
-                        List<CyptoItemPrice> tmp = cms_db.GetLstCyptoItemPrice().Where(s => listCyptoNeedUpdatePrice.Contains(s.id)).ToList();
-                        cms_db.RemoveListCyptoItemPrice(tmp);
+                        //  List<CyptoItemPrice> tmp = cms_db.GetLstCyptoItemPrice().Where(s => listCyptoNeedUpdatePrice.Contains(s.id)).ToList();
+                        // cms_db.RemoveListCyptoItemPrice(tmp);
+                        cms_db.TruncatableCyptoItemPrice();
 
+                        foreach (string stringtmpid in query)
+                        {
+                            //lấy giá của cá đồng tiền có trong hệ thống
+                            bool a = await this.DoUpdatePriceCypto(stringtmpid);
 
-                        //lấy giá của cá đồng tiền có trong hệ thống
-                         bool a= await this.DoUpdatePriceCypto(query);
-                       
-
+                        }
                     }
 
                 }
@@ -152,27 +162,48 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return false;
             }
         }
-        private string MakeQueryListCyptoId(long[] Cyptoid)
+        private List<string> MakeQueryListCyptoId(long[] Cyptoid)
         {
-            string result = "";
+
+            List<string> result = new List<string>();
+            long lastlongid = Cyptoid.Last();
+            result.Clear();
+            string tmp = "";
+            int i = 1;
             foreach (long id in Cyptoid)
             {
-                if (String.IsNullOrEmpty(result))
+                if (i == 98 || id == lastlongid)
                 {
-                    result = result + id.ToString();
+                    tmp = tmp + id.ToString();
+                    result.Add(tmp);
+                    i = 0;
+                    tmp = "";
                 }
-                else {
-                    result = result +","+ id.ToString();
+                else
+                {
+                    if (String.IsNullOrEmpty(tmp))
+                    {
+                        tmp = tmp + id.ToString();
+                    }
+                    else
+                    {
+                        tmp = tmp + "," + id.ToString();
+                    }
+
                 }
-               
+                i++;
             }
             return result;
         }
 
-        private async  Task<bool>  DoUpdatePriceCypto(string ListCyptoIdQuery)
+        ///LẤY GIÁ CỦA CAC DỒNG COIN INSERT VÀO DB
+        ///ListCyptoIdQuery :DANH SACH CA DONG COIN CACH NHAU BOI DẤU PHẨY
+        private async Task<bool> DoUpdatePriceCypto(string ListCyptoIdQuery)
         {
             try
             {
+
+
                 CoinMarketCapClient _client = new CoinMarketCapClient();
                 IDictionary<string, CyproPriceEntity> coinmaketresult = await _client.GetListPriceCyptoItemAsync(ListCyptoIdQuery);
                 foreach (CyproPriceEntity Item in coinmaketresult.Values)
@@ -197,12 +228,23 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         objCyptoItemPrice.last_updated = DateTime.Now;
                     }
-                    PriceEntity USD = Item.quote.Values.First();
+                    PriceEntity USD = Item.quote.Values.Last();
+
                     objCyptoItemPrice.USD_price = USD.price;
                     objCyptoItemPrice.USD_volume_24h = USD.volume_24h;
                     objCyptoItemPrice.USD_percent_change_1h = USD.percent_change_1h;
                     objCyptoItemPrice.USD_percent_change_7d = USD.percent_change_7d;
                     objCyptoItemPrice.USD_market_cap = USD.market_cap;
+
+                    PriceEntity BTC = Item.quote.Values.First();
+
+                    objCyptoItemPrice.BTC_price = BTC.price;
+                    objCyptoItemPrice.BTC_volume_24h = BTC.volume_24h;
+                    objCyptoItemPrice.BTC_percent_change_1h = BTC.percent_change_1h;
+                    objCyptoItemPrice.BTC_percent_change_7d = BTC.percent_change_7d;
+                    objCyptoItemPrice.BTC_market_cap = BTC.market_cap;
+
+
                     CyptoItemPrice modelmain = objCyptoItemPrice._MainObj;
 
                     await cms_db.CreateCyptoItemPrice(objCyptoItemPrice._MainObj);
@@ -215,14 +257,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 cms_db.AddToExceptionLog("ApiUpdatePriceForTicker", "Member", e.ToString());
                 return false;
             }
-           
+
 
         }
 
 
         public async Task<JsonResult> ApiUpdatePriceForTicker(string listId)
         {
-            try {
+            try
+            {
 
                 CoinMarketCapClient _client = new CoinMarketCapClient();
                 IDictionary<string, CyproPriceEntity> coinmaketresult = await _client.GetListPriceCyptoItemAsync(listId);
@@ -269,9 +312,165 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return Json(e, JsonRequestBehavior.AllowGet);
             }
 
-          
+
         }
 
+        /// <summary>
+        /// cập nhật trạng thái lỗ lời cho 1 KEO USDT
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdatePriceForDetailTickerUSDT(long tickerId)
+        {
+            try
+            {
+                Ticker MainModel = new Ticker();
+                MainModel = cms_db.GetObjTicker(tickerId);
+                string OldValue = "";
+                string NewValue = "";
+                CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
+                    Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
+
+                if (objPrice != null)
+                {
+                    if (objPrice.USD_price >= MainModel.SellZone3)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 3;
+                        MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+
+
+                    }
+
+                    else if (objPrice.USD_price >= MainModel.SellZone2)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 2;
+                        MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.USD_price >= MainModel.SellZone1)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 1;
+                        MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.USD_price <= MainModel.Deficit)
+                    {
+                        OldValue = MainModel.Deficit.ToString();
+                        MainModel.Flag = 4;
+                        MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
+                        MainModel.StateName = "Lỗ";
+                        NewValue = MainModel.Deficit.ToString();
+                    }
+
+                    cms_db.UpdateTickerNoasync(MainModel);
+
+                    int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                  (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerUSDT", MainModel.TickerId,
+                  MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
+                }
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpdatePriceForDetailTickerUSDT", " Member", e.ToString());
+                return false;
+            }
+
+        }
+        /// <summary>
+        /// cập nhật trạng thái lỗ lời cho 1 KÈO BTC
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdatePriceForDetailTickerBTC(long tickerId)
+        {
+            try
+            {
+                Ticker MainModel = new Ticker();
+                MainModel = cms_db.GetObjTicker(tickerId);
+                string OldValue = "";
+                string NewValue = "";
+                CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
+                    Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
+
+                if (objPrice != null)
+                {
+                    if (objPrice.BTC_price >= MainModel.SellZone3)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 3;
+                        MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+
+
+                    }
+
+                  else if (objPrice.BTC_price >= MainModel.SellZone2)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 2;
+                        MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.BTC_price >= MainModel.SellZone1)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 1;
+                        MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.BTC_price <= MainModel.DeficitControl)
+                    {
+                        OldValue = MainModel.Deficit.ToString();
+                        MainModel.Flag = 4;
+                        MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
+                        MainModel.StateName = "Lỗ";
+                        NewValue = MainModel.Deficit.ToString();
+                    }
+
+                    cms_db.UpdateTickerNoasync(MainModel);
+
+                    int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                  (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerBTC", MainModel.TickerId,
+                  MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
+                }
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpdatePriceForDetailTickerBTC", " Member", e.ToString());
+                return false;
+            }
+
+        }
+        /// <summary>
+        /// cập nhật trạng thái lỗ lời cho tất cả kèo usdt
+        /// </summary>
+        /// <returns></returns>
         private bool UpdatePriceForTickerUSDT()
         {
             try
@@ -283,6 +482,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     string NewValue = "";
                     CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
                         Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
+
                     if (objPrice != null)
                     {
                         if (objPrice.USD_price > MainModel.SellZone3)
@@ -293,6 +493,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
                             MainModel.StateName = "Lời";
                             NewValue = MainModel.Profit.ToString();
+
+
                         }
 
                         if (objPrice.USD_price > MainModel.SellZone2)
@@ -315,7 +517,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             NewValue = MainModel.Profit.ToString();
                         }
 
-                        if (objPrice.USD_price <= MainModel.Deficit)
+                        if (objPrice.USD_price <= MainModel.DeficitControl)
                         {
                             OldValue = MainModel.Deficit.ToString();
                             MainModel.Flag = 4;
@@ -324,10 +526,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             MainModel.StateName = "Lỗ";
                             NewValue = MainModel.Deficit.ToString();
                         }
+
                         cms_db.UpdateTickerNoasync(MainModel);
 
-                        int rs2 =  cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                      (int)EnumCore.ActionType.Update, "UpdatePriceForTickerUSDT", MainModel.TickerId, 
+                        int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                      (int)EnumCore.ActionType.Update, "UpdatePriceForTickerUSDT", MainModel.TickerId,
                       MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
                     }
 
@@ -339,7 +542,80 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 cms_db.AddToExceptionLog("UpdatePriceForTickerUSDT", " Member", e.ToString());
                 return false;
             }
-       
+
+        }
+        /// <summary>
+        /// cập nhật trạng thái lỗ lời cho tất cả kèo BTC
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdatePriceForTickerBTC()
+        {
+            try
+            {
+                List<Ticker> lstTickerNeedUpdate = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa && s.BTCInput.HasValue).ToList();
+                foreach (Ticker MainModel in lstTickerNeedUpdate)
+                {
+                    string OldValue = "";
+                    string NewValue = "";
+                    CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
+                        Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
+                    if (objPrice != null)
+                    {
+                        if (objPrice.BTC_price > MainModel.SellZone3)
+                        {
+                            OldValue = MainModel.Profit.ToString();
+                            MainModel.Flag = 3;
+                            MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.USDInput.Value);
+                            MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            MainModel.StateName = "Lời";
+                            NewValue = MainModel.Profit.ToString();
+                        }
+
+                        if (objPrice.BTC_price > MainModel.SellZone2)
+                        {
+                            OldValue = MainModel.Profit.ToString();
+                            MainModel.Flag = 2;
+                            MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.USDInput.Value);
+                            MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            MainModel.StateName = "Lời";
+                            NewValue = MainModel.Profit.ToString();
+                        }
+
+                        if (objPrice.BTC_price > MainModel.SellZone1)
+                        {
+                            OldValue = MainModel.Profit.ToString();
+                            MainModel.Flag = 1;
+                            MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.USDInput.Value);
+                            MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                            MainModel.StateName = "Lời";
+                            NewValue = MainModel.Profit.ToString();
+                        }
+
+                        if (objPrice.BTC_price <= MainModel.Deficit)
+                        {
+                            OldValue = MainModel.Deficit.ToString();
+                            MainModel.Flag = 4;
+                            MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
+                            MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
+                            MainModel.StateName = "Lỗ";
+                            NewValue = MainModel.Deficit.ToString();
+                        }
+                        cms_db.UpdateTickerNoasync(MainModel);
+
+                        int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                      (int)EnumCore.ActionType.Update, "UpdatePriceForTickerBTC", MainModel.TickerId,
+                      MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
+                    }
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpdatePriceForTickerUSDT", " Member", e.ToString());
+                return false;
+            }
+
         }
 
 
@@ -363,7 +639,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult ListTicker(int? page, int ? TickerStatus, long? CyptoItemID, int? MarketItemID, string FillterTickerName, string Datetime,int? unit)
+        public ActionResult ListTicker(int? page, int? TickerStatus, long? CyptoItemID, int? MarketItemID, string FillterTickerName, string Datetime, int? unit)
         {
 
             string StringLastTimeUpdate = "";
@@ -381,9 +657,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             DateTime lasttime = DateTime.Parse(StringLastTimeUpdate);
             int minute = DateTime.Now.Subtract(lasttime).Minutes;
             ///nếu lớn hơn 1 phút thì lấy tất cả các dong tiền ở kèo
-            if (minute >60)
+            if (minute > 60)
             {
-              //  this.UpdatePriceForTickerUSDT();
+                //  this.UpdatePriceForTickerUSDT();
             }
 
             long Packageid = 0;
@@ -422,7 +698,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 {
                     tmp = tmp.Where(s => s.USDInput.Value > 0);
                 }
-             
+
                 model.unit = unit.Value;
             }
 
@@ -431,7 +707,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 tmp = tmp.Where(s => s.MarketID == MarketItemID.Value);
                 model.MarketItemID = MarketItemID.Value;
             }
-            if ( !String.IsNullOrEmpty(FillterTickerName))
+            if (!String.IsNullOrEmpty(FillterTickerName))
             {
                 tmp = tmp.Where(s => s.TickerName == FillterTickerName);
                 model.FillterTickerName = FillterTickerName;
@@ -456,7 +732,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
-            model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+            model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "symbol");
             model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
             model.lstUnit = new SelectList(cms_db.GetObjSelectListUnit(), "value", "text");
             return View(model);
@@ -474,7 +750,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         public ActionResult DetailTicker(long tickerId)
         {
-            try {
+            try
+            {
 
 
                 long Packageid = 0;
@@ -495,15 +772,28 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     long UID = long.Parse(User.Identity.GetUserId());
                     TickerViewModel model = new TickerViewModel();
                     Ticker mainObj = cms_db.GetObjTicker(tickerId);
+
+                    ///CẬP NHẬT GIÁ KÈO TRƯỚC KHI XEM
+                    if (mainObj.BTCInput.HasValue)
+                    {
+                        this.UpdatePriceForDetailTickerBTC(tickerId);
+                    }
+                    else {
+
+                        this.UpdatePriceForDetailTickerUSDT(tickerId);
+                    }
+                    mainObj = cms_db.GetObjTicker(tickerId);
+
+
                     model._MainObj = mainObj;
 
                     List<Ticker> lsttmpSameTicker = new List<Ticker>();
                     model.lstsameTickers = new List<TickerViewModel>();
 
-                        lsttmpSameTicker = cms_db.GetListTickerByUser(UserId,
-                                (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid);
+                    lsttmpSameTicker = cms_db.GetListTickerByUser(UserId,
+                            (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid);
 
-                   
+
                     foreach (Ticker _val in lsttmpSameTicker)
                     {
                         TickerViewModel tmp = new TickerViewModel(_val);
@@ -531,9 +821,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 cms_db.AddToExceptionLog("DetailTicker", " Member", e.ToString());
                 string AlertString = "Nội dung xem không khả dụng";
-                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int) EnumCore.AlertPageType.FullScrenn });
+                return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
             }
-          
+
         }
 
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
@@ -544,7 +834,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
 
 
-       
+
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
                 Packageid = 5;
@@ -556,7 +846,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             int pageNum = (page ?? 1);
             ContentItemMemberViewModel model = new ContentItemMemberViewModel();
             IQueryable<MiniContentItemViewModel> tmp = cms_db.GetContentItemByUserLinq(UserId, Packageid);
-        
+
 
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
@@ -566,7 +856,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             else
             {
                 model.lstTicker = cms_db.GetListTickerByUser(UserId,
-                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid).OrderByDescending(s=>s.CrtdDT).ToList();
+                        (int)ConstFrontEnd.FontEndConstNumberRecord.Nbr_Ticker_In_Home, Packageid).OrderByDescending(s => s.CrtdDT).ToList();
 
             }
             if (ContentCatalogry.HasValue && ContentCatalogry.Value != 0)
@@ -587,7 +877,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 model.EndDT = this.SpritDateTime(model.Datetime)[1];
                 tmp = tmp.Where(s => s.CrtdDT > model.StartDT && s.CrtdDT < model.EndDT);
             }
-            model.lstViewUserContent = cms_db.GetlstContentView().Where(s => s.ContentType 
+            model.lstViewUserContent = cms_db.GetlstContentView().Where(s => s.ContentType
                             == (int)EnumCore.ObjTypeId.tin_tuc && s.UserId == UserId).Select(s => s.ContentId).ToArray();
             model.lstMainContent = tmp.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
 
@@ -598,7 +888,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             foreach (MiniContentItemViewModel _val in model.lstMainContent)
             {
                 _val.lstContentPackage = cms_db.GetlstObjContentPackage(_val.ContentItemId, (int)EnumCore.ObjTypeId.tin_tuc);
-            
+
             }
             model.lstContentState = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.state_type);
             model.lstContentCatalogry = cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.tin_tuc_bai_viet);
@@ -621,11 +911,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
 
 
-                if (cms_db.CheckContentItemUerPackage(id, UserId) || User.IsInRole("AdminUser") 
+                if (cms_db.CheckContentItemUerPackage(id, UserId) || User.IsInRole("AdminUser")
                     || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                  
-               
+
+
                     if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                     {
                         Packageid = 5;
@@ -634,8 +924,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         Packageid = ObjectCurentUser.PackageId.Value;
                     }
-                
-                    ContentItemViewModels model = new ContentItemViewModels(); 
+
+                    ContentItemViewModels model = new ContentItemViewModels();
                     ContentItem mainObj = cms_db.GetObjContentItemById(id);
                     model._MainObj = mainObj;
 
@@ -654,7 +944,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         tmp.ContentName = mainObj.ContentTitle;
                         cms_db.CreateContentView(tmp);
                     }
-                 
+
                     return View(model);
                 }
                 else
@@ -678,8 +968,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             long Packageid = 0;
             long UserId = long.Parse(User.Identity.GetUserId());
             User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
-         
-          
+
+
             if (User.IsInRole("AdminUser") || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
             {
                 Packageid = 5;
@@ -733,7 +1023,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 if (cms_db.CheckVideoUserPackage(id, UserId, Packageid) || User.IsInRole("AdminUser")
                     || User.IsInRole("devuser") || User.IsInRole("supperadmin") || User.IsInRole("Mod"))
                 {
-                  
+
                     MediaContentViewModels model = new MediaContentViewModels();
                     MediaContent mainObj = cms_db.GetObjMediaContent(id);
                     model.objMediaContent = mainObj;
@@ -751,7 +1041,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         tmp.ContentName = mainObj.AlternativeText;
                         cms_db.CreateContentView(tmp);
                     }
-                    
+
                     model.objMediaContent.MediaContentGuidId = Guid.NewGuid();
                     return View(model);
 
@@ -762,7 +1052,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
 
                 }
-             
+
 
             }
             catch (Exception e)
@@ -771,12 +1061,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 string AlertString = "Nội dung xem không khả dụng";
                 return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
             }
-           
+
         }
         public ActionResult iframeVideo()
         {
-           
-        
+
+
             return View();
 
         }
@@ -790,21 +1080,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         /// <param name="Datetime"></param>
         /// <returns></returns>
         [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Member")]
-        public ActionResult TrackingTicker(int? page,int ? package, string FillterTickerName, string Datetime,int? unit)
+        public ActionResult TrackingTicker(int? page, int? package, string FillterTickerName, string Datetime, int? unit)
         {
             int pageNum = (page ?? 1);
             TrackingTickerViewModel model = new TrackingTickerViewModel();
             IQueryable<Ticker> tmp = cms_db.GetlstTicker();
 
-            tmp = tmp.Where(s => s.StateId != (int)EnumCore.TickerStatusType.dang_chay  && s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
+            tmp = tmp.Where(s => s.StateId != (int)EnumCore.TickerStatusType.dang_chay && s.StateId != (int)EnumCore.TickerStatusType.da_xoa);
             if (package.HasValue)
             {
                 long[] listTickerbypackage = cms_db.GetlstContentPackageIquery().
-                    Where(s => s.ContentType == (int)EnumCore.ObjTypeId.ticker && s.PackageId == package.Value).Select(s=>s.ContentId).ToArray();
+                    Where(s => s.ContentType == (int)EnumCore.ObjTypeId.ticker && s.PackageId == package.Value).Select(s => s.ContentId).ToArray();
                 tmp = tmp.Where(s => listTickerbypackage.Contains(s.TickerId));
             }
 
-            unit=unit ?? 1;
+            unit = unit ?? 1;
 
             if (unit.HasValue)
             {
@@ -858,13 +1148,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         if (_item.Flag == 1 || _item.Flag == 2 || _item.Flag == 3)
                         {
                             ///lãi bằng số bit vào lenh * lãi cảu mỗi kèo
-                            double tmpProfit = (_item.Profit.Value) * _item.BTCInput.Value;
+                            double tmpProfit = (_item.Profit.Value) * _item.BTCInput.Value / 100;
                             model.TotalProfit = model.TotalProfit + tmpProfit;
                         }
                         else if (_item.Flag == 4)
                         {
                             ///lổ bằng số bit vào lenh * lổ của mỗi kèo
-                            double tmpDeficit = (_item.Deficit.Value) * _item.BTCInput.Value;
+                            double tmpDeficit = (_item.Deficit.Value) * _item.BTCInput.Value / 100;
                             model.TotalDeficit = model.TotalDeficit + tmpDeficit;
                         }
 
@@ -881,13 +1171,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         if (_item.Flag == 1 || _item.Flag == 2 || _item.Flag == 3)
                         {
                             ///lãi bằng số bit vào lenh * lãi cảu mỗi kèo
-                            double tmpProfit = (_item.Profit.Value) * _item.USDInput.Value;
+                            double tmpProfit = (_item.Profit.Value) * _item.USDInput.Value / 100;
                             model.TotalProfit = model.TotalProfit + tmpProfit;
                         }
                         else if (_item.Flag == 4)
                         {
                             ///lổ bằng số bit vào lenh * lổ của mỗi kèo
-                            double tmpDeficit = (_item.Deficit.Value) * _item.USDInput.Value;
+                            double tmpDeficit = (_item.Deficit.Value) * _item.USDInput.Value / 100;
                             model.TotalDeficit = model.TotalDeficit + tmpDeficit;
                         }
 
@@ -896,7 +1186,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     }
 
                 }
-              
+
 
             }
             ///tổng lãi lổ bằng lã trừ lổ
@@ -905,7 +1195,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             model.lstUnit = new SelectList(cms_db.GetObjSelectListUnit(), "value", "text");
             return View(model);
         }
-        
+
 
 
 

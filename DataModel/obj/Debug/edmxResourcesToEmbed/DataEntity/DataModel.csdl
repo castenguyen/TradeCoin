@@ -697,6 +697,7 @@
     <EntitySet Name="CyptoItems" EntityType="alluneedbModel.CyptoItem" />
     <EntitySet Name="CyptoItemPrices" EntityType="alluneedbModel.CyptoItemPrice" />
     <EntitySet Name="MarketItems" EntityType="alluneedbModel.MarketItem" />
+    <EntitySet Name="Margins" EntityType="alluneedbModel.Margin" />
   </EntityContainer>
   <EntityType Name="Product">
     <Key>
@@ -1362,5 +1363,29 @@
     </Key>
     <Property Name="Marketid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MarketName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Margin">
+    <Key>
+      <PropertyRef Name="MarginId" />
+    </Key>
+    <Property Name="MarginId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MarginName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Long" Type="Double" />
+    <Property Name="LongStop" Type="Double" />
+    <Property Name="LongRate" Type="Double" />
+    <Property Name="LongNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Short" Type="Double" />
+    <Property Name="ShortStop" Type="Double" />
+    <Property Name="ShortRate" Type="Double" />
+    <Property Name="ShortNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CrtdUserId" Type="Int64" />
+    <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+    <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="StateId" Type="Int64" />
+    <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PackageId" Type="Int64" />
+    <Property Name="Flag" Type="Int32" />
+    <Property Name="ExContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

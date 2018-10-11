@@ -422,8 +422,8 @@ namespace DataModel.CoinmaketEntity
         public string name { get; set; }
         public string symbol { get; set; }
         public string slug { get; set; }
-        public long circulating_supply { get; set; }
-        public long total_supply { get; set; }
+        public long? circulating_supply { get; set; }
+        public long? total_supply { get; set; }
         public long ? max_supply { get; set; }
         public string date_added { get; set; }
         public int num_market_pairs { get; set; }
@@ -436,11 +436,11 @@ namespace DataModel.CoinmaketEntity
     public class PriceEntity
     {
         public double price { get; set; }
-        public double volume_24h { get; set; }
-        public double percent_change_1h { get; set; }
-        public double percent_change_24h { get; set; }
+        public double? volume_24h { get; set; }
+        public double? percent_change_1h { get; set; }
+        public double? percent_change_24h { get; set; }
 
-        public double percent_change_7d { get; set; }
+        public double? percent_change_7d { get; set; }
         public double market_cap { get; set; }
         public string last_updated { get; set; }
        

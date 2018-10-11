@@ -211,7 +211,43 @@ namespace DataModel.DataViewModel
             set { _MainObj.CyptoID = value; }
         }
 
-     
+
+
+        public Nullable<decimal> DecimaDeficitControl
+        {
+            get { return Convert.ToDecimal(_MainObj.DeficitControl); }
+
+        }
+        public Nullable<decimal> DecimaBuyZone1
+        {
+            get { return Convert.ToDecimal(_MainObj.BuyZone1); }
+         
+        }
+
+  
+        public Nullable<decimal> DecimaSellZone1
+        {
+            get { return Convert.ToDecimal(_MainObj.SellZone1); }
+          
+        }
+
+   
+        public Nullable<decimal> DecimaSellZone2
+        {
+            get { return Convert.ToDecimal(_MainObj.SellZone2); }
+           
+        }
+
+
+   
+       
+        public Nullable<decimal> DecimaSellZone3
+        {
+            get { return Convert.ToDecimal(_MainObj.SellZone3); }
+           
+        }
+
+
         public List<TickerViewModel> lstsameTickers { get; set; }
         public List<ContentPackage> lstTickerContentPackage { get; set; }
     }

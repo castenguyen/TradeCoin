@@ -9,6 +9,7 @@
 @{
     ViewBag.Title = "ListTicker";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+
 }
 
 <section class="content-header">
@@ -32,7 +33,7 @@
                 <div class="box-body">
                     <div class="row">
                         @using (Html.BeginForm("TrackingTicker", "Member", FormMethod.Get, new { id = "filterForm", role = "form" }))
-    {
+                        {
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -43,7 +44,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Đơn vị</label>
-                            @Html.DropDownListFor(m=>m.unit, Model.lstUnit as SelectList, new { @class = "form-control select2" })
+                            @Html.DropDownListFor(m => m.unit, Model.lstUnit as SelectList, new { @class = "form-control select2" })
                         </div><!-- /.form-group -->
                     </div>
 

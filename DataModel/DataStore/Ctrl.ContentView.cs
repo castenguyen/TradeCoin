@@ -57,6 +57,15 @@ namespace DataModel.DataStore
         }
 
 
+        public int DeleteContentView(ContentView item)
+        {
+           
+                db.ContentViews.Remove(item);
+                db.SaveChanges();
+
+            return (int)EnumCore.Result.action_true;
+        }
+
         public long[] GetlstContentView(long UserId, int Type)
         {
             long[] lstContentView = db.ContentViews.Where(s => s.UserId == UserId && s.ContentType == Type).Select(s => s.ContentId).ToArray();

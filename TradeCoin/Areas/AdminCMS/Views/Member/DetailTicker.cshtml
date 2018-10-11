@@ -6,7 +6,7 @@
     ViewBag.Title = "DetailTicker";
     Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
 
- 
+
 
     //  string tmpp =value.ToString("N0");
 }
@@ -73,33 +73,44 @@
                                 </p>
                                 <hr>
 
-                              
+
 
                                 <strong><i class="fa fa-pencil margin-r-5"></i> Số BTC tối đa vào lệnh</strong>
                                 <p>
-                                    <span class="label label-danger">@Model.BTCInput</span>
+                                    @if (Model.BTCInput.HasValue)
+                                    {
+                                        <span class="label label-danger">@Model.BTCInput</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-danger">@Model.USDInput</span>
+
+                                    }
+
+
+
 
                                 </p>
                                 <hr>
 
                                 @if (Model.Flag == 1 || Model.Flag == 2 || Model.Flag == 3)
-    {
-                            <strong><i class="fa fa-pencil margin-r-5"></i>Kèo đã chốt Lãi</strong>
-                            <p>
-                                <span class="label label-danger">@Model.Profit</span>
+                                {
+                                    <strong><i class="fa fa-pencil margin-r-5"></i>Kèo đã chốt Lãi</strong>
+                                    <p>
+                                        <span class="label label-danger">@Model.Profit</span>
 
-                            </p>
+                                    </p>
 
-}
-else if (Model.Flag == 4)
-{
-                            <strong><i class="fa fa-pencil margin-r-5"></i> Kèo đã chốt Lổ</strong>
-                            <p>
-                                <span class="label label-danger">@Model.Deficit</span>
+                                }
+                                else if (Model.Flag == 4)
+                                {
+                                    <strong><i class="fa fa-pencil margin-r-5"></i> Kèo đã chốt Lổ</strong>
+                                    <p>
+                                        <span class="label label-danger">@Model.Deficit</span>
 
-                            </p>
+                                    </p>
 
-}
+                                }
 
 
                             </div>

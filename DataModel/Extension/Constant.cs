@@ -13,37 +13,197 @@ namespace DataModel.Extension
 
         public static string PageName = "HQDN";
 
+
+        //tesk ok
+        //ssl disable
+        public static string ServiceSMTP = "pro38.emailserver.vn";
+        public static string ServiceAdmin = "noreply@service-ncoinclub.com";
+        public static string ServicePassword = "nguyentran2617";
+        public static int ServicePort = 587;
+
+        //tesk ok
+        //ssl disable
+        public static string NotifySMTP = "pro38.emailserver.vn";
+        public static string NotifyAdmin = "noreply@notify-ncoinclub.com";
+        public static string NotifyPassword = "nguyentran2617";
+        public static int NotifyPort = 587;
+
+
+
+        /// <summary>
+        /// REGISTER 28-09-2018
+        /// </summary>
+         //ssl disable
+        //tesk ok
+        public static string NotifyTopSMTP = "pro38.emailserver.vn";
+        public static string NotifyTopAdmin = "noreply@notify-ncoinclub.top";
+        public static string NotifyTopPassword = "nguyentran2617";
+        public static int NotifyTopPort = 587;
+
+        //ssl disable
+        //tesk ok
+        public static string NotifyXYZSMTP = "pro38.emailserver.vn";
+        public static string NotifyXYZAdmin = "noreply@notify-ncoinclub.xyz";
+        public static string NotifyXYZPassword = "nguyentran2617";
+        public static int NotifyXYZPort = 587;
+
+
+
+
+        //ssl disable
+        //tesk ok
+        public static string ServiceTopSMTP = "pro38.emailserver.vn";
+        public static string ServiceTopAdmin = "noreply@service-ncoinclub.top";
+        public static string ServiceTopPassword = "nguyentran2617";
+        public static int ServiceTopPort = 587;
+
+
+        //ssl disable
+        //tesk ok
+        public static string ServiceXYZSMTP = "pro38.emailserver.vn";
+        public static string ServiceXYZAdmin = "noreply@service-ncoinclub.xyz";
+        public static string ServiceXYZPassword = "nguyentran2617";
+        public static int ServiceXYZPort = 587;
+
+
+
+
+        public static string NcoinTopSMTP = "pro38.emailserver.vn";
+        public static string NcoinTopAdmin = "noreply@ncoinclub.top";
+        public static string NcoinTopPassword = "nguyentran2617";
+        public static int NcoinTopPort = 587;
+
+
+
+        //ssl disable
+        //tesk ok
+        public static string NcoinXYZSMTP = "pro38.emailserver.vn";
+        public static string NcoinXYZAdmin = "noreply@ncoinclub.xyz";
+        public static string NcoinXYZPassword = "nguyentran2617";
+        public static int NcoinXYZPort = 587;
+
+
+
+
+
+
+
+
+        //tesk ok
+        //ssl enable
+        public static string Email_SMTP_1 = "smtp.gmail.com";
+        public static string Email_User_1 = "ncoinclubbaokeo@gmail.com";
+        public static string Email_Password_1 = "Ncoinclub2018";
+        public static int Email_Port_1 = 587;
+
+
+
+
+        //tesk ok
+        //ssl enable
         public static string EmailAdminSMTP = "smtp.gmail.com";
         public static string EmailAdmin = "ncoinclub@gmail.com";
         public static string EmailAdminPassword = "ncoinclubdnq";
         public static int Portmail = 587;
 
 
-        //public static string EmailAdminSMTP = "smtp.gmail.com";
-        //public static string EmailAdmin = "ncoinclubdem@gmail.com";
-        //public static string EmailAdminPassword = "ncoinclubdnq123";
-        //public static int Portmail = 587;
 
+        //tesk ok
+        //ssl enable
+        public static string Email_SMTP_2 = "smtp.gmail.com";
+        public static string Email_User_2 = "ncoinclubdem@gmail.com";
+        public static string Email_Password_2 = "ncoinclubdnq123";
+        public static int Email_Port_2 = 587;
+
+
+
+
+        //tesk ok
+        //ssl enable
+        public static string Email_SMTP_3 = "smtp.gmail.com";
+        public static string Email_User_3 = "ncoinclubkimcuong@gmail.com";
+        public static string Email_Password_3 = "ncoinclubdnq123";
+        public static int Email_Port_3 = 587;
+
+
+        //tesk ok
+        //ssl enable
+        public static string Email_SMTP_4 = "smtp.gmail.com";
+        public static string Email_User_4 = "ncoinclubthongbao@gmail.com";
+        public static string Email_Password_4 = "Ncoinclub2018";
+        public static int Email_Port_4 = 587;
+
+
+
+
+        //tesk ok
+        //ssl enable
+        public static string ContactSMTP = "smtp.gmail.com";
+        public static string ContactAdmin = "contact@ncoinclub.com";
+        public static string ContactPassword = "Ncoinclub2018";
+        public static int ContactPort = 587;
+
+
+
+
+        //was: 5.5.1 Authentication Required. Learn more at
+        //test not ok
+        //public static string NoreplySMTP = "smtp.gmail.com";
+        //public static string NoreplyEmail = "noreply@ncoinclub.com";
+        //public static string NoreplyPassword = "Ncoinclub2019";
+        //public static int NoreplyPort = 587;
+
+
+        //was: 5.5.1 Authentication Required. Learn more at
+        //test not ok
+        //public static string SupportSMTP = "smtp.gmail.com";
+        //public static string SupportEmail = "support@noinclub.com";
+        //public static string SupportPassword = "Ncoinclub2018";
+        //public static int SupportPort = 587;
+
+
+
+
+        //was: 5.5.1 Authentication Required. Learn more at
+        //test not ok
         //public static string EmailAdminSMTP = "smtp.gmail.com";
-        //// public static string EmailAdmin = "support@noinclub.com";
-        //public static string EmailAdmin = "contact@ncoinclub.com";
+        //public static string EmailAdmin = "ncoinclubdangnhap@gmail.com";
         //public static string EmailAdminPassword = "Ncoinclub2018";
         //public static int Portmail = 587;
 
 
-        public static string EmailAdminSMTP2 = "smtp.gmail.com";
-        public static string EmailAdmin2 = "ncoinclubkimcuong@gmail.com";
-        public static string EmailAdminPassword2 = "ncoinclubdnq123";
-        public static int Portmail2 = 587;
 
 
-        
+        //was: 5.5.1 Authentication Required. Learn more at
+        //test not ok
+        //public static string ContactSMTP = "smtp.gmail.com";
+        //public static string ContactAdmin = "ncoinclubthongbao2@ncoinclub.com";
+        //public static string ContactPassword = "Ncoinclub2018";
+        //public static int ContactPort = 587;
 
 
-        //public static string EmailAdminSMTP = "mail.mailviet.vn";
-        //public static string EmailAdmin = "hotro@ncoinclub.com";
-        //public static string EmailAdminPassword = "Ncoinclub2018";
-        //public static int Portmail = 465;
+
+        //was: 5.5.1 Authentication Required. Learn more at
+        //test not ok
+        //public static string SupportSMTP = "smtp.gmail.com";
+        //public static string SupportEmail = "ncoinclubthongbao1@ncoinclub.com";
+        //public static string SupportPassword = "Ncoinclub2018";
+        //public static int SupportPort = 587;
+
+
+
+
+        //was: 5.5.1 Authentication Required. Learn more at
+        //test not ok
+        //public static string NoreplySMTP = "smtp.gmail.com";
+        //public static string NoreplyEmail = "ncoinclubthongbao3@ncoinclub.com";
+        //public static string NoreplyPassword = "Ncoinclub2018";
+        //public static int NoreplyPort = 587;
+
+
+
+
+
 
         #endregion
 

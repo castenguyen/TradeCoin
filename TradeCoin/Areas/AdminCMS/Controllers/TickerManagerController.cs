@@ -107,8 +107,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 prelistmain.Add(abc);
 
             }
-            model.lstMainTickerViewModel = prelistmain.ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
-            model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+            model.lstMainTickerViewModel = prelistmain.OrderByDescending(c => c.CrtdDT).ToPagedList(pageNum, (int)EnumCore.BackendConst.page_size);
+            model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).OrderBy(s=>s.symbol).ToList(), "id", "symbol");
             model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
             model.lstTickerStatus = new SelectList(cms_db.Getclasscatagory((int)EnumCore.ClassificationScheme.status_ticker), "value", "text");
             model.lstPackage = new SelectList(cms_db.GetObjSelectListPackage(), "value", "text");
@@ -159,7 +159,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         {
             TickerViewModel model = new TickerViewModel();
             model.lstPackage = cms_db.GetObjSelectListPackage();
-           model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+           model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).OrderBy(s => s.symbol).ToList(), "id", "symbol");
            model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
             return View(model);
         }
@@ -222,7 +222,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             {
                 model.lstPackage = cms_db.GetObjSelectListPackage();
                 model.lstTickerPackage = cms_db.GetlstTickerPackage(model.TickerId, (int)EnumCore.ObjTypeId.ticker);
-                model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).ToList(), "id", "name");
+                model.lstCyptoItem = new SelectList(cms_db.GetlstCyptoItem().Where(s => s.is_active == true).OrderBy(s => s.symbol).ToList(), "id", "symbol");
                 model.lstMarketItem = new SelectList(cms_db.GetlstMarketItem().ToList(), "Marketid", "MarketName");
                 return View(model);
             }

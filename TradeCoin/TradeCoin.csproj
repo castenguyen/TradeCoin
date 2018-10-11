@@ -260,6 +260,7 @@
     <Compile Include="Areas\AdminCMS\Controllers\ExtensionController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\HistoryManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\AdminCMS\Controllers\MarginManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\MediaManagerController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\MemberController.cs" />
     <Compile Include="Areas\AdminCMS\Controllers\PackageManagerController.cs" />
@@ -2150,6 +2151,10 @@
     <Content Include="Areas\AdminCMS\Views\CyptoItemManager\EditCypto.cshtml" />
     <Content Include="Areas\AdminCMS\Views\CyptoItemManager\IndexCyptoPrice.cshtml" />
     <Content Include="Areas\AdminCMS\Views\HistoryManager\HistoryAction.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\AccountAdmin\ListUserInvalid.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\MarginManager\Index.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\MarginManager\Create.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\MarginManager\Update.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\core.app.js" />

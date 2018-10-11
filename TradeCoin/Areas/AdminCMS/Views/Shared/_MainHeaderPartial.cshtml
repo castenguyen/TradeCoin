@@ -223,11 +223,21 @@
             ListNewKeo();
             $.playSound("http://ncoinclub.com/Media/tingding.mp3");
         };
+
+
         notificationHub.client.notificationNewVideo = function () {
             $("#NewVideo").empty();
             ListNewVideo();
             $.playSound("http://ncoinclub.com/Media/tingding.mp3");
         };
+
+
+
+        notificationHub.client.notificationNewMargin = function () {
+            ListNewMargin();
+            $.playSound("http://ncoinclub.com/Media/tingding.mp3");
+        };
+
 
         // Start the connection.
         $.connection.hub.start().done(function () {
@@ -237,11 +247,10 @@
         ListNewPost();
         ListNewKeo();
         ListNewVideo();
-
+        ListNewMargin();
     });
-    //<div class="pull-left">
-    //    <img src="" class="img-circle" alt="User Image">
-    //                                        </div>
+
+
     function ListNewEmail() {
         coreApp.callAjaxGateway({
             url: 'AdminCMS/EmailManager/GridListBalancesStatement',
@@ -347,4 +356,86 @@
             }
         });
     }
+
+    function ListNewMargin() {
+
+        coreApp.callAjaxGateway({
+            url: '/MarginManager/ObjectNotificationMargin',
+            callback: function (data) {
+            
+
+                $("#FreeMarginStatus").html(data.FreeObject.StateName);
+
+
+                var freedate = new Date(parseInt(data.FreeObject.CrtdDT.ToJavaScriptMilliseconds()));
+                $("#FreeMarginCrtdDT").html(freedate);
+
+
+
+                $("#FreeMarginLong").html(data.FreeObject.Long);
+                $("#FreeMarginLongStop").html(data.FreeObject.LongStop);
+                $("#FreeMarginLongRate").html(data.FreeObject.LongRate);
+                $("#FreeMarginLongNote").html(data.FreeObject.LongNote);
+
+                $("#FreeMarginShort").html(data.FreeObject.Short);
+                $("#FreeMarginShortStop").html(data.FreeObject.ShortStop);
+                $("#FreeMarginShortRate").html(data.FreeObject.ShortRate);
+                $("#FreeMarginShortNote").html(data.FreeObject.ShortNote);
+                
+
+
+                $("#DemMarginStatus").html(data.DemObject.StateName);
+                var demdate = new Date(parseInt(data.DemObject.CrtdDT.ToJavaScriptMilliseconds()));
+                $("#DemMarginCrtdDT").html(demdate);
+
+                $("#DemMarginLong").html(data.DemObject.Long);
+                $("#DemMarginLongStop").html(data.DemObject.LongStop);
+                $("#DemMarginLongRate").html(data.DemObject.LongRate);
+                $("#DemMarginLongNote").html(data.DemObject.LongNote);
+
+                $("#DemMarginShort").html(data.DemObject.Short);
+                $("#DemMarginShortStop").html(data.DemObject.ShortStop);
+                $("#DemMarginShortRate").html(data.DemObject.ShortRate);
+                $("#DemMarginShortNote").html(data.DemObject.ShortNote);
+                
+
+
+                $("#VangMarginStatus").html(data.VangObject.StateName);
+                var vangate = new Date(parseInt(data.VangObject.CrtdDT.ToJavaScriptMilliseconds()));
+                $("#VangMarginCrtdDT").html(vangate);
+
+                $("#VangMarginLong").html(data.VangObject.Long);
+                $("#VangMarginLongStop").html(data.VangObject.LongStop);
+                $("#VangMarginLongRate").html(data.VangObject.LongRate);
+                $("#VangMarginLongNote").html(data.VangObject.LongNote);
+
+                $("#VangMarginShort").html(data.VangObject.Short);
+                $("#VangMarginShortStop").html(data.VangObject.ShortStop);
+                $("#VangMarginShortRate").html(data.VangObject.ShortRate);
+                $("#VangMarginShortNote").html(data.VangObject.ShortNote);
+
+                
+                
+                $("#KCMarginStatus").html(data.KCObject.StateName);
+        
+                var kcdate = new Date(parseInt(data.KCObject.CrtdDT.ToJavaScriptMilliseconds()));
+                $("#KCMarginCrtdDT").html(kcdate);
+
+                $("#KCMarginLong").html(data.KCObject.Long);
+                $("#KCMarginLongStop").html(data.KCObject.LongStop);
+                $("#KCMarginLongRate").html(data.KCObject.LongRate);
+                $("#KCMarginLongNote").html(data.KCObject.LongNote);
+
+                $("#KCMarginShort").html(data.KCObject.Short);
+                $("#KCMarginShortStop").html(data.KCObject.ShortStop);
+                $("#KCMarginShortRate").html(data.KCObject.ShortRate);
+                $("#KCMarginShortNote").html(data.KCObject.ShortNote);
+
+
+
+            }
+        });
+    }
+
+
 </script>

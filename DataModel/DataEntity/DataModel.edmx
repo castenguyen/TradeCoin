@@ -301,6 +301,30 @@
           <Property Name="lat" Type="nvarchar" MaxLength="50" />
           <Property Name="AreaWardId" Type="int" />
         </EntityType>
+        <EntityType Name="Margin">
+          <Key>
+            <PropertyRef Name="MarginId" />
+          </Key>
+          <Property Name="MarginId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MarginName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Long" Type="float" />
+          <Property Name="LongStop" Type="float" />
+          <Property Name="LongRate" Type="float" />
+          <Property Name="LongNote" Type="nvarchar(max)" />
+          <Property Name="Short" Type="float" />
+          <Property Name="ShortStop" Type="float" />
+          <Property Name="ShortRate" Type="float" />
+          <Property Name="ShortNote" Type="nvarchar(max)" />
+          <Property Name="CrtdUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="CrtdUserId" Type="bigint" />
+          <Property Name="CrtdDT" Type="datetime" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="250" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="PackageName" Type="nvarchar" MaxLength="250" />
+          <Property Name="PackageId" Type="bigint" />
+          <Property Name="Flag" Type="int" />
+          <Property Name="ExContent" Type="nvarchar(max)" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MarketItem">
@@ -1083,6 +1107,7 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
           <EntitySet Name="EmailSupport" EntityType="Self.EmailSupport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExceptionLogs" EntityType="Self.ExceptionLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeoArea" EntityType="Self.GeoArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Margin" EntityType="Self.Margin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MediaContent" EntityType="Self.MediaContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MicroClassification" EntityType="Self.MicroClassification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Microsite" EntityType="Self.Microsite" Schema="dbo" store:Type="Tables" />
@@ -1871,6 +1896,7 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
           <EntitySet Name="CyptoItems" EntityType="alluneedbModel.CyptoItem" />
           <EntitySet Name="CyptoItemPrices" EntityType="alluneedbModel.CyptoItemPrice" />
           <EntitySet Name="MarketItems" EntityType="alluneedbModel.MarketItem" />
+          <EntitySet Name="Margins" EntityType="alluneedbModel.Margin" />
         </EntityContainer>
         <EntityType Name="Product">
           <Key>
@@ -2536,6 +2562,30 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
           </Key>
           <Property Name="Marketid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MarketName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Margin">
+          <Key>
+            <PropertyRef Name="MarginId" />
+          </Key>
+          <Property Name="MarginId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MarginName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Long" Type="Double" />
+          <Property Name="LongStop" Type="Double" />
+          <Property Name="LongRate" Type="Double" />
+          <Property Name="LongNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Short" Type="Double" />
+          <Property Name="ShortStop" Type="Double" />
+          <Property Name="ShortRate" Type="Double" />
+          <Property Name="ShortNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CrtdUserId" Type="Int64" />
+          <Property Name="CrtdDT" Type="DateTime" Precision="3" />
+          <Property Name="StateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int64" />
+          <Property Name="PackageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PackageId" Type="Int64" />
+          <Property Name="Flag" Type="Int32" />
+          <Property Name="ExContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3597,6 +3647,31 @@ warning 6002: The table/view 'tradecoin.dbo.MarketItem' does not have a primary 
               <MappingFragment StoreEntitySet="MarketItem">
                 <ScalarProperty Name="MarketName" ColumnName="MarketName" />
                 <ScalarProperty Name="Marketid" ColumnName="Marketid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Margins">
+            <EntityTypeMapping TypeName="alluneedbModel.Margin">
+              <MappingFragment StoreEntitySet="Margin">
+                <ScalarProperty Name="ExContent" ColumnName="ExContent" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="PackageName" ColumnName="PackageName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CrtdDT" ColumnName="CrtdDT" />
+                <ScalarProperty Name="CrtdUserId" ColumnName="CrtdUserId" />
+                <ScalarProperty Name="CrtdUserName" ColumnName="CrtdUserName" />
+                <ScalarProperty Name="ShortNote" ColumnName="ShortNote" />
+                <ScalarProperty Name="ShortRate" ColumnName="ShortRate" />
+                <ScalarProperty Name="ShortStop" ColumnName="ShortStop" />
+                <ScalarProperty Name="Short" ColumnName="Short" />
+                <ScalarProperty Name="LongNote" ColumnName="LongNote" />
+                <ScalarProperty Name="LongRate" ColumnName="LongRate" />
+                <ScalarProperty Name="LongStop" ColumnName="LongStop" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="MarginName" ColumnName="MarginName" />
+                <ScalarProperty Name="MarginId" ColumnName="MarginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

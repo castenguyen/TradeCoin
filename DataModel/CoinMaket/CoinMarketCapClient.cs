@@ -36,7 +36,7 @@ namespace DataModel.CoinMaket
 
         bool _isDisposed;
         readonly string _uri = "https://pro-api.coinmarketcap.com/";
-        readonly string _privateToken = "7181b157-2b8d-4b6d-be73-dbc791f1de3f";
+        readonly string _privateToken = "1b185b90-d127-4983-b2ed-47aeb0e75aaf";
 
         readonly HttpClient _client;
 
@@ -127,6 +127,9 @@ namespace DataModel.CoinMaket
           
              var uri = new StringBuilder("/v1/cryptocurrency/quotes/latest?");
             uri.Append($"id={listType}");
+            uri.Append($"&convert=USD,BTC");
+
+
             string response = await _client.GetStringAsync(uri.ToString());
             JObject jObject = JObject.Parse(response);
             JToken status = jObject["status"];

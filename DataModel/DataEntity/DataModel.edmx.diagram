@@ -58,6 +58,7 @@
         <EntityTypeShape EntityType="alluneedbModel.CyptoItem" Width="1.5" PointX="18.375" PointY="0.75" />
         <EntityTypeShape EntityType="alluneedbModel.CyptoItemPrice" Width="1.5" PointX="18.375" PointY="4.75" />
         <EntityTypeShape EntityType="alluneedbModel.MarketItem" Width="1.5" PointX="18.375" PointY="11.75" />
+        <EntityTypeShape EntityType="alluneedbModel.Margin" Width="1.5" PointX="18.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
