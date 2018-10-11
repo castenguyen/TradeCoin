@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.Extension;
+@using PagedList;
+@using PagedList.Mvc;
+@using DataModel.DataViewModel;
+@model IndexMarginManager
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Quản Lý Margin</h3>
+                    <div class="box-tools">
+                        <a href="@Url.Action("Create", "MarginManager", null)" class="btn btn-primary">Thêm mới Margin</a>
+                    </div>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                    <div id="example1_filter" class="dataTables_filter">
+                        @using (Html.BeginForm("Index", "MarginManager", FormMethod.Post, new { id = "filterForm", role = "form" }))
+                        {
+
+
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.status, Model.lstMarginStatus as SelectList, "Trạng thái...", new { @class = "form-control" })
+                            </div>
+                            <div class="btn-group">
+                                @Html.DropDownListFor(c => c.MarginPackage, Model.lstMarginPackage as SelectList, "Gói cước...", new { @class = "form-control" })
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary margin">Tìm</button>
+                            </div>
+                        }
+                    </div>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+
+                                <th>Ngày tạo</th>
+                                <th>Người tạo</th>
+                                <th>Thuộc</th>
+                                <th>Trạng thái</th>
+                                <th>Long</th>
+                                <th>LongStop</th>
+                                <th>LongRate</th>
+                                <th>Short</th>
+                                <th>ShortStop</th>
+                                <th>ShortRate</th>
+                                <th width="20%">Action</th>
+                            </tr>
+                            @{
+                                foreach (var _val in Model.lstMainMargin)
+                                {
+                                    <tr>
+
+                                        <td>@_val.CrtdDT</td>
+                                        <td>@_val.CrtdUserName</td>
+                                        <td>
+                                            @foreach (ContentPackage _p in _val.lstMarginContentPackage)
+                                            {
+
+                                                @_p.PackageName <span>-</span>
+                                            }
+                                        </td>
+                                        <td><span>@_val.StateName </span></td>
+
+                                        <td>@_val.Long</td>
+                                        <td>@_val.LongStop</td>
+                                        <td>@_val.LongRate</td>
+
+
+                                        <td>@_val.Short</td>
+                                        <td>@_val.ShortStop</td>
+                                        <td>@_val.ShortRate</td>
+                                        <td>
+
+                                            <a href="@Url.Action("Update", "MarginManager", new { id = _val.MarginId })">Chỉnh sửa</a>
+                                            | <a href="@Url.Action("Delete", "MarginManager", new { id = _val.MarginId })">Delete</a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    @if (Model.lstMainMargin.PageCount > 1)
+                    {
+                        @Html.PagedListPager(Model.lstMainMargin, page => Url.Action("Index", new
+                        {
+                            page,
+                            status = Model.status,
+                            MarginPackage = Model.MarginPackage
+
+                        }))
+                    }
+                </div>
+
+
+            </div><!-- /.box -->
+            <!-- Form Element sizes -->
+        </div><!--/.col (left) -->
+    </div> <!-- /.row -->
+</section>
+
+
+
+
+

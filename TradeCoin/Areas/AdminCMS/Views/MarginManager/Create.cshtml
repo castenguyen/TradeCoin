@@ -1,0 +1,160 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity
+@using DataModel.DataEntity;
+@using DataModel.DataViewModel;
+@using DataModel.Extension;
+@model DataModel.DataViewModel.MarginViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/AdminCMS/Views/Shared/_Layout.cshtml";
+
+    string bare_url = AppDomain.CurrentDomain.BaseDirectory;
+    string folderimg = bare_url + "images";
+}
+
+
+
+<section class="content">
+    <div class="row">
+
+        @using (Html.BeginForm("Create", "MarginManager", FormMethod.Post, new { id = "CreateForm", enctype = "multipart/form-data", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="col-md-9">
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h2 class="box-title">Thêm mới Margin</h2>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+
+
+                    <div class="col-md-6">
+
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.Long, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Long, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+
+                        <div class="input-group col-md-12">
+                            @Html.LabelFor(m => m.LongStop, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.LongStop, new { @class = "form-control" })
+                            </div>
+
+
+                        </div><!-- /input-group -->
+
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.LongRate, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.LongRate, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.LongNote, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.LongNote, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+
+
+
+
+
+
+
+
+                    </div><!-- /.box-header -->
+
+
+                    <div class="col-md-6">
+
+
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.Short, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Short, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.ShortStop, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ShortStop, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.ShortRate, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ShortRate, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+
+                        <div class="input-group col-md-12">
+
+                            @Html.LabelFor(m => m.ShortNote, new { @class = "col-md-9 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ShortNote, new { @class = "form-control" })
+                            </div>
+
+                        </div><!-- /input-group -->
+
+                    </div>
+
+                </div>
+                <div class="box-footer">
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary margin">Submit</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <div class="box box-primary">
+
+                <div class="box-header">
+                    <h2 class="box-title">Phân quyền người xem</h2>
+                </div><!-- /.box-header -->
+
+                <div class="box-body">
+                    <div class="form-group">
+                        @foreach (SelectListObj _val in Model.lstPackage)
+                    {
+                        <label>
+                            <input type="checkbox" name="lstMarginPackage" value="@_val.value"> @_val.text
+                        </label><br />
+                }
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+}
+
+    </div>
+</section>
+
+
+
