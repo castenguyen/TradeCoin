@@ -74,23 +74,20 @@
                                 <hr>
 
 
-
-                                <strong><i class="fa fa-pencil margin-r-5"></i> Số BTC tối đa vào lệnh</strong>
-                                <p>
-                                    @if (Model.BTCInput.HasValue)
-                                    {
+                                @if (Model.BTCInput.HasValue)
+                                {
+                                    <strong><i class="fa fa-pencil margin-r-5"></i> Số BTC tối đa vào lệnh</strong>
+                                    <p>
                                         <span class="label label-danger">@Model.BTCInput</span>
-                                    }
-                                    else
-                                    {
+                                    </p>
+                                }
+                                else
+                                { <strong><i class="fa fa-pencil margin-r-5"></i> Số USD tối đa vào lệnh</strong>
+                                    <p>
                                         <span class="label label-danger">@Model.USDInput</span>
+                                    </p>
 
-                                    }
-
-
-
-
-                                </p>
+                                }
                                 <hr>
 
                                 @if (Model.Flag == 1 || Model.Flag == 2 || Model.Flag == 3)

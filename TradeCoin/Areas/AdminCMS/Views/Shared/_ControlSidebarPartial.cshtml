@@ -5,15 +5,15 @@
 @model DataModel.DataViewModel.BoxMargin
 
 
-<aside class="control-sidebar control-sidebar-bg" style="width:420px">
-    <a href="#" data-toggle="control-sidebar" class="btn btn-block btn-success btn-lg" style="width:100px;height:30px;position:fixed;top:90%;right:0px;padding:0">Margin Box</a>
+<aside class="control-sidebar control-sidebar-bg" style="width:320px">
+    <a href="#" data-toggle="control-sidebar" class="btn btn-block btn-success btn-lg" style="width:100px;height:30px;position:fixed;top:95%;right:0px;padding:0">Margin Box</a>
 
 
     @*<a href="javascript:ListNewMargin();" class="btn btn-block btn-success btn-lg" style="width:100px;height:30px;position:fixed;top:95%;right:0px;padding:0">Test Margin</a>*@
 
 
-    <div class="box">
-
+    <div class="box" style="border:3px solid #d2d6de !important">
+         
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs bg-gray-active">
 
             @if (Model.packageId != 0)
@@ -72,9 +72,9 @@
                                         <label>Thời gian: Long</label>
                                     </div>*@
                                 <div class="col-md-6">
+
                                     <div class="form-group">
                                         <label>Long Order: <span id="FreeMarginLong"> @Model.FreeObject.Long</span></label>
-
                                     </div>
                                     <div class="form-group">
                                         <label>Stop: <span id="FreeMarginLongStop"> @Model.FreeObject.LongStop</span></label>
@@ -368,7 +368,6 @@
 
 
         </div><!-- /.box-header -->
-
 
     </div>
 

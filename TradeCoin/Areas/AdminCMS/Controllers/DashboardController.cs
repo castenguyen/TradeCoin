@@ -134,7 +134,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return PartialView("_MainSliderPartial", MainModel);
         }
 
-        public async Task<ActionResult> ControlSidebarPartial()
+        public ActionResult ControlSidebarPartial()
         {
             BoxMargin MainModel = new BoxMargin();
             if (User.Identity.IsAuthenticated)
@@ -146,7 +146,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 else
                 {
                     long UserId = long.Parse(User.Identity.GetUserId());
-                    User ObjectCurentUser = await cms_db.GetObjUserById(UserId);
+                    User ObjectCurentUser = cms_db.GetObjUserByIdNoAsync(UserId);
                     MainModel.packageId = ObjectCurentUser.PackageId.Value;
                 }
              

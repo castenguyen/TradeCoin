@@ -165,7 +165,7 @@ namespace DataModel.DataStore
                                                      MediaThumb = tk.MediaThumb,
                                                      Flag = tk.Flag,
                                                      Profit = tk.Profit,
-                                                     Deficit = tk.Profit,
+                                                     Deficit = tk.Deficit,
                                                      USDInput = tk.USDInput,
                                                      CyptoID = tk.CyptoID,
                                                      CyptoName = tk.CyptoName,

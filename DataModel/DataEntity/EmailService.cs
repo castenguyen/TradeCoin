@@ -36,72 +36,72 @@ namespace DataModel.DataEntity
                 if (stt == 0)
                 {
                     await this.SendServiceCom(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceCom", "NcoinAPIController", stt.ToString());
+                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceCom", "NcoinAPIController", stt.ToString());
                 }
                 else if (stt == 1)
                 {
 
                     await this.SendNotifyCom(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyCom", "NcoinAPIController", stt.ToString());
+                    //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyCom", "NcoinAPIController", stt.ToString());
                 }
                 else if (stt == 2)
                 {
                     await this.SendNotifyTop(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyTop", "NcoinAPIController", stt.ToString());
+                  //  cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyTop", "NcoinAPIController", stt.ToString());
                    
                 }
                 else if (stt == 3)
                 {
                     await this.SendServiceTop(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceTop", "NcoinAPIController", stt.ToString());
+                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceTop", "NcoinAPIController", stt.ToString());
                   
                 }
                 else if (stt == 4)
                 {
                     await this.SendNotifyXYZ(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyXYZ", "NcoinAPIController", stt.ToString());
+                    //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyXYZ", "NcoinAPIController", stt.ToString());
                   
                 }
                 else if (stt ==5)
                 {
                     await this.SendServiceXYZ(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceXYZ", "NcoinAPIController", stt.ToString());
+                    //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceXYZ", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 6)
                 {
                     await this.SendNcoinXYZ(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinXYZ", "NcoinAPIController", stt.ToString());
+                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinXYZ", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 7)
                 {
                     await this.SendBaoKeo(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendBaoKeo", "NcoinAPIController", stt.ToString());
+                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendBaoKeo", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 8)
                 {
                     await this.SendNcoinGmail(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinGmail", "NcoinAPIController", stt.ToString());
+                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinGmail", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 9)
                 {
                     await this.SendNcoinDem(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinDem", "NcoinAPIController", stt.ToString());
+                    //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinDem", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 10)
                 {
                     await this.SendNcoinKimCuong(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinKimCuong", "NcoinAPIController", stt.ToString());
+                    //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinKimCuong", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 11)
                 {
                     await this.SendNcoinThongBao(message, lstEmail);
-                    cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinThongBao", "NcoinAPIController", stt.ToString());
+                  //  cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinThongBao", "NcoinAPIController", stt.ToString());
 
                 }
 

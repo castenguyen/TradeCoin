@@ -123,9 +123,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 ///nếu lớn hơn 1 phút thì lấy tất cả các dong tiền ở kèo
                 if (minute > 5)
                 {
+                    ///lấy những dong coin có trong kèo
                     long[] listCyptoNeedUpdatePrice1 = cms_db.GetlstTicker().Where(s => s.StateId !=
                                         (int)EnumCore.TickerStatusType.da_xoa).Select(s => s.CyptoID.Value).Distinct().ToArray();
 
+                    //kiem tra xem đồng coin có được phép cập nhật giá hay ko
                     long[] listCyptoNeedUpdatePrice = cms_db.GetlstCyptoItem()
                             .Where(s => s.allow_update == true && s.is_active == true && listCyptoNeedUpdatePrice1.Contains(s.id)).Select(s => s.id).ToArray();
 
@@ -133,6 +135,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     {
                         return true;
                     }
+
+                    //tạo chuoi de cập nhật giá cho coin
                     List<string> query = this.MakeQueryListCyptoId(listCyptoNeedUpdatePrice);
                     if (query.Count() == 0)
                     {
@@ -162,6 +166,13 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 return false;
             }
         }
+
+        /// <summary>
+        /// tạo string query cho truy vấn giá đồng coin
+        /// </summary>
+        /// <param name="Cyptoid"></param>
+        /// ket quả trả về là 1 list các mảng bởi vì moi lần truy vấn tối đa 100 đong coin
+        /// <returns></returns>
         private List<string> MakeQueryListCyptoId(long[] Cyptoid)
         {
 
@@ -172,9 +183,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             int i = 1;
             foreach (long id in Cyptoid)
             {
-                if (i == 98 || id == lastlongid)
+                //néu là dồng coi cuối cùng trong list coin truyền vào
+                if (id == lastlongid)
                 {
-                    tmp = tmp + id.ToString();
+                    tmp = tmp +","+ id.ToString();
+                    result.Add(tmp);
+                    i = 0;
+                    tmp = "";
+                }
+                ///Nếu là dong coi thứ 98 thì cắt tao mảng mới
+                if (i == 98)
+                {
+                    tmp = tmp +"," +id.ToString();
                     result.Add(tmp);
                     i = 0;
                     tmp = "";
@@ -332,6 +352,18 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                 if (objPrice != null)
                 {
+                    //nếu dã là lời target 3 thì ko cap nhat giá
+                    if (MainModel.Flag == 3)
+                    {
+
+                        return true;
+                    }
+                    //nếu dã là lỗ  thì ko cap nhat giá
+                    else if (MainModel.Flag == 4)
+                    {
+
+                        return true;
+                    }
                     if (objPrice.USD_price >= MainModel.SellZone3)
                     {
                         OldValue = MainModel.Profit.ToString();
@@ -408,7 +440,19 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                 if (objPrice != null)
                 {
-                    if (objPrice.BTC_price >= MainModel.SellZone3)
+                    //nếu dã là lời target 3 thì ko cap nhat giá
+                    if (MainModel.Flag == 3)
+                    {
+
+                        return true;
+                    }
+                    //nếu dã là lỗ  thì ko cap nhat giá
+                    else if (MainModel.Flag == 4)
+                    {
+
+                        return true;
+                    }
+                    else if (objPrice.BTC_price >= MainModel.SellZone3)
                     {
                         OldValue = MainModel.Profit.ToString();
                         MainModel.Flag = 3;
@@ -430,7 +474,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         NewValue = MainModel.Profit.ToString();
                     }
 
-                    else if (objPrice.BTC_price >= MainModel.SellZone1)
+                    else if (objPrice.BTC_price >= MainModel.SellZone1 && MainModel.Flag!=2)
                     {
                         OldValue = MainModel.Profit.ToString();
                         MainModel.Flag = 1;

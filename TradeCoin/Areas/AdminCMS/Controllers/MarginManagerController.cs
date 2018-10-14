@@ -22,7 +22,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 {
     public class MarginManagerController : CoreBackEnd
     {
-        [AdminAuthorize(Roles = "devuser,AdminUser,CreateMargin")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,CreateMargin")]
         public ActionResult Index(int? page, int? status, int? MarginPackage)
         {
             int pageNum = (page ?? 1);
@@ -87,7 +87,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View(model);
         }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,CreateTicker")]
         public ActionResult Create()
         {
             MarginViewModel model = new MarginViewModel();
@@ -97,7 +97,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,CreateTicker")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,CreateTicker")]
         public async Task<ActionResult> Create(MarginViewModel model)
         {
             try
@@ -153,7 +153,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
         }
 
-        [AdminAuthorize(Roles = "supperadmin,devuser,UpdateMargin")]
+
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,UpdateMargin")]
         public ActionResult Update(int? id)
         {
             if (id == null)
@@ -185,7 +186,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,UpdateTicker")]
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,UpdateMargin")]
+  
         public async Task<ActionResult> Update(MarginViewModel model)
         {
             try
@@ -248,7 +250,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-
+        [AdminAuthorize(Roles = "supperadmin,devuser,AdminUser,Mod,Delete")]
         public async Task<ActionResult> Delete(long id)
         {
             try
