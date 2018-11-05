@@ -8,9 +8,7 @@
 }
 
 <section class="content-header">
-    <h1>
-        Chi tiết Video
-    </h1>
+  
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Chi tiết Video</li>
@@ -20,7 +18,6 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-
 
         <div class="col-md-8">
             <div class="box box-widget">
@@ -40,22 +37,68 @@
                             Your browser does not support the video tag.
                         </video>
 
-
-
-
-
-
-
                         @Html.Raw(Model.MediaDesc)
-
 
                         @*<span class='pull-right text-muted'> 200 Lượt xem</span>*@
                     </div><!-- /.box-body -->
+                    <div class='box-footer'>
+                        <span class='description'>Hãy sử dụng trình duyệt web chrome để được hỗ trợ xem video tốt nhất</span><br>
+                        <span class='description'>Vui lòng mở trình duyệt chrome đăng nhập vào ncoinclub.com sau đó copy đường dẩn sau để xem:</span><br>
+                        <span class='description'>http://ncoinclub.com/api/NcoinService/GetVideo?VideoId=@Model.MediaContentId&gui=@Model.objMediaContent.MediaContentGuidId</span>
+                       
 
-              
+                    </div><!-- /.box -->
                 </div><!-- /.box -->
 
             </div><!-- /.user-block -->
+
+
+            @*<div class="box box-widget">
+
+                <div class="box box-widget">
+                    <div class='box-header with-border'>
+                        <div class='user-block'>
+                            <img class='img-circle' src='~/Areas/AdminCMS/dist/img/user1-128x128.jpg' alt='user image'>
+                            <span class='username'><a href="#">@Model.Filename</a></span>
+                            <span class='description'> @Model.CrtdDT</span>
+                        </div><!-- /.user-block -->
+                    </div><!-- /.box-header -->
+                    <div class='box-body'>
+
+                        <div class="theoplayer-container video-js theoplayer-skin" style="width:100%;height:auto"></div>
+                        <script type='text/javascript' src='https://cdn.myth.theoplayer.com/e6330bb0-4c74-4ff5-82f3-7af21038ec8b/THEOplayer.js'></script>
+                        <script>
+
+                            var element = document.querySelector('.theoplayer-container');
+                            var player = new THEOplayer.Player(element, {
+                                libraryLocation: 'https://cdn.myth.theoplayer.com/e6330bb0-4c74-4ff5-82f3-7af21038ec8b/'
+                            });
+                            player.source = {
+                                sources: [{
+                                    src: 'http://localhost:42609/video/VID_20180427_100337.mp4',
+                                    type: 'application/x-mpegurl'
+                                }]
+                            };
+                           
+
+                        </script>
+
+                        @Html.Raw(Model.MediaDesc)
+
+                        @*<span class='pull-right text-muted'> 200 Lượt xem</span>
+                    </div><!-- /.box-body -->
+                    <div class='box-footer'>
+                        <span class='description'>Hãy sử dụng trình duyệt web chrome để được hỗ trợ xem video tốt nhất</span>
+                    </div><!-- /.box -->
+                </div><!-- /.box -->
+
+            </div><!-- /.user-block -->*@
+
+
+
+          
+
+          
 
 
         </div>

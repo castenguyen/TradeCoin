@@ -144,7 +144,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Core
                     num = HttpContext.Application["NumberSTT"] as string;
                     stt = int.Parse(num);
                     int tmp = 0;
-                    if (stt >=11)
+                    if (stt >=12)
                     {
                          tmp = 0;
                     }

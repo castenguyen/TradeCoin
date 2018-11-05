@@ -211,6 +211,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
           }
 
+
+
+
+
+
+
         [AdminAuthorize(Roles = "supperadmin,devuser,UpdateTicker")]
         public ActionResult Update(int? id)
         {
@@ -403,7 +409,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         newarr.Add(item);
                 }
                 List<string> lstEmail = cms_db.GetlstUser().Where(s => newarr.Contains(s.PackageId.Value) 
-                            && s.EmailConfirmed==true && s.IsLocked==false).Select(s => s.EMail).ToList();
+                            && s.EmailConfirmed==true && s.LockoutEnabled==false).Select(s => s.EMail).ToList();
 
 
                 var callbackUrl = Url.Action("DetailTicker", "Member", new { tickerId = tickerid }, protocol: Request.Url.Scheme);
@@ -414,17 +420,26 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 message.Destination ="nguyenhuyc2@gmail.com";
 
                 int countEmail = lstEmail.Count / 12;
-                for (int i = 0; i < 11; i++)
+
+                for (int i = 0; i < 12; i++)
                 {
                     if (i == 0)
                     {
                         List<string> lstmp = lstEmail.Skip(0).Take(countEmail).ToList();
                         await email.SendMailRandom(message, i, lstmp);
+
                     }
-                    else
+                    else if (i == 11)
+                    {
+
+                        List<string> lstmp = lstEmail.Skip((i * countEmail) - 1).Take(90).ToList();
+                        await email.SendMailRandom(message, i, lstmp);
+                    }
+
+                    else 
                     {
                         List<string> lstmp = lstEmail.Skip((i * countEmail) - 1).Take(countEmail).ToList();
-                        await email.SendMailRandom(message, i, lstmp);
+                          await email.SendMailRandom(message, i, lstmp);
                     }
                 }
 
@@ -438,7 +453,21 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
 
-     
+        [AdminAuthorize(Roles = "devuser")]
+        public async Task<ActionResult> TestSendMail()
+        {
+            try
+            {
+                long[] balance = { 5 };
+                await this.SendMail(1,"Test", balance);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("Delete", "TickerManager", e.ToString());
+                return RedirectToAction("Index");
+            }
+        }
 
         private async Task<MediaContentViewModels> SaveDefaultImageForTicker(HttpPostedFileBase file, long TickerId)
         {

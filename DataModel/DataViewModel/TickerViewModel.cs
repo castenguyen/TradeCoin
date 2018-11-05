@@ -247,6 +247,20 @@ namespace DataModel.DataViewModel
            
         }
 
+        public Nullable<decimal> DecimaDeficit
+        {
+            get { return Convert.ToDecimal(_MainObj.Deficit); }
+
+        }
+
+        public Nullable<decimal> DecimaProfit
+        {
+            get { return Convert.ToDecimal(_MainObj.Profit); }
+
+        }
+
+        
+
 
         public List<TickerViewModel> lstsameTickers { get; set; }
         public List<ContentPackage> lstTickerContentPackage { get; set; }

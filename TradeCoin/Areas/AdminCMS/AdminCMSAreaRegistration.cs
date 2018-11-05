@@ -1109,9 +1109,15 @@ new { controller = "PackageManager", action = "Export" }
                new { controller = "TickerManager", action = "Delete", id = UrlParameter.Optional }
                  );
 
+            context.MapRoute(
+              "AdminCMS_Ticker_TestSendMail",
+              "administrator/TestSendMail",
+              new { controller = "TickerManager", action = "TestSendMail" }
+                );
 
-        
             
+
+
 
             #endregion
 
@@ -1293,7 +1299,20 @@ new { controller = "PackageManager", action = "Export" }
      new { controller = "CyptoItemManager", action = "IndexCyptoPrice" }
      );
 
+            context.MapRoute(
+  "AdminCMS_CyptoItemManager_EditCyptoPrice",
+  "CyptoItemManager/EditCyptoPrice",
+  new { controller = "CyptoItemManager", action = "EditCyptoPrice" }
+  );
 
+
+            context.MapRoute(
+  "AdminCMS_CyptoItemManager_DoUpdatePriceTicker",
+  "CyptoItemManager/DoUpdatePriceTicker",
+  new { controller = "CyptoItemManager", action = "DoUpdatePriceTicker" }
+  );
+
+            
 
             #endregion
 

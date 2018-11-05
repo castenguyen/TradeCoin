@@ -316,7 +316,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         FullName = model.FullName,
 
                     };
-                    var findrs = UserManager.Find(model.Email,"123456");
+                    var findrs = UserManager.Find(model.Email, "123456");
 
                     if (findrs != null)
                     {
@@ -355,14 +355,25 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         string AlertString = "Đăng ký tài khoản không thành công vui lòng kiểm tra nhập liệu";
                         foreach (string error in result.Errors)
                         {
-                            AlertString= AlertString+ "---" + error;
+                            AlertString = AlertString + "---" + error;
                         }
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.FullScrenn });
 
                     }
-                  
+
                 }
-                return View(model);
+                else {
+
+          
+
+                    model.lstUserType = new SelectList(cms_db.GetlstRole().Where(s => s.Id == 8
+                            || s.Id == 66 || s.Id == 67).ToList(), "Id", "Name");
+                    Config tmp2 = ExtFunction.Config();
+                    ViewBag.SiteName = tmp2.site_name;
+                    return View(model);
+
+                }
+               
             }
             catch (Exception e)
             {
@@ -433,6 +444,9 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         int stt = this.GetNumberSTTForSendMail();
                         await email.SendMailRandom(message, stt, null);
 
+                        int ach = await cms_db.CreateUserHistory(user.Id, Request.ServerVariables["REMOTE_ADDR"],
+                                            (int)EnumCore.ActionType.Login, "Register(awaitconfirm)", user.Id, model.Email, "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+
                         string AlertString = "Đăng ký tài khoản thành công vui lòng kiểm tra mail để xác nhận tài khoản";
                         return RedirectToAction("AlertPage", "Extension", new { AlertString = AlertString, type = (int)EnumCore.AlertPageType.lockscreen });
                     }
@@ -468,13 +482,17 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ConfirmEmail(long userId, string code)
+        public async Task<ActionResult> ConfirmEmail(long userId, string code)
         {
             if (code == null)
             {
                 return View("Error");
             }
             var result = UserManager.ConfirmEmail(userId, code);
+
+            int ach = await cms_db.CreateUserHistory(userId, Request.ServerVariables["REMOTE_ADDR"],
+                                           (int)EnumCore.ActionType.Login, "ConfirmEmail", userId, "Unknown", "User", (int)EnumCore.ObjTypeId.nguoi_dung);
+
             if (result.Succeeded)
             {
                 return View("ConfirmEmail");

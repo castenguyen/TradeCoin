@@ -36,7 +36,7 @@ namespace DataModel.DataEntity
                 if (stt == 0)
                 {
                     await this.SendServiceCom(message, lstEmail);
-                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceCom", "NcoinAPIController", stt.ToString());
+                    // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceCom", "NcoinAPIController", stt.ToString());
                 }
                 else if (stt == 1)
                 {
@@ -47,22 +47,22 @@ namespace DataModel.DataEntity
                 else if (stt == 2)
                 {
                     await this.SendNotifyTop(message, lstEmail);
-                  //  cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyTop", "NcoinAPIController", stt.ToString());
-                   
+                     // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyTop", "NcoinAPIController", stt.ToString());
+
                 }
                 else if (stt == 3)
                 {
                     await this.SendServiceTop(message, lstEmail);
-                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceTop", "NcoinAPIController", stt.ToString());
-                  
+                    // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceTop", "NcoinAPIController", stt.ToString());
+
                 }
                 else if (stt == 4)
                 {
                     await this.SendNotifyXYZ(message, lstEmail);
                     //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNotifyXYZ", "NcoinAPIController", stt.ToString());
-                  
+
                 }
-                else if (stt ==5)
+                else if (stt == 5)
                 {
                     await this.SendServiceXYZ(message, lstEmail);
                     //cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendServiceXYZ", "NcoinAPIController", stt.ToString());
@@ -71,19 +71,19 @@ namespace DataModel.DataEntity
                 else if (stt == 6)
                 {
                     await this.SendNcoinXYZ(message, lstEmail);
-                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinXYZ", "NcoinAPIController", stt.ToString());
+                    // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinXYZ", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 7)
                 {
                     await this.SendBaoKeo(message, lstEmail);
-                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendBaoKeo", "NcoinAPIController", stt.ToString());
+                    // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendBaoKeo", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 8)
                 {
                     await this.SendNcoinGmail(message, lstEmail);
-                   // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinGmail", "NcoinAPIController", stt.ToString());
+                    // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinGmail", "NcoinAPIController", stt.ToString());
 
                 }
                 else if (stt == 9)
@@ -101,7 +101,14 @@ namespace DataModel.DataEntity
                 else if (stt == 11)
                 {
                     await this.SendNcoinThongBao(message, lstEmail);
-                  //  cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinThongBao", "NcoinAPIController", stt.ToString());
+                    //  cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinThongBao", "NcoinAPIController", stt.ToString());
+
+                }
+                else if (stt == 12)
+                {
+                    await this.SendNcoinTop(message, lstEmail);
+                  // cms_db.AddToExceptionLog("SendMailRandom----> " + stt.ToString() + "SendNcoinTop", "NcoinAPIController", stt.ToString());
+
 
                 }
 
@@ -116,6 +123,7 @@ namespace DataModel.DataEntity
 
         public async Task SendAsync(IdentityMessage message, bool SSLEnable, List<string> lstEmail,string SMTP,string Email,string Pass,int Port)
         {
+            string listemail = "";
             Ctrl cms_db = new Ctrl();
             // Plug in your email service here to send an email.
             var result = Task.FromResult(0);
@@ -135,7 +143,19 @@ namespace DataModel.DataEntity
                     foreach (string email in lstEmail)
                     {
                         mail.To.Add(email);
+                        if (email== "hanadoctor@gmail.com")
+                        {
+                            cms_db.AddToExceptionLog("hanadoctor@gmail.com được gửi từ mail " + Email.ToString()
+                             + "vào lúc" + DateTime.Now.ToString()   , "SendAsync", message.Subject.ToString());
+                        }
+                        listemail = listemail + "-----" + email.ToString();
                     }
+                }
+                if(String.IsNullOrEmpty(listemail))
+                {
+
+                    cms_db.AddToExceptionLog("Test Send mail được gửi từ mail " + Email.ToString()
+                                                + "vào lúc" + DateTime.Now.ToString(), "SendAsync", listemail);
                 }
                 mail.Subject = message.Subject;
                 mail.Body = message.Body;
@@ -190,6 +210,9 @@ namespace DataModel.DataEntity
                 throw ex;
             }
         }
+
+
+
         /// <summary>
         /// noreply@notify-ncoinclub.top
         /// </summary>
@@ -200,7 +223,7 @@ namespace DataModel.DataEntity
         {
             try
             {
-                await this.SendAsync(message, false, lstEmail, ConstantSystem.NotifyTopSMTP,
+                await this.SendAsync(message, true, lstEmail, ConstantSystem.NotifyTopSMTP,
                     ConstantSystem.NotifyTopAdmin, ConstantSystem.NotifyTopPassword, ConstantSystem.NotifyTopPort);
             }
             catch (Exception ex)
@@ -218,7 +241,7 @@ namespace DataModel.DataEntity
         {
             try
             {
-                await this.SendAsync(message, false, lstEmail, ConstantSystem.ServiceTopSMTP,
+                await this.SendAsync(message, true, lstEmail, ConstantSystem.ServiceTopSMTP,
                     ConstantSystem.ServiceTopAdmin, ConstantSystem.ServiceTopPassword, ConstantSystem.ServiceTopPort);
             }
             catch (Exception ex)
@@ -226,6 +249,27 @@ namespace DataModel.DataEntity
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// noreply@service-ncoinclub.top
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="lstEmail"></param>
+        /// <returns></returns>
+        public async Task SendNcoinTop(IdentityMessage message, List<string> lstEmail)
+        {
+            try
+            {
+                await this.SendAsync(message, true, lstEmail, ConstantSystem.NcoinTopSMTP,
+                    ConstantSystem.NcoinTopAdmin, ConstantSystem.NcoinTopPassword, ConstantSystem.NcoinTopPort);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
         /// <summary>
         /// /noreply@notify-ncoinclub.xyz

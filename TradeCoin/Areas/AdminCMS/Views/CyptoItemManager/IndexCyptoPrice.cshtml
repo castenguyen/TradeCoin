@@ -50,6 +50,10 @@
                             <a href="@Url.Action("Index", "CyptoItemManager", new { letter = "z",  page = Model.page,status=Model.status })" class="label label-primary">Z</a>
                         </div>
 
+                        <div class="form-group col-md-4">
+                            <a href="@Url.Action("DoUpdatePriceTicker", "CyptoItemManager")" class="label label-primary">Cập nhật thủ công</a> |
+                         </div>
+
                         <table class="table table-hover">
                             <tbody>
                                 <tr>
@@ -59,19 +63,25 @@
                                     <th>Ngày cập nhật</th>
                                     <th>Gía USD</th>
                                     <th>Gía BTC</th>
+                                    <th>Cập nhật</th>
 
                                 </tr>
                                 @foreach (CyptoItemPrice _item in Model.lstMainCypto)
-                                {
-                                <tr>
-                                    <td>@_item.id</td>
-                                    <td>@_item.name </td>
-                                    <td>@_item.symbol</td>
-                                    <td>@_item.CyptoItemPriceUpdate</td>
-                                    <td> @_item.USD_price </td>
-                                    <td> @_item.BTC_price </td>
-                                </tr>
-                                }
+            {
+                    <tr>
+                        <td>@_item.id</td>
+                        <td>@_item.name </td>
+                        <td>@_item.symbol</td>
+                        <td>@_item.CyptoItemPriceUpdate</td>
+                        <td> @_item.USD_price </td>
+                        <td> @_item.BTC_price </td>
+                        <td>
+
+                            <a href="@Url.Action("EditCyptoPrice", "CyptoItemManager",new { CyptoItemPriceId = _item.CyptoItemPriceId })" class="label label-primary">Cập nhật giá</a>
+                        
+                        </td>
+                    </tr>
+}
 
                             </tbody>
                         </table>

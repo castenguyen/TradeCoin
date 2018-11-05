@@ -89,7 +89,12 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                 Config cf = new Config();
                 cf = cms_db.GetConfig();
                 this.SetInforMeta(cf.site_metadatakeyword, cf.site_metadadescription);
+
                 await this.CheckPriceUpdate();
+             
+
+
+
                 return View(model);
             }
             catch (Exception e)
@@ -152,9 +157,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         foreach (string stringtmpid in query)
                         {
                             //lấy giá của cá đồng tiền có trong hệ thống
+                            //cập nhật giá
                             bool a = await this.DoUpdatePriceCypto(stringtmpid);
 
                         }
+                        this.DoUpdatePriceTicker();
                     }
 
                 }
@@ -269,12 +276,51 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                     await cms_db.CreateCyptoItemPrice(objCyptoItemPrice._MainObj);
                 }
-                HttpContext.Application["LastTimePriceUpdate"] = DateTime.Now.ToString();
+
+
                 return true;
             }
             catch (Exception e)
             {
                 cms_db.AddToExceptionLog("ApiUpdatePriceForTicker", "Member", e.ToString());
+                return false;
+            }
+
+
+        }
+
+
+        private  bool DoUpdatePriceTicker()
+        {
+            try
+            {
+                long[] CyptoItemPriceId = cms_db.GetLstCyptoItemPrice().Select(s => s.id).ToArray();
+
+                List<Ticker> lstTickerNeedUpdate = cms_db.GetlstTicker().Where(s => s.StateId
+                != (int)EnumCore.TickerStatusType.da_xoa && s.Flag != 3 && s.Flag != 4 && CyptoItemPriceId.Contains(s.CyptoID.Value)).ToList();
+
+
+                foreach (Ticker mainTicker in lstTickerNeedUpdate)
+                {
+                    if (mainTicker.BTCInput.HasValue)
+                    {
+                        this.UpdatePriceForTickerBTC(mainTicker);
+                    }
+                    else if (mainTicker.USDInput.HasValue)
+                    {
+                        this.UpdatePriceForTickerUSDT(mainTicker);
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("DoUpdatePriceTicker", "Member", e.ToString());
                 return false;
             }
 
@@ -335,201 +381,41 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
         }
 
-        /// <summary>
-        /// cập nhật trạng thái lỗ lời cho 1 KEO USDT
-        /// </summary>
-        /// <returns></returns>
-        private bool UpdatePriceForDetailTickerUSDT(long tickerId)
-        {
-            try
-            {
-                Ticker MainModel = new Ticker();
-                MainModel = cms_db.GetObjTicker(tickerId);
-                string OldValue = "";
-                string NewValue = "";
-                CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
-                    Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
-
-                if (objPrice != null)
-                {
-                    //nếu dã là lời target 3 thì ko cap nhat giá
-                    if (MainModel.Flag == 3)
-                    {
-
-                        return true;
-                    }
-                    //nếu dã là lỗ  thì ko cap nhat giá
-                    else if (MainModel.Flag == 4)
-                    {
-
-                        return true;
-                    }
-                    if (objPrice.USD_price >= MainModel.SellZone3)
-                    {
-                        OldValue = MainModel.Profit.ToString();
-                        MainModel.Flag = 3;
-                        MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.USDInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
-                        MainModel.StateName = "Lời";
-                        NewValue = MainModel.Profit.ToString();
 
 
-                    }
-
-                    else if (objPrice.USD_price >= MainModel.SellZone2)
-                    {
-                        OldValue = MainModel.Profit.ToString();
-                        MainModel.Flag = 2;
-                        MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.USDInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
-                        MainModel.StateName = "Lời";
-                        NewValue = MainModel.Profit.ToString();
-                    }
-
-                    else if (objPrice.USD_price >= MainModel.SellZone1)
-                    {
-                        OldValue = MainModel.Profit.ToString();
-                        MainModel.Flag = 1;
-                        MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.USDInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
-                        MainModel.StateName = "Lời";
-                        NewValue = MainModel.Profit.ToString();
-                    }
-
-                    else if (objPrice.USD_price <= MainModel.Deficit)
-                    {
-                        OldValue = MainModel.Deficit.ToString();
-                        MainModel.Flag = 4;
-                        MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.USDInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
-                        MainModel.StateName = "Lỗ";
-                        NewValue = MainModel.Deficit.ToString();
-                    }
-
-                    cms_db.UpdateTickerNoasync(MainModel);
-
-                    int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                  (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerUSDT", MainModel.TickerId,
-                  MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
-                }
 
 
-                return true;
-            }
-            catch (Exception e)
-            {
-                cms_db.AddToExceptionLog("UpdatePriceForDetailTickerUSDT", " Member", e.ToString());
-                return false;
-            }
-
-        }
-        /// <summary>
-        /// cập nhật trạng thái lỗ lời cho 1 KÈO BTC
-        /// </summary>
-        /// <returns></returns>
-        private bool UpdatePriceForDetailTickerBTC(long tickerId)
-        {
-            try
-            {
-                Ticker MainModel = new Ticker();
-                MainModel = cms_db.GetObjTicker(tickerId);
-                string OldValue = "";
-                string NewValue = "";
-                CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
-                    Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
-
-                if (objPrice != null)
-                {
-                    //nếu dã là lời target 3 thì ko cap nhat giá
-                    if (MainModel.Flag == 3)
-                    {
-
-                        return true;
-                    }
-                    //nếu dã là lỗ  thì ko cap nhat giá
-                    else if (MainModel.Flag == 4)
-                    {
-
-                        return true;
-                    }
-                    else if (objPrice.BTC_price >= MainModel.SellZone3)
-                    {
-                        OldValue = MainModel.Profit.ToString();
-                        MainModel.Flag = 3;
-                        MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.BTCInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
-                        MainModel.StateName = "Lời";
-                        NewValue = MainModel.Profit.ToString();
-
-
-                    }
-
-                  else if (objPrice.BTC_price >= MainModel.SellZone2)
-                    {
-                        OldValue = MainModel.Profit.ToString();
-                        MainModel.Flag = 2;
-                        MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.BTCInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
-                        MainModel.StateName = "Lời";
-                        NewValue = MainModel.Profit.ToString();
-                    }
-
-                    else if (objPrice.BTC_price >= MainModel.SellZone1 && MainModel.Flag!=2)
-                    {
-                        OldValue = MainModel.Profit.ToString();
-                        MainModel.Flag = 1;
-                        MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.BTCInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
-                        MainModel.StateName = "Lời";
-                        NewValue = MainModel.Profit.ToString();
-                    }
-
-                    else if (objPrice.BTC_price <= MainModel.DeficitControl)
-                    {
-                        OldValue = MainModel.Deficit.ToString();
-                        MainModel.Flag = 4;
-                        MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
-                        MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
-                        MainModel.StateName = "Lỗ";
-                        NewValue = MainModel.Deficit.ToString();
-                    }
-
-                    cms_db.UpdateTickerNoasync(MainModel);
-
-                    int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                  (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerBTC", MainModel.TickerId,
-                  MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
-                }
-
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                cms_db.AddToExceptionLog("UpdatePriceForDetailTickerBTC", " Member", e.ToString());
-                return false;
-            }
-
-        }
         /// <summary>
         /// cập nhật trạng thái lỗ lời cho tất cả kèo usdt
         /// </summary>
         /// <returns></returns>
-        private bool UpdatePriceForTickerUSDT()
+        private bool UpdatePriceForTickerUSDT(Ticker MainModel)
         {
             try
             {
-                List<Ticker> lstTickerNeedUpdate = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa && s.USDInput.HasValue).ToList();
-                foreach (Ticker MainModel in lstTickerNeedUpdate)
-                {
+
+                //lấy tất cả các kèo usdt
+              //  List<Ticker> lstTickerNeedUpdate = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa && s.USDInput.HasValue).ToList();
+             
                     string OldValue = "";
                     string NewValue = "";
                     CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
                         Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
-
                     if (objPrice != null)
                     {
-                        if (objPrice.USD_price > MainModel.SellZone3)
+                        //nếu dã là lời target 3 thì ko cap nhat giá
+                        if (MainModel.Flag == 3)
+                        {
+
+                            return true;
+                        }
+                        //nếu dã là lỗ  thì ko cap nhat giá
+                        else if (MainModel.Flag == 4)
+                        {
+
+                            return true;
+                        }
+                        if (objPrice.USD_price >= MainModel.SellZone3)
                         {
                             OldValue = MainModel.Profit.ToString();
                             MainModel.Flag = 3;
@@ -541,7 +427,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                         }
 
-                        if (objPrice.USD_price > MainModel.SellZone2)
+                        else if (objPrice.USD_price >= MainModel.SellZone2)
                         {
                             OldValue = MainModel.Profit.ToString();
                             MainModel.Flag = 2;
@@ -551,7 +437,7 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             NewValue = MainModel.Profit.ToString();
                         }
 
-                        if (objPrice.USD_price > MainModel.SellZone1)
+                        else if (objPrice.USD_price >= MainModel.SellZone1)
                         {
                             OldValue = MainModel.Profit.ToString();
                             MainModel.Flag = 1;
@@ -561,11 +447,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             NewValue = MainModel.Profit.ToString();
                         }
 
-                        if (objPrice.USD_price <= MainModel.DeficitControl)
+                        else if (objPrice.USD_price <= MainModel.Deficit)
                         {
                             OldValue = MainModel.Deficit.ToString();
                             MainModel.Flag = 4;
-                            MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
+                            MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.USDInput.Value);
                             MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
                             MainModel.StateName = "Lỗ";
                             NewValue = MainModel.Deficit.ToString();
@@ -574,11 +460,11 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                         cms_db.UpdateTickerNoasync(MainModel);
 
                         int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                      (int)EnumCore.ActionType.Update, "UpdatePriceForTickerUSDT", MainModel.TickerId,
+                      (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerUSDT", MainModel.TickerId,
                       MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
                     }
 
-                }
+              
                 return true;
             }
             catch (Exception e)
@@ -588,54 +474,70 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
 
         }
+
+
+
+
         /// <summary>
         /// cập nhật trạng thái lỗ lời cho tất cả kèo BTC
         /// </summary>
         /// <returns></returns>
-        private bool UpdatePriceForTickerBTC()
+        private bool UpdatePriceForTickerBTC(Ticker MainModel)
         {
             try
             {
-                List<Ticker> lstTickerNeedUpdate = cms_db.GetlstTicker().Where(s => s.StateId != (int)EnumCore.TickerStatusType.da_xoa && s.BTCInput.HasValue).ToList();
-                foreach (Ticker MainModel in lstTickerNeedUpdate)
-                {
+              
                     string OldValue = "";
                     string NewValue = "";
                     CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
                         Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
                     if (objPrice != null)
                     {
-                        if (objPrice.BTC_price > MainModel.SellZone3)
+                        //nếu dã là lời target 3 thì ko cap nhat giá
+                        if (MainModel.Flag == 3)
+                        {
+
+                            return true;
+                        }
+                        //nếu dã là lỗ  thì ko cap nhat giá
+                        else if (MainModel.Flag == 4)
+                        {
+
+                            return true;
+                        }
+                        else if (objPrice.BTC_price >= MainModel.SellZone3)
                         {
                             OldValue = MainModel.Profit.ToString();
                             MainModel.Flag = 3;
-                            MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.USDInput.Value);
+                            MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.BTCInput.Value);
                             MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
                             MainModel.StateName = "Lời";
                             NewValue = MainModel.Profit.ToString();
+
+
                         }
 
-                        if (objPrice.BTC_price > MainModel.SellZone2)
+                        else if (objPrice.BTC_price >= MainModel.SellZone2)
                         {
                             OldValue = MainModel.Profit.ToString();
                             MainModel.Flag = 2;
-                            MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.USDInput.Value);
+                            MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.BTCInput.Value);
                             MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
                             MainModel.StateName = "Lời";
                             NewValue = MainModel.Profit.ToString();
                         }
 
-                        if (objPrice.BTC_price > MainModel.SellZone1)
+                        else if (objPrice.BTC_price >= MainModel.SellZone1 && MainModel.Flag != 2)
                         {
                             OldValue = MainModel.Profit.ToString();
                             MainModel.Flag = 1;
-                            MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.USDInput.Value);
+                            MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.BTCInput.Value);
                             MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
                             MainModel.StateName = "Lời";
                             NewValue = MainModel.Profit.ToString();
                         }
 
-                        if (objPrice.BTC_price <= MainModel.Deficit)
+                        else if (objPrice.BTC_price <= MainModel.DeficitControl)
                         {
                             OldValue = MainModel.Deficit.ToString();
                             MainModel.Flag = 4;
@@ -644,14 +546,15 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                             MainModel.StateName = "Lỗ";
                             NewValue = MainModel.Deficit.ToString();
                         }
+
                         cms_db.UpdateTickerNoasync(MainModel);
 
                         int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
-                      (int)EnumCore.ActionType.Update, "UpdatePriceForTickerBTC", MainModel.TickerId,
+                      (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerBTC", MainModel.TickerId,
                       MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
                     }
 
-                }
+               
                 return true;
             }
             catch (Exception e)
@@ -661,6 +564,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             }
 
         }
+
+
 
 
         private double SumTicker(int FlagZone, double zonebuy, double zonesell, double inputbtc)
@@ -818,6 +723,8 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
                     Ticker mainObj = cms_db.GetObjTicker(tickerId);
 
                     ///CẬP NHẬT GIÁ KÈO TRƯỚC KHI XEM
+                    ///
+                    /*
                     if (mainObj.BTCInput.HasValue)
                     {
                         this.UpdatePriceForDetailTickerBTC(tickerId);
@@ -826,8 +733,10 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
 
                         this.UpdatePriceForDetailTickerUSDT(tickerId);
                     }
-                    mainObj = cms_db.GetObjTicker(tickerId);
 
+
+                    mainObj = cms_db.GetObjTicker(tickerId);
+                    */
 
                     model._MainObj = mainObj;
 
@@ -1240,6 +1149,190 @@ namespace CMSPROJECT.Areas.AdminCMS.Controllers
             return View(model);
         }
 
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// cập nhật trạng thái lỗ lời cho 1 KEO USDT
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdatePriceForDetailTickerUSDT(long tickerId)
+        {
+            try
+            {
+                Ticker MainModel = new Ticker();
+                MainModel = cms_db.GetObjTicker(tickerId);
+                string OldValue = "";
+                string NewValue = "";
+                CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
+                    Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
+
+                if (objPrice != null)
+                {
+                    //nếu dã là lời target 3 thì ko cap nhat giá
+                    if (MainModel.Flag == 3)
+                    {
+
+                        return true;
+                    }
+                    //nếu dã là lỗ  thì ko cap nhat giá
+                    else if (MainModel.Flag == 4)
+                    {
+
+                        return true;
+                    }
+                    if (objPrice.USD_price >= MainModel.SellZone3)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 3;
+                        MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+
+
+                    }
+
+                    else if (objPrice.USD_price >= MainModel.SellZone2)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 2;
+                        MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.USD_price >= MainModel.SellZone1)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 1;
+                        MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.USD_price <= MainModel.Deficit)
+                    {
+                        OldValue = MainModel.Deficit.ToString();
+                        MainModel.Flag = 4;
+                        MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.USDInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
+                        MainModel.StateName = "Lỗ";
+                        NewValue = MainModel.Deficit.ToString();
+                    }
+
+                    cms_db.UpdateTickerNoasync(MainModel);
+
+                    int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                  (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerUSDT", MainModel.TickerId,
+                  MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
+                }
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpdatePriceForDetailTickerUSDT", " Member", e.ToString());
+                return false;
+            }
+
+        }
+        /// <summary>
+        /// cập nhật trạng thái lỗ lời cho 1 KÈO BTC
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdatePriceForDetailTickerBTC(long tickerId)
+        {
+            try
+            {
+                Ticker MainModel = new Ticker();
+                MainModel = cms_db.GetObjTicker(tickerId);
+                string OldValue = "";
+                string NewValue = "";
+                CyptoItemPrice objPrice = cms_db.GetLstCyptoItemPrice().
+                    Where(s => s.id == MainModel.CyptoID).OrderByDescending(s => s.CyptoItemPriceId).FirstOrDefault();
+
+                if (objPrice != null)
+                {
+                    //nếu dã là lời target 3 thì ko cap nhat giá
+                    if (MainModel.Flag == 3)
+                    {
+
+                        return true;
+                    }
+                    //nếu dã là lỗ  thì ko cap nhat giá
+                    else if (MainModel.Flag == 4)
+                    {
+
+                        return true;
+                    }
+                    else if (objPrice.BTC_price >= MainModel.SellZone3)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 3;
+                        MainModel.Profit = this.SumTicker(3, MainModel.BuyZone1.Value, MainModel.SellZone3.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+
+
+                    }
+
+                    else if (objPrice.BTC_price >= MainModel.SellZone2)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 2;
+                        MainModel.Profit = this.SumTicker(2, MainModel.BuyZone1.Value, MainModel.SellZone2.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.BTC_price >= MainModel.SellZone1 && MainModel.Flag != 2)
+                    {
+                        OldValue = MainModel.Profit.ToString();
+                        MainModel.Flag = 1;
+                        MainModel.Profit = this.SumTicker(1, MainModel.BuyZone1.Value, MainModel.SellZone1.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.loi;
+                        MainModel.StateName = "Lời";
+                        NewValue = MainModel.Profit.ToString();
+                    }
+
+                    else if (objPrice.BTC_price <= MainModel.DeficitControl)
+                    {
+                        OldValue = MainModel.Deficit.ToString();
+                        MainModel.Flag = 4;
+                        MainModel.Deficit = this.SumTicker(4, MainModel.BuyZone1.Value, MainModel.DeficitControl.Value, MainModel.BTCInput.Value);
+                        MainModel.StateId = (int)EnumCore.TickerStatusType.lo;
+                        MainModel.StateName = "Lỗ";
+                        NewValue = MainModel.Deficit.ToString();
+                    }
+
+                    cms_db.UpdateTickerNoasync(MainModel);
+
+                    int rs2 = cms_db.CreateUserHistoryNoAsync(long.Parse(User.Identity.GetUserId()), Request.ServerVariables["REMOTE_ADDR"],
+                  (int)EnumCore.ActionType.Update, "UpdatePriceForDetailTickerBTC", MainModel.TickerId,
+                  MainModel.TickerName, ConstantSystem.Table_ticker, (int)EnumCore.ObjTypeId.ticker, OldValue, NewValue);
+                }
+
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                cms_db.AddToExceptionLog("UpdatePriceForDetailTickerBTC", " Member", e.ToString());
+                return false;
+            }
+
+        }
 
 
 

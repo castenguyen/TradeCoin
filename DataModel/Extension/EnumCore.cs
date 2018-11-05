@@ -153,7 +153,8 @@ namespace DataModel.Extension
 
             Update = 6031,
             Login = 6032,
-            Logout = 6033
+            Logout = 6033,
+            SendMail = 2
 
         }
 

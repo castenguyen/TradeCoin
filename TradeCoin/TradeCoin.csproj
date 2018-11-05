@@ -2155,6 +2155,7 @@
     <Content Include="Areas\AdminCMS\Views\MarginManager\Index.cshtml" />
     <Content Include="Areas\AdminCMS\Views\MarginManager\Create.cshtml" />
     <Content Include="Areas\AdminCMS\Views\MarginManager\Update.cshtml" />
+    <Content Include="Areas\AdminCMS\Views\CyptoItemManager\EditCyptoPrice.cshtml" />
     <None Include="Properties\PublishProfiles\Biker.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\core.app.js" />

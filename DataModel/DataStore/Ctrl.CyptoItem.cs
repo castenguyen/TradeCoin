@@ -66,10 +66,36 @@ namespace DataModel.DataStore
 
                 return null;
             }
-         
 
         }
 
+        public CyptoItemPrice GetObjCyptoItemPrice(long id)
+        {
+            try
+            {
+                CyptoItemPrice ObjCyptoItem = db.CyptoItemPrices.Find(id);
+                return ObjCyptoItem;
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+
+        }
+        public async Task<int> UpdateCyptoPrice(CyptoItemPrice ObjCyptoItemPrice)
+        {
+            try
+            {
+                db.Entry(ObjCyptoItemPrice).State = EntityState.Modified;
+                return await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                this.AddToExceptionLog("UpdateCypto", "Ctrl.CyptoItem", ex.ToString());
+                return 0;
+            }
+        }
 
         public async Task<int> UpdateCypto(CyptoItem ObjCyptoItem)
         {

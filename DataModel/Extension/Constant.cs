@@ -33,12 +33,34 @@ namespace DataModel.Extension
         /// <summary>
         /// REGISTER 28-09-2018
         /// </summary>
-         //ssl disable
+        //ssl disable
         //tesk ok
-        public static string NotifyTopSMTP = "pro38.emailserver.vn";
-        public static string NotifyTopAdmin = "noreply@notify-ncoinclub.top";
-        public static string NotifyTopPassword = "nguyentran2617";
+
+   
+        public static string NotifyTopSMTP = "smtp.gmail.com";
+        public static string NotifyTopAdmin = "ncoinclubthongbao2@gmail.com";
+        public static string NotifyTopPassword = "Ncoinclub2018";
         public static int NotifyTopPort = 587;
+
+        //ssl disable
+        //tesk ok
+        public static string ServiceTopSMTP = "smtp.gmail.com";
+        public static string ServiceTopAdmin = "ncoinclubthongbao1@gmail.com";
+        public static string ServiceTopPassword = "Ncoinclub2018";
+        public static int ServiceTopPort = 587;
+
+        //ssl disable
+        //tesk ok
+        public static string NcoinTopSMTP = "smtp.gmail.com";
+        public static string NcoinTopAdmin = "ncoinclubthongbao3@gmail.com";
+        public static string NcoinTopPassword = "Ncoinclub2018";
+        public static int NcoinTopPort = 587;
+
+
+
+
+
+
 
         //ssl disable
         //tesk ok
@@ -46,17 +68,6 @@ namespace DataModel.Extension
         public static string NotifyXYZAdmin = "noreply@notify-ncoinclub.xyz";
         public static string NotifyXYZPassword = "nguyentran2617";
         public static int NotifyXYZPort = 587;
-
-
-
-
-        //ssl disable
-        //tesk ok
-        public static string ServiceTopSMTP = "pro38.emailserver.vn";
-        public static string ServiceTopAdmin = "noreply@service-ncoinclub.top";
-        public static string ServiceTopPassword = "nguyentran2617";
-        public static int ServiceTopPort = 587;
-
 
         //ssl disable
         //tesk ok
@@ -66,12 +77,7 @@ namespace DataModel.Extension
         public static int ServiceXYZPort = 587;
 
 
-
-
-        public static string NcoinTopSMTP = "pro38.emailserver.vn";
-        public static string NcoinTopAdmin = "noreply@ncoinclub.top";
-        public static string NcoinTopPassword = "nguyentran2617";
-        public static int NcoinTopPort = 587;
+   
 
 
 
@@ -138,10 +144,10 @@ namespace DataModel.Extension
 
         //tesk ok
         //ssl enable
-        public static string ContactSMTP = "smtp.gmail.com";
-        public static string ContactAdmin = "contact@ncoinclub.com";
-        public static string ContactPassword = "Ncoinclub2018";
-        public static int ContactPort = 587;
+        //public static string ContactSMTP = "smtp.gmail.com";
+        //public static string ContactAdmin = "contact@ncoinclub.com";
+        //public static string ContactPassword = "Ncoinclub2018";
+        //public static int ContactPort = 587;
 
 
 
@@ -177,7 +183,7 @@ namespace DataModel.Extension
         //was: 5.5.1 Authentication Required. Learn more at
         //test not ok
         //public static string ContactSMTP = "smtp.gmail.com";
-        //public static string ContactAdmin = "ncoinclubthongbao2@ncoinclub.com";
+        //public static string ContactAdmin = "ncoinclubthongbao2@gmail.com";
         //public static string ContactPassword = "Ncoinclub2018";
         //public static int ContactPort = 587;
 
@@ -186,7 +192,7 @@ namespace DataModel.Extension
         //was: 5.5.1 Authentication Required. Learn more at
         //test not ok
         //public static string SupportSMTP = "smtp.gmail.com";
-        //public static string SupportEmail = "ncoinclubthongbao1@ncoinclub.com";
+        //public static string SupportEmail = "ncoinclubthongbao1@gmail.com";
         //public static string SupportPassword = "Ncoinclub2018";
         //public static int SupportPort = 587;
 
@@ -196,7 +202,7 @@ namespace DataModel.Extension
         //was: 5.5.1 Authentication Required. Learn more at
         //test not ok
         //public static string NoreplySMTP = "smtp.gmail.com";
-        //public static string NoreplyEmail = "ncoinclubthongbao3@ncoinclub.com";
+        //public static string NoreplyEmail = "ncoinclubthongbao3@gmail.com";
         //public static string NoreplyPassword = "Ncoinclub2018";
         //public static int NoreplyPort = 587;
 

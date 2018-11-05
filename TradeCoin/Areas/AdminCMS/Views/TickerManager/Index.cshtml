@@ -36,6 +36,16 @@
                     <div class="box-tools">
                         <a href="@Url.Action("Create", "TickerManager", null)" class="btn btn-primary">Thêm mới Kèo</a>
                     </div>
+
+                    @if (User.IsInRole("devuser"))
+    {
+                <div class="box-tools">
+                    <a href="@Url.Action("TestSendMail", "TickerManager", null)" class="btn btn-primary">TestSendMail</a>
+
+                </div>
+
+}
+
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <div class="box-body">
